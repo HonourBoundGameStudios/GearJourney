@@ -1,0 +1,8 @@
+# WoW / Lua
+*.bak
+*.tmp
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
