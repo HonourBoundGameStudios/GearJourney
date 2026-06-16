@@ -4,11 +4,12 @@
 ## Author: You
 ## Version: 1.0.0
 ## IconTexture: Interface\Icons\Ability_Mount_RidingHorse
-## SavedVariables:
+## SavedVariables: TitanJourneyDB
 ## OptionalDeps:
 ## Dependencies: Titan
 
 JourneyEngine.lua
+JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
 JourneyProvider.lua

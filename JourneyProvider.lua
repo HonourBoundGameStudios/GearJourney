@@ -63,7 +63,10 @@ local function TryBuild(raw)
     equipLoc = equipLoc, classID = classID, subClassID = subClassID,
     icon = icon, stats = stats,
   })
-  if item then Provider.items[#Provider.items + 1] = item end
+  if item then
+    Provider.items[#Provider.items + 1] = item
+    if TitanJourney_DB then TitanJourney_DB.CachePut(item) end  -- persist for next login
+  end
   return true
 end
 
@@ -103,6 +106,16 @@ end
 function Provider.Start()
   local atlas = TitanJourney_AtlasItems
   if not atlas or queue then return end
+
+  -- Seed instantly from the saved cache; the queue then fills anything new.
+  if TitanJourney_DB then
+    TitanJourney_DB.Init()
+    for id, item in pairs(TitanJourney_DB.Cache()) do
+      Provider.items[#Provider.items + 1] = item
+      processed[id] = true
+    end
+  end
+
   queue, qi = atlas, 1
   TitanJourney_Items = Provider.items   -- the engine pipeline now reads this
   driver:RegisterEvent("GET_ITEM_INFO_RECEIVED")
