@@ -188,13 +188,24 @@ function Engine.ProximityLabel(reqLevel, playerLevel)
   end
 end
 
--- BuildButtonText(items, level, range, pinned) -> label, value
+-- FindByName(items, name) -> item or nil. Linear lookup by display name.
+function Engine.FindByName(items, name)
+  if not name then return nil end
+  for i = 1, #items do
+    if items[i].name == name then return items[i] end
+  end
+  return nil
+end
+
+-- BuildButtonText(items, level, range, pinnedName) -> label, value
 --   The Titan button's two-part text. `label` is constant; `value` names the
 --   default next goal as "<name> (Lv. <req>)", or "None in range" when no
 --   unpinned goal sits in the lookahead window. Pure: the caller supplies the
 --   player level (UnitLevel) and item list, so this is fully offline-testable.
-function Engine.BuildButtonText(items, level, range, pinned)
-  local goal = Engine.GetNextGoal(items, level, range, pinned)
+function Engine.BuildButtonText(items, level, range, pinnedName)
+  -- Show the pinned item if the player chose one, else the default next goal.
+  local goal = Engine.FindByName(items, pinnedName)
+            or Engine.GetNextGoal(items, level, range)
   if goal == nil then
     return "Next Goal:", "None in range"
   end

@@ -19,9 +19,13 @@ H.eq(label, "Next Goal:", "label is 'Next Goal:'")
 H.eq(value, "Gloves of the Fang (Lv. 18) - In 4 Levels",
      "value names the next goal with level and proximity")
 
--- Pinning the lowest goal advances to the next one.
-local _, v2 = Engine.BuildButtonText(fixture, 14, 10, { ["Gloves of the Fang"] = true })
-H.eq(v2, "Robes of Arugal (Lv. 20) - In 6 Levels", "pinned next-goal is skipped")
+-- A pinned item is shown directly (even if outside the lookahead window).
+local _, v2 = Engine.BuildButtonText(fixture, 14, 10, "Assassin's Blade")
+H.eq(v2, "Assassin's Blade (Lv. 24) - In 10 Levels", "pinned item is shown")
+
+-- A pin that isn't in the list falls back to the default next goal.
+local _, v2b = Engine.BuildButtonText(fixture, 14, 10, "Nonexistent Item")
+H.eq(v2b, "Gloves of the Fang (Lv. 18) - In 4 Levels", "unknown pin falls back to next goal")
 
 -- No goal in range -> a clear placeholder, not an error.
 local _, v3 = Engine.BuildButtonText(fixture, 40, 5)
