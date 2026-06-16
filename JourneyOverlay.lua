@@ -122,6 +122,101 @@ function Overlay.SelectTab(key)
   end
 end
 
+-- Item-row visuals (FEAT-C4/C5). ------------------------------------------
+
+local ROW_H, ICON = 42, 32
+
+local QUALITY_COLOR = {
+  poor     = { 0.62, 0.62, 0.62 },
+  common   = { 1.00, 1.00, 1.00 },
+  uncommon = { 0.12, 1.00, 0.00 },
+  rare     = { 0.00, 0.44, 0.87 },
+  epic     = { 0.64, 0.21, 0.93 },
+}
+
+-- Colour the required-level text by reachability relative to the player.
+local function LevelColor(req, playerLevel, hi)
+  if req <= playerLevel then return 0.25, 0.75, 0.25      -- usable now (green)
+  elseif req <= hi then     return 0.95, 0.75, 0.20       -- in window (gold)
+  else                      return 0.80, 0.25, 0.20 end   -- beyond  (red)
+end
+
+local function SetSolid(tex, r, g, b)
+  if tex.SetColorTexture then tex:SetColorTexture(r, g, b)
+  else tex:SetTexture("Interface\\Buttons\\WHITE8x8"); tex:SetVertexColor(r, g, b) end
+end
+
+-- One pooled item row: quality-bordered icon, name, slot/source line, level.
+local function CreateRow(parent)
+  local row = CreateFrame("Frame", nil, parent)
+  row:SetHeight(ROW_H)
+
+  row.border = row:CreateTexture(nil, "ARTWORK")
+  row.border:SetSize(ICON + 4, ICON + 4)
+  row.border:SetPoint("LEFT", 2, 0)
+
+  row.icon = row:CreateTexture(nil, "OVERLAY")
+  row.icon:SetSize(ICON, ICON)
+  row.icon:SetPoint("CENTER", row.border, "CENTER")
+
+  row.name = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  row.name:SetPoint("TOPLEFT", row.border, "TOPRIGHT", 10, -1)
+  row.name:SetJustifyH("LEFT")
+
+  row.sub = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+  row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
+  row.sub:SetJustifyH("LEFT")
+
+  row.level = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  row.level:SetPoint("RIGHT", -10, 0)
+  return row
+end
+
+local function FillRow(row, item, playerLevel, hi)
+  local qc = QUALITY_COLOR[item.quality] or QUALITY_COLOR.common
+  SetSolid(row.border, qc[1], qc[2], qc[3])
+  row.icon:SetTexture("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest"))
+  row.name:SetText(item.name)
+  row.name:SetTextColor(qc[1], qc[2], qc[3])
+  row.sub:SetText((item.slot or "") .. "   " .. (item.sourceType or "") .. ": " .. (item.sourceLabel or ""))
+  row.level:SetText("Lv " .. item.reqLevel)
+  row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
+end
+
+-- Render the player's class-filtered Current-Goals into the current panel.
+function Overlay.RenderCurrentGoals()
+  local panel = Overlay.panels and Overlay.panels.current
+  if not panel then return end
+  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  if not (engine and items) then return end
+
+  local level = (UnitLevel and UnitLevel("player")) or 1
+  local _, class = UnitClass("player")
+  local range = engine.DEFAULT_RANGE
+  local hi = level + range
+  local current = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
+
+  panel.rows = panel.rows or {}
+  local y = -4
+  for i, item in ipairs(current) do
+    local row = panel.rows[i]
+    if not row then
+      row = CreateRow(panel.listAnchor)
+      panel.rows[i] = row
+    end
+    row:ClearAllPoints()
+    row:SetPoint("TOPLEFT", panel.listAnchor, "TOPLEFT", 0, y)
+    row:SetPoint("RIGHT", panel.listAnchor, "RIGHT", 0, 0)
+    FillRow(row, item, level, hi)
+    row:Show()
+    y = y - (ROW_H + 4)
+  end
+  for i = #current + 1, #panel.rows do panel.rows[i]:Hide() end
+
+  panel.empty:SetShown(#current == 0)
+  panel.sub:SetText(#current > 0 and ("Levels " .. level .. " \226\128\147 " .. hi) or "")
+end
+
 -- Build the left tab column and the matching content panels.
 local function BuildLayout(f)
   Overlay.tabButtons = {}
@@ -156,13 +251,32 @@ local function BuildLayout(f)
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetText(tab.label)
 
-    local body = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
-    body:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -12)
-    body:SetText("(coming soon)")
+    if tab.key == "current" then
+      -- Level-range subtitle, a list anchor, and an empty-state line (FEAT-C5).
+      local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
+      panel.sub = sub
+
+      local anchor = CreateFrame("Frame", nil, panel)
+      anchor:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
+      anchor:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -4, 4)
+      panel.listAnchor = anchor
+
+      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      empty:SetPoint("TOPLEFT", anchor, "TOPLEFT", 2, -4)
+      empty:SetText("No goals in range for your class.")
+      empty:Hide()
+      panel.empty = empty
+    else
+      local body = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      body:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -12)
+      body:SetText("(coming soon)")
+    end
 
     Overlay.panels[tab.key] = panel
   end
 
+  Overlay.RenderCurrentGoals()
   Overlay.SelectTab(Overlay.activeTab or "current")
 end
 
