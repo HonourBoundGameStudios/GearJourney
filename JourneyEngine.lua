@@ -188,6 +188,16 @@ function Engine.ProximityLabel(reqLevel, playerLevel)
   end
 end
 
+-- NameMatches(real, expected) -> bool. True when an item's real GetItemInfo
+-- name matches the expected (AtlasLoot comment) name, ignoring punctuation and
+-- spacing. nil on either side = accept (nothing to validate). Used to drop rows
+-- whose itemID was typo'd in the source data.
+function Engine.NameMatches(real, expected)
+  if not real or not expected then return true end
+  local function norm(s) return (tostring(s):lower():gsub("[^%a%d]", "")) end
+  return norm(real) == norm(expected)
+end
+
 -- FindByName(items, name) -> item or nil. Linear lookup by display name.
 function Engine.FindByName(items, name)
   if not name then return nil end

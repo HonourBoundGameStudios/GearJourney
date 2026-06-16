@@ -147,6 +147,28 @@ end
 
 print(string.format("TOTAL unique itemIDs: %d", #all))
 
+-- AtlasLoot occasionally writes the wrong itemID in a row (the trailing comment
+-- names the intended item). Capture that comment name per id so the addon can
+-- validate it against the real GetItemInfo name at runtime and drop typo'd rows.
+local commentName = {}
+for _, mod in ipairs(MODULES) do
+  local path = ADDONS .. "\\" .. mod.dir .. "\\data.lua"
+  for line in io.lines(path) do
+    local id, rest = line:match("{%s*%d+%s*,%s*(%d+)[^}]*}%s*,?%s*%-%-%s*(.+)")
+    if id and rest then
+      id = tonumber(id)
+      local nm = (rest:match("^(.-)%s*/") or rest):gsub("^%s+", ""):gsub("%s+$", "")
+      if nm:match("%a") and not commentName[id] then commentName[id] = nm end
+    end
+  end
+end
+local named = 0
+for _, it in ipairs(all) do
+  it.name = commentName[it.id]
+  if it.name then named = named + 1 end
+end
+print(string.format("rows with a comment name (for validation): %d", named))
+
 -- Write JourneyAtlasData.lua ----------------------------------------------
 
 table.sort(all, function(a, b) return a.id < b.id end)
@@ -157,8 +179,13 @@ out:write("-- game facts (item X from source Y); enriched at runtime via GetItem
 out:write("-- Regenerate with: lua Tools/extract_atlasloot.lua\n\n")
 out:write("local Atlas = {\n")
 for _, it in ipairs(all) do
-  out:write(string.format("  { id = %d, sourceType = %q, source = %q },\n",
-    it.id, it.sourceType, it.source))
+  if it.name then
+    out:write(string.format("  { id = %d, sourceType = %q, source = %q, name = %q },\n",
+      it.id, it.sourceType, it.source, it.name))
+  else
+    out:write(string.format("  { id = %d, sourceType = %q, source = %q },\n",
+      it.id, it.sourceType, it.source))
+  end
 end
 out:write("}\n\n")
 out:write("TitanJourney_AtlasItems = Atlas\nreturn Atlas\n")

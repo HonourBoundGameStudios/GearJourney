@@ -85,6 +85,8 @@ local function TryBuild(raw)
   end
 
   processed[id] = true
+  -- Drop rows whose itemID was typo'd in the source (real name != expected).
+  if not Engine.NameMatches(name, raw.name) then return true end
   -- Item stats drive spec-aware scoring; guard in case the API is unhappy.
   local stats
   if link and GetItemStats then
@@ -148,8 +150,8 @@ function Provider.Start()
   -- Seed instantly from the saved cache; the queue then fills anything new.
   if TitanJourney_DB then
     local d = TitanJourney_DB.Init()
-    -- Bump to discard caches built before class/spell-type scanning existed.
-    if d.cacheVersion ~= 3 then d.itemCache, d.cacheVersion = {}, 3 end
+    -- Bump to discard caches built before name validation existed.
+    if d.cacheVersion ~= 4 then d.itemCache, d.cacheVersion = {}, 4 end
     for id, item in pairs(TitanJourney_DB.Cache()) do
       Provider.items[#Provider.items + 1] = item
       processed[id] = true
