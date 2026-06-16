@@ -76,36 +76,43 @@ local function ApplyClassBackground(f)
   local holder = CreateFrame("Frame", nil, f)
   holder:SetPoint("TOPLEFT", f, "TOPLEFT", L, T)
   holder:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", R, B)
-  holder:SetFrameLevel(f:GetFrameLevel())  -- behind content/buttons
+  -- Draw above the template's dark inset background; BuildLayout raises the
+  -- sidebar/content further so item rows still sit on top of the art.
+  holder:SetFrameLevel(f:GetFrameLevel() + 5)
+  if holder.SetClipsChildren then holder:SetClipsChildren(true) end
   Overlay.bg = holder
+  Overlay.bgLevel = holder:GetFrameLevel()
 
   local W = f:GetWidth() + R - L    -- R is negative (inset from right)
   local H = f:GetHeight() + T + B   -- T and B are negative (insets)
+  local S = math.max(W, H)          -- cover the larger dimension
 
-  -- Cover (clip overflow) when supported; otherwise fit (no overflow).
-  local canClip = holder.SetClipsChildren ~= nil
-  if canClip then holder:SetClipsChildren(true) end
-  local S = canClip and math.max(W, H) or math.min(W, H)
+  -- The composite art sits on a square canvas, centred and clipped by holder,
+  -- so it covers the window while preserving aspect (overflow cropped). The
+  -- canvas is a child *frame*, which SetClipsChildren actually clips (textures
+  -- drawn straight on a frame are not clipped).
+  local canvas = CreateFrame("Frame", nil, holder)
+  canvas:SetSize(S, S)
+  canvas:SetPoint("CENTER", holder, "CENTER")
 
-  local x0, y0 = (W - S) / 2, (H - S) / 2   -- centred square (y0<0 if taller)
   local seam = S * (256 / 384)              -- the 2/3 split
   local lw, rw = seam, S - seam
   local th, bh = seam, S - seam
 
   local function quad(suffix, x, yDown, w, h)
-    local t = holder:CreateTexture(nil, "BACKGROUND")
+    local t = canvas:CreateTexture(nil, "BACKGROUND")
     t:SetTexture(prefix .. suffix)   -- bad path simply draws nothing
     t:SetAlpha(0.42)                 -- dim so text stays readable
-    t:SetPoint("TOPLEFT", holder, "TOPLEFT", x, -yDown)
+    t:SetPoint("TOPLEFT", canvas, "TOPLEFT", x, -yDown)
     t:SetSize(w, h)
     return t
   end
 
   Overlay.bgTextures = {
-    quad("TopLeft",     x0,        y0,        lw, th),
-    quad("TopRight",    x0 + lw,   y0,        rw, th),
-    quad("BottomLeft",  x0,        y0 + th,   lw, bh),
-    quad("BottomRight", x0 + lw,   y0 + th,   rw, bh),
+    quad("TopLeft",     0,    0,    lw, th),
+    quad("TopRight",    lw,   0,    rw, th),
+    quad("BottomLeft",  0,    th,   lw, bh),
+    quad("BottomRight", lw,   th,   rw, bh),
   }
 end
 
@@ -228,16 +235,21 @@ local function BuildLayout(f)
   -- Built first so it sits behind the sidebar and content.
   ApplyClassBackground(f)
 
+  -- Everything interactive must sit above the talent-art backdrop.
+  local topLevel = (Overlay.bgLevel or f:GetFrameLevel()) + 5
+
   -- Content area: right of the sidebar. Panels stack here, one shown at a time.
   local content = CreateFrame("Frame", nil, f)
   content:SetPoint("TOPLEFT", f, "TOPLEFT", SIDEBAR_W + 24, TOP)
   content:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+  content:SetFrameLevel(topLevel)
   Overlay.content = content
 
   for i, tab in ipairs(TABS) do
     -- Sidebar button.
     local btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
     btn:SetSize(SIDEBAR_W, TAB_H)
+    btn:SetFrameLevel(topLevel)
     btn:SetPoint("TOPLEFT", f, "TOPLEFT", 14, TOP - (i - 1) * (TAB_H + TAB_GAP))
     btn:SetText(tab.label)
     btn:SetScript("OnClick", function() Overlay.SelectTab(tab.key) end)
