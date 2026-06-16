@@ -172,6 +172,22 @@ function Engine.GetNextGoal(items, level, range, pinned)
   return best
 end
 
+-- ProximityLabel(reqLevel, playerLevel) -> string
+--   Human-readable distance to a goal, for the Titan button (FEAT-B2):
+--     <= 0 levels away -> "Available now"
+--        1 level  away -> "In 1 Level"
+--      N>1 levels away -> "In N Levels"
+function Engine.ProximityLabel(reqLevel, playerLevel)
+  local diff = reqLevel - playerLevel
+  if diff <= 0 then
+    return "Available now"
+  elseif diff == 1 then
+    return "In 1 Level"
+  else
+    return "In " .. diff .. " Levels"
+  end
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
