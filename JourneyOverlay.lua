@@ -20,7 +20,7 @@ local FALLBACK_BACKDROP = {
 
 -- Sidebar tab definitions (FEAT-C3). Order is top-to-bottom.
 local TABS = {
-  { key = "current",  label = "Current Goals" },
+  { key = "browse",   label = "Browse" },
   { key = "future",   label = "Future Planner" },
   { key = "settings", label = "Settings" },
 }
@@ -233,12 +233,21 @@ local function CreateRow(parent)
   row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
   row.sub:SetJustifyH("LEFT")
 
-  row.pin = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
-  row.pin:SetSize(58, 20)
-  row.pin:SetPoint("RIGHT", -8, 0)
+  row.action = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+  row.action:SetSize(58, 20)
+  row.action:SetPoint("RIGHT", -8, 0)
+
+  -- Reorder buttons (shown only in the Journey List).
+  row.down = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+  row.down:SetSize(20, 18); row.down:SetText("v")
+  row.down:SetPoint("RIGHT", row.action, "LEFT", -4, 0)
+  row.up = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+  row.up:SetSize(20, 18); row.up:SetText("^")
+  row.up:SetPoint("RIGHT", row.down, "LEFT", -2, 0)
+  row.up:Hide(); row.down:Hide()
 
   row.level = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  row.level:SetPoint("RIGHT", row.pin, "LEFT", -12, 0)
+  row.level:SetPoint("RIGHT", row.action, "LEFT", -12, 0)
   return row
 end
 
@@ -256,15 +265,80 @@ local function FillRow(row, item, playerLevel, hi)
   row.sub:SetText(line)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
+end
 
-  -- Pin toggle: independently add/remove this item from the Journey List (F2).
-  local pinned = TitanJourney_DB and TitanJourney_DB.JourneyContains(item.name)
-  row.pin:SetText(pinned and "Pinned" or "Pin")
-  row.pin:SetScript("OnClick", function()
-    if TitanJourney_DB then TitanJourney_DB.JourneyToggle(item.name) end
-    if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
-    Overlay.RenderCurrentGoals()
+-- Refresh the Titan button + both list views after a Journey-List change.
+local function RefreshAll()
+  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  Overlay.RenderCurrentGoals()
+end
+
+-- Configure a row's right-side action. "add" toggles Journey-List membership
+-- (selector / future); "journey" shows Remove + up/down reorder.
+local function ConfigRowAction(row, item, mode)
+  if mode == "journey" then
+    row.up:Show(); row.down:Show(); row.level:Hide()
+    row.action:SetWidth(24); row.action:SetText("X")
+    row.action:SetScript("OnClick", function()
+      if TitanJourney_DB then TitanJourney_DB.JourneyRemove(item.name) end
+      RefreshAll()
+    end)
+    row.up:SetScript("OnClick", function()
+      if TitanJourney_DB then TitanJourney_DB.JourneyMove(item.name, -1) end
+      RefreshAll()
+    end)
+    row.down:SetScript("OnClick", function()
+      if TitanJourney_DB then TitanJourney_DB.JourneyMove(item.name, 1) end
+      RefreshAll()
+    end)
+  else
+    row.up:Hide(); row.down:Hide(); row.level:Show()
+    row.level:ClearAllPoints(); row.level:SetPoint("RIGHT", row.action, "LEFT", -12, 0)
+    row.action:SetWidth(58)
+    local on = TitanJourney_DB and TitanJourney_DB.JourneyContains(item.name)
+    row.action:SetText(on and "On List" or "Add")
+    row.action:SetScript("OnClick", function()
+      if TitanJourney_DB then TitanJourney_DB.JourneyToggle(item.name) end
+      RefreshAll()
+    end)
+  end
+end
+
+-- Create a scrolling list (caller anchors it); returns scroll, child.
+local function MakeScroll(parent)
+  local scroll = CreateFrame("ScrollFrame", nil, parent, "UIPanelScrollFrameTemplate")
+  scroll:EnableMouseWheel(true)
+  scroll:SetScript("OnMouseWheel", function(self, delta)
+    local step = (ROW_H + 4) * 3
+    local v = self:GetVerticalScroll() - delta * step
+    v = math.max(0, math.min(v, self:GetVerticalScrollRange()))
+    self:SetVerticalScroll(v)
   end)
+  local child = CreateFrame("Frame", nil, scroll)
+  child:SetSize(1, 1)
+  scroll:SetScrollChild(child)
+  return scroll, child
+end
+
+-- Render a list into a scroll child, pooling rows in `pool`.
+local function RenderRowsInto(scroll, anchor, pool, list, level, hi, mode)
+  local y = -4
+  for i, item in ipairs(list) do
+    local row = pool[i]
+    if not row then row = CreateRow(anchor); pool[i] = row end
+    row:ClearAllPoints()
+    row:SetPoint("TOPLEFT", anchor, "TOPLEFT", 0, y)
+    row:SetPoint("RIGHT", anchor, "RIGHT", 0, 0)
+    FillRow(row, item, level, hi)
+    ConfigRowAction(row, item, mode)
+    row:Show()
+    y = y - (ROW_H + 4)
+  end
+  for i = #list + 1, #pool do pool[i]:Hide() end
+  local w = (scroll and scroll:GetWidth()) or 0
+  if w < 10 then w = 280 end
+  anchor:SetWidth(w)
+  anchor:SetHeight(math.max(1, #list * (ROW_H + 4) + 8))
 end
 
 -- ComputeList(bucket) -> list, level, hi
@@ -298,35 +372,58 @@ function Overlay.ComputeList(bucket)
   return engine.BestPerSlotScored(list, weights), level, hi
 end
 
+-- ComputeCandidates(slot) -> list, level, hi. The Selector's gear: usable, not
+-- owned, within reach (reqLevel <= level+lookahead), optional slot, best-first.
+function Overlay.ComputeCandidates(slot)
+  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local level = (UnitLevel and UnitLevel("player")) or 1
+  if not (engine and items) then return {}, level, level end
+  local _, class = UnitClass("player")
+  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
+  local hi = level + range
+  local spec = PlayerSpecIndex()
+  local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
+  local enabled = TitanJourney_DB and TitanJourney_DB.Sources()
+  local usable = engine.FilterOwned(
+    engine.FilterByClass(engine.FilterBySource(items, enabled), class, level),
+    Overlay.PlayerOwnsFn())
+  usable = engine.RejectHealingForDPS(usable, engine.IsCasterDPS(class, spec))
+
+  local cands = {}
+  for i = 1, #usable do
+    local it = usable[i]
+    if it.reqLevel <= hi and (slot == "all" or it.slot == slot) then cands[#cands + 1] = it end
+  end
+  table.sort(cands, function(a, b)
+    local sa, sb = engine.ScoreItem(a, weights), engine.ScoreItem(b, weights)
+    if sa ~= sb then return sa > sb end
+    return (a.reqLevel or 0) < (b.reqLevel or 0)
+  end)
+  return cands, level, hi
+end
+
+-- JourneyItems() -> list, level. The saved Journey List resolved to items, in order.
+function Overlay.JourneyItems()
+  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local level = (UnitLevel and UnitLevel("player")) or 1
+  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local out = {}
+  if engine and items then
+    for _, n in ipairs(names) do
+      local it = engine.FindByName(items, n)
+      if it then out[#out + 1] = it end
+    end
+  end
+  return out, level
+end
+
 -- Render one list tab (key = "current" or "future") into its panel, spec-scored.
 function Overlay.RenderTab(key)
   local panel = Overlay.panels and Overlay.panels[key]
   if not panel or not panel.listAnchor then return end
   local list, level, hi = Overlay.ComputeList(key)
-
   panel.rows = panel.rows or {}
-  local y = -4
-  for i, item in ipairs(list) do
-    local row = panel.rows[i]
-    if not row then
-      row = CreateRow(panel.listAnchor)
-      panel.rows[i] = row
-    end
-    row:ClearAllPoints()
-    row:SetPoint("TOPLEFT", panel.listAnchor, "TOPLEFT", 0, y)
-    row:SetPoint("RIGHT", panel.listAnchor, "RIGHT", 0, 0)
-    FillRow(row, item, level, hi)
-    row:Show()
-    y = y - (ROW_H + 4)
-  end
-  for i = #list + 1, #panel.rows do panel.rows[i]:Hide() end
-
-  -- Size the scroll child so the scrollbar/clipping cover all rows.
-  local childW = (panel.scroll and panel.scroll:GetWidth()) or 0
-  if childW < 10 then childW = 500 end
-  panel.listAnchor:SetWidth(childW)
-  panel.listAnchor:SetHeight(math.max(1, #list * (ROW_H + 4) + 8))
-
+  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, list, level, hi, "add")
   panel.empty:SetShown(#list == 0)
   if key == "future" then
     panel.sub:SetText(#list > 0 and ("Level " .. (hi + 1) .. " and up") or "")
@@ -335,9 +432,48 @@ function Overlay.RenderTab(key)
   end
 end
 
--- Refresh both list tabs (called by the provider and on open).
+-- Highlight the chosen slot chip and remember the selection.
+Overlay.selectorSlot = Overlay.selectorSlot or "all"
+function Overlay.SelectChip(slot)
+  Overlay.selectorSlot = slot
+  local panel = Overlay.panels and Overlay.panels.browse
+  if panel and panel.chipButtons then
+    for k, b in pairs(panel.chipButtons) do
+      if k == slot then b:LockHighlight() else b:UnlockHighlight() end
+    end
+  end
+end
+
+-- Render the Browse tab: selector candidates (left) + Journey List (right).
+function Overlay.RenderBrowse()
+  local panel = Overlay.panels and Overlay.panels.browse
+  if not panel or not panel.selAnchor then return end
+  local engine = TitanJourney_Engine
+
+  local cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
+  panel.selRows = panel.selRows or {}
+  RenderRowsInto(panel.selScroll, panel.selAnchor, panel.selRows, cands, level, hi, "add")
+  panel.selEmpty:SetShown(#cands == 0)
+
+  local jitems, jlevel = Overlay.JourneyItems()
+  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  panel.jRows = panel.jRows or {}
+  RenderRowsInto(panel.jScroll, panel.jAnchor, panel.jRows, jitems, jlevel, jlevel + range, "journey")
+  panel.jEmpty:SetShown(#jitems == 0)
+
+  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local goal = engine and engine.NextJourneyGoal(jitems, names, jlevel, Overlay.PlayerOwnsFn())
+  if goal then
+    panel.jNext:SetText("Next: " .. goal.name .. " (Lv " .. goal.reqLevel .. ") - "
+      .. engine.ProximityLabel(goal.reqLevel, jlevel))
+  else
+    panel.jNext:SetText(#jitems > 0 and "All journey gear acquired!" or "Add gear from the selector.")
+  end
+end
+
+-- Refresh the browse + future views (called by the provider and on open).
 function Overlay.RenderCurrentGoals()
-  Overlay.RenderTab("current")
+  Overlay.RenderBrowse()
   Overlay.RenderTab("future")
 end
 
@@ -429,36 +565,85 @@ local function BuildLayout(f)
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetText(tab.label)
 
-    if tab.key ~= "settings" then
-      -- Subtitle, a scrolling list, and an empty-state line (FEAT-C5/C6).
+    if tab.key == "browse" then
+      -- Slot chips row (All + each equipment slot).
+      local chipBar = CreateFrame("Frame", nil, panel)
+      chipBar:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
+      chipBar:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
+      panel.chipButtons = {}
+      local CHIP_SLOTS = { "all", "Head", "Neck", "Shoulder", "Back", "Chest", "Wrist",
+        "Hands", "Waist", "Legs", "Feet", "Ring", "Trinket", "Main Hand", "Off Hand", "Ranged" }
+      local cx, cy = 0, 0
+      for _, s in ipairs(CHIP_SLOTS) do
+        local b = CreateFrame("Button", nil, chipBar, "UIPanelButtonTemplate")
+        b:SetText(s == "all" and "All" or s)
+        b:SetHeight(18)
+        local w = (b:GetTextWidth() or 30) + 16
+        if w < 30 then w = 30 end
+        if cx + w > 560 then cx = 0; cy = cy - 22 end
+        b:SetWidth(w)
+        b:SetPoint("TOPLEFT", chipBar, "TOPLEFT", cx, cy)
+        cx = cx + w + 4
+        b:SetScript("OnClick", function() Overlay.SelectChip(s); Overlay.RenderBrowse() end)
+        panel.chipButtons[s] = b
+      end
+      chipBar:SetHeight(-cy + 22)
+
+      -- Two panes: Selector (left) | Journey List (right).
+      local leftPane = CreateFrame("Frame", nil, panel)
+      leftPane:SetPoint("TOPLEFT", chipBar, "BOTTOMLEFT", 0, -8)
+      leftPane:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 40)
+      leftPane:SetWidth(420)
+      local rightPane = CreateFrame("Frame", nil, panel)
+      rightPane:SetPoint("TOPLEFT", leftPane, "TOPRIGHT", 14, 0)
+      rightPane:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -4, 40)
+
+      local selHdr = leftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      selHdr:SetPoint("TOPLEFT", leftPane, "TOPLEFT", 2, 0)
+      selHdr:SetText("Selector")
+      local selScroll, selAnchor = MakeScroll(leftPane)
+      selScroll:SetPoint("TOPLEFT", selHdr, "BOTTOMLEFT", 0, -4)
+      selScroll:SetPoint("BOTTOMRIGHT", leftPane, "BOTTOMRIGHT", -24, 0)
+      panel.selScroll, panel.selAnchor = selScroll, selAnchor
+      local selEmpty = leftPane:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      selEmpty:SetPoint("TOPLEFT", selScroll, "TOPLEFT", 2, -4)
+      selEmpty:SetText("No matching gear.")
+      selEmpty:Hide()
+      panel.selEmpty = selEmpty
+
+      local jHdr = rightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      jHdr:SetPoint("TOPLEFT", rightPane, "TOPLEFT", 2, 0)
+      jHdr:SetText("Journey List")
+      local jNext = rightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      jNext:SetPoint("TOPLEFT", jHdr, "BOTTOMLEFT", 0, -3)
+      jNext:SetPoint("RIGHT", rightPane, "RIGHT", -4, 0)
+      jNext:SetJustifyH("LEFT")
+      panel.jNext = jNext
+      local jScroll, jAnchor = MakeScroll(rightPane)
+      jScroll:SetPoint("TOPLEFT", jNext, "BOTTOMLEFT", 0, -6)
+      jScroll:SetPoint("BOTTOMRIGHT", rightPane, "BOTTOMRIGHT", -24, 0)
+      panel.jScroll, panel.jAnchor = jScroll, jAnchor
+      local jEmpty = rightPane:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      jEmpty:SetPoint("TOPLEFT", jScroll, "TOPLEFT", 2, -4)
+      jEmpty:SetText("Add gear from the selector.")
+      jEmpty:Hide()
+      panel.jEmpty = jEmpty
+
+    elseif tab.key == "future" then
+      -- Single scrolling list (best-per-slot, just above the lookahead window).
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
       panel.sub = sub
-
-      -- ScrollFrame clips the rows to the window and gives a scrollbar; the rows
-      -- live on its scroll child so there can be far more than fit on screen.
-      local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+      local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)  -- room for control bar
-      scroll:EnableMouseWheel(true)
-      scroll:SetScript("OnMouseWheel", function(self, delta)
-        local step = (ROW_H + 4) * 3
-        local v = self:GetVerticalScroll() - delta * step
-        v = math.max(0, math.min(v, self:GetVerticalScrollRange()))
-        self:SetVerticalScroll(v)
-      end)
-      panel.scroll = scroll
-
-      local child = CreateFrame("Frame", nil, scroll)
-      child:SetSize(1, 1)
-      scroll:SetScrollChild(child)
-      panel.listAnchor = child
-
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
+      panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("No items in range for your class.")
+      empty:SetText("No upcoming gear for your class.")
       empty:Hide()
       panel.empty = empty
+
     else
       -- Settings (QUAL-5): PvE/PvP weighting toggle.
       local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
@@ -478,15 +663,16 @@ local function BuildLayout(f)
       note:SetWidth(440)
       note:SetJustifyH("LEFT")
       note:SetText("PvE ranks gear by your spec's primary stats; PvP adds Stamina. "
-        .. "Changes apply to the Current Goals and Future Planner rankings.")
+        .. "Changes apply to the Browse and Future Planner rankings.")
     end
 
     Overlay.panels[tab.key] = panel
   end
 
   BuildControlBar(content, topLevel)
+  Overlay.SelectChip(Overlay.selectorSlot or "all")
   Overlay.RenderCurrentGoals()
-  Overlay.SelectTab(Overlay.activeTab or "current")
+  Overlay.SelectTab(Overlay.activeTab or "browse")
 end
 
 -- Build the window once, preferring the native inset template and degrading to
@@ -502,7 +688,7 @@ local function CreateOverlay()
     close:SetPoint("TOPRIGHT", -4, -4)
   end
 
-  f:SetSize(720, 480)
+  f:SetSize(880, 520)  -- wide enough for the two-pane Browse layout
   f:SetPoint("CENTER")
   f:SetFrameStrata("HIGH")
   f:SetToplevel(true)
