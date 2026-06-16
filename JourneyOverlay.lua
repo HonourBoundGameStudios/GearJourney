@@ -110,7 +110,9 @@ local function CreateOverlay()
   f:EnableMouse(true)
   f:RegisterForDrag("LeftButton")
   f:SetScript("OnDragStart", f.StartMoving)
-  f:SetScript("OnDragStop", f.StopMoving)
+  -- NB: the stop method is StopMovingOrSizing -- there is no Frame:StopMoving,
+  -- so wiring f.StopMoving (nil) left the window stuck to the cursor.
+  f:SetScript("OnDragStop", f.StopMovingOrSizing)
 
   -- Close with Escape like a standard panel.
   tinsert(UISpecialFrames, OVERLAY_NAME)
