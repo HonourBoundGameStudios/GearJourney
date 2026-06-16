@@ -59,6 +59,23 @@ local function PlayerTalentBackground()
   return set[idx]
 end
 
+-- Returns a predicate: does the player already own this itemID? Checks equipped
+-- slots plus bags and bank (GetItemCount). Snapshots equipped once per call.
+function Overlay.PlayerOwnsFn()
+  local equipped = {}
+  if GetInventoryItemID then
+    for slot = 1, 19 do
+      local id = GetInventoryItemID("player", slot)
+      if id then equipped[id] = true end
+    end
+  end
+  return function(itemID)
+    if not itemID then return false end
+    if equipped[itemID] then return true end
+    return (GetItemCount and GetItemCount(itemID, true) or 0) > 0  -- bags + bank
+  end
+end
+
 -- The player's spec = the talent tab with the most points (default 1).
 local function PlayerSpecIndex()
   local idx, best = 1, -1
@@ -245,7 +262,9 @@ function Overlay.ComputeList(bucket)
   local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
   local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
 
-  local cur, fut = engine.SplitGoals(engine.FilterByClass(items, class, level), level, range)
+  -- Only suggest upgrades the player can use AND doesn't already own.
+  local usable = engine.FilterOwned(engine.FilterByClass(items, class, level), Overlay.PlayerOwnsFn())
+  local cur, fut = engine.SplitGoals(usable, level, range)
   local list = cur
   if bucket == "future" then
     -- Plan the next stretch, not end-game: cap a band above the window.
@@ -442,6 +461,15 @@ local function CreateOverlay()
   frame = f
   return frame
 end
+
+-- Inventory changes (looted/bought/equipped an item) re-filter the suggestions.
+local invWatcher = CreateFrame("Frame")
+invWatcher:RegisterEvent("BAG_UPDATE_DELAYED")
+invWatcher:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+invWatcher:SetScript("OnEvent", function()
+  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  Overlay.RenderCurrentGoals()
+end)
 
 -- Public: flip the window open/closed (wired to the Titan button's left-click).
 function Overlay.Toggle()

@@ -202,7 +202,22 @@ end
 --   journey item at or above the player's level; if all are out-levelled, the
 --   highest-reqLevel one. `journeyNames` is an array of item names. Deterministic
 --   (name tie-break). Returns nil when no journey item is present in `items`.
-function Engine.NextJourneyGoal(items, journeyNames, level)
+-- FilterOwned(items, ownedFn) -> new array. Drops items the player already has;
+-- `ownedFn(itemID)` is injected (WoW inventory check) so this stays pure/testable.
+function Engine.FilterOwned(items, ownedFn)
+  if not ownedFn then
+    local copy = {}
+    for i = 1, #items do copy[i] = items[i] end
+    return copy
+  end
+  local kept = {}
+  for i = 1, #items do
+    if not ownedFn(items[i].itemID) then kept[#kept + 1] = items[i] end
+  end
+  return kept
+end
+
+function Engine.NextJourneyGoal(items, journeyNames, level, ownedFn)
   local set = {}
   if type(journeyNames) == "table" then
     for _, n in ipairs(journeyNames) do set[n] = true end
@@ -211,7 +226,7 @@ function Engine.NextJourneyGoal(items, journeyNames, level)
   local upcoming, fallback
   for i = 1, #items do
     local it = items[i]
-    if set[it.name] then
+    if set[it.name] and not (ownedFn and ownedFn(it.itemID)) then
       if it.reqLevel >= level then
         if not upcoming or it.reqLevel < upcoming.reqLevel
            or (it.reqLevel == upcoming.reqLevel and it.name < upcoming.name) then

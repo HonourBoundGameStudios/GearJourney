@@ -20,7 +20,7 @@ function TitanJourney_GetButtonText(id)
     local journey = TitanJourney_DB and TitanJourney_DB.Journey()
     if journey and #journey > 0 then
         local all = TitanJourney_Items or list
-        local goal = engine.NextJourneyGoal(all, journey, level)
+        local goal = engine.NextJourneyGoal(all, journey, level, overlay.PlayerOwnsFn())
         if goal then return engine.BuildButtonText(all, level, nil, goal.name) end
     end
     return engine.BuildButtonText(list, level, nil, nil)
