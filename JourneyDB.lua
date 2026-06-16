@@ -30,6 +30,11 @@ function DB.Sources()
   s.sources = s.sources or { Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true }
   return s.sources
 end
+function DB.Qualities()
+  local s = DB.Get().settings
+  s.qualities = s.qualities or { uncommon = true, rare = true, epic = true }
+  return s.qualities
+end
 function DB.Lookahead() return DB.Get().settings.lookahead or 10 end
 function DB.SetLookahead(n) DB.Get().settings.lookahead = n end
 

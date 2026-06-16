@@ -341,6 +341,17 @@ local function RenderRowsInto(scroll, anchor, pool, list, level, hi, mode)
   anchor:SetHeight(math.max(1, #list * (ROW_H + 4) + 8))
 end
 
+-- The class/level/owned-aware candidate pool shared by every view: enabled
+-- sources + rarities, usable by class, not owned, no healing-only for DPS.
+local function UsablePool(engine, items, class, level, spec)
+  local pool = engine.FilterBySource(items, TitanJourney_DB and TitanJourney_DB.Sources())
+  pool = engine.FilterByQuality(pool, TitanJourney_DB and TitanJourney_DB.Qualities())
+  pool = engine.FilterByClass(pool, class, level)
+  pool = engine.FilterOwned(pool, Overlay.PlayerOwnsFn())
+  pool = engine.RejectHealingForDPS(pool, engine.IsCasterDPS(class, spec))
+  return pool
+end
+
 -- ComputeList(bucket) -> list, level, hi
 --   The spec-scored, best-per-slot suggestions for "current" or "future".
 --   Shared by the overlay and the Titan button so they never disagree (Bug 3).
@@ -351,17 +362,9 @@ function Overlay.ComputeList(bucket)
   local _, class = UnitClass("player")
   local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
   local hi = level + range
-  local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
-  local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
-
-  -- Filter by enabled sources, usable-by-class, drop owned, drop healing-only
-  -- gear for caster DPS.
-  local enabled = TitanJourney_DB and TitanJourney_DB.Sources()
-  local usable = engine.FilterOwned(
-    engine.FilterByClass(engine.FilterBySource(items, enabled), class, level),
-    Overlay.PlayerOwnsFn())
-  usable = engine.RejectHealingForDPS(usable, engine.IsCasterDPS(class, PlayerSpecIndex()))
-  local cur, fut = engine.SplitGoals(usable, level, range)
+  local spec = PlayerSpecIndex()
+  local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
+  local cur, fut = engine.SplitGoals(UsablePool(engine, items, class, level, spec), level, range)
   local list = cur
   if bucket == "future" then
     -- Plan the next stretch, not end-game: cap a band above the window.
@@ -383,11 +386,7 @@ function Overlay.ComputeCandidates(slot)
   local hi = level + range
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
-  local enabled = TitanJourney_DB and TitanJourney_DB.Sources()
-  local usable = engine.FilterOwned(
-    engine.FilterByClass(engine.FilterBySource(items, enabled), class, level),
-    Overlay.PlayerOwnsFn())
-  usable = engine.RejectHealingForDPS(usable, engine.IsCasterDPS(class, spec))
+  local usable = UsablePool(engine, items, class, level, spec)
 
   local cands = {}
   for i = 1, #usable do
@@ -502,7 +501,29 @@ local function BuildControlBar(content, topLevel)
     local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
     lbl:SetText(key)
-    x = x + 84
+    x = x + 76
+  end
+
+  -- Rarity filters (FEAT-G2), coloured by quality.
+  x = x + 12
+  local RARITY = {
+    { key = "uncommon", label = "Uncommon", color = "ff1eff00" },
+    { key = "rare",     label = "Rare",     color = "ff0070dd" },
+    { key = "epic",     label = "Epic",     color = "ffa335ee" },
+  }
+  for _, r in ipairs(RARITY) do
+    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+    cb:SetSize(22, 22)
+    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
+    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Qualities()[r.key] == false))
+    cb:SetScript("OnClick", function(self)
+      if TitanJourney_DB then TitanJourney_DB.Qualities()[r.key] = self:GetChecked() and true or false end
+      Overlay.RenderCurrentGoals()
+    end)
+    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
+    lbl:SetText("|c" .. r.color .. r.label .. "|r")
+    x = x + 72
   end
 
   -- Lookahead slider (1..15) on the right.

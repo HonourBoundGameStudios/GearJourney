@@ -269,6 +269,22 @@ function Engine.BuildButtonText(items, level, range, pinnedName)
     goal.name .. " (Lv. " .. goal.reqLevel .. ") - " .. proximity
 end
 
+-- FilterByQuality(items, enabled) -> new array. Keeps items whose quality is
+-- enabled in the allow-map (e.g. { uncommon=true, rare=true, epic=true }).
+-- nil = no filtering. Order preserved; input not mutated.
+function Engine.FilterByQuality(items, enabled)
+  if enabled == nil then
+    local copy = {}
+    for i = 1, #items do copy[i] = items[i] end
+    return copy
+  end
+  local kept = {}
+  for i = 1, #items do
+    if enabled[items[i].quality] then kept[#kept + 1] = items[i] end
+  end
+  return kept
+end
+
 -- Armor categories that are class-restricted; anything else (weapons, rings,
 -- necks, trinkets, cloaks...) is "neutral" and shown to every class.
 Engine.ARMOR_TYPES = { Cloth = true, Leather = true, Mail = true, Plate = true }
