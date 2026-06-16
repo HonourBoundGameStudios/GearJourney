@@ -203,6 +203,7 @@ function Overlay.RenderCurrentGoals()
   local range = engine.DEFAULT_RANGE
   local hi = level + range
   local current = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
+  current = engine.BestPerSlot(current)  -- one best item per slot
 
   panel.rows = panel.rows or {}
   local y = -4

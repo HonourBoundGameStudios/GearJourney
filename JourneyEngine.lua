@@ -246,6 +246,39 @@ function Engine.FilterByClass(items, class)
   return kept
 end
 
+-- BestPerSlot(items) -> new array
+--   Collapses a list to the single best item per slot, ranked by item level
+--   (ties: higher reqLevel, then lower itemID for determinism). The result is
+--   sorted ascending by reqLevel (then name). Input is not mutated.
+local function betterByIlvl(a, b)
+  local ai, bi = a.ilvl or 0, b.ilvl or 0
+  if ai ~= bi then return ai > bi end
+  local ar, br = a.reqLevel or 0, b.reqLevel or 0
+  if ar ~= br then return ar > br end
+  return (a.itemID or 0) < (b.itemID or 0)
+end
+
+function Engine.BestPerSlot(items)
+  local bySlot = {}
+  for i = 1, #items do
+    local it = items[i]
+    local slot = it.slot or "?"
+    if bySlot[slot] == nil or betterByIlvl(it, bySlot[slot]) then
+      bySlot[slot] = it
+    end
+  end
+
+  local out = {}
+  for _, it in pairs(bySlot) do out[#out + 1] = it end
+  table.sort(out, function(a, b)
+    if (a.reqLevel or 0) ~= (b.reqLevel or 0) then
+      return (a.reqLevel or 0) < (b.reqLevel or 0)
+    end
+    return (a.name or "") < (b.name or "")
+  end)
+  return out
+end
+
 -- Item enrichment (FEAT-E2): turn a raw {itemID,...} + GetItemInfo results into
 -- a schema item. Pure mapping so it is testable without the client. -----------
 
