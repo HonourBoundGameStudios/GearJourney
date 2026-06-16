@@ -41,7 +41,7 @@ local function OnLoad(self)
         tooltipTitle = "TitanJourney",
         buttonTextFunction = TitanJourney_GetButtonText,
         tooltipTextFunction = TitanJourney_GetTooltipText,
-        icon = "Interface\\Icons\\INV_Misc_Map_01",
+        icon = "Interface\\Icons\\Ability_Mount_RidingHorse",
         iconWidth = 16,
         controlVariables = {
             ShowIcon = true,
