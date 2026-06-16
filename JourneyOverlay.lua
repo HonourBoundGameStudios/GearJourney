@@ -25,6 +25,64 @@ local TABS = {
   { key = "settings", label = "Settings" },
 }
 
+-- Talent-tree background base names per class, in talent-tab order (1..3).
+-- Textures live at Interface\TalentFrame\<base>-{TopLeft,TopRight,BottomLeft,
+-- BottomRight}. We pick the tab with the most points (the player's spec) and
+-- fall back to tab 1; an unknown class or missing texture leaves the dark inset.
+local CLASS_TALENT_BG = {
+  WARRIOR = { "WarriorArms", "WarriorFury", "WarriorProtection" },
+  PALADIN = { "PaladinHoly", "PaladinProtection", "PaladinCombat" },
+  HUNTER  = { "HunterBeastMastery", "HunterMarksmanship", "HunterSurvival" },
+  ROGUE   = { "RogueAssassination", "RogueCombat", "RogueSubtlety" },
+  PRIEST  = { "PriestDiscipline", "PriestHoly", "PriestShadow" },
+  SHAMAN  = { "ShamanElementalCombat", "ShamanEnhancement", "ShamanRestoration" },
+  MAGE    = { "MageArcane", "MageFire", "MageFrost" },
+  WARLOCK = { "WarlockCurses", "WarlockSummoning", "WarlockDestruction" },
+  DRUID   = { "DruidBalance", "DruidFeralCombat", "DruidRestoration" },
+}
+
+-- Pick the background base name for the player's class and most-spent spec.
+local function PlayerTalentBackground()
+  local _, class = UnitClass("player")
+  local set = class and CLASS_TALENT_BG[class]
+  if not set then return nil end
+
+  local idx, best = 1, -1
+  if GetNumTalentTabs and GetTalentTabInfo then
+    local n = GetNumTalentTabs() or 0
+    for i = 1, math.min(n, #set) do
+      local _, _, pointsSpent = GetTalentTabInfo(i)
+      pointsSpent = tonumber(pointsSpent) or 0
+      if pointsSpent > best then best, idx = pointsSpent, i end
+    end
+  end
+  return set[idx]
+end
+
+-- Paint the class talent background across `content` as four dimmed quadrants
+-- on the BACKGROUND layer (item rows draw above it). No-op for unknown classes.
+local function ApplyClassBackground(content)
+  local base = PlayerTalentBackground()
+  if not base then return end
+  local prefix = "Interface\\TalentFrame\\" .. base .. "-"
+
+  local function quad(suffix, p1, p2)
+    local t = content:CreateTexture(nil, "BACKGROUND")
+    t:SetTexture(prefix .. suffix)   -- bad path simply draws nothing
+    t:SetAlpha(0.42)                 -- dim so text stays readable
+    t:SetPoint(p1, content, p1)
+    t:SetPoint(p2, content, "CENTER")
+    return t
+  end
+
+  Overlay.bgTextures = {
+    quad("TopLeft",     "TOPLEFT",     "BOTTOMRIGHT"),
+    quad("TopRight",    "TOPRIGHT",    "BOTTOMLEFT"),
+    quad("BottomLeft",  "BOTTOMLEFT",  "TOPRIGHT"),
+    quad("BottomRight", "BOTTOMRIGHT", "TOPLEFT"),
+  }
+end
+
 -- SelectTab(key): mark one sidebar button active (locked highlight) and show
 -- only its content panel. Safe to call before the layout exists.
 function Overlay.SelectTab(key)
@@ -50,6 +108,9 @@ local function BuildLayout(f)
   content:SetPoint("TOPLEFT", f, "TOPLEFT", SIDEBAR_W + 24, TOP)
   content:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
   Overlay.content = content
+
+  -- Class-flavoured backdrop behind the content (FEAT-C: talent-tree art).
+  ApplyClassBackground(content)
 
   for i, tab in ipairs(TABS) do
     -- Sidebar button.
