@@ -10,5 +10,7 @@
 
 JourneyEngine.lua
 JourneyData.lua
+JourneyAtlasData.lua
+JourneyProvider.lua
 JourneyOverlay.lua
 TitanJourney.lua

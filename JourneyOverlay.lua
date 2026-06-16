@@ -182,7 +182,8 @@ end
 local function FillRow(row, item, playerLevel, hi)
   local qc = QUALITY_COLOR[item.quality] or QUALITY_COLOR.common
   SetSolid(row.border, qc[1], qc[2], qc[3])
-  row.icon:SetTexture("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest"))
+  -- Real item icon once enriched (FEAT-E2); paper-doll slot art as a fallback.
+  row.icon:SetTexture(item.icon or ("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest")))
   row.name:SetText(item.name)
   row.name:SetTextColor(qc[1], qc[2], qc[3])
   row.sub:SetText((item.slot or "") .. "   " .. (item.sourceType or "") .. ": " .. (item.sourceLabel or ""))
