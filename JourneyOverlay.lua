@@ -232,29 +232,35 @@ local function FillRow(row, item, playerLevel, hi)
   end)
 end
 
--- Render one list tab (key = "current" or "future") into its panel, spec-scored.
-function Overlay.RenderTab(key)
-  local panel = Overlay.panels and Overlay.panels[key]
-  if not panel or not panel.listAnchor then return end
+-- ComputeList(bucket) -> list, level, hi
+--   The spec-scored, best-per-slot suggestions for "current" or "future".
+--   Shared by the overlay and the Titan button so they never disagree (Bug 3).
+function Overlay.ComputeList(bucket)
   local engine, items = TitanJourney_Engine, TitanJourney_Items
-  if not (engine and items) then return end
-
   local level = (UnitLevel and UnitLevel("player")) or 1
+  if not (engine and items) then return {}, level, level end
   local _, class = UnitClass("player")
   local range = engine.DEFAULT_RANGE
   local hi = level + range
   local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
   local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
 
-  local cur, fut = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
+  local cur, fut = engine.SplitGoals(engine.FilterByClass(items, class, level), level, range)
   local list = cur
-  if key == "future" then
+  if bucket == "future" then
     -- Plan the next stretch, not end-game: cap a band above the window.
     local cap = hi + 20
     list = {}
     for i = 1, #fut do if fut[i].reqLevel <= cap then list[#list + 1] = fut[i] end end
   end
-  list = engine.BestPerSlotScored(list, weights)
+  return engine.BestPerSlotScored(list, weights), level, hi
+end
+
+-- Render one list tab (key = "current" or "future") into its panel, spec-scored.
+function Overlay.RenderTab(key)
+  local panel = Overlay.panels and Overlay.panels[key]
+  if not panel or not panel.listAnchor then return end
+  local list, level, hi = Overlay.ComputeList(key)
 
   panel.rows = panel.rows or {}
   local y = -4

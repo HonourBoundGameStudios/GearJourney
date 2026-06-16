@@ -8,15 +8,16 @@ local VERSION = "1.0.0"
 -- Thin wiring only: pull the player level from the client and delegate the
 -- formatting to the pure engine (FEAT-B1, tested offline).
 function TitanJourney_GetButtonText(id)
-    local engine, items = TitanJourney_Engine, TitanJourney_Items
-    if not (engine and items) then
+    local engine = TitanJourney_Engine
+    local overlay = TitanJourney_Overlay
+    if not (engine and overlay and overlay.ComputeList) then
         return "Next Goal:", "—"
     end
-    local level = (UnitLevel and UnitLevel("player")) or 1
-    local _, class = UnitClass("player")               -- e.g. "ROGUE"
-    items = engine.FilterByClass(items, class)         -- skin to the player's class
+    -- Same spec-scored best-per-slot list the overlay shows (Bug 3 fix), so the
+    -- button's suggestion always appears in the Current Goals list.
+    local list, level = overlay.ComputeList("current")
     local pinnedName = TitanJourney_DB and TitanJourney_DB.Pin()
-    return engine.BuildButtonText(items, level, nil, pinnedName)
+    return engine.BuildButtonText(list, level, nil, pinnedName)
 end
 
 -- Tooltip body shown on hover.
