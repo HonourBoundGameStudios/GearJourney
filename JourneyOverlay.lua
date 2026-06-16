@@ -221,10 +221,10 @@ local function FillRow(row, item, playerLevel, hi)
   end)
 end
 
--- Render the player's class-filtered Current-Goals into the current panel.
-function Overlay.RenderCurrentGoals()
-  local panel = Overlay.panels and Overlay.panels.current
-  if not panel then return end
+-- Render one list tab (key = "current" or "future") into its panel, spec-scored.
+function Overlay.RenderTab(key)
+  local panel = Overlay.panels and Overlay.panels[key]
+  if not panel or not panel.listAnchor then return end
   local engine, items = TitanJourney_Engine, TitanJourney_Items
   if not (engine and items) then return end
 
@@ -232,14 +232,22 @@ function Overlay.RenderCurrentGoals()
   local _, class = UnitClass("player")
   local range = engine.DEFAULT_RANGE
   local hi = level + range
-  -- Spec-aware: pick the best item per slot by the player's stat weights.
-  local weights = engine.WeightsFor(class, PlayerSpecIndex())
-  local current = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
-  current = engine.BestPerSlotScored(current, weights)
+  local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
+  local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
+
+  local cur, fut = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
+  local list = cur
+  if key == "future" then
+    -- Plan the next stretch, not end-game: cap a band above the window.
+    local cap = hi + 20
+    list = {}
+    for i = 1, #fut do if fut[i].reqLevel <= cap then list[#list + 1] = fut[i] end end
+  end
+  list = engine.BestPerSlotScored(list, weights)
 
   panel.rows = panel.rows or {}
   local y = -4
-  for i, item in ipairs(current) do
+  for i, item in ipairs(list) do
     local row = panel.rows[i]
     if not row then
       row = CreateRow(panel.listAnchor)
@@ -252,16 +260,26 @@ function Overlay.RenderCurrentGoals()
     row:Show()
     y = y - (ROW_H + 4)
   end
-  for i = #current + 1, #panel.rows do panel.rows[i]:Hide() end
+  for i = #list + 1, #panel.rows do panel.rows[i]:Hide() end
 
   -- Size the scroll child so the scrollbar/clipping cover all rows.
   local childW = (panel.scroll and panel.scroll:GetWidth()) or 0
   if childW < 10 then childW = 500 end
   panel.listAnchor:SetWidth(childW)
-  panel.listAnchor:SetHeight(math.max(1, #current * (ROW_H + 4) + 8))
+  panel.listAnchor:SetHeight(math.max(1, #list * (ROW_H + 4) + 8))
 
-  panel.empty:SetShown(#current == 0)
-  panel.sub:SetText(#current > 0 and ("Levels " .. level .. " \226\128\147 " .. hi) or "")
+  panel.empty:SetShown(#list == 0)
+  if key == "future" then
+    panel.sub:SetText(#list > 0 and ("Level " .. (hi + 1) .. " and up") or "")
+  else
+    panel.sub:SetText(#list > 0 and ("Levels " .. level .. " \226\128\147 " .. hi) or "")
+  end
+end
+
+-- Refresh both list tabs (called by the provider and on open).
+function Overlay.RenderCurrentGoals()
+  Overlay.RenderTab("current")
+  Overlay.RenderTab("future")
 end
 
 -- Build the left tab column and the matching content panels.
@@ -303,8 +321,8 @@ local function BuildLayout(f)
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetText(tab.label)
 
-    if tab.key == "current" then
-      -- Level-range subtitle, a scrolling list, and an empty-state line (FEAT-C5).
+    if tab.key ~= "settings" then
+      -- Subtitle, a scrolling list, and an empty-state line (FEAT-C5/C6).
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
       panel.sub = sub
@@ -330,7 +348,7 @@ local function BuildLayout(f)
 
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("No goals in range for your class.")
+      empty:SetText("No items in range for your class.")
       empty:Hide()
       panel.empty = empty
     else
