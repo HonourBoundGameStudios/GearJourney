@@ -100,6 +100,29 @@ function Engine.GetGoalsForLevel(items, level, range)
   return goals
 end
 
+-- SplitGoals(items, level, range) -> current, future
+--   Buckets goals for the two overlay tabs:
+--     * current = items in the lookahead window [level, level+range]
+--     * future  = items strictly above the window (reqLevel > level+range)
+--   Both lists are sorted ascending by reqLevel. Items already out-leveled
+--   (reqLevel < level) belong to neither bucket. Input is not mutated.
+function Engine.SplitGoals(items, level, range)
+  range = range or Engine.DEFAULT_RANGE
+  local hi = level + range
+
+  local current = Engine.GetGoalsForLevel(items, level, range)
+
+  local future = {}
+  for i = 1, #items do
+    if items[i].reqLevel > hi then
+      future[#future + 1] = items[i]
+    end
+  end
+  table.sort(future, function(a, b) return a.reqLevel < b.reqLevel end)
+
+  return current, future
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
