@@ -123,6 +123,27 @@ function Engine.SplitGoals(items, level, range)
   return current, future
 end
 
+-- FilterBySource(items, enabled) -> new array
+--   Keeps only items whose sourceType is enabled in the `enabled` allow-map
+--   (e.g. { Crafted = true, Dungeon = false, Quest = true }). A type that is
+--   false or absent is excluded. `enabled == nil` means "no filtering" and
+--   passes everything through. Original order is preserved; input not mutated.
+function Engine.FilterBySource(items, enabled)
+  if enabled == nil then
+    local copy = {}
+    for i = 1, #items do copy[i] = items[i] end
+    return copy
+  end
+
+  local kept = {}
+  for i = 1, #items do
+    if enabled[items[i].sourceType] then
+      kept[#kept + 1] = items[i]
+    end
+  end
+  return kept
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
