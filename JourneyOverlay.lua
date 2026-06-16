@@ -59,6 +59,20 @@ local function PlayerTalentBackground()
   return set[idx]
 end
 
+-- The player's spec = the talent tab with the most points (default 1).
+local function PlayerSpecIndex()
+  local idx, best = 1, -1
+  if GetNumTalentTabs and GetTalentTabInfo then
+    local n = GetNumTalentTabs() or 0
+    for i = 1, n do
+      local _, _, pts = GetTalentTabInfo(i)
+      pts = tonumber(pts) or 0
+      if pts > best then best, idx = pts, i end
+    end
+  end
+  return idx
+end
+
 -- Paint the class talent background to fill the whole window, dimmed, on the
 -- BACKGROUND layer (sidebar + item rows draw above it). The composite art is a
 -- 384x384 image split at 2/3 (TopLeft 256, right/bottom strips 128), so each
@@ -202,8 +216,10 @@ function Overlay.RenderCurrentGoals()
   local _, class = UnitClass("player")
   local range = engine.DEFAULT_RANGE
   local hi = level + range
+  -- Spec-aware: pick the best item per slot by the player's stat weights.
+  local weights = engine.WeightsFor(class, PlayerSpecIndex())
   local current = engine.SplitGoals(engine.FilterByClass(items, class), level, range)
-  current = engine.BestPerSlot(current)  -- one best item per slot
+  current = engine.BestPerSlotScored(current, weights)
 
   panel.rows = panel.rows or {}
   local y = -4

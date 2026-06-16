@@ -45,16 +45,23 @@ local function TryBuild(raw)
     return true
   end
 
-  local name, _, quality, ilvl, reqLevel = GetItemInfo(id)
+  local name, link, quality, ilvl, reqLevel = GetItemInfo(id)
   if not name then
     pending[id] = raw        -- GetItemInfo has now queried the server
     return false
   end
 
   processed[id] = true
+  -- Item stats drive spec-aware scoring; guard in case the API is unhappy.
+  local stats
+  if link and GetItemStats then
+    local ok, s = pcall(GetItemStats, link)
+    if ok then stats = s end
+  end
   local item = Engine.BuildItem(raw, {
     name = name, quality = quality, reqLevel = reqLevel, ilvl = ilvl,
-    equipLoc = equipLoc, classID = classID, subClassID = subClassID, icon = icon,
+    equipLoc = equipLoc, classID = classID, subClassID = subClassID,
+    icon = icon, stats = stats,
   })
   if item then Provider.items[#Provider.items + 1] = item end
   return true

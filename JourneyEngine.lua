@@ -459,6 +459,7 @@ function Engine.BuildItem(raw, info)
     slot = slot,
     armorType = Engine.ArmorTypeFromClass(info.classID, info.subClassID),
     icon = info.icon,
+    stats = info.stats,   -- GetItemStats table, for spec scoring
   }
 end
 
