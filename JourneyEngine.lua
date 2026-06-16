@@ -144,6 +144,34 @@ function Engine.FilterBySource(items, enabled)
   return kept
 end
 
+-- GetNextGoal(items, level, range, pinned) -> item or nil
+--   The default headline goal for the Titan button: the lowest-reqLevel goal
+--   inside the lookahead window that the player has not already pinned. Ties on
+--   reqLevel are broken by item name (ascending) so the result is deterministic
+--   regardless of input order. `pinned` is an optional set keyed by item.name
+--   (the seed's natural key -- revisit when persistence lands, EPIC-D).
+--   Returns nil when no unpinned goal is in range.
+function Engine.GetNextGoal(items, level, range, pinned)
+  range = range or Engine.DEFAULT_RANGE
+  local hi = level + range
+
+  local best
+  for i = 1, #items do
+    local item = items[i]
+    local r = item.reqLevel
+    local skip = pinned ~= nil and pinned[item.name]
+    if not skip and r >= level and r <= hi then
+      if best == nil
+        or r < best.reqLevel
+        or (r == best.reqLevel and item.name < best.name) then
+        best = item
+      end
+    end
+  end
+
+  return best
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
