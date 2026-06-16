@@ -59,27 +59,53 @@ local function PlayerTalentBackground()
   return set[idx]
 end
 
--- Paint the class talent background across `content` as four dimmed quadrants
--- on the BACKGROUND layer (item rows draw above it). No-op for unknown classes.
-local function ApplyClassBackground(content)
+-- Paint the class talent background to fill the whole window, dimmed, on the
+-- BACKGROUND layer (sidebar + item rows draw above it). The composite art is a
+-- 384x384 image split at 2/3 (TopLeft 256, right/bottom strips 128), so each
+-- quadrant is scaled uniformly to preserve aspect; the square is sized to cover
+-- the window's larger dimension and the overflow is clipped. Falls back to a
+-- letterboxed fit if clipping is unavailable, and to the dark inset for an
+-- unknown class / missing texture.
+local function ApplyClassBackground(f)
   local base = PlayerTalentBackground()
   if not base then return end
   local prefix = "Interface\\TalentFrame\\" .. base .. "-"
 
-  local function quad(suffix, p1, p2)
-    local t = content:CreateTexture(nil, "BACKGROUND")
+  -- Interior, below the title bar; these offsets define the usable W x H.
+  local L, T, R, B = 8, -28, -8, -8
+  local holder = CreateFrame("Frame", nil, f)
+  holder:SetPoint("TOPLEFT", f, "TOPLEFT", L, T)
+  holder:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", R, B)
+  holder:SetFrameLevel(f:GetFrameLevel())  -- behind content/buttons
+  Overlay.bg = holder
+
+  local W = f:GetWidth() + R - L    -- R is negative (inset from right)
+  local H = f:GetHeight() + T + B   -- T and B are negative (insets)
+
+  -- Cover (clip overflow) when supported; otherwise fit (no overflow).
+  local canClip = holder.SetClipsChildren ~= nil
+  if canClip then holder:SetClipsChildren(true) end
+  local S = canClip and math.max(W, H) or math.min(W, H)
+
+  local x0, y0 = (W - S) / 2, (H - S) / 2   -- centred square (y0<0 if taller)
+  local seam = S * (256 / 384)              -- the 2/3 split
+  local lw, rw = seam, S - seam
+  local th, bh = seam, S - seam
+
+  local function quad(suffix, x, yDown, w, h)
+    local t = holder:CreateTexture(nil, "BACKGROUND")
     t:SetTexture(prefix .. suffix)   -- bad path simply draws nothing
     t:SetAlpha(0.42)                 -- dim so text stays readable
-    t:SetPoint(p1, content, p1)
-    t:SetPoint(p2, content, "CENTER")
+    t:SetPoint("TOPLEFT", holder, "TOPLEFT", x, -yDown)
+    t:SetSize(w, h)
     return t
   end
 
   Overlay.bgTextures = {
-    quad("TopLeft",     "TOPLEFT",     "BOTTOMRIGHT"),
-    quad("TopRight",    "TOPRIGHT",    "BOTTOMLEFT"),
-    quad("BottomLeft",  "BOTTOMLEFT",  "TOPRIGHT"),
-    quad("BottomRight", "BOTTOMRIGHT", "TOPLEFT"),
+    quad("TopLeft",     x0,        y0,        lw, th),
+    quad("TopRight",    x0 + lw,   y0,        rw, th),
+    quad("BottomLeft",  x0,        y0 + th,   lw, bh),
+    quad("BottomRight", x0 + lw,   y0 + th,   rw, bh),
   }
 end
 
@@ -103,14 +129,15 @@ local function BuildLayout(f)
 
   local SIDEBAR_W, TAB_H, TAB_GAP, TOP = 150, 34, 6, -34
 
+  -- Class-flavoured backdrop filling the window (FEAT-C: talent-tree art).
+  -- Built first so it sits behind the sidebar and content.
+  ApplyClassBackground(f)
+
   -- Content area: right of the sidebar. Panels stack here, one shown at a time.
   local content = CreateFrame("Frame", nil, f)
   content:SetPoint("TOPLEFT", f, "TOPLEFT", SIDEBAR_W + 24, TOP)
   content:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
   Overlay.content = content
-
-  -- Class-flavoured backdrop behind the content (FEAT-C: talent-tree art).
-  ApplyClassBackground(content)
 
   for i, tab in ipairs(TABS) do
     -- Sidebar button.
