@@ -70,6 +70,18 @@ function DB.JourneyToggle(name)
   DB.JourneyAdd(name); return true
 end
 
+-- Move an entry up (-1) or down (+1) in the ordered list, clamped to the ends.
+function DB.JourneyMove(name, delta)
+  local j = DB.Journey()
+  for i = 1, #j do
+    if j[i] == name then
+      local ni = i + delta
+      if ni >= 1 and ni <= #j then j[i], j[ni] = j[ni], j[i] end
+      return
+    end
+  end
+end
+
 -- Enriched-item cache (itemID -> schema item) ------------------------------
 function DB.Cache() return DB.Get().itemCache end
 function DB.CachePut(item) if item and item.itemID then DB.Get().itemCache[item.itemID] = item end end

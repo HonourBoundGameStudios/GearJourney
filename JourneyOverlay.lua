@@ -186,20 +186,36 @@ local function SetSolid(tex, r, g, b)
   else tex:SetTexture("Interface\\Buttons\\WHITE8x8"); tex:SetVertexColor(r, g, b) end
 end
 
+-- Row tooltip (FEAT-C10) with SHIFT-to-compare against equipped gear.
+local hoverOwner, hoverItemID
+local function ShowRowTooltip(owner, itemID)
+  GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+  GameTooltip:SetHyperlink("item:" .. itemID)
+  if IsShiftKeyDown() and GameTooltip_ShowCompareItem then GameTooltip_ShowCompareItem() end
+  GameTooltip:Show()
+end
+
+-- Holding/releasing SHIFT while hovering re-shows the tooltip with comparison.
+local modWatcher = CreateFrame("Frame")
+modWatcher:RegisterEvent("MODIFIER_STATE_CHANGED")
+modWatcher:SetScript("OnEvent", function(_, _, key)
+  if hoverItemID and (key == "LSHIFT" or key == "RSHIFT") then
+    ShowRowTooltip(hoverOwner, hoverItemID)
+  end
+end)
+
 -- One pooled item row: quality-bordered icon, name, slot/source line, level.
 local function CreateRow(parent)
   local row = CreateFrame("Frame", nil, parent)
   row:SetHeight(ROW_H)
 
-  -- Hover shows the real Blizzard item tooltip (FEAT-C10).
   row:EnableMouse(true)
   row:SetScript("OnEnter", function(self)
     if not self.itemID then return end
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    GameTooltip:SetHyperlink("item:" .. self.itemID)
-    GameTooltip:Show()
+    hoverOwner, hoverItemID = self, self.itemID
+    ShowRowTooltip(self, self.itemID)
   end)
-  row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+  row:SetScript("OnLeave", function() hoverItemID = nil; GameTooltip:Hide() end)
 
   row.border = row:CreateTexture(nil, "ARTWORK")
   row.border:SetSize(ICON + 4, ICON + 4)
