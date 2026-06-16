@@ -16,8 +16,14 @@ function TitanJourney_GetButtonText(id)
     -- Same spec-scored best-per-slot list the overlay shows (Bug 3 fix), so the
     -- button's suggestion always appears in the Current Goals list.
     local list, level = overlay.ComputeList("current")
-    local pinnedName = TitanJourney_DB and TitanJourney_DB.Pin()
-    return engine.BuildButtonText(list, level, nil, pinnedName)
+    -- If the player has a Journey List, surface the nearest entry; else default.
+    local journey = TitanJourney_DB and TitanJourney_DB.Journey()
+    if journey and #journey > 0 then
+        local all = TitanJourney_Items or list
+        local goal = engine.NextJourneyGoal(all, journey, level)
+        if goal then return engine.BuildButtonText(all, level, nil, goal.name) end
+    end
+    return engine.BuildButtonText(list, level, nil, nil)
 end
 
 -- Tooltip body shown on hover.

@@ -222,11 +222,11 @@ local function FillRow(row, item, playerLevel, hi)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
 
-  -- Pin toggle (FEAT-C7): one pinned item, surfaced on the Titan button.
-  local pinned = TitanJourney_DB and TitanJourney_DB.Pin() == item.name
+  -- Pin toggle: independently add/remove this item from the Journey List (F2).
+  local pinned = TitanJourney_DB and TitanJourney_DB.JourneyContains(item.name)
   row.pin:SetText(pinned and "Pinned" or "Pin")
   row.pin:SetScript("OnClick", function()
-    if TitanJourney_DB then TitanJourney_DB.TogglePin(item.name) end
+    if TitanJourney_DB then TitanJourney_DB.JourneyToggle(item.name) end
     if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
     Overlay.RenderCurrentGoals()
   end)
