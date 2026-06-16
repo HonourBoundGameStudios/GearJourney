@@ -325,6 +325,50 @@ function Engine.ClassSetFromNames(body, nameToToken)
   return next(set) and set or nil
 end
 
+-- SpellTypeFromTooltip(text) -> "both" | "healing" | nil
+--   "both" = any damage component (spell damage, or damage+healing) -> usable by
+--   a caster DPS. "healing" = healing only. nil = no spell effect. (enUS phrasing.)
+function Engine.SpellTypeFromTooltip(text)
+  if not text then return nil end
+  text = text:lower()
+  if text:find("damage and healing", 1, true) or text:find("spell damage", 1, true)
+     or text:find("spell power", 1, true) or text:find("damage done by", 1, true) then
+    return "both"
+  end
+  if text:find("healing done by", 1, true) or text:find("healing spells", 1, true) then
+    return "healing"
+  end
+  return nil
+end
+
+-- Caster-DPS specs by talent-tab order; these don't want healing-only gear.
+Engine.CASTER_DPS = {
+  MAGE    = { true, true, true },
+  WARLOCK = { true, true, true },
+  PRIEST  = { false, false, true },  -- Shadow
+  SHAMAN  = { true, false, false },  -- Elemental
+  DRUID   = { true, false, false },  -- Balance
+}
+function Engine.IsCasterDPS(class, specIndex)
+  local t = Engine.CASTER_DPS[class]
+  return (t and t[specIndex or 1] == true) or false
+end
+
+-- RejectHealingForDPS(items, isDPS) -> new array. Drops healing-only items when
+-- the player is a caster DPS; otherwise keeps everything. Pure/testable.
+function Engine.RejectHealingForDPS(items, isDPS)
+  if not isDPS then
+    local copy = {}
+    for i = 1, #items do copy[i] = items[i] end
+    return copy
+  end
+  local kept = {}
+  for i = 1, #items do
+    if items[i].spellType ~= "healing" then kept[#kept + 1] = items[i] end
+  end
+  return kept
+end
+
 -- CanUse(item, class, level) -> bool. Combines class restriction + armor
 -- preference + level gate + weapon proficiency + shield; neutral items pass.
 function Engine.CanUse(item, class, level)
@@ -609,6 +653,7 @@ function Engine.BuildItem(raw, info)
     itemClassID = info.classID,        -- for weapon-proficiency / shield checks
     itemSubClassID = info.subClassID,
     classes = info.classes,            -- tooltip "Classes:" restriction, or nil
+    spellType = info.spellType,        -- "both" | "healing" | nil (tooltip scan)
     icon = info.icon,
     stats = info.stats,   -- GetItemStats table, for spec scoring
   }

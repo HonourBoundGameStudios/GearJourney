@@ -264,11 +264,13 @@ function Overlay.ComputeList(bucket)
   local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
   local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
 
-  -- Filter by enabled sources, then to usable-by-class, then drop owned items.
+  -- Filter by enabled sources, usable-by-class, drop owned, drop healing-only
+  -- gear for caster DPS.
   local enabled = TitanJourney_DB and TitanJourney_DB.Sources()
   local usable = engine.FilterOwned(
     engine.FilterByClass(engine.FilterBySource(items, enabled), class, level),
     Overlay.PlayerOwnsFn())
+  usable = engine.RejectHealingForDPS(usable, engine.IsCasterDPS(class, PlayerSpecIndex()))
   local cur, fut = engine.SplitGoals(usable, level, range)
   local list = cur
   if bucket == "future" then

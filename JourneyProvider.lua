@@ -33,12 +33,13 @@ local function Refresh()
   end
 end
 
--- Hidden tooltip scanner: read an item's class restriction ("Classes: Shaman"),
--- which GetItemInfo does not expose. Returns a token set or nil (unrestricted).
+-- Hidden tooltip scanner: read item metadata GetItemInfo doesn't expose -- the
+-- class restriction ("Classes: Shaman") and the spell-effect type (damage vs
+-- healing). One tooltip pass; returns (classSet|nil, spellType|nil).
 local scanTip, nameToToken
 local CLASS_PATTERN = (ITEM_CLASSES_ALLOWED or "Classes: %s"):gsub("%%s", "(.+)")
 
-local function ScanItemClasses(id)
+local function ScanItemMeta(id)
   if not scanTip then
     scanTip = CreateFrame("GameTooltip", "TitanJourneyScanTip", nil, "GameTooltipTemplate")
     scanTip:SetOwner(UIParent, "ANCHOR_NONE")
@@ -50,13 +51,19 @@ local function ScanItemClasses(id)
   end
   scanTip:ClearLines()
   scanTip:SetHyperlink("item:" .. id)
+  local classes, parts
   for i = 2, scanTip:NumLines() or 0 do
     local fs = _G["TitanJourneyScanTipTextLeft" .. i]
     local text = fs and fs:GetText()
-    local body = text and text:match(CLASS_PATTERN)
-    if body then return Engine.ClassSetFromNames(body, nameToToken) end
+    if text then
+      if not classes then
+        local body = text:match(CLASS_PATTERN)
+        if body then classes = Engine.ClassSetFromNames(body, nameToToken) end
+      end
+      parts = parts and (parts .. "\n" .. text) or text
+    end
   end
-  return nil
+  return classes, Engine.SpellTypeFromTooltip(parts)
 end
 
 -- Try to turn one raw row into an enriched item. Returns true once the id is
@@ -84,15 +91,15 @@ local function TryBuild(raw)
     local ok, s = pcall(GetItemStats, link)
     if ok then stats = s end
   end
-  local classes
+  local classes, spellType
   if link then
-    local ok, c = pcall(ScanItemClasses, id)
-    if ok then classes = c end
+    local ok, c, st = pcall(ScanItemMeta, id)
+    if ok then classes, spellType = c, st end
   end
   local item = Engine.BuildItem(raw, {
     name = name, quality = quality, reqLevel = reqLevel, ilvl = ilvl,
     equipLoc = equipLoc, classID = classID, subClassID = subClassID,
-    icon = icon, stats = stats, classes = classes,
+    icon = icon, stats = stats, classes = classes, spellType = spellType,
   })
   if item then
     Provider.items[#Provider.items + 1] = item
@@ -141,8 +148,8 @@ function Provider.Start()
   -- Seed instantly from the saved cache; the queue then fills anything new.
   if TitanJourney_DB then
     local d = TitanJourney_DB.Init()
-    -- Bump to discard caches built before class-restriction scanning existed.
-    if d.cacheVersion ~= 2 then d.itemCache, d.cacheVersion = {}, 2 end
+    -- Bump to discard caches built before class/spell-type scanning existed.
+    if d.cacheVersion ~= 3 then d.itemCache, d.cacheVersion = {}, 3 end
     for id, item in pairs(TitanJourney_DB.Cache()) do
       Provider.items[#Provider.items + 1] = item
       processed[id] = true
