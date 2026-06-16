@@ -440,6 +440,38 @@ Engine.EQUIPLOC_SLOT = {
   INVTYPE_THROWN = "Ranged", INVTYPE_RELIC = "Relic",
 }
 
+-- PrettySource(s): space out CamelCase instance keys ("TheDeadmines" ->
+-- "The Deadmines") while leaving apostrophe-joined words intact.
+function Engine.PrettySource(s)
+  if not s or s == "" then return s end
+  s = s:gsub("(%l)(%u)", "%1 %2")
+  s = s:gsub("(%d)(%u)", "%1 %2")
+  return s
+end
+
+-- StatSummary(stats): compact "+N Agi +N Sta" string of primary stats, in a
+-- fixed order, from a raw GetItemStats or canonical table. "" when none.
+local STAT_ORDER = { "Agility", "Strength", "Intellect", "Stamina", "Spirit" }
+local STAT_ABBR = {
+  Agility = "Agi", Strength = "Str", Intellect = "Int",
+  Stamina = "Sta", Spirit = "Spi",
+}
+function Engine.StatSummary(stats)
+  if not stats then return "" end
+  local norm = {}
+  for k, v in pairs(stats) do
+    if type(v) == "number" and v ~= 0 then
+      local canon = Engine.STAT_KEY[k] or k
+      norm[canon] = (norm[canon] or 0) + v
+    end
+  end
+  local parts = {}
+  for _, name in ipairs(STAT_ORDER) do
+    if norm[name] then parts[#parts + 1] = "+" .. norm[name] .. " " .. (STAT_ABBR[name] or name) end
+  end
+  return table.concat(parts, " ")
+end
+
 -- BuildItem(raw, info) -> schema item, or nil if not yet resolved / not gear.
 --   raw  = { id, sourceType, source }  (from JourneyAtlasData)
 --   info = { name, quality, reqLevel, ilvl, equipLoc, classID, subClassID, icon }
@@ -455,7 +487,7 @@ function Engine.BuildItem(raw, info)
     ilvl = info.ilvl,
     quality = Engine.QUALITY_NAME[info.quality] or "common",
     sourceType = raw.sourceType,
-    sourceLabel = raw.source,
+    sourceLabel = Engine.PrettySource(raw.source),
     slot = slot,
     armorType = Engine.ArmorTypeFromClass(info.classID, info.subClassID),
     icon = info.icon,

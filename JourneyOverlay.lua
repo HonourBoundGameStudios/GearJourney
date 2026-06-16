@@ -200,7 +200,10 @@ local function FillRow(row, item, playerLevel, hi)
   row.icon:SetTexture(item.icon or ("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest")))
   row.name:SetText(item.name)
   row.name:SetTextColor(qc[1], qc[2], qc[3])
-  row.sub:SetText((item.slot or "") .. "   " .. (item.sourceType or "") .. ": " .. (item.sourceLabel or ""))
+  local line = (item.slot or "") .. "   " .. (item.sourceType or "") .. ": " .. (item.sourceLabel or "")
+  local summary = TitanJourney_Engine and TitanJourney_Engine.StatSummary(item.stats) or ""
+  if summary ~= "" then line = line .. "   |cff9d9d9d" .. summary .. "|r" end
+  row.sub:SetText(line)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
 end
