@@ -172,6 +172,16 @@ local function CreateRow(parent)
   local row = CreateFrame("Frame", nil, parent)
   row:SetHeight(ROW_H)
 
+  -- Hover shows the real Blizzard item tooltip (FEAT-C10).
+  row:EnableMouse(true)
+  row:SetScript("OnEnter", function(self)
+    if not self.itemID then return end
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    GameTooltip:SetHyperlink("item:" .. self.itemID)
+    GameTooltip:Show()
+  end)
+  row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
   row.border = row:CreateTexture(nil, "ARTWORK")
   row.border:SetSize(ICON + 4, ICON + 4)
   row.border:SetPoint("LEFT", 2, 0)
@@ -198,6 +208,7 @@ local function CreateRow(parent)
 end
 
 local function FillRow(row, item, playerLevel, hi)
+  row.itemID = item.itemID  -- for the hover tooltip (FEAT-C10)
   local qc = QUALITY_COLOR[item.quality] or QUALITY_COLOR.common
   SetSolid(row.border, qc[1], qc[2], qc[3])
   -- Real item icon once enriched (FEAT-E2); paper-doll slot art as a fallback.
