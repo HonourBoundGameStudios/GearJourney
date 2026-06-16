@@ -198,7 +198,9 @@ function Engine.BuildButtonText(items, level, range, pinned)
   if goal == nil then
     return "Next Goal:", "None in range"
   end
-  return "Next Goal:", goal.name .. " (Lv. " .. goal.reqLevel .. ")"
+  local proximity = Engine.ProximityLabel(goal.reqLevel, level)
+  return "Next Goal:",
+    goal.name .. " (Lv. " .. goal.reqLevel .. ") - " .. proximity
 end
 
 -- Publish for the WoW client (global by contract); return for standalone use.
