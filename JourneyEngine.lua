@@ -279,6 +279,131 @@ function Engine.BestPerSlot(items)
   return out
 end
 
+-- Spec-aware stat weighting (quality of suggestions). ----------------------
+--
+-- Per class, per talent-tab order (1..3), a weight over the primary stats that
+-- GetItemStats exposes in Classic (Agility/Strength/Intellect/Spirit/Stamina).
+-- Derived from Classic stat-priority guidance: prioritise the spec's primary
+-- attribute, value Stamina/Spirit for leveling survivability and downtime.
+-- Weapons carry no primary stats here, so weapon slots fall back to item level.
+Engine.CLASS_SPEC_WEIGHTS = {
+  WARRIOR = {
+    { Strength = 1.0, Agility = 0.5, Stamina = 0.5, Spirit = 0.15 }, -- Arms
+    { Strength = 1.0, Agility = 0.6, Stamina = 0.5, Spirit = 0.15 }, -- Fury
+    { Stamina = 1.0, Strength = 0.6, Agility = 0.5, Spirit = 0.10 }, -- Protection
+  },
+  PALADIN = {
+    { Intellect = 1.0, Spirit = 0.7, Stamina = 0.5 },               -- Holy
+    { Stamina = 1.0, Strength = 0.6, Intellect = 0.4, Agility = 0.4 }, -- Protection
+    { Strength = 1.0, Agility = 0.5, Stamina = 0.5, Intellect = 0.3 }, -- Retribution
+  },
+  HUNTER = {
+    { Agility = 1.0, Stamina = 0.5, Intellect = 0.4, Strength = 0.2, Spirit = 0.15 }, -- Beast Mastery
+    { Agility = 1.0, Stamina = 0.5, Intellect = 0.4, Strength = 0.2, Spirit = 0.15 }, -- Marksmanship
+    { Agility = 1.0, Stamina = 0.5, Intellect = 0.4, Strength = 0.2, Spirit = 0.15 }, -- Survival
+  },
+  ROGUE = {
+    { Agility = 1.0, Stamina = 0.5, Strength = 0.4 }, -- Assassination
+    { Agility = 1.0, Stamina = 0.5, Strength = 0.4 }, -- Combat
+    { Agility = 1.0, Stamina = 0.5, Strength = 0.4 }, -- Subtlety
+  },
+  PRIEST = {
+    { Intellect = 1.0, Spirit = 0.7, Stamina = 0.5 }, -- Discipline
+    { Intellect = 1.0, Spirit = 0.7, Stamina = 0.5 }, -- Holy
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 }, -- Shadow
+  },
+  SHAMAN = {
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 },                 -- Elemental
+    { Agility = 0.9, Strength = 0.7, Stamina = 0.6, Intellect = 0.4 }, -- Enhancement
+    { Intellect = 1.0, Spirit = 0.7, Stamina = 0.5 },                 -- Restoration
+  },
+  MAGE = {
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 }, -- Arcane
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 }, -- Fire
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 }, -- Frost
+  },
+  WARLOCK = {
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.6 }, -- Affliction
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.6 }, -- Demonology
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.6 }, -- Destruction
+  },
+  DRUID = {
+    { Intellect = 1.0, Spirit = 0.6, Stamina = 0.5 },                 -- Balance
+    { Agility = 0.9, Strength = 0.7, Stamina = 0.6, Intellect = 0.2 }, -- Feral
+    { Intellect = 1.0, Spirit = 0.7, Stamina = 0.5 },                 -- Restoration
+  },
+}
+
+-- GetItemStats keys -> canonical stat names used by the weight tables.
+Engine.STAT_KEY = {
+  ITEM_MOD_AGILITY_SHORT   = "Agility",
+  ITEM_MOD_STRENGTH_SHORT  = "Strength",
+  ITEM_MOD_INTELLECT_SHORT = "Intellect",
+  ITEM_MOD_STAMINA_SHORT   = "Stamina",
+  ITEM_MOD_SPIRIT_SHORT    = "Spirit",
+}
+
+-- WeightsFor(class, specIndex, mode) -> weight table or nil.
+--   class is the UnitClass token; specIndex is the talent-tab order (1..3).
+--   mode "pvp" raises Stamina for survivability; anything else is PvE.
+function Engine.WeightsFor(class, specIndex, mode)
+  local byClass = Engine.CLASS_SPEC_WEIGHTS[class]
+  if not byClass then return nil end
+  local base = byClass[specIndex or 1] or byClass[1]
+  if not base then return nil end
+  if mode == "pvp" then
+    local w = {}
+    for k, v in pairs(base) do w[k] = v end
+    w.Stamina = (w.Stamina or 0) + 0.4
+    return w
+  end
+  return base
+end
+
+-- ScoreItem(item, weights) -> number. Dot product of the item's stats with the
+-- spec weights; accepts both raw GetItemStats keys and canonical names. Items
+-- with no relevant stats (e.g. weapons) score 0 and fall back to ilvl ranking.
+function Engine.ScoreItem(item, weights)
+  if not weights then return 0 end
+  local stats = item and item.stats
+  if not stats then return 0 end
+  local total = 0
+  for k, v in pairs(stats) do
+    if type(v) == "number" then
+      local w = weights[Engine.STAT_KEY[k] or k]
+      if w then total = total + w * v end
+    end
+  end
+  return total
+end
+
+-- BestPerSlotScored(items, weights) -> new array
+--   Like BestPerSlot but ranks each slot by ScoreItem (ties: item level, then
+--   itemID). Sorted ascending by reqLevel. Input is not mutated.
+function Engine.BestPerSlotScored(items, weights)
+  local bySlot, scoreOf = {}, {}
+  for i = 1, #items do
+    local it = items[i]
+    local slot = it.slot or "?"
+    local sc = Engine.ScoreItem(it, weights)
+    local cur = bySlot[slot]
+    if cur == nil or sc > scoreOf[slot]
+       or (sc == scoreOf[slot] and betterByIlvl(it, cur)) then
+      bySlot[slot], scoreOf[slot] = it, sc
+    end
+  end
+
+  local out = {}
+  for _, it in pairs(bySlot) do out[#out + 1] = it end
+  table.sort(out, function(a, b)
+    if (a.reqLevel or 0) ~= (b.reqLevel or 0) then
+      return (a.reqLevel or 0) < (b.reqLevel or 0)
+    end
+    return (a.name or "") < (b.name or "")
+  end)
+  return out
+end
+
 -- Item enrichment (FEAT-E2): turn a raw {itemID,...} + GetItemInfo results into
 -- a schema item. Pure mapping so it is testable without the client. -----------
 
