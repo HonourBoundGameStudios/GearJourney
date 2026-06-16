@@ -8,4 +8,5 @@
 ## OptionalDeps:
 ## Dependencies: Titan
 
+JourneyEngine.lua
 TitanJourney.lua
