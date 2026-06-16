@@ -221,6 +221,12 @@ function Overlay.RenderCurrentGoals()
   end
   for i = #current + 1, #panel.rows do panel.rows[i]:Hide() end
 
+  -- Size the scroll child so the scrollbar/clipping cover all rows.
+  local childW = (panel.scroll and panel.scroll:GetWidth()) or 0
+  if childW < 10 then childW = 500 end
+  panel.listAnchor:SetWidth(childW)
+  panel.listAnchor:SetHeight(math.max(1, #current * (ROW_H + 4) + 8))
+
   panel.empty:SetShown(#current == 0)
   panel.sub:SetText(#current > 0 and ("Levels " .. level .. " \226\128\147 " .. hi) or "")
 end
@@ -265,18 +271,32 @@ local function BuildLayout(f)
     header:SetText(tab.label)
 
     if tab.key == "current" then
-      -- Level-range subtitle, a list anchor, and an empty-state line (FEAT-C5).
+      -- Level-range subtitle, a scrolling list, and an empty-state line (FEAT-C5).
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
       panel.sub = sub
 
-      local anchor = CreateFrame("Frame", nil, panel)
-      anchor:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
-      anchor:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -4, 4)
-      panel.listAnchor = anchor
+      -- ScrollFrame clips the rows to the window and gives a scrollbar; the rows
+      -- live on its scroll child so there can be far more than fit on screen.
+      local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+      scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 4)
+      scroll:EnableMouseWheel(true)
+      scroll:SetScript("OnMouseWheel", function(self, delta)
+        local step = (ROW_H + 4) * 3
+        local v = self:GetVerticalScroll() - delta * step
+        v = math.max(0, math.min(v, self:GetVerticalScrollRange()))
+        self:SetVerticalScroll(v)
+      end)
+      panel.scroll = scroll
+
+      local child = CreateFrame("Frame", nil, scroll)
+      child:SetSize(1, 1)
+      scroll:SetScrollChild(child)
+      panel.listAnchor = child
 
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
-      empty:SetPoint("TOPLEFT", anchor, "TOPLEFT", 2, -4)
+      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
       empty:SetText("No goals in range for your class.")
       empty:Hide()
       panel.empty = empty
@@ -345,7 +365,7 @@ function Overlay.Toggle()
   if frame:IsShown() then
     frame:Hide()
   else
-    Overlay.RenderCurrentGoals()  -- refresh against the current level/class
     frame:Show()
+    Overlay.RenderCurrentGoals()  -- after Show so scroll widths are valid
   end
 end
