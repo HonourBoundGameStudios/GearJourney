@@ -363,9 +363,25 @@ local function BuildLayout(f)
       empty:Hide()
       panel.empty = empty
     else
-      local body = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
-      body:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -12)
-      body:SetText("(coming soon)")
+      -- Settings (QUAL-5): PvE/PvP weighting toggle.
+      local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
+      local cb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+      cb:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 2, -16)
+      cb:SetChecked(mode == "pvp")
+      cb:SetScript("OnClick", function(self)
+        if TitanJourney_DB then TitanJourney_DB.SetMode(self:GetChecked() and "pvp" or "pve") end
+        Overlay.RenderCurrentGoals()
+      end)
+      local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      lbl:SetPoint("LEFT", cb, "RIGHT", 4, 0)
+      lbl:SetText("PvP weighting (favour Stamina for survivability)")
+
+      local note = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+      note:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 4, -14)
+      note:SetWidth(440)
+      note:SetJustifyH("LEFT")
+      note:SetText("PvE ranks gear by your spec's primary stats; PvP adds Stamina. "
+        .. "Changes apply to the Current Goals and Future Planner rankings.")
     end
 
     Overlay.panels[tab.key] = panel
