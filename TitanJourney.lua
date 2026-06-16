@@ -41,7 +41,7 @@ local function OnLoad(self)
         tooltipTitle = "TitanJourney",
         buttonTextFunction = TitanJourney_GetButtonText,
         tooltipTextFunction = TitanJourney_GetTooltipText,
-        icon = "Interface\\Icons\\INV_Misc_QuestionMark",
+        icon = "Interface\\Icons\\INV_Misc_Map_01",
         iconWidth = 16,
         controlVariables = {
             ShowIcon = true,
@@ -70,7 +70,14 @@ local function CreateTitanButton()
     window:RegisterEvent("PLAYER_ENTERING_WORLD")
     window:SetScript("OnShow", function(self) TitanPanelButton_OnShow(self) end)
     window:SetScript("OnEvent", function(self, event, ...) OnEvent(self, event, ...) end)
-    window:SetScript("OnClick", function(self, button) TitanPanelButton_OnClick(self, button) end)
+    window:SetScript("OnClick", function(self, button)
+        -- Left-click opens the Wishlist Manager; right-click keeps Titan's menu.
+        if button == "LeftButton" and TitanJourney_Overlay then
+            TitanJourney_Overlay.Toggle()
+        else
+            TitanPanelButton_OnClick(self, button)
+        end
+    end)
 end
 
 -- ## Dependencies: Titan in the .toc guarantees Titan loaded first, so TITAN_ID exists.

@@ -3,11 +3,12 @@
 ## Notes: Adds TitanJourney information to Titan Panel.
 ## Author: You
 ## Version: 1.0.0
-## IconTexture: Interface\Icons\INV_Misc_QuestionMark
+## IconTexture: Interface\Icons\INV_Misc_Map_01
 ## SavedVariables:
 ## OptionalDeps:
 ## Dependencies: Titan
 
 JourneyEngine.lua
 JourneyData.lua
+JourneyOverlay.lua
 TitanJourney.lua
