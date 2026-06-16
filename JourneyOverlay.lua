@@ -341,5 +341,10 @@ end
 -- Public: flip the window open/closed (wired to the Titan button's left-click).
 function Overlay.Toggle()
   CreateOverlay()
-  if frame:IsShown() then frame:Hide() else frame:Show() end
+  if frame:IsShown() then
+    frame:Hide()
+  else
+    Overlay.RenderCurrentGoals()  -- refresh against the current level/class
+    frame:Show()
+  end
 end
