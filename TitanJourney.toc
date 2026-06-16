@@ -13,5 +13,6 @@ JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
 JourneyProvider.lua
+JourneyTests.lua
 JourneyOverlay.lua
 TitanJourney.lua

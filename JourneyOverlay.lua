@@ -685,6 +685,25 @@ local function BuildLayout(f)
       note:SetJustifyH("LEFT")
       note:SetText("PvE ranks gear by your spec's primary stats; PvP adds Stamina. "
         .. "Changes apply to the Browse and Future Planner rankings.")
+
+      -- Dev/Test: run the engine smoke tests in-client (DEV-1).
+      local testBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+      testBtn:SetSize(110, 22)
+      testBtn:SetPoint("TOPLEFT", note, "BOTTOMLEFT", -2, -24)
+      testBtn:SetText("Run Tests")
+      local result = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      result:SetPoint("LEFT", testBtn, "RIGHT", 10, 0)
+      result:SetText("|cff888888engine self-test|r")
+      testBtn:SetScript("OnClick", function()
+        if not TitanJourney_Tests then return end
+        local p, fcount, fails = TitanJourney_Tests.Run()
+        if fcount == 0 then
+          result:SetText(string.format("|cff33ff33%d passed, 0 failed|r", p))
+        else
+          result:SetText(string.format("|cffff5555%d passed, %d failed|r  %s",
+            p, fcount, table.concat(fails, ", ")))
+        end
+      end)
     end
 
     Overlay.panels[tab.key] = panel
