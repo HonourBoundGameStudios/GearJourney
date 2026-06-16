@@ -5,8 +5,15 @@ local TITAN_BUTTON_NAME = "TitanPanel" .. ADDON_ID .. "Button"
 local VERSION = "1.0.0"
 
 -- Button text: return (label, value). Global by contract — Titan stores the reference.
+-- Thin wiring only: pull the player level from the client and delegate the
+-- formatting to the pure engine (FEAT-B1, tested offline).
 function TitanJourney_GetButtonText(id)
-    return "TitanJourney:", "—"
+    local engine, items = TitanJourney_Engine, TitanJourney_Items
+    if not (engine and items) then
+        return "Next Goal:", "—"
+    end
+    local level = (UnitLevel and UnitLevel("player")) or 1
+    return engine.BuildButtonText(items, level)
 end
 
 -- Tooltip body shown on hover.

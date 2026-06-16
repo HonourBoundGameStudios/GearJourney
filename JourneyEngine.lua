@@ -188,6 +188,19 @@ function Engine.ProximityLabel(reqLevel, playerLevel)
   end
 end
 
+-- BuildButtonText(items, level, range, pinned) -> label, value
+--   The Titan button's two-part text. `label` is constant; `value` names the
+--   default next goal as "<name> (Lv. <req>)", or "None in range" when no
+--   unpinned goal sits in the lookahead window. Pure: the caller supplies the
+--   player level (UnitLevel) and item list, so this is fully offline-testable.
+function Engine.BuildButtonText(items, level, range, pinned)
+  local goal = Engine.GetNextGoal(items, level, range, pinned)
+  if goal == nil then
+    return "Next Goal:", "None in range"
+  end
+  return "Next Goal:", goal.name .. " (Lv. " .. goal.reqLevel .. ")"
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
