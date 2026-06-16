@@ -34,6 +34,33 @@ function DB.TogglePin(name)
   return d.pinnedName
 end
 
+-- Journey List (ordered list of item names) -- FEAT-F2 ---------------------
+function DB.Journey()
+  local d = DB.Get()
+  d.journey = d.journey or {}
+  return d.journey
+end
+
+function DB.JourneyContains(name)
+  for _, n in ipairs(DB.Journey()) do if n == name then return true end end
+  return false
+end
+
+function DB.JourneyAdd(name)
+  if name and not DB.JourneyContains(name) then table.insert(DB.Journey(), name) end
+end
+
+function DB.JourneyRemove(name)
+  local j = DB.Journey()
+  for i = #j, 1, -1 do if j[i] == name then table.remove(j, i) end end
+end
+
+-- Toggle membership; returns true if now present, false if removed.
+function DB.JourneyToggle(name)
+  if DB.JourneyContains(name) then DB.JourneyRemove(name); return false end
+  DB.JourneyAdd(name); return true
+end
+
 -- Enriched-item cache (itemID -> schema item) ------------------------------
 function DB.Cache() return DB.Get().itemCache end
 function DB.CachePut(item) if item and item.itemID then DB.Get().itemCache[item.itemID] = item end end

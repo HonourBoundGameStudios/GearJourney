@@ -197,6 +197,36 @@ function Engine.FindByName(items, name)
   return nil
 end
 
+-- NextJourneyGoal(items, journeyNames, level) -> item or nil
+--   The next item to chase from the player's Journey List: the lowest-reqLevel
+--   journey item at or above the player's level; if all are out-levelled, the
+--   highest-reqLevel one. `journeyNames` is an array of item names. Deterministic
+--   (name tie-break). Returns nil when no journey item is present in `items`.
+function Engine.NextJourneyGoal(items, journeyNames, level)
+  local set = {}
+  if type(journeyNames) == "table" then
+    for _, n in ipairs(journeyNames) do set[n] = true end
+  end
+
+  local upcoming, fallback
+  for i = 1, #items do
+    local it = items[i]
+    if set[it.name] then
+      if it.reqLevel >= level then
+        if not upcoming or it.reqLevel < upcoming.reqLevel
+           or (it.reqLevel == upcoming.reqLevel and it.name < upcoming.name) then
+          upcoming = it
+        end
+      end
+      if not fallback or it.reqLevel > fallback.reqLevel
+         or (it.reqLevel == fallback.reqLevel and it.name < fallback.name) then
+        fallback = it
+      end
+    end
+  end
+  return upcoming or fallback
+end
+
 -- BuildButtonText(items, level, range, pinnedName) -> label, value
 --   The Titan button's two-part text. `label` is constant; `value` names the
 --   default next goal as "<name> (Lv. <req>)", or "None in range" when no
