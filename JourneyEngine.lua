@@ -246,6 +246,64 @@ function Engine.FilterByClass(items, class)
   return kept
 end
 
+-- Item enrichment (FEAT-E2): turn a raw {itemID,...} + GetItemInfo results into
+-- a schema item. Pure mapping so it is testable without the client. -----------
+
+-- Blizzard item quality id -> our quality string.
+Engine.QUALITY_NAME = {
+  [0] = "poor", [1] = "common", [2] = "uncommon",
+  [3] = "rare", [4] = "epic", [5] = "legendary",
+}
+
+-- Armor item subclass id -> armor type. classID 4 is Armor; only subclasses
+-- 1..4 are class-restricted, the rest (necks, rings, cloaks, shields...) are
+-- neutral and shown to everyone.
+local ARMOR_SUBCLASS = { [1] = "Cloth", [2] = "Leather", [3] = "Mail", [4] = "Plate" }
+
+function Engine.ArmorTypeFromClass(classID, subClassID)
+  if classID == 4 then return ARMOR_SUBCLASS[subClassID] end
+  return nil  -- weapons and non-armor are neutral
+end
+
+-- Equip location -> display slot. Membership also acts as the "is this gear we
+-- list?" filter: equipLocs absent here (shirts, tabards, bags, ammo, quivers,
+-- consumables with equipLoc "") are dropped.
+Engine.EQUIPLOC_SLOT = {
+  INVTYPE_HEAD = "Head", INVTYPE_NECK = "Neck", INVTYPE_SHOULDER = "Shoulder",
+  INVTYPE_CHEST = "Chest", INVTYPE_ROBE = "Chest", INVTYPE_WAIST = "Waist",
+  INVTYPE_LEGS = "Legs", INVTYPE_FEET = "Feet", INVTYPE_WRIST = "Wrist",
+  INVTYPE_HAND = "Hands", INVTYPE_FINGER = "Finger", INVTYPE_TRINKET = "Trinket",
+  INVTYPE_CLOAK = "Back",
+  INVTYPE_WEAPON = "Main Hand", INVTYPE_WEAPONMAINHAND = "Main Hand",
+  INVTYPE_2HWEAPON = "Two-Hand",
+  INVTYPE_WEAPONOFFHAND = "Off Hand", INVTYPE_HOLDABLE = "Off Hand",
+  INVTYPE_SHIELD = "Off Hand",
+  INVTYPE_RANGED = "Ranged", INVTYPE_RANGEDRIGHT = "Ranged",
+  INVTYPE_THROWN = "Ranged", INVTYPE_RELIC = "Relic",
+}
+
+-- BuildItem(raw, info) -> schema item, or nil if not yet resolved / not gear.
+--   raw  = { id, sourceType, source }  (from JourneyAtlasData)
+--   info = { name, quality, reqLevel, ilvl, equipLoc, classID, subClassID, icon }
+--          (assembled by the WoW provider from GetItemInfo[Instant]).
+function Engine.BuildItem(raw, info)
+  if not info or not info.name then return nil end          -- not cached yet
+  local slot = Engine.EQUIPLOC_SLOT[info.equipLoc or ""]
+  if not slot then return nil end                            -- not gear we list
+  return {
+    itemID = raw.id,
+    name = info.name,
+    reqLevel = info.reqLevel or 1,
+    ilvl = info.ilvl,
+    quality = Engine.QUALITY_NAME[info.quality] or "common",
+    sourceType = raw.sourceType,
+    sourceLabel = raw.source,
+    slot = slot,
+    armorType = Engine.ArmorTypeFromClass(info.classID, info.subClassID),
+    icon = info.icon,
+  }
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
