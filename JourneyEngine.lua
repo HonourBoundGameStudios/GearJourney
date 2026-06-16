@@ -76,6 +76,30 @@ function Engine.ValidateItem(item)
   return true
 end
 
+-- Default lookahead window (levels ahead of the player) when none is given.
+Engine.DEFAULT_RANGE = 10
+
+-- GetGoalsForLevel(items, level, range) -> new array
+--   Returns the items whose reqLevel falls in the inclusive window
+--   [level, level + range], sorted ascending by reqLevel. `range` defaults to
+--   Engine.DEFAULT_RANGE. The caller's `items` table is never mutated.
+function Engine.GetGoalsForLevel(items, level, range)
+  range = range or Engine.DEFAULT_RANGE
+  local hi = level + range
+
+  local goals = {}
+  for i = 1, #items do
+    local item = items[i]
+    local r = item.reqLevel
+    if r >= level and r <= hi then
+      goals[#goals + 1] = item
+    end
+  end
+
+  table.sort(goals, function(a, b) return a.reqLevel < b.reqLevel end)
+  return goals
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
