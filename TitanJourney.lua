@@ -15,7 +15,8 @@ function TitanJourney_GetButtonText(id)
     local level = (UnitLevel and UnitLevel("player")) or 1
     local _, class = UnitClass("player")               -- e.g. "ROGUE"
     items = engine.FilterByClass(items, class)         -- skin to the player's class
-    return engine.BuildButtonText(items, level)
+    local pinnedName = TitanJourney_DB and TitanJourney_DB.Pin()
+    return engine.BuildButtonText(items, level, nil, pinnedName)
 end
 
 -- Tooltip body shown on hover.

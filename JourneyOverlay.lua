@@ -188,8 +188,12 @@ local function CreateRow(parent)
   row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
   row.sub:SetJustifyH("LEFT")
 
+  row.pin = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+  row.pin:SetSize(58, 20)
+  row.pin:SetPoint("RIGHT", -8, 0)
+
   row.level = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  row.level:SetPoint("RIGHT", -10, 0)
+  row.level:SetPoint("RIGHT", row.pin, "LEFT", -12, 0)
   return row
 end
 
@@ -206,6 +210,15 @@ local function FillRow(row, item, playerLevel, hi)
   row.sub:SetText(line)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
+
+  -- Pin toggle (FEAT-C7): one pinned item, surfaced on the Titan button.
+  local pinned = TitanJourney_DB and TitanJourney_DB.Pin() == item.name
+  row.pin:SetText(pinned and "Pinned" or "Pin")
+  row.pin:SetScript("OnClick", function()
+    if TitanJourney_DB then TitanJourney_DB.TogglePin(item.name) end
+    if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+    Overlay.RenderCurrentGoals()
+  end)
 end
 
 -- Render the player's class-filtered Current-Goals into the current panel.
