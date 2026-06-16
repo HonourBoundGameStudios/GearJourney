@@ -158,6 +158,8 @@ function Overlay.SelectTab(key)
   for k, panel in pairs(Overlay.panels) do
     panel:SetShown(k == key)
   end
+  -- The source/lookahead bar applies to the list tabs only.
+  if Overlay.controlBar then Overlay.controlBar:SetShown(key ~= "settings") end
 end
 
 -- Item-row visuals (FEAT-C4/C5). ------------------------------------------
@@ -257,13 +259,16 @@ function Overlay.ComputeList(bucket)
   local level = (UnitLevel and UnitLevel("player")) or 1
   if not (engine and items) then return {}, level, level end
   local _, class = UnitClass("player")
-  local range = engine.DEFAULT_RANGE
+  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
   local hi = level + range
   local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
   local weights = engine.WeightsFor(class, PlayerSpecIndex(), mode)
 
-  -- Only suggest upgrades the player can use AND doesn't already own.
-  local usable = engine.FilterOwned(engine.FilterByClass(items, class, level), Overlay.PlayerOwnsFn())
+  -- Filter by enabled sources, then to usable-by-class, then drop owned items.
+  local enabled = TitanJourney_DB and TitanJourney_DB.Sources()
+  local usable = engine.FilterOwned(
+    engine.FilterByClass(engine.FilterBySource(items, enabled), class, level),
+    Overlay.PlayerOwnsFn())
   local cur, fut = engine.SplitGoals(usable, level, range)
   local list = cur
   if bucket == "future" then
@@ -318,6 +323,55 @@ function Overlay.RenderCurrentGoals()
   Overlay.RenderTab("future")
 end
 
+-- Bottom control bar shared by the list tabs (FEAT-C8/C9): source-filter
+-- checkboxes + a lookahead slider, both persisted and re-rendering live.
+local SOURCE_FILTERS = { "Crafted", "Dungeon", "Faction", "PvP" }
+
+local function BuildControlBar(content, topLevel)
+  local bar = CreateFrame("Frame", nil, content)
+  bar:SetHeight(34)
+  bar:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 2, 2)
+  bar:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -2, 2)
+  bar:SetFrameLevel(topLevel)
+  Overlay.controlBar = bar
+
+  local x = 4
+  for _, key in ipairs(SOURCE_FILTERS) do
+    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+    cb:SetSize(22, 22)
+    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
+    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Sources()[key] == false))
+    cb:SetScript("OnClick", function(self)
+      if TitanJourney_DB then TitanJourney_DB.Sources()[key] = self:GetChecked() and true or false end
+      Overlay.RenderCurrentGoals()
+    end)
+    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
+    lbl:SetText(key)
+    x = x + 84
+  end
+
+  -- Lookahead slider (1..15) on the right.
+  local start = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  local slider = CreateFrame("Slider", "TitanJourneyLookSlider", bar, "OptionsSliderTemplate")
+  slider:SetWidth(130)
+  slider:SetPoint("RIGHT", bar, "RIGHT", -12, 0)
+  slider:SetMinMaxValues(1, 15)
+  slider:SetValueStep(1)
+  if slider.SetObeyStepOnDrag then slider:SetObeyStepOnDrag(true) end
+  slider:SetValue(start)
+  _G["TitanJourneyLookSliderLow"]:SetText("1")
+  _G["TitanJourneyLookSliderHigh"]:SetText("15")
+  local txt = _G["TitanJourneyLookSliderText"]
+  txt:SetText("Lookahead +" .. start)
+  slider:SetScript("OnValueChanged", function(self, v)
+    v = math.floor(v + 0.5)
+    txt:SetText("Lookahead +" .. v)
+    if TitanJourney_DB then TitanJourney_DB.SetLookahead(v) end
+    Overlay.RenderCurrentGoals()
+  end)
+end
+
 -- Build the left tab column and the matching content panels.
 local function BuildLayout(f)
   Overlay.tabButtons = {}
@@ -367,7 +421,7 @@ local function BuildLayout(f)
       -- live on its scroll child so there can be far more than fit on screen.
       local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
       scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 4)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)  -- room for control bar
       scroll:EnableMouseWheel(true)
       scroll:SetScript("OnMouseWheel", function(self, delta)
         local step = (ROW_H + 4) * 3
@@ -412,6 +466,7 @@ local function BuildLayout(f)
     Overlay.panels[tab.key] = panel
   end
 
+  BuildControlBar(content, topLevel)
   Overlay.RenderCurrentGoals()
   Overlay.SelectTab(Overlay.activeTab or "current")
 end

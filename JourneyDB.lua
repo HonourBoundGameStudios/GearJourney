@@ -24,6 +24,15 @@ function DB.Get() return TitanJourneyDB or DB.Init() end
 function DB.Mode() return DB.Get().settings.mode or "pve" end
 function DB.SetMode(mode) DB.Get().settings.mode = mode end
 
+-- Source filters + lookahead (FEAT-C8/C9) ----------------------------------
+function DB.Sources()
+  local s = DB.Get().settings
+  s.sources = s.sources or { Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true }
+  return s.sources
+end
+function DB.Lookahead() return DB.Get().settings.lookahead or 10 end
+function DB.SetLookahead(n) DB.Get().settings.lookahead = n end
+
 -- Pinned item (single, by name) --------------------------------------------
 function DB.Pin() return DB.Get().pinnedName end
 function DB.SetPin(name) DB.Get().pinnedName = name end
