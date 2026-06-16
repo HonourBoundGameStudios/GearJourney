@@ -13,6 +13,8 @@ function TitanJourney_GetButtonText(id)
         return "Next Goal:", "—"
     end
     local level = (UnitLevel and UnitLevel("player")) or 1
+    local _, class = UnitClass("player")               -- e.g. "ROGUE"
+    items = engine.FilterByClass(items, class)         -- skin to the player's class
     return engine.BuildButtonText(items, level)
 end
 
