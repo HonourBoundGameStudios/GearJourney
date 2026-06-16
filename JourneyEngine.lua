@@ -203,6 +203,49 @@ function Engine.BuildButtonText(items, level, range, pinned)
     goal.name .. " (Lv. " .. goal.reqLevel .. ") - " .. proximity
 end
 
+-- Armor categories that are class-restricted; anything else (weapons, rings,
+-- necks, trinkets, cloaks...) is "neutral" and shown to every class.
+Engine.ARMOR_TYPES = { Cloth = true, Leather = true, Mail = true, Plate = true }
+
+-- The armor type(s) each class should chase while leveling (Classic Era).
+-- Hunters/Shamans wear Mail from 40 but Leather before, so both are allowed;
+-- likewise Plate for Warrior/Paladin. Weapon-proficiency filtering is a future
+-- refinement -- for now all weapons pass through as neutral.
+Engine.CLASS_ARMOR = {
+  WARRIOR = { Mail = true, Plate = true },
+  PALADIN = { Mail = true, Plate = true },
+  HUNTER  = { Leather = true, Mail = true },
+  SHAMAN  = { Leather = true, Mail = true },
+  ROGUE   = { Leather = true },
+  DRUID   = { Leather = true },
+  MAGE    = { Cloth = true },
+  PRIEST  = { Cloth = true },
+  WARLOCK = { Cloth = true },
+}
+
+-- FilterByClass(items, class) -> new array
+--   Keeps armor whose armorType matches the class's preference, plus all
+--   neutral items (no armorType, or a non-armor slot). `class` is the uppercase
+--   token from UnitClass (e.g. "ROGUE"). An unknown or nil class means "no
+--   filtering" (pass-through). Order preserved; input not mutated.
+function Engine.FilterByClass(items, class)
+  local pref = class and Engine.CLASS_ARMOR[class]
+  if not pref then
+    local copy = {}
+    for i = 1, #items do copy[i] = items[i] end
+    return copy
+  end
+
+  local kept = {}
+  for i = 1, #items do
+    local at = items[i].armorType
+    if at == nil or not Engine.ARMOR_TYPES[at] or pref[at] then
+      kept[#kept + 1] = items[i]
+    end
+  end
+  return kept
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 TitanJourney_Engine = Engine
 return Engine
