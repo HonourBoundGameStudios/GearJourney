@@ -234,25 +234,69 @@ Engine.CLASS_ARMOR = {
   WARLOCK = { Cloth = true },
 }
 
--- FilterByClass(items, class) -> new array
---   Keeps armor whose armorType matches the class's preference, plus all
---   neutral items (no armorType, or a non-armor slot). `class` is the uppercase
---   token from UnitClass (e.g. "ROGUE"). An unknown or nil class means "no
---   filtering" (pass-through). Order preserved; input not mutated.
-function Engine.FilterByClass(items, class)
+-- Weapon proficiency by class (item class 2; weapon subclass ids: 0 Axe1H,
+-- 1 Axe2H, 2 Bow, 3 Gun, 4 Mace1H, 5 Mace2H, 6 Polearm, 7 Sword1H, 8 Sword2H,
+-- 10 Staff, 13 Fist, 15 Dagger, 16 Thrown, 18 Crossbow, 19 Wand).
+local W = function(...) local t = {} for _, id in ipairs({ ... }) do t[id] = true end return t end
+Engine.WEAPON_PROF = {
+  WARRIOR = W(0,1,4,5,6,7,8,10,13,15,2,3,18,16),
+  PALADIN = W(0,1,4,5,6,7,8),
+  HUNTER  = W(0,1,6,7,8,10,13,15,2,3,18,16),
+  ROGUE   = W(0,4,7,13,15,2,3,18,16),
+  PRIEST  = W(4,10,15,19),
+  SHAMAN  = W(0,1,4,5,10,13,15),
+  MAGE    = W(7,10,15,19),
+  WARLOCK = W(7,10,15,19),
+  DRUID   = W(4,5,6,10,13,15),
+}
+
+-- Mail/Plate are only wearable from level 40 (and only by certain classes).
+local MAIL_AT_40 = { HUNTER = true, SHAMAN = true }
+function Engine.ArmorWearableAtLevel(class, armorType, level)
+  if not level then return true end             -- no level known -> don't gate
+  if armorType == "Plate" then return level >= 40 end
+  if armorType == "Mail" and MAIL_AT_40[class] then return level >= 40 end
+  return true
+end
+
+function Engine.CanUseWeapon(class, subClassID)
+  if subClassID == nil then return true end
+  local prof = Engine.WEAPON_PROF[class]
+  if not prof then return true end
+  return prof[subClassID] == true
+end
+
+-- CanUse(item, class, level) -> bool. Combines armor preference + level gate +
+-- weapon proficiency + shield restriction; neutral items (jewelry, cloaks) pass.
+function Engine.CanUse(item, class, level)
   local pref = class and Engine.CLASS_ARMOR[class]
-  if not pref then
+  if not pref then return true end              -- unknown class -> allow all
+  local at = item.armorType
+  if at and Engine.ARMOR_TYPES[at] then
+    if not pref[at] then return false end        -- not this class's armor type
+    return Engine.ArmorWearableAtLevel(class, at, level)
+  end
+  local cid, sid = item.itemClassID, item.itemSubClassID
+  if cid == 2 then return Engine.CanUseWeapon(class, sid) end
+  if cid == 4 and sid == 6 then                  -- shield
+    return class == "WARRIOR" or class == "PALADIN" or class == "SHAMAN"
+  end
+  return true                                    -- necks/rings/trinkets/cloaks
+end
+
+-- FilterByClass(items, class, level) -> new array
+--   Keeps only items the class can actually use: preferred armor type (and
+--   wearable at `level`), weapons within proficiency, plus neutral jewelry/
+--   cloaks. Unknown/nil class = pass-through. Order preserved; not mutated.
+function Engine.FilterByClass(items, class, level)
+  if not (class and Engine.CLASS_ARMOR[class]) then
     local copy = {}
     for i = 1, #items do copy[i] = items[i] end
     return copy
   end
-
   local kept = {}
   for i = 1, #items do
-    local at = items[i].armorType
-    if at == nil or not Engine.ARMOR_TYPES[at] or pref[at] then
-      kept[#kept + 1] = items[i]
-    end
+    if Engine.CanUse(items[i], class, level) then kept[#kept + 1] = items[i] end
   end
   return kept
 end
@@ -501,6 +545,8 @@ function Engine.BuildItem(raw, info)
     sourceLabel = Engine.PrettySource(raw.source),
     slot = slot,
     armorType = Engine.ArmorTypeFromClass(info.classID, info.subClassID),
+    itemClassID = info.classID,        -- for weapon-proficiency / shield checks
+    itemSubClassID = info.subClassID,
     icon = info.icon,
     stats = info.stats,   -- GetItemStats table, for spec scoring
   }
