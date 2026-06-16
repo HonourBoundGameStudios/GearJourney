@@ -48,4 +48,16 @@ local armor = {
 H.eq(names(Engine.FilterByClass(armor, "ROGUE")), "LeatherGlv,Amulet,Ring",
      "rogue still keeps leather + neutral, drops cloth")
 
+-- Hard class restriction ("Classes: Shaman" mail must not reach a Paladin).
+local nameToToken = { Paladin = "PALADIN", Warrior = "WARRIOR", Shaman = "SHAMAN" }
+H.ok(Engine.ClassSetFromNames("Shaman", nameToToken).SHAMAN, "parses single class")
+H.ok(Engine.ClassSetFromNames("Paladin, Warrior", nameToToken).WARRIOR, "parses class list")
+H.eq(Engine.ClassSetFromNames("", nameToToken), nil, "empty -> nil")
+
+local shamanMail = { name = "Totem Mail", armorType = "Mail", classes = { SHAMAN = true } }
+H.ok(not Engine.CanUse(shamanMail, "PALADIN", 45), "Shaman-only mail not usable by a Paladin")
+H.ok(Engine.CanUse(shamanMail, "SHAMAN", 45), "Shaman-only mail usable by a Shaman")
+H.ok(Engine.CanUse({ name = "Plain Mail", armorType = "Mail" }, "PALADIN", 45),
+     "unrestricted mail still usable by a Paladin")
+
 H.done()

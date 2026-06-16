@@ -296,11 +296,27 @@ function Engine.CanUseWeapon(class, subClassID)
   return prof[subClassID] == true
 end
 
--- CanUse(item, class, level) -> bool. Combines armor preference + level gate +
--- weapon proficiency + shield restriction; neutral items (jewelry, cloaks) pass.
+-- ClassSetFromNames(body, nameToToken) -> set of class tokens or nil.
+--   Parses a tooltip "Classes:" list ("Paladin, Warrior") into { PALADIN=true,
+--   WARRIOR=true } using a localized-name -> token map.
+function Engine.ClassSetFromNames(body, nameToToken)
+  if not body or body == "" or not nameToToken then return nil end
+  local set = {}
+  for name in body:gmatch("[^,]+") do
+    name = name:gsub("^%s+", ""):gsub("%s+$", "")
+    local token = nameToToken[name] or nameToToken[name:lower()]
+    if token then set[token] = true end
+  end
+  return next(set) and set or nil
+end
+
+-- CanUse(item, class, level) -> bool. Combines class restriction + armor
+-- preference + level gate + weapon proficiency + shield; neutral items pass.
 function Engine.CanUse(item, class, level)
   local pref = class and Engine.CLASS_ARMOR[class]
   if not pref then return true end              -- unknown class -> allow all
+  -- Hard class restriction from the tooltip ("Classes: Shaman" etc).
+  if item.classes and not item.classes[class] then return false end
   local at = item.armorType
   if at and Engine.ARMOR_TYPES[at] then
     if not pref[at] then return false end        -- not this class's armor type
@@ -577,6 +593,7 @@ function Engine.BuildItem(raw, info)
     armorType = Engine.ArmorTypeFromClass(info.classID, info.subClassID),
     itemClassID = info.classID,        -- for weapon-proficiency / shield checks
     itemSubClassID = info.subClassID,
+    classes = info.classes,            -- tooltip "Classes:" restriction, or nil
     icon = info.icon,
     stats = info.stats,   -- GetItemStats table, for spec scoring
   }
