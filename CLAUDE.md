@@ -2,9 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview",
-  and prepends the standard CLAUDE.md header. Edit the project's CLAUDE.md after creation.
--->
+> **Locating a fleet project** 🧭 — fleet projects are registered in the flagship's `Orchestrai/Process/orchestration.json` (name → path); when the Admiral names a tracked ship, resolve its path there — don't ask. A full path is supplied only for a project NOT in the fleet (e.g. a Commission); if a named project isn't registered, say so and ask for its path.
 
 ## Project Overview
 
