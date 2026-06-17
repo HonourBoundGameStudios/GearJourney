@@ -665,6 +665,22 @@ function Overlay.SelectDungeon(label)
   Overlay.RenderBrowse()
 end
 
+-- AtlasLoot integration (EPIC-I): detect the addon, and open its window on
+-- demand. Deep-selection to a specific instance is a later spike; for now we
+-- just surface the window (stable, public API).
+local function HasAtlasLoot()
+  local loaded = (C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded)
+  return loaded and loaded("AtlasLootClassic") and _G.AtlasLoot ~= nil
+end
+function Overlay.OpenAtlasLoot()
+  if not HasAtlasLoot() then return end
+  pcall(function()
+    local gui = _G.AtlasLoot.GUI
+    if gui and gui.frame and gui.frame:IsShown() then return end
+    if gui and gui.Toggle then gui:Toggle() end
+  end)
+end
+
 -- Initials abbreviation for a dungeon label, e.g. "Shadowfang Keep" -> "SFK".
 local function DungeonAbbrev(label)
   local engine = TitanJourney_Engine
@@ -737,10 +753,17 @@ local function RenderDungeonBar(panel, class, level)
       GameTooltip:SetOwner(self, "ANCHOR_TOP")
       GameTooltip:SetText(engine.PrettySource(label))
       GameTooltip:AddLine(counts[label] .. " upgrade(s) in range", 0.6, 0.9, 0.6)
+      GameTooltip:AddLine("Left-click: filter to this dungeon", 0.8, 0.8, 0.8)
+      if HasAtlasLoot() then
+        GameTooltip:AddLine("Right-click: open AtlasLoot", 0.8, 0.8, 0.8)
+      end
       GameTooltip:Show()
     end)
     b:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    b:SetScript("OnClick", function() Overlay.SelectDungeon(label) end)
+    b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    b:SetScript("OnClick", function(self, button)
+      if button == "RightButton" then Overlay.OpenAtlasLoot() else Overlay.SelectDungeon(label) end
+    end)
     b:ClearAllPoints(); b:SetPoint("LEFT", bar, "LEFT", x, 0)
     x = x + 28
     if Overlay.dungeonFilter == label then b:LockHighlight() else b:UnlockHighlight() end

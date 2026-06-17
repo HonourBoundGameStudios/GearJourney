@@ -46,6 +46,22 @@ local Rogue = {
   { id = 6622,  name = "Sword of Zeal" },
   { id = 22384, name = "Persuader" },
 
+  -- Low-level fillers (bands 1-10 / 11-15) so the early game isn't empty -------
+  { id = 727,   name = "Notched Shortsword" },
+  { id = 2282,  name = "Rodentia Shortsword" },
+  { id = 2488,  name = "Gladius" },
+  { id = 4971,  name = "Skorn's Hammer" },
+  { id = 4948,  name = "Stinging Mace" },
+  { id = 3223,  name = "Frostmane Scepter" },
+  { id = 4932,  name = "Harpy Wing Clipper" },
+  { id = 5744,  name = "Pale Skinner" },
+  { id = 827,   name = "Wicked Blackjack" },
+  { id = 3462,  name = "Talonstrike" },
+  { id = 1219,  name = "Redridge Machete" },
+  { id = 6504,  name = "Wingblade" },
+  { id = 15335, name = "Briarsteel Shortsword" },
+  { id = 18957, name = "Brushwood Blade" },
+
   -- Ranged -------------------------------------------------------------------
   { id = 6469,  name = "Venomstrike" },
   { id = 13136, name = "Lil Timmy's Peashooter" },
