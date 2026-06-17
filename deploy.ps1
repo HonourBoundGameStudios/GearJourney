@@ -7,5 +7,6 @@ New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
 Copy-Item -Path "$source\*.lua" -Destination $dest -Force
 Copy-Item -Path "$source\*.toc" -Destination $dest -Force
+Copy-Item -Path "$source\Media" -Destination $dest -Recurse -Force
 
 Write-Host "Deployed to $dest"

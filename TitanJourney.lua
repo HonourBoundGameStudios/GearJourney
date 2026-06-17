@@ -2,7 +2,35 @@
 local _G = getfenv(0)
 local ADDON_ID = "Journey"                                  -- short id Titan keys plugin state on
 local TITAN_BUTTON_NAME = "TitanPanel" .. ADDON_ID .. "Button"
-local VERSION = "1.0.0"
+local VERSION = "0.9.0"
+
+-- Honour Bound Game Studios branding (About dialog + tooltip footer). ---------
+local Colors = {
+  LightGray = "|cffbbbbbb",
+  Gray      = "|cff595959",   -- subtle divider rule
+  Reset     = "|r",
+}
+-- ASCII hyphens only -- FRIZQT has no box-drawing glyphs (they render as TOFU).
+local TOOLTIP_RULE = Colors.Gray .. "------------------------------" .. Colors.Reset
+local HBGS_LOGO = "|TInterface\\AddOns\\TitanJourney\\Media\\HBGS-Logo:14:14|t "
+local HBGS_URL = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
+
+StaticPopupDialogs["JOURNEY_ABOUT"] = {
+  text = "Honour Bound Game Studios\nTitanJourney v" .. VERSION
+      .. "\n\nSelect and copy the link below (Ctrl-C):",
+  button1 = OKAY,
+  hasEditBox = true,
+  editBoxWidth = 350,
+  OnShow = function(self)
+    local editBox = self.editBox or (self.GetEditBox and self:GetEditBox())
+    editBox:SetText(HBGS_URL)
+    editBox:HighlightText()
+    editBox:SetFocus()
+  end,
+  EditBoxOnEnterPressed  = function(self) self:GetParent():Hide() end,
+  EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+  timeout = 0, whileDead = true, hideOnEscape = true, preferredIndex = 3,
+}
 
 -- Button text: return (label, value). Global by contract — Titan stores the reference.
 -- Thin wiring only: pull the player level from the client and delegate the
@@ -32,14 +60,25 @@ function TitanJourney_GetButtonText(id)
     return engine.BuildButtonText(list, level, nil, nil)
 end
 
--- Tooltip body shown on hover.
+-- Tooltip body shown on hover (vertical tooltip only -- never the bar text).
+-- Footer carries the studio brand, framed by ASCII rules.
 function TitanJourney_GetTooltipText()
-    return "Left-click to open the Journey manager.\nRight-click for options."
+    local body = "Left-click to open the Journey manager.\nRight-click for options."
+    local footer = HBGS_LOGO .. Colors.LightGray .. "Honour Bound Game Studios" .. Colors.Reset
+    return TOOLTIP_RULE .. "\n" .. body .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
 end
 
 -- Right-click dropdown menu (Titan's UIDropDownMenu scheme).
 local function PrepareMenu()
     TitanPanelRightClickMenu_AddTitle(TitanPlugins[ADDON_ID].menuText)
+
+    local info = {}
+    info.text = "About Honour Bound Game Studios"
+    info.func = function() StaticPopup_Show("JOURNEY_ABOUT") end
+    info.notCheckable = 1
+    TitanPanelRightClickMenu_AddButton(info)
+    TitanPanelRightClickMenu_AddSpacer()
+
     TitanPanelRightClickMenu_AddToggleIcon(ADDON_ID)
     TitanPanelRightClickMenu_AddToggleRightSide(ADDON_ID)
     TitanPanelRightClickMenu_AddSpacer()
