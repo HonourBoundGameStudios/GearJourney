@@ -110,9 +110,9 @@ local function OnLoad(self)
 end
 
 local function OnEvent(self, event, ...)
-    if event == "PLAYER_ENTERING_WORLD" then
-        TitanPanelButton_UpdateButton(ADDON_ID)
-    end
+    -- Refresh the button text on login and whenever the player's level changes
+    -- (the lookahead window shifts), so the next goal stays current (FEAT-B3).
+    TitanPanelButton_UpdateButton(ADDON_ID)
 end
 
 -- TitanWeaponSkills builds its frame in Lua rather than shipping an XML — same here.
@@ -123,6 +123,7 @@ local function CreateTitanButton()
     window:SetFrameStrata("FULLSCREEN")
     OnLoad(window)
     window:RegisterEvent("PLAYER_ENTERING_WORLD")
+    window:RegisterEvent("PLAYER_LEVEL_UP")
     window:SetScript("OnShow", function(self) TitanPanelButton_OnShow(self) end)
     window:SetScript("OnEvent", function(self, event, ...) OnEvent(self, event, ...) end)
     window:SetScript("OnClick", function(self, button)
