@@ -22,7 +22,11 @@ QUALITY = {
 }
 SKIP_SLOTS = {"Shirt", "Tabard", "Non-equippable", "", None}
 # True placeholders/test rows -- keep real items like "Old Greatsword".
-JUNK = re.compile(r"\[|\]|^Monster\b|^OLD\b|\bTest Item\b|\(DEPRECATED\)|\(test\)|PH \[", re.I)
+JUNK = re.compile(
+    r"\[|\]|XXXX|^QR\b|^Monster\b|^OLD\b|\bTest\b|\bDEPRECATED\b|\bUNUSED\b|"
+    r"\bPH\b|\bTBD\b|\bQA\b|\bDND\b|^PvP\b",
+    re.I,
+)
 
 
 def lua_str(s: str) -> str:
