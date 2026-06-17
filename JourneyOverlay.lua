@@ -549,7 +549,9 @@ local function BuildControlBar(content, topLevel)
     local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
     lbl:SetText("|c" .. r.color .. r.label .. "|r")
-    x = x + 72
+    -- Advance past the checkbox + this label so a wide label ("Uncommon")
+    -- can't overlap the next checkbox; fixed strides assumed equal widths.
+    x = x + 22 + 1 + (lbl:GetStringWidth() or 56) + 16
   end
 
   -- Lookahead slider (1..15) on the right.
