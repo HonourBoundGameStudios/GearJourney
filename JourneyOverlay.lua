@@ -787,7 +787,10 @@ local function CreateOverlay()
     title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     title:SetPoint("TOP", 0, -8)
   end
-  title:SetText("Journey Wishlist Manager")
+  -- Larger title than the template default; degrade to the next-biggest font
+  -- object if Huge is unavailable on this client.
+  title:SetFontObject(GameFontNormalHuge or GameFontNormalLarge)
+  title:SetText("Titan Journey")
 
   -- Draggable by the title bar.
   f:SetMovable(true)
