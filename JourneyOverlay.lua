@@ -473,8 +473,22 @@ function Overlay.ComputeList(bucket)
   return engine.BestPerSlotScored(list, weights), level, hi
 end
 
--- ComputeCandidates(slot) -> list, level, hi. The Selector's gear: usable, not
--- owned, within reach (reqLevel <= level+lookahead), optional slot, best-first.
+-- Slot names differ across the chips, the enriched pool, and the index; fold
+-- them onto the chip vocabulary so slot filtering is consistent.
+local SLOT_CANON = {
+  Finger = "Ring", ["One-Hand"] = "Main Hand", ["Two-Hand"] = "Main Hand",
+  ["Held In Off-hand"] = "Off Hand",
+}
+local function CanonSlot(s) return SLOT_CANON[s] or s end
+-- Source types the Crafted/Dungeon/Faction/PvP/Quest checkboxes manage; coarse
+-- index sources (Drop/Vendor) bypass that filter so nothing is hidden.
+local MANAGED_SOURCES = { Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true }
+local CANDIDATE_CAP = 400
+
+-- ComputeCandidates(slot) -> list, level, hi. The Selector's gear: every
+-- equippable the class can use (from the exhaustive index, enriched copy
+-- preferred for stats), filtered by slot / quality / source / owned, and the
+-- lookahead window unless "All levels" is on. Sorted by required level.
 function Overlay.ComputeCandidates(slot)
   local engine, items = TitanJourney_Engine, TitanJourney_Items
   local level = (UnitLevel and UnitLevel("player")) or 1
@@ -484,13 +498,28 @@ function Overlay.ComputeCandidates(slot)
   local hi = level + range
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
-  local usable = UsablePool(engine, items, class, level, spec)
+  local allLevels = Overlay.browseAllLevels
+  local owns = Overlay.PlayerOwnsFn()
+  local quals = TitanJourney_DB and TitanJourney_DB.Qualities()
+  local sources = TitanJourney_DB and TitanJourney_DB.Sources()
+
+  -- Enriched items by id (stats/dps/fine source), to overlay onto index rows.
+  local byId = {}
+  for i = 1, #items do local e = items[i]; if e.itemID then byId[e.itemID] = e end end
+  local source = TitanJourney_ItemIndex or items
 
   local cands = {}
-  local allLevels = Overlay.browseAllLevels
-  for i = 1, #usable do
-    local it = usable[i]
-    if (allLevels or it.reqLevel <= hi) and (slot == "all" or it.slot == slot) then
+  for i = 1, #source do
+    local raw = source[i]
+    local it = (raw.itemID and byId[raw.itemID]) or raw
+    local st = it.sourceType
+    local sourceOk = not (st and MANAGED_SOURCES[st]) or not (sources and sources[st] == false)
+    if (slot == "all" or CanonSlot(it.slot) == slot)
+       and (allLevels or (it.reqLevel or 0) <= hi)
+       and (not quals or quals[it.quality])
+       and sourceOk
+       and engine.CanUse(it, class, level)
+       and not (owns and owns(it.itemID)) then
       cands[#cands + 1] = it
     end
   end
@@ -501,6 +530,7 @@ function Overlay.ComputeCandidates(slot)
     if sa ~= sb then return sa > sb end
     return (a.name or "") < (b.name or "")
   end)
+  for i = #cands, CANDIDATE_CAP + 1, -1 do cands[i] = nil end  -- cap for render perf
   return cands, level, hi
 end
 
