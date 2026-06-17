@@ -1014,6 +1014,13 @@ local function BuildLayout(f)
           Overlay.RenderBrowse()
         end)
       end)
+      -- Enter searches immediately (skip the debounce wait).
+      search:SetScript("OnEnterPressed", function(self)
+        if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
+        Overlay.searchText = ((self:GetText() or ""):gsub("^%s+", ""):gsub("%s+$", ""))
+        self:ClearFocus()
+        Overlay.RenderBrowse()
+      end)
       search:SetScript("OnEscapePressed", function(self)
         self:SetText(""); self:ClearFocus()
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
