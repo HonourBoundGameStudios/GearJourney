@@ -142,6 +142,28 @@ local function OnEvent(self, event, itemID, success)
   end
 end
 
+-- Combine the harvested AtlasLoot rows with the curated class-guide IDs (EPIC-H)
+-- so guide items that aren't in the AtlasLoot pool still get enriched. Deduped
+-- by id; guide entries carry their expected name for the NameMatches guard.
+local function BuildQueue(atlas)
+  local seen, q = {}, {}
+  for i = 1, #atlas do
+    local r = atlas[i]
+    if r.id and not seen[r.id] then seen[r.id] = true; q[#q + 1] = r end
+  end
+  if TitanJourney_ClassGuides then
+    for _, entries in pairs(TitanJourney_ClassGuides) do
+      for _, e in ipairs(entries) do
+        if e.id and not seen[e.id] then
+          seen[e.id] = true
+          q[#q + 1] = { id = e.id, name = e.name, sourceType = "", source = "" }
+        end
+      end
+    end
+  end
+  return q
+end
+
 -- Begin enrichment. Publishes Provider.items as the live item source.
 function Provider.Start()
   local atlas = TitanJourney_AtlasItems
@@ -158,7 +180,7 @@ function Provider.Start()
     end
   end
 
-  queue, qi = atlas, 1
+  queue, qi = BuildQueue(atlas), 1
   TitanJourney_Items = Provider.items   -- the engine pipeline now reads this
   driver:RegisterEvent("GET_ITEM_INFO_RECEIVED")
   driver:SetScript("OnEvent", OnEvent)

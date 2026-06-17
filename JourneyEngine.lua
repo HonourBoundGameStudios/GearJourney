@@ -688,6 +688,26 @@ function Engine.StatSummary(stats)
   return table.concat(parts, " ")
 end
 
+-- StatParts(stats) -> ordered array of { name, abbr, value } for the primary
+-- stats present (same fixed order as StatSummary). Lets the UI colour each stat.
+function Engine.StatParts(stats)
+  if not stats then return {} end
+  local norm = {}
+  for k, v in pairs(stats) do
+    if type(v) == "number" and v ~= 0 then
+      local canon = Engine.STAT_KEY[k] or k
+      norm[canon] = (norm[canon] or 0) + v
+    end
+  end
+  local out = {}
+  for _, name in ipairs(STAT_ORDER) do
+    if norm[name] then
+      out[#out + 1] = { name = name, abbr = STAT_ABBR[name] or name, value = norm[name] }
+    end
+  end
+  return out
+end
+
 -- BuildItem(raw, info) -> schema item, or nil if not yet resolved / not gear.
 --   raw  = { id, sourceType, source }  (from JourneyAtlasData)
 --   info = { name, quality, reqLevel, ilvl, equipLoc, classID, subClassID, icon }

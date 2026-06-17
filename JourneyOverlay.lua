@@ -168,7 +168,7 @@ end
 
 -- Item-row visuals (FEAT-C4/C5). ------------------------------------------
 
-local ROW_H, ICON = 42, 32
+local ROW_H, ICON = 50, 34
 
 local QUALITY_COLOR = {
   poor     = { 0.62, 0.62, 0.62 },
@@ -177,6 +177,27 @@ local QUALITY_COLOR = {
   rare     = { 0.00, 0.44, 0.87 },
   epic     = { 0.64, 0.21, 0.93 },
 }
+
+-- Per-stat colours for the row's stat line (hex |c codes).
+local STAT_COLOR = {
+  Agility   = "ff4dff4d",  -- green (rogue's bread and butter)
+  Strength  = "ffff6262",  -- red
+  Stamina   = "ffffcc66",  -- orange
+  Intellect = "ff66ccff",  -- blue
+  Spirit    = "ffff99e6",  -- pink
+}
+
+-- Build a coloured "+9 Agi  +5 Sta" string from an item's stats, or "" if none.
+local function ColoredStats(item)
+  local engine = TitanJourney_Engine
+  if not (engine and engine.StatParts) then return "" end
+  local parts, out = engine.StatParts(item.stats), {}
+  for _, p in ipairs(parts) do
+    local c = STAT_COLOR[p.name] or "ffd0d0d0"
+    out[#out + 1] = "|c" .. c .. "+" .. p.value .. " " .. p.abbr .. "|r"
+  end
+  return table.concat(out, "  ")
+end
 
 -- Colour the required-level text by reachability relative to the player.
 local function LevelColor(req, playerLevel, hi)
@@ -230,12 +251,18 @@ local function CreateRow(parent)
   row.icon:SetPoint("CENTER", row.border, "CENTER")
 
   row.name = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  row.name:SetPoint("TOPLEFT", row.border, "TOPRIGHT", 10, -1)
+  row.name:SetPoint("TOPLEFT", row.border, "TOPRIGHT", 10, 0)
   row.name:SetJustifyH("LEFT")
 
+  -- Slot + source line.
   row.sub = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
   row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
   row.sub:SetJustifyH("LEFT")
+
+  -- Stats on their own line, coloured per stat.
+  row.stats = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+  row.stats:SetPoint("TOPLEFT", row.sub, "BOTTOMLEFT", 0, -2)
+  row.stats:SetJustifyH("LEFT")
 
   row.action = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
   row.action:SetSize(58, 20)
@@ -263,10 +290,17 @@ local function FillRow(row, item, playerLevel, hi)
   row.icon:SetTexture(item.icon or ("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest")))
   row.name:SetText(item.name)
   row.name:SetTextColor(qc[1], qc[2], qc[3])
-  local line = (item.slot or "") .. "   " .. (item.sourceType or "") .. ": " .. (item.sourceLabel or "")
-  local summary = TitanJourney_Engine and TitanJourney_Engine.StatSummary(item.stats) or ""
-  if summary ~= "" then line = line .. "   |cff9d9d9d" .. summary .. "|r" end
-  row.sub:SetText(line)
+  -- Slot + source (source omitted for curated guide items that have none).
+  local src = item.sourceType or ""
+  if src ~= "" and item.sourceLabel and item.sourceLabel ~= "" then
+    src = src .. ": " .. item.sourceLabel
+  elseif src == "" then
+    src = item.sourceLabel or ""
+  end
+  local subline = item.slot or ""
+  if src ~= "" then subline = subline .. "   |cff8a8a8a" .. src .. "|r" end
+  row.sub:SetText(subline)
+  row.stats:SetText(ColoredStats(item))
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
 end
@@ -510,8 +544,8 @@ function Overlay.RenderGuide()
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, (TitanJourney_DB and TitanJourney_DB.Mode()) or "pve")
   local buckets = {}
-  for _, id in ipairs(guide) do
-    local it = engine.FindByID(items, id)
+  for _, entry in ipairs(guide) do
+    local it = engine.FindByID(items, entry.id)
     if it and engine.CanUse(it, class, level) then
       local isWeapon = (it.itemClassID == 2)
       local score = engine.ScoreItem(it, weights)

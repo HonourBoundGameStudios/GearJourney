@@ -1,44 +1,106 @@
 -- JourneyRogueData -- curated Rogue leveling gear guide (EPIC-H / FEAT-H1).
 --
--- Best-in-slot-focused, not exhaustive. We store ONLY itemIDs: every other
--- fact (name, quality, reqLevel, slot, stats, icon) is resolved at runtime by
--- the provider via GetItemInfo, exactly like the rest of the addon. The overlay
--- buckets each item into its level band by the enriched reqLevel and drops
--- anything not Rogue-usable through Engine.CanUse, so an ID in the wrong place
--- self-corrects in-game.
+-- Hardcoded {id, name} pairs sourced from ShadowPanther's classic rogue twink
+-- weapon/armor lists (shadowpanther.net) plus well-known leveling pieces. We
+-- store the expected NAME alongside each id so the provider's Engine.NameMatches
+-- guard drops any id that resolves to a different item (page scrapes can be
+-- wrong) -- a bad id is skipped, never shown as the wrong item.
 --
--- IDs are verified against JourneyAtlasData.lua (harvested from AtlasLootClassic
--- and already enriched into TitanJourney_Items). Expand band-by-band as reviewed
--- on a live Rogue.
+-- Every other fact (quality, reqLevel, slot, stats, icon) resolves at runtime.
+-- The overlay buckets each item into its level band by reqLevel, drops anything
+-- not Rogue-usable (Engine.CanUse), and score-filters defensive armor (weapons
+-- are kept and ranked by item level). IDs in the 200000+ range (Season of
+-- Discovery / Anniversary-only) are intentionally omitted for Classic Era.
 local Rogue = {
-  -- Daggers / 1H swords / maces / fists / axes, leather armor, cloaks, rings,
-  -- trinkets. Grouped here loosely low->high; actual band is computed at runtime.
-  888,    -- Naga Battle Gloves (BFD)
-  1482,   -- Shadowfang (SFK)
-  1486,   -- Tree Bark Jacket (BFD)
-  1489,   -- Gloomshroud Armor (SFK)
-  1935,   -- Assassin's Blade (SFK)
-  5191,   -- Cruel Barb (Deadmines)
-  5193,   -- Cape of the Brotherhood (Deadmines)
-  6459,   -- Savage Trodders (WC)
-  7714,   -- Hypnotic Blade (Scarlet Monastery)
-  7718,   -- Herod's Shoulder (Scarlet Monastery Armory)
-  9379,   -- Sang'thraze the Deflector (Zul'Farrak)
-  9418,   -- Stoneslayer (Uldaman)
-  9461,   -- Charged Gear (Gnomeregan)
-  9476,   -- Big Bad Pauldrons (Zul'Farrak)
-  10413,  -- Gloves of the Fang (Wailing Caverns)
-  10761,  -- Coldrage Dagger (Razorfen Downs)
-  11669,  -- Naglering (Blackrock Depths)
-  11684,  -- Ironfoe (Blackrock Depths)
-  11810,  -- Force of Will (Blackrock Depths)
-  12590,  -- Felstriker (Upper Blackrock Spire)
-  12753,  -- Skin of Shadow (Scholomance)
-  13167,  -- Fist of Omokk (Lower Blackrock Spire)
-  15972,  -- Glinting Steel Dagger (Blacksmithing)
-  16995,  -- Heartseeker (Blacksmithing)
-  17730,  -- Gatorbite Axe (Maraudon)
-  18392,  -- Distracting Dagger (Dire Maul West)
+  -- Weapons: main-hand / off-hand / dagger / sword / mace (ShadowPanther) ------
+  { id = 4303,  name = "Cranial Thumper" },
+  { id = 4766,  name = "Feral Blade" },
+  { id = 3570,  name = "Bonegrinding Pestle" },
+  { id = 15445, name = "Hammer of Orgrimmar" },
+  { id = 15443, name = "Kris of Orgrimmar" },
+  { id = 5191,  name = "Cruel Barb" },
+  { id = 1482,  name = "Shadowfang" },
+  { id = 1483,  name = "Face Smasher" },
+  { id = 1935,  name = "Assassin's Blade" },
+  { id = 6472,  name = "Stinging Viper" },
+  { id = 20430, name = "Legionnaire's Sword" },
+  { id = 8226,  name = "The Butcher" },
+  { id = 13033, name = "Zealot Blade" },
+  { id = 2912,  name = "Claw of the Shadowmancer" },
+  { id = 9453,  name = "Toxic Revenger" },
+  { id = 776,   name = "Vendetta" },
+  { id = 9427,  name = "Stonevault Bonebreaker" },
+  { id = 7721,  name = "Hand of Righteousness" },
+  { id = 10703, name = "Fiendish Skiv" },
+  { id = 10761, name = "Coldrage Dagger" },
+  { id = 809,   name = "Bloodrazor" },
+  { id = 17705, name = "Thrash Blade" },
+  { id = 13027, name = "Bonesnapper" },
+  { id = 2164,  name = "Gut Ripper" },
+  { id = 4091,  name = "Widowmaker" },
+  { id = 2244,  name = "Krol Blade" },
+  { id = 12940, name = "Dal'Rend's Sacred Charge" },
+  { id = 11684, name = "Ironfoe" },
+  { id = 12590, name = "Felstriker" },
+  { id = 12783, name = "Heartseeker" },
+  { id = 6622,  name = "Sword of Zeal" },
+  { id = 22384, name = "Persuader" },
+
+  -- Ranged -------------------------------------------------------------------
+  { id = 6469,  name = "Venomstrike" },
+  { id = 13136, name = "Lil Timmy's Peashooter" },
+  { id = 6696,  name = "Nightstalker Bow" },
+
+  -- Head / Shoulder ----------------------------------------------------------
+  { id = 4385,  name = "Green Tinted Goggles" },
+  { id = 10588, name = "Goblin Rocket Helm" },
+  { id = 10657, name = "Talbar Mantle" },
+  { id = 2264,  name = "Mantle of Thieves" },
+  { id = 10774, name = "Fleshhide Shoulders" },
+  { id = 7755,  name = "Flintrock Shoulders" },
+  { id = 17749, name = "Phytoskin Spaulders" },
+
+  -- Chest / Back -------------------------------------------------------------
+  { id = 2041,  name = "Tunic of Westfall" },
+  { id = 10399, name = "Blackened Defias Armor" },
+  { id = 4119,  name = "Raptor Hunter Tunic" },
+  { id = 14601, name = "Warden's Wraps" },
+  { id = 17742, name = "Fungus Shroud Armor" },
+  { id = 2059,  name = "Sentry Cloak" },
+  { id = 6449,  name = "Glowing Lizardscale Cloak" },
+  { id = 13108, name = "Tigerstrike Mantle" },
+  { id = 5193,  name = "Cape of the Brotherhood" },
+  { id = 12753, name = "Skin of Shadow" },
+
+  -- Wrist / Hands / Waist ----------------------------------------------------
+  { id = 3202,  name = "Forest Leather Bracers" },
+  { id = 18948, name = "Barbaric Bracers" },
+  { id = 10413, name = "Gloves of the Fang" },
+  { id = 1978,  name = "Wolfclaw Gloves" },
+  { id = 7284,  name = "Red Whelp Gloves" },
+  { id = 15708, name = "Blight Leather Gloves" },
+  { id = 6468,  name = "Deviate Scale Belt" },
+  { id = 4328,  name = "Spider Belt" },
+
+  -- Legs / Feet --------------------------------------------------------------
+  { id = 10410, name = "Leggings of the Fang" },
+  { id = 5961,  name = "Dark Leather Pants" },
+  { id = 9624,  name = "Triprunner Dungarees" },
+  { id = 4108,  name = "Panther Hunter Leggings" },
+  { id = 1718,  name = "Basilisk Hide Pants" },
+  { id = 1121,  name = "Feet of the Lynx" },
+  { id = 7189,  name = "Goblin Rocket Boots" },
+  { id = 17728, name = "Albino Crocscale Boots" },
+
+  -- Rings / Trinkets ---------------------------------------------------------
+  { id = 6414,  name = "Seal of Sylvanas" },
+  { id = 2933,  name = "Seal of Wrynn" },
+  { id = 13095, name = "Assault Band" },
+  { id = 10710, name = "Dragonclaw Ring" },
+  { id = 11669, name = "Naglering" },
+  { id = 17774, name = "Mark of the Chosen" },
+  { id = 10576, name = "Mechanical Dragonling" },
+  { id = 1404,  name = "Tidal Charm" },
 }
 
 -- Multi-class-ready registry (FEAT-H2..H9 add more keys). Published as a global
