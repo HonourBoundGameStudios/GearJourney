@@ -876,51 +876,11 @@ local function BuildControlBar(content, topLevel)
   bar:SetFrameLevel(topLevel)
   Overlay.controlBar = bar
 
-  local x = 4
-  for _, key in ipairs(SOURCE_FILTERS) do
-    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
-    cb:SetSize(22, 22)
-    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
-    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Sources()[key] == false))
-    cb:SetScript("OnClick", function(self)
-      if TitanJourney_DB then TitanJourney_DB.Sources()[key] = self:GetChecked() and true or false end
-      Overlay.RenderCurrentGoals()
-    end)
-    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
-    lbl:SetText(key)
-    x = x + 76
-  end
-
-  -- Rarity filters (FEAT-G2), coloured by quality.
-  x = x + 12
-  local RARITY = {
-    { key = "uncommon", label = "Uncommon", color = "ff1eff00" },
-    { key = "rare",     label = "Rare",     color = "ff0070dd" },
-    { key = "epic",     label = "Epic",     color = "ffa335ee" },
-  }
-  for _, r in ipairs(RARITY) do
-    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
-    cb:SetSize(22, 22)
-    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
-    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Qualities()[r.key] == false))
-    cb:SetScript("OnClick", function(self)
-      if TitanJourney_DB then TitanJourney_DB.Qualities()[r.key] = self:GetChecked() and true or false end
-      Overlay.RenderCurrentGoals()
-    end)
-    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
-    lbl:SetText("|c" .. r.color .. r.label .. "|r")
-    -- Advance past the checkbox + this label so a wide label ("Uncommon")
-    -- can't overlap the next checkbox; fixed strides assumed equal widths.
-    x = x + 22 + 1 + (lbl:GetStringWidth() or 56) + 16
-  end
-
-  -- Lookahead slider (1..15) on the right.
+  -- Lookahead slider on the LEFT (frees the right side for the rarity filters).
   local start = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
   local slider = CreateFrame("Slider", "TitanJourneyLookSlider", bar, "OptionsSliderTemplate")
-  slider:SetWidth(130)
-  slider:SetPoint("RIGHT", bar, "RIGHT", -12, 0)
+  slider:SetWidth(110)
+  slider:SetPoint("LEFT", bar, "LEFT", 12, 0)
   slider:SetMinMaxValues(1, 15)
   slider:SetValueStep(1)
   if slider.SetObeyStepOnDrag then slider:SetObeyStepOnDrag(true) end
@@ -935,6 +895,47 @@ local function BuildControlBar(content, topLevel)
     if TitanJourney_DB then TitanJourney_DB.SetLookahead(v) end
     Overlay.RenderCurrentGoals()
   end)
+
+  local x = 12 + 110 + 24   -- source filters begin to the right of the slider
+  for _, key in ipairs(SOURCE_FILTERS) do
+    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+    cb:SetSize(22, 22)
+    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
+    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Sources()[key] == false))
+    cb:SetScript("OnClick", function(self)
+      if TitanJourney_DB then TitanJourney_DB.Sources()[key] = self:GetChecked() and true or false end
+      Overlay.RenderCurrentGoals()
+    end)
+    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
+    lbl:SetText(key)
+    x = x + 72
+  end
+
+  -- Rarity filters (FEAT-G2), coloured by quality.
+  x = x + 10
+  local RARITY = {
+    { key = "uncommon",  label = "Uncommon",  color = "ff1eff00" },
+    { key = "rare",      label = "Rare",      color = "ff0070dd" },
+    { key = "epic",      label = "Epic",      color = "ffa335ee" },
+    { key = "legendary", label = "Legendary", color = "ffff8000" },
+  }
+  for _, r in ipairs(RARITY) do
+    local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+    cb:SetSize(22, 22)
+    cb:SetPoint("LEFT", bar, "LEFT", x, 0)
+    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Qualities()[r.key] == false))
+    cb:SetScript("OnClick", function(self)
+      if TitanJourney_DB then TitanJourney_DB.Qualities()[r.key] = self:GetChecked() and true or false end
+      Overlay.RenderCurrentGoals()
+    end)
+    local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lbl:SetPoint("LEFT", cb, "RIGHT", 1, 0)
+    lbl:SetText("|c" .. r.color .. r.label .. "|r")
+    -- Advance past the checkbox + this label so a wide label can't overlap the
+    -- next checkbox; fixed strides would assume equal widths.
+    x = x + 22 + 1 + (lbl:GetStringWidth() or 56) + 14
+  end
 end
 
 -- Build the left tab column and the matching content panels.
@@ -1252,7 +1253,7 @@ local function CreateOverlay()
     close:SetPoint("TOPRIGHT", -4, -4)
   end
 
-  f:SetSize(880, 520)  -- wide enough for the two-pane Browse layout
+  f:SetSize(980, 520)  -- wide enough for the two-pane Browse + full control bar
   f:SetPoint("CENTER")
   f:SetFrameStrata("HIGH")
   f:SetToplevel(true)

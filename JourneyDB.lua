@@ -32,7 +32,8 @@ function DB.Sources()
 end
 function DB.Qualities()
   local s = DB.Get().settings
-  s.qualities = s.qualities or { uncommon = true, rare = true, epic = true }
+  s.qualities = s.qualities or { uncommon = true, rare = true, epic = true, legendary = true }
+  if s.qualities.legendary == nil then s.qualities.legendary = true end  -- back-fill older saves
   return s.qualities
 end
 function DB.Lookahead() return DB.Get().settings.lookahead or 10 end
