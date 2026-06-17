@@ -21,11 +21,11 @@ local FALLBACK_BACKDROP = {
 -- Sidebar tab definitions (FEAT-C3). Order is top-to-bottom; the first is the
 -- landing tab. "Journey Items" is a read-only browse of the saved Journey List.
 local TABS = {
-  { key = "journey",  label = "Journey Items" },
-  { key = "guide",    label = "Class Guide" },
-  { key = "browse",   label = "Browse" },
-  { key = "future",   label = "Future Planner" },
-  { key = "settings", label = "Settings" },
+  { key = "journey",  label = "Journey Items",  icon = "Interface\\Icons\\INV_Misc_Map_01" },
+  { key = "guide",    label = "Class Guide",    icon = "Interface\\Icons\\INV_Misc_Book_09" },
+  { key = "browse",   label = "Browse",         icon = "Interface\\Icons\\INV_Misc_Spyglass_02" },
+  { key = "future",   label = "Future Planner", icon = "Interface\\Icons\\INV_Misc_PocketWatch_01" },
+  { key = "settings", label = "Settings",       icon = "Interface\\Icons\\Trade_Engineering" },
 }
 
 -- Talent-tree background base names per class, in talent-tab order (1..3).
@@ -157,6 +157,9 @@ function Overlay.SelectTab(key)
   if not Overlay.tabButtons then return end
   for k, btn in pairs(Overlay.tabButtons) do
     if k == key then btn:LockHighlight() else btn:UnlockHighlight() end
+    if btn.text then
+      if k == key then btn.text:SetTextColor(1.0, 0.82, 0.30) else btn.text:SetTextColor(0.9, 0.9, 0.9) end
+    end
   end
   for k, panel in pairs(Overlay.panels) do
     panel:SetShown(k == key)
@@ -356,6 +359,32 @@ local function MakeScroll(parent)
   child:SetSize(1, 1)
   scroll:SetScrollChild(child)
   return scroll, child
+end
+
+-- A flat slot-filter chip: dark fill + thin gold border, with a gold hover/
+-- selected glow (replaces the default red UIPanelButton look). LockHighlight()
+-- marks it selected; width auto-fits the label.
+local function MakeChip(parent, label)
+  local b = CreateFrame("Button", nil, parent, BackdropTemplateMixin and "BackdropTemplate" or nil)
+  b:SetHeight(20)
+  if b.SetBackdrop then
+    b:SetBackdrop({
+      bgFile = "Interface\\Buttons\\WHITE8x8",
+      edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
+    })
+    b:SetBackdropColor(0.10, 0.10, 0.13, 0.92)
+    b:SetBackdropBorderColor(0.40, 0.34, 0.18, 1)
+  end
+  local hl = b:CreateTexture(nil, "HIGHLIGHT")
+  hl:SetAllPoints()
+  hl:SetColorTexture(0.85, 0.66, 0.20, 0.40)
+  b:SetHighlightTexture(hl)
+  local fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  fs:SetPoint("CENTER", 0, 0)
+  fs:SetText(label)
+  b:SetFontString(fs)
+  b:SetWidth(math.max((fs:GetStringWidth() or 30) + 18, 34))
+  return b
 end
 
 -- Render a list into a scroll child, pooling rows in `pool`.
@@ -734,12 +763,33 @@ local function BuildLayout(f)
   Overlay.content = content
 
   for i, tab in ipairs(TABS) do
-    -- Sidebar button.
-    local btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    -- Sidebar button: icon + label on a flat dark plate; gold glow on
+    -- hover/selected (SelectTab locks the highlight + golds the label).
+    local btn = CreateFrame("Button", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
     btn:SetSize(SIDEBAR_W, TAB_H)
     btn:SetFrameLevel(topLevel)
     btn:SetPoint("TOPLEFT", f, "TOPLEFT", 14, TOP - (i - 1) * (TAB_H + TAB_GAP))
-    btn:SetText(tab.label)
+    if btn.SetBackdrop then
+      btn:SetBackdrop({
+        bgFile = "Interface\\Buttons\\WHITE8x8",
+        edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
+      })
+      btn:SetBackdropColor(0.09, 0.09, 0.12, 0.85)
+      btn:SetBackdropBorderColor(0.38, 0.32, 0.18, 1)
+    end
+    local hl = btn:CreateTexture(nil, "HIGHLIGHT")
+    hl:SetAllPoints()
+    hl:SetColorTexture(0.85, 0.66, 0.20, 0.32)
+    btn:SetHighlightTexture(hl)
+    local ic = btn:CreateTexture(nil, "ARTWORK")
+    ic:SetSize(22, 22)
+    ic:SetPoint("LEFT", 7, 0)
+    ic:SetTexture(tab.icon)
+    ic:SetTexCoord(0.08, 0.92, 0.08, 0.92)  -- trim the stock icon border
+    local lbl = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    lbl:SetPoint("LEFT", ic, "RIGHT", 8, 0)
+    lbl:SetText(tab.label)
+    btn.text = lbl
     btn:SetScript("OnClick", function() Overlay.SelectTab(tab.key) end)
     Overlay.tabButtons[tab.key] = btn
 
@@ -764,9 +814,15 @@ local function BuildLayout(f)
       scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
       panel.scroll, panel.listAnchor = scroll, child
-      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      -- Clickable empty state -> jumps straight to the Browse tab.
+      local empty = CreateFrame("Button", nil, panel)
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("Your Journey list is empty. Add gear from the Browse tab.")
+      empty:SetSize(380, 20)
+      local et = empty:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      et:SetPoint("LEFT")
+      et:SetText("Your Journey list is empty \226\128\148 |cff66ccffopen Browse|r to add gear.")
+      empty:SetFontString(et)
+      empty:SetScript("OnClick", function() Overlay.SelectTab("browse") end)
       empty:Hide()
       panel.empty = empty
 
@@ -795,19 +851,15 @@ local function BuildLayout(f)
         "Hands", "Waist", "Legs", "Feet", "Ring", "Trinket", "Main Hand", "Off Hand", "Ranged" }
       local cx, cy = 0, 0
       for _, s in ipairs(CHIP_SLOTS) do
-        local b = CreateFrame("Button", nil, chipBar, "UIPanelButtonTemplate")
-        b:SetText(s == "all" and "All" or s)
-        b:SetHeight(18)
-        local w = (b:GetTextWidth() or 30) + 16
-        if w < 30 then w = 30 end
-        if cx + w > 560 then cx = 0; cy = cy - 22 end
-        b:SetWidth(w)
+        local b = MakeChip(chipBar, s == "all" and "All" or s)
+        local w = b:GetWidth()
+        if cx + w > 560 then cx = 0; cy = cy - 24 end
         b:SetPoint("TOPLEFT", chipBar, "TOPLEFT", cx, cy)
         cx = cx + w + 4
         b:SetScript("OnClick", function() Overlay.SelectChip(s); Overlay.RenderBrowse() end)
         panel.chipButtons[s] = b
       end
-      chipBar:SetHeight(-cy + 22)
+      chipBar:SetHeight(-cy + 24)
 
       -- Two panes: Selector (left) | Journey List (right).
       local leftPane = CreateFrame("Frame", nil, panel)
