@@ -39,8 +39,9 @@ function DB.Qualities()
   if s.qualities.legendary == nil then s.qualities.legendary = true end  -- back-fill older saves
   return s.qualities
 end
-function DB.Lookahead() return DB.Get().settings.lookahead or 10 end
-function DB.SetLookahead(n) DB.Get().settings.lookahead = n end
+-- Lookahead was removed as a user setting; a fixed band still scopes the
+-- Future Planner split, the dungeon bar, and row level-colouring internally.
+function DB.Lookahead() return 10 end
 
 -- Pinned item (single, by name) --------------------------------------------
 function DB.Pin() return DB.Get().pinnedName end

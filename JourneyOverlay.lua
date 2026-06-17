@@ -501,7 +501,6 @@ function Overlay.ComputeCandidates(slot)
   local hi = level + range
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
-  local allLevels = Overlay.browseAllLevels
   local owns = Overlay.PlayerOwnsFn()
   local quals = TitanJourney_DB and TitanJourney_DB.Qualities()
   local sources = TitanJourney_DB and TitanJourney_DB.Sources()
@@ -531,7 +530,6 @@ function Overlay.ComputeCandidates(slot)
       local st = it.sourceType
       local sourceOk = not (st and MANAGED_SOURCES[st]) or not (sources and sources[st] == false)
       if (slot == "all" or CanonSlot(it.slot) == slot)
-         and (allLevels or (it.reqLevel or 0) <= hi)
          and (not quals or quals[it.quality])
          and sourceOk
          and engine.CanUse(it, class, level)
@@ -975,29 +973,7 @@ local function BuildControlBar(content, topLevel)
   bar:SetFrameLevel(topLevel)
   Overlay.controlBar = bar
 
-  -- Lookahead slider on the LEFT (frees the right side for the rarity filters).
-  local start = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
-  local slider = CreateFrame("Slider", "TitanJourneyLookSlider", bar, "OptionsSliderTemplate")
-  slider:SetWidth(110)
-  slider:SetPoint("LEFT", bar, "LEFT", 12, 0)
-  slider:SetMinMaxValues(1, 15)
-  slider:SetValueStep(1)
-  if slider.SetObeyStepOnDrag then slider:SetObeyStepOnDrag(true) end
-  slider:SetValue(start)
-  _G["TitanJourneyLookSliderLow"]:SetText("1")
-  _G["TitanJourneyLookSliderHigh"]:SetText("15")
-  local txt = _G["TitanJourneyLookSliderText"]
-  txt:SetText("Lookahead +" .. start)
-  slider:SetScript("OnValueChanged", function(self, v)
-    v = math.floor(v + 0.5)
-    txt:SetText("Lookahead +" .. v)              -- label updates instantly
-    if TitanJourney_DB then TitanJourney_DB.SetLookahead(v) end
-    -- Debounce the (now exhaustive) re-render so dragging stays smooth.
-    if Overlay._lookTimer then Overlay._lookTimer:Cancel() end
-    Overlay._lookTimer = C_Timer.NewTimer(0.15, function() Overlay.RenderCurrentGoals() end)
-  end)
-
-  local x = 12 + 110 + 24   -- source filters begin to the right of the slider
+  local x = 8
   for _, key in ipairs(SOURCE_FILTERS) do
     local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
     cb:SetSize(22, 22)
@@ -1256,18 +1232,6 @@ local function BuildLayout(f)
       selHdr:SetPoint("TOPLEFT", leftPane, "TOPLEFT", 2, 0)
       selHdr:SetText("Selector")
       panel.selHdr = selHdr
-      -- "All levels" shows usable gear for the slot beyond the lookahead window.
-      local allLvlCb = CreateFrame("CheckButton", nil, leftPane, "UICheckButtonTemplate")
-      allLvlCb:SetSize(20, 20)
-      allLvlCb:SetPoint("TOPRIGHT", leftPane, "TOPRIGHT", -26, 3)
-      allLvlCb:SetChecked(Overlay.browseAllLevels and true or false)
-      local allLvlLbl = allLvlCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      allLvlLbl:SetPoint("RIGHT", allLvlCb, "LEFT", -1, 0)
-      allLvlLbl:SetText("All levels")
-      allLvlCb:SetScript("OnClick", function(self)
-        Overlay.browseAllLevels = self:GetChecked() and true or false
-        Overlay.RenderBrowse()
-      end)
       local selScroll, selAnchor = MakeScroll(leftPane)
       selScroll:SetPoint("TOPLEFT", selHdr, "BOTTOMLEFT", 0, -4)
       selScroll:SetPoint("BOTTOMRIGHT", leftPane, "BOTTOMRIGHT", -24, 0)
