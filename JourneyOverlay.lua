@@ -542,8 +542,14 @@ function Overlay.ComputeCandidates(slot)
     end
   end
   table.sort(cands, function(a, b)
-    -- Browse in level order; break ties by spec score, then name.
-    if (a.reqLevel or 0) ~= (b.reqLevel or 0) then return (a.reqLevel or 0) < (b.reqLevel or 0) end
+    -- Gear at/above your level first (nearest first), then lower gear (nearest
+    -- first), so no-requirement / low-level pieces don't bury your upgrades.
+    local ra, rb = a.reqLevel or 0, b.reqLevel or 0
+    local fa, fb = (ra >= level), (rb >= level)
+    if fa ~= fb then return fa end
+    if ra ~= rb then
+      if fa then return ra < rb else return ra > rb end
+    end
     local sa, sb = engine.ScoreItem(a, weights), engine.ScoreItem(b, weights)
     if sa ~= sb then return sa > sb end
     return (a.name or "") < (b.name or "")
