@@ -53,4 +53,10 @@ H.eq(Engine.SearchByName(pool2, "blade")[1].name, "Assassin's Blade", "partial m
 H.eq(#Engine.SearchByName(pool2, "cruel", 1), 1, "limit honoured")
 H.eq(#Engine.SearchByName(pool2, ""), 0, "empty query -> no results")
 
+-- DpsFromTooltip ----------------------------------------------------------
+H.eq(Engine.DpsFromTooltip("Speed 2.50\n(36.4 damage per second)"), 36.4, "parses DPS")
+H.eq(Engine.DpsFromTooltip("12 - 18 Damage\n(15.0 damage per second)"), 15.0, "parses whole DPS")
+H.eq(Engine.DpsFromTooltip("No weapon line here"), nil, "no DPS -> nil")
+H.eq(Engine.DpsFromTooltip(nil), nil, "nil -> nil")
+
 H.done()

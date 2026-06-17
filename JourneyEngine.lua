@@ -751,6 +751,14 @@ function Engine.StatParts(stats)
   return out
 end
 
+-- DpsFromTooltip(text) -> number or nil. Pulls weapon DPS from the tooltip's
+-- "(NN.N damage per second)" line so weapons rank by DPS, not item level.
+function Engine.DpsFromTooltip(text)
+  if not text then return nil end
+  local n = text:match("%(([%d%.]+) damage per second%)")
+  return n and tonumber(n) or nil
+end
+
 -- BuildItem(raw, info) -> schema item, or nil if not yet resolved / not gear.
 --   raw  = { id, sourceType, source }  (from JourneyAtlasData)
 --   info = { name, quality, reqLevel, ilvl, equipLoc, classID, subClassID, icon }
@@ -775,6 +783,7 @@ function Engine.BuildItem(raw, info)
     spellType = info.spellType,        -- "both" | "healing" | nil (tooltip scan)
     icon = info.icon,
     stats = info.stats,   -- GetItemStats table, for spec scoring
+    dps = info.dps,       -- weapon DPS (tooltip), for ranking weapons
   }
 end
 

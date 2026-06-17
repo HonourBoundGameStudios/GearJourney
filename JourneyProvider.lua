@@ -63,7 +63,7 @@ local function ScanItemMeta(id)
       parts = parts and (parts .. "\n" .. text) or text
     end
   end
-  return classes, Engine.SpellTypeFromTooltip(parts)
+  return classes, Engine.SpellTypeFromTooltip(parts), Engine.DpsFromTooltip(parts)
 end
 
 -- Try to turn one raw row into an enriched item. Returns true once the id is
@@ -93,15 +93,15 @@ local function TryBuild(raw)
     local ok, s = pcall(GetItemStats, link)
     if ok then stats = s end
   end
-  local classes, spellType
+  local classes, spellType, dps
   if link then
-    local ok, c, st = pcall(ScanItemMeta, id)
-    if ok then classes, spellType = c, st end
+    local ok, c, st, dp = pcall(ScanItemMeta, id)
+    if ok then classes, spellType, dps = c, st, dp end
   end
   local item = Engine.BuildItem(raw, {
     name = name, quality = quality, reqLevel = reqLevel, ilvl = ilvl,
     equipLoc = equipLoc, classID = classID, subClassID = subClassID,
-    icon = icon, stats = stats, classes = classes, spellType = spellType,
+    icon = icon, stats = stats, classes = classes, spellType = spellType, dps = dps,
   })
   if item then
     Provider.items[#Provider.items + 1] = item

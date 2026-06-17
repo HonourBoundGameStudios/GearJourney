@@ -299,7 +299,12 @@ local function FillRow(row, item, playerLevel, hi)
   local subline = item.slot or ""
   if src ~= "" then subline = subline .. "   |cff8a8a8a" .. src .. "|r" end
   row.sub:SetText(subline)
-  row.stats:SetText(ColoredStats(item))
+  -- Stats line, or weapon DPS when the item has no primary stats.
+  local statline = ColoredStats(item)
+  if statline == "" and item.dps then
+    statline = "|cffffd100" .. string.format("%.1f DPS", item.dps) .. "|r"
+  end
+  row.stats:SetText(statline)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
 end
@@ -617,6 +622,8 @@ function Overlay.RenderGuide()
     if b and #b > 0 then
       table.sort(b, function(a, c)
         if a.score ~= c.score then return a.score > c.score end       -- best stats first
+        local ad, cd = a.item.dps or 0, c.item.dps or 0               -- then weapon DPS
+        if ad ~= cd then return ad > cd end
         local ai, ci = a.item.ilvl or 0, c.item.ilvl or 0
         if ai ~= ci then return ai > ci end
         return (a.item.name or "") < (c.item.name or "")
