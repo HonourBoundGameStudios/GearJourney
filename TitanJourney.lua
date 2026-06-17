@@ -23,12 +23,18 @@ function TitanJourney_GetButtonText(id)
         local goal = engine.NextJourneyGoal(all, journey, level, overlay.PlayerOwnsFn())
         if goal then return engine.BuildButtonText(all, level, nil, goal.name) end
     end
+    -- Nothing in the current window (common at low levels / sparse brackets)?
+    -- Surface the nearest upcoming goal instead of a dead "None in range".
+    if #list == 0 then
+        local fut = overlay.ComputeList("future")
+        if fut and fut[1] then return engine.BuildButtonText(fut, level, nil, fut[1].name) end
+    end
     return engine.BuildButtonText(list, level, nil, nil)
 end
 
 -- Tooltip body shown on hover.
 function TitanJourney_GetTooltipText()
-    return "Right-click for TitanJourney options."
+    return "Left-click to open the Journey manager.\nRight-click for options."
 end
 
 -- Right-click dropdown menu (Titan's UIDropDownMenu scheme).
