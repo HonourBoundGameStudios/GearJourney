@@ -237,6 +237,33 @@ function Engine.BandIndex(reqLevel)
   return idx
 end
 
+-- BestDungeon(items, class, level, ownsFn) -> label, count
+--   The dungeon (by sourceLabel) offering the most class-usable, unowned gear
+--   the player can run around their level (reqLevel within [level-2, level+8]).
+--   Deterministic tie-break by label. ownsFn injected so this stays testable.
+function Engine.BestDungeon(items, class, level, ownsFn)
+  if not items then return nil, 0 end
+  local lo, hi = level - 2, level + 8
+  local count = {}
+  for i = 1, #items do
+    local it = items[i]
+    local r = it.reqLevel or 0
+    if it.sourceType == "Dungeon" and it.sourceLabel and it.sourceLabel ~= ""
+       and r >= lo and r <= hi
+       and Engine.CanUse(it, class, level)
+       and not (ownsFn and ownsFn(it.itemID)) then
+      count[it.sourceLabel] = (count[it.sourceLabel] or 0) + 1
+    end
+  end
+  local bestLabel, bestN = nil, 0
+  for label, n in pairs(count) do
+    if n > bestN or (n == bestN and bestLabel and label < bestLabel) then
+      bestLabel, bestN = label, n
+    end
+  end
+  return bestLabel, bestN
+end
+
 -- NextJourneyGoal(items, journeyNames, level) -> item or nil
 --   The next item to chase from the player's Journey List: the lowest-reqLevel
 --   journey item at or above the player's level; if all are out-levelled, the

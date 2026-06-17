@@ -27,4 +27,21 @@ H.eq(Engine.BandIndex(nil), 1, "nil -> band 1")
 
 H.eq(#Engine.LEVEL_BANDS, 6, "six level bands defined")
 
+-- BestDungeon -------------------------------------------------------------
+-- Neutral items (no armorType / not weapons) so CanUse passes for any class.
+local dungeons = {
+  { itemID = 1, sourceType = "Dungeon", sourceLabel = "Deadmines", reqLevel = 18 },
+  { itemID = 2, sourceType = "Dungeon", sourceLabel = "Deadmines", reqLevel = 20 },
+  { itemID = 3, sourceType = "Dungeon", sourceLabel = "Wailing Caverns", reqLevel = 19 },
+  { itemID = 4, sourceType = "Dungeon", sourceLabel = "Deadmines", reqLevel = 40 }, -- out of window
+  { itemID = 5, sourceType = "Quest",   sourceLabel = "Westfall", reqLevel = 18 },   -- not a dungeon
+}
+local best, n = Engine.BestDungeon(dungeons, "ROGUE", 18, nil)
+H.eq(best, "Deadmines", "picks the dungeon with most in-window upgrades")
+H.eq(n, 2, "counts only in-window dungeon items")
+
+local owns = function(id) return id == 1 or id == 2 end  -- owns both Deadmines items
+local best2 = Engine.BestDungeon(dungeons, "ROGUE", 18, owns)
+H.eq(best2, "Wailing Caverns", "owned items excluded -> next dungeon wins")
+
 H.done()

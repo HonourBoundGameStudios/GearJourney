@@ -544,9 +544,23 @@ local function RenderBandedInto(scroll, anchor, rowPool, hdrPool, bands, level)
   anchor:SetHeight(math.max(1, -y + 8))
 end
 
+-- Weapons | Armor sub-tab toggle for the Class Guide.
+Overlay.guideSubtab = Overlay.guideSubtab or "weapons"
+function Overlay.SelectGuideSubtab(which)
+  Overlay.guideSubtab = which
+  local panel = Overlay.panels and Overlay.panels.guide
+  if panel and panel.subtabs then
+    for k, b in pairs(panel.subtabs) do
+      if k == which then b:LockHighlight() else b:UnlockHighlight() end
+    end
+  end
+  Overlay.RenderGuide()
+end
+
 -- Render the Class Guide tab: a curated, best-in-slot-focused gear list for the
 -- player's class (EPIC-H), resolved from itemIDs against the enriched pool and
--- grouped into level bands. Items not usable by the class are dropped.
+-- grouped into level bands. Split into Weapons / Armor sub-tabs; items not
+-- usable by the class are dropped, and a "best dungeon to run" hint is shown.
 function Overlay.RenderGuide()
   local panel = Overlay.panels and Overlay.panels.guide
   if not panel or not panel.listAnchor then return end
@@ -555,6 +569,17 @@ function Overlay.RenderGuide()
   local level = (UnitLevel and UnitLevel("player")) or 1
   local guide = class and TitanJourney_ClassGuides and TitanJourney_ClassGuides[class]
   panel.header:SetText((locClass or "Class") .. " Gear Guide")
+
+  -- "Best dungeon to run now" hint (most usable upgrades around your level).
+  if panel.hint then
+    local dungeon, n = engine and engine.BestDungeon(items, class, level, Overlay.PlayerOwnsFn())
+    if dungeon and n and n > 0 then
+      panel.hint:SetText("|cffffd100Best run now:|r " .. engine.PrettySource(dungeon)
+        .. "  |cff66dd66(" .. n .. " upgrade" .. (n == 1 and "" or "s") .. ")|r")
+    else
+      panel.hint:SetText("")
+    end
+  end
 
   panel.hdrs = panel.hdrs or {}
   panel.rows = panel.rows or {}
@@ -566,10 +591,11 @@ function Overlay.RenderGuide()
     return
   end
 
-  -- Resolve IDs -> enriched items, keep only usable, then enforce quality with
-  -- the player's spec weights: weapons (no primary stats) are kept and ranked by
-  -- item level; armor/jewelry must score > 0 (i.e. carry offensive stats for the
-  -- spec), which drops defensive-only pieces. Buckets are sorted best-first.
+  -- Resolve IDs -> enriched items, keep only usable, filter by the active
+  -- sub-tab (Weapons vs Armor), then enforce quality: weapons are kept and
+  -- ranked by item level; armor/jewelry must score > 0 (carry offensive stats),
+  -- dropping defensive-only pieces. Buckets are sorted best-first.
+  local wantWeapon = (Overlay.guideSubtab ~= "armor")
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, (TitanJourney_DB and TitanJourney_DB.Mode()) or "pve")
   local buckets = {}
@@ -578,7 +604,8 @@ function Overlay.RenderGuide()
     if it and engine.CanUse(it, class, level) then
       local isWeapon = (it.itemClassID == 2)
       local score = engine.ScoreItem(it, weights)
-      if isWeapon or score > 0 then
+      local keep = wantWeapon and isWeapon or (not wantWeapon and not isWeapon and score > 0)
+      if keep then
         local bi = engine.BandIndex(it.reqLevel)
         buckets[bi] = buckets[bi] or {}
         buckets[bi][#buckets[bi] + 1] = { item = it, score = score }
@@ -827,12 +854,29 @@ local function BuildLayout(f)
       panel.empty = empty
 
     elseif tab.key == "guide" then
-      -- Class Guide: a curated, band-grouped gear list for the player's class.
-      -- The header label is set per class at render time (RenderGuide). No
-      -- filter bar, so the scroll runs to the bottom inset.
-      panel.header = header  -- RenderGuide retitles it "<Class> Gear Guide"
+      -- Class Guide: header (retitled per class at render), a best-dungeon hint,
+      -- Weapons | Armor sub-tabs, then a band-grouped scrolling list.
+      panel.header = header
+      local hint = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+      hint:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -5)
+      hint:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
+      hint:SetJustifyH("LEFT")
+      panel.hint = hint
+
+      panel.subtabs = {}
+      local sx = 0
+      for _, st in ipairs({ { k = "weapons", l = "Weapons" }, { k = "armor", l = "Armor" } }) do
+        local b = MakeChip(panel, st.l)
+        b:SetHeight(22)
+        b:SetWidth(math.max(b:GetWidth(), 92))
+        b:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", sx, -6)
+        b:SetScript("OnClick", function() Overlay.SelectGuideSubtab(st.k) end)
+        panel.subtabs[st.k] = b
+        sx = sx + b:GetWidth() + 6
+      end
+
       local scroll, child = MakeScroll(panel)
-      scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("TOPLEFT", panel.subtabs.weapons, "BOTTOMLEFT", 0, -8)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
@@ -962,6 +1006,7 @@ local function BuildLayout(f)
 
   BuildControlBar(content, topLevel)
   Overlay.SelectChip(Overlay.selectorSlot or "all")
+  Overlay.SelectGuideSubtab(Overlay.guideSubtab or "weapons")
   Overlay.RenderCurrentGoals()
   Overlay.SelectTab(Overlay.activeTab or "journey")
 end
