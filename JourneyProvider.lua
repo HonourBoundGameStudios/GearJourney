@@ -191,8 +191,9 @@ function Provider.Start()
   -- Seed instantly from the saved cache; the queue then fills anything new.
   if TitanJourney_DB then
     local d = TitanJourney_DB.Init()
-    -- Bump to discard caches built before name validation existed.
-    if d.cacheVersion ~= 4 then d.itemCache, d.cacheVersion = {}, 4 end
+    -- Bump to discard stale caches (v5 adds backfilled dungeon sources +
+    -- DPS/Speed/Effect scanned fields).
+    if d.cacheVersion ~= 5 then d.itemCache, d.cacheVersion = {}, 5 end
     for id, item in pairs(TitanJourney_DB.Cache()) do
       Provider.items[#Provider.items + 1] = item
       processed[id] = true
