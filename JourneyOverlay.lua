@@ -660,11 +660,100 @@ function Overlay.SelectChip(slot)
   end
 end
 
+-- Solo a dungeon as the Browse source (toggles off if already selected).
+function Overlay.SelectDungeon(label)
+  Overlay.dungeonFilter = (Overlay.dungeonFilter == label) and nil or label
+  Overlay.RenderBrowse()
+end
+
+-- Initials abbreviation for a dungeon label, e.g. "Shadowfang Keep" -> "SFK".
+local function DungeonAbbrev(label)
+  local engine = TitanJourney_Engine
+  local s = (engine and engine.PrettySource(label)) or label
+  local letters = {}
+  for w in s:gmatch("%S+") do letters[#letters + 1] = w:sub(1, 1):upper() end
+  local a = table.concat(letters):sub(1, 3)
+  if a == "" then a = (s:sub(1, 2)):upper() end
+  return a
+end
+
+-- Populate the dungeon-filter bar with the dungeons offering the most usable,
+-- unowned gear in the player's window. Buttons are pooled; click solos a source.
+local function RenderDungeonBar(panel, class, level)
+  local bar, pool = panel.dungeonBar, panel.dungeonBtns
+  if not bar then return end
+  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local lookahead = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  local ownsFn = Overlay.PlayerOwnsFn()
+  local counts, order = {}, {}
+  for i = 1, #(items or {}) do
+    local it = items[i]
+    local r = it.reqLevel or 0
+    if it.sourceType == "Dungeon" and it.sourceLabel and it.sourceLabel ~= ""
+       and r >= level - 2 and r <= level + lookahead
+       and engine.CanUse(it, class, level) and not ownsFn(it.itemID) then
+      if not counts[it.sourceLabel] then order[#order + 1] = it.sourceLabel end
+      counts[it.sourceLabel] = (counts[it.sourceLabel] or 0) + 1
+    end
+  end
+  table.sort(order, function(a, b)
+    if counts[a] ~= counts[b] then return counts[a] > counts[b] end
+    return a < b
+  end)
+
+  local x, n = 0, 0
+  for idx = 1, math.min(#order, 10) do
+    n = n + 1
+    local label = order[idx]
+    local b = pool[n]
+    if not b then
+      b = CreateFrame("Button", nil, bar, BackdropTemplateMixin and "BackdropTemplate" or nil)
+      b:SetSize(24, 24)
+      if b.SetBackdrop then
+        b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8",
+          edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
+        b:SetBackdropColor(0.10, 0.10, 0.13, 0.92)
+        b:SetBackdropBorderColor(0.40, 0.34, 0.18, 1)
+      end
+      local ic = b:CreateTexture(nil, "ARTWORK")
+      ic:SetPoint("TOPLEFT", 1, -1); ic:SetPoint("BOTTOMRIGHT", -1, 1)
+      ic:SetTexture("Interface\\Icons\\INV_Misc_Map_01")
+      ic:SetTexCoord(0.08, 0.92, 0.08, 0.92); ic:SetAlpha(0.5)
+      local ab = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      ab:SetPoint("CENTER", 0, 0); b.ab = ab
+      local hl = b:CreateTexture(nil, "HIGHLIGHT")
+      hl:SetAllPoints(); hl:SetColorTexture(0.85, 0.66, 0.20, 0.40)
+      b:SetHighlightTexture(hl)
+      pool[n] = b
+    end
+    b.ab:SetText(DungeonAbbrev(label))
+    b:SetScript("OnEnter", function(self)
+      GameTooltip:SetOwner(self, "ANCHOR_TOP")
+      GameTooltip:SetText(engine.PrettySource(label))
+      GameTooltip:AddLine(counts[label] .. " upgrade(s) in range", 0.6, 0.9, 0.6)
+      GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    b:SetScript("OnClick", function() Overlay.SelectDungeon(label) end)
+    b:ClearAllPoints(); b:SetPoint("LEFT", bar, "LEFT", x, 0)
+    x = x + 28
+    if Overlay.dungeonFilter == label then b:LockHighlight() else b:UnlockHighlight() end
+    b:Show()
+  end
+  for i = n + 1, #pool do pool[i]:Hide() end
+  -- A dungeon filtered out of the window clears the stale selection.
+  if Overlay.dungeonFilter and not counts[Overlay.dungeonFilter] then
+    Overlay.dungeonFilter = nil
+  end
+end
+
 -- Render the Browse tab: selector candidates (left) + Journey List (right).
 function Overlay.RenderBrowse()
   local panel = Overlay.panels and Overlay.panels.browse
   if not panel or not panel.selAnchor then return end
   local engine = TitanJourney_Engine
+  local _, pclass = UnitClass("player")
+  RenderDungeonBar(panel, pclass, (UnitLevel and UnitLevel("player")) or 1)
 
   -- A non-empty search box overrides the slot selector and scans the whole
   -- enriched database by name; otherwise show the usual slot candidates.
@@ -677,7 +766,17 @@ function Overlay.RenderBrowse()
     if panel.selHdr then panel.selHdr:SetText("Search: |cffffffff" .. q .. "|r (" .. #cands .. ")") end
   else
     cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
-    if panel.selHdr then panel.selHdr:SetText("Selector") end
+    -- A soloed dungeon narrows the candidates to that source.
+    if Overlay.dungeonFilter then
+      local f = {}
+      for _, it in ipairs(cands) do
+        if it.sourceLabel == Overlay.dungeonFilter then f[#f + 1] = it end
+      end
+      cands = f
+      if panel.selHdr then panel.selHdr:SetText("Selector \226\128\148 " .. engine.PrettySource(Overlay.dungeonFilter)) end
+    elseif panel.selHdr then
+      panel.selHdr:SetText("Selector")
+    end
   end
   panel.selRows = panel.selRows or {}
   RenderRowsInto(panel.selScroll, panel.selAnchor, panel.selRows, cands, level, hi, "add")
@@ -940,9 +1039,18 @@ local function BuildLayout(f)
       end
       chipBar:SetHeight(-cy + 24)
 
+      -- Dungeon source filters: small icon buttons populated per level window
+      -- (RenderDungeonBar). Clicking one solos that dungeon as the source.
+      local dungeonBar = CreateFrame("Frame", nil, panel)
+      dungeonBar:SetPoint("TOPLEFT", chipBar, "BOTTOMLEFT", 0, -2)
+      dungeonBar:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
+      dungeonBar:SetHeight(26)
+      panel.dungeonBar = dungeonBar
+      panel.dungeonBtns = {}
+
       -- Two panes: Selector (left) | Journey List (right).
       local leftPane = CreateFrame("Frame", nil, panel)
-      leftPane:SetPoint("TOPLEFT", chipBar, "BOTTOMLEFT", 0, -8)
+      leftPane:SetPoint("TOPLEFT", dungeonBar, "BOTTOMLEFT", 0, -6)
       leftPane:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 40)
       leftPane:SetWidth(420)
       local rightPane = CreateFrame("Frame", nil, panel)
