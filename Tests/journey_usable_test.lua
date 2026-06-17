@@ -28,6 +28,19 @@ H.eq(names(Engine.FilterByClass(weapons, "MAGE", 30)), "Staff,Dagger,Wand",
 H.eq(names(Engine.FilterByClass(weapons, "WARRIOR", 30)), "Staff,Dagger,2HSword",
      "warrior keeps melee + staff; drops wand")
 
+-- Rogues use 1H mace/sword/fist/dagger + ranged, but NOT axes, polearms,
+-- staves, or 2H weapons (regression: 1H axe was wrongly allowed).
+local rogueWeapons = {
+  { name = "Axe1H",   itemClassID = 2, itemSubClassID = 0 },
+  { name = "Mace1H",  itemClassID = 2, itemSubClassID = 4 },
+  { name = "Sword1H", itemClassID = 2, itemSubClassID = 7 },
+  { name = "Fist",    itemClassID = 2, itemSubClassID = 13 },
+  { name = "Dagger2", itemClassID = 2, itemSubClassID = 15 },
+  { name = "Polearm", itemClassID = 2, itemSubClassID = 6 },
+}
+H.eq(names(Engine.FilterByClass(rogueWeapons, "ROGUE", 30)), "Mace1H,Sword1H,Fist,Dagger2",
+     "rogue drops axes/polearms; keeps 1H mace/sword/fist/dagger")
+
 -- Armor level gates: plate (warrior/paladin) and mail (hunter/shaman) at 40.
 local plate  = { { name = "Plate", armorType = "Plate" } }
 H.eq(#Engine.FilterByClass(plate, "WARRIOR", 25), 0, "no plate for a level-25 warrior")
