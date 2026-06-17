@@ -22,6 +22,7 @@ local FALLBACK_BACKDROP = {
 -- landing tab. "Journey Items" is a read-only browse of the saved Journey List.
 local TABS = {
   { key = "journey",  label = "Journey Items" },
+  { key = "guide",    label = "Class Guide" },
   { key = "browse",   label = "Browse" },
   { key = "future",   label = "Future Planner" },
   { key = "settings", label = "Settings" },
@@ -441,6 +442,94 @@ function Overlay.RenderJourney()
   end
 end
 
+-- Render a banded list (band header + its rows) into a scroll child, pooling
+-- both the band-header fontstrings and the item rows. `bands` is an array of
+-- { label = string, items = { item, ... } }, already non-empty and ordered.
+local function RenderBandedInto(scroll, anchor, rowPool, hdrPool, bands, level)
+  local y, ri, hi = -4, 0, 0
+  for _, band in ipairs(bands) do
+    hi = hi + 1
+    local hdr = hdrPool[hi]
+    if not hdr then
+      hdr = anchor:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+      hdrPool[hi] = hdr
+    end
+    hdr:ClearAllPoints()
+    hdr:SetPoint("TOPLEFT", anchor, "TOPLEFT", 2, y)
+    hdr:SetText(band.label)
+    hdr:Show()
+    y = y - 24
+    for _, item in ipairs(band.items) do
+      ri = ri + 1
+      local row = rowPool[ri]
+      if not row then row = CreateRow(anchor); rowPool[ri] = row end
+      row:ClearAllPoints()
+      row:SetPoint("TOPLEFT", anchor, "TOPLEFT", 0, y)
+      row:SetPoint("RIGHT", anchor, "RIGHT", 0, 0)
+      FillRow(row, item, level, level)   -- colour levels relative to current
+      ConfigRowAction(row, item, "add")  -- Add / On List toggle
+      row:Show()
+      y = y - (ROW_H + 4)
+    end
+    y = y - 10  -- gap between bands
+  end
+  for i = ri + 1, #rowPool do rowPool[i]:Hide() end
+  for i = hi + 1, #hdrPool do hdrPool[i]:Hide() end
+  local w = (scroll and scroll:GetWidth()) or 0
+  if w < 10 then w = 280 end
+  anchor:SetWidth(w)
+  anchor:SetHeight(math.max(1, -y + 8))
+end
+
+-- Render the Class Guide tab: a curated, best-in-slot-focused gear list for the
+-- player's class (EPIC-H), resolved from itemIDs against the enriched pool and
+-- grouped into level bands. Items not usable by the class are dropped.
+function Overlay.RenderGuide()
+  local panel = Overlay.panels and Overlay.panels.guide
+  if not panel or not panel.listAnchor then return end
+  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local locClass, class = UnitClass("player")
+  local level = (UnitLevel and UnitLevel("player")) or 1
+  local guide = class and TitanJourney_ClassGuides and TitanJourney_ClassGuides[class]
+  panel.header:SetText((locClass or "Class") .. " Gear Guide")
+
+  panel.hdrs = panel.hdrs or {}
+  panel.rows = panel.rows or {}
+  if not (engine and items and guide) then
+    RenderBandedInto(panel.scroll, panel.listAnchor, panel.rows, panel.hdrs, {}, level)
+    panel.empty:SetText(guide and "Loading gear\226\128\166"
+      or "No curated guide yet for your class. (Rogue available; more coming.)")
+    panel.empty:Show()
+    return
+  end
+
+  -- Resolve IDs -> enriched items, keep only usable, bucket by reqLevel band.
+  local buckets = {}
+  for _, id in ipairs(guide) do
+    local it = engine.FindByID(items, id)
+    if it and engine.CanUse(it, class, level) then
+      local bi = engine.BandIndex(it.reqLevel)
+      buckets[bi] = buckets[bi] or {}
+      buckets[bi][#buckets[bi] + 1] = it
+    end
+  end
+  local bands = {}
+  for bi = 1, #engine.LEVEL_BANDS do
+    local b = buckets[bi]
+    if b and #b > 0 then
+      table.sort(b, function(a, c)
+        if (a.reqLevel or 0) ~= (c.reqLevel or 0) then return (a.reqLevel or 0) < (c.reqLevel or 0) end
+        return (a.name or "") < (c.name or "")
+      end)
+      bands[#bands + 1] = { label = engine.LEVEL_BANDS[bi].label, items = b }
+    end
+  end
+
+  RenderBandedInto(panel.scroll, panel.listAnchor, panel.rows, panel.hdrs, bands, level)
+  panel.empty:SetText("No matching gear yet \226\128\148 items still loading from the server.")
+  panel.empty:SetShown(#bands == 0)
+end
+
 -- Render one list tab (key = "current" or "future") into its panel, spec-scored.
 function Overlay.RenderTab(key)
   local panel = Overlay.panels and Overlay.panels[key]
@@ -498,6 +587,7 @@ end
 -- Refresh the browse + future views (called by the provider and on open).
 function Overlay.RenderCurrentGoals()
   Overlay.RenderJourney()
+  Overlay.RenderGuide()
   Overlay.RenderBrowse()
   Overlay.RenderTab("future")
 end
@@ -630,6 +720,21 @@ local function BuildLayout(f)
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
       empty:SetText("Your Journey list is empty. Add gear from the Browse tab.")
+      empty:Hide()
+      panel.empty = empty
+
+    elseif tab.key == "guide" then
+      -- Class Guide: a curated, band-grouped gear list for the player's class.
+      -- The header label is set per class at render time (RenderGuide). No
+      -- filter bar, so the scroll runs to the bottom inset.
+      panel.header = header  -- RenderGuide retitles it "<Class> Gear Guide"
+      local scroll, child = MakeScroll(panel)
+      scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
+      panel.scroll, panel.listAnchor = scroll, child
+      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
+      empty:SetText("No curated guide yet for your class.")
       empty:Hide()
       panel.empty = empty
 

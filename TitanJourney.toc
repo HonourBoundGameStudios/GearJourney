@@ -12,6 +12,7 @@ JourneyEngine.lua
 JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
+JourneyRogueData.lua
 JourneyProvider.lua
 JourneyTests.lua
 JourneyOverlay.lua

@@ -207,6 +207,36 @@ function Engine.FindByName(items, name)
   return nil
 end
 
+-- FindByID(items, id) -> item or nil. Linear lookup by itemID. Used by the
+-- class gear guides (EPIC-H) to resolve curated itemIDs against the pool.
+function Engine.FindByID(items, id)
+  if not id then return nil end
+  for i = 1, #items do
+    if items[i].itemID == id then return items[i] end
+  end
+  return nil
+end
+
+-- Level bands for the class gear guides (EPIC-H): six 10-level brackets, 1..60.
+Engine.LEVEL_BANDS = {
+  { lo = 1,  hi = 10, label = "Level 1\226\128\09310" },
+  { lo = 11, hi = 20, label = "Level 11\226\128\09320" },
+  { lo = 21, hi = 30, label = "Level 21\226\128\09330" },
+  { lo = 31, hi = 40, label = "Level 31\226\128\09340" },
+  { lo = 41, hi = 50, label = "Level 41\226\128\09350" },
+  { lo = 51, hi = 60, label = "Level 51\226\128\09360" },
+}
+
+-- BandIndex(reqLevel) -> 1..6. Maps a required level onto its 10-level band
+-- (1-10 -> 1, 11-20 -> 2, ... 51+ -> 6); missing/low levels fall in band 1.
+function Engine.BandIndex(reqLevel)
+  local r = tonumber(reqLevel) or 1
+  if r < 1 then r = 1 end
+  local idx = math.floor((r - 1) / 10) + 1
+  if idx < 1 then return 1 elseif idx > 6 then return 6 end
+  return idx
+end
+
 -- NextJourneyGoal(items, journeyNames, level) -> item or nil
 --   The next item to chase from the player's Journey List: the lowest-reqLevel
 --   journey item at or above the player's level; if all are out-levelled, the
