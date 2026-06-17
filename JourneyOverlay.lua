@@ -962,7 +962,7 @@ end
 
 -- Bottom control bar shared by the list tabs (FEAT-C8/C9): source-filter
 -- checkboxes + a lookahead slider, both persisted and re-rendering live.
-local SOURCE_FILTERS = { "Crafted", "Dungeon", "Faction", "PvP" }
+local SOURCE_FILTERS = { "Crafted", "Dungeon", "Quest", "Faction", "PvP" }
 
 local function BuildControlBar(content, topLevel)
   local bar = CreateFrame("Frame", nil, content)
@@ -1370,7 +1370,7 @@ local function CreateOverlay()
     close:SetPoint("TOPRIGHT", -4, -4)
   end
 
-  f:SetSize(980, 520)  -- wide enough for the two-pane Browse + full control bar
+  f:SetSize(1060, 520)  -- two-pane Browse + full control bar (5 sources, 4 rarities, slider)
   f:SetPoint("CENTER")
   f:SetFrameStrata("HIGH")
   f:SetToplevel(true)
