@@ -119,34 +119,28 @@ local function ApplyClassBackground(f)
 
   local W = f:GetWidth() + R - L    -- R is negative (inset from right)
   local H = f:GetHeight() + T + B   -- T and B are negative (insets)
-  local S = math.max(W, H)          -- cover the larger dimension
 
-  -- The composite art sits on a square canvas, centred and clipped by holder,
-  -- so it covers the window while preserving aspect (overflow cropped). The
-  -- canvas is a child *frame*, which SetClipsChildren actually clips (textures
-  -- drawn straight on a frame are not clipped).
-  local canvas = CreateFrame("Frame", nil, holder)
-  canvas:SetSize(S, S)
-  canvas:SetPoint("CENTER", holder, "CENTER")
-
-  local seam = S * (256 / 384)              -- the 2/3 split
-  local lw, rw = seam, S - seam
-  local th, bh = seam, S - seam
+  -- Fill the holder rect *directly* with the four quadrants (stretched to fit).
+  -- The holder sits wholly inside the frame, so the dimmed art can never bleed
+  -- past the window edges -- no reliance on SetClipsChildren (which on some
+  -- clients failed to crop an oversized centred canvas, leaking out the bottom).
+  local seamX = W * (256 / 384)             -- the composite's 2/3 split
+  local seamY = H * (256 / 384)
 
   local function quad(suffix, x, yDown, w, h)
-    local t = canvas:CreateTexture(nil, "BACKGROUND")
+    local t = holder:CreateTexture(nil, "BACKGROUND")
     t:SetTexture(prefix .. suffix)   -- bad path simply draws nothing
     t:SetAlpha(0.42)                 -- dim so text stays readable
-    t:SetPoint("TOPLEFT", canvas, "TOPLEFT", x, -yDown)
+    t:SetPoint("TOPLEFT", holder, "TOPLEFT", x, -yDown)
     t:SetSize(w, h)
     return t
   end
 
   Overlay.bgTextures = {
-    quad("TopLeft",     0,    0,    lw, th),
-    quad("TopRight",    lw,   0,    rw, th),
-    quad("BottomLeft",  0,    th,   lw, bh),
-    quad("BottomRight", lw,   th,   rw, bh),
+    quad("TopLeft",     0,     0,     seamX,     seamY),
+    quad("TopRight",    seamX, 0,     W - seamX, seamY),
+    quad("BottomLeft",  0,     seamY, seamX,     H - seamY),
+    quad("BottomRight", seamX, seamY, W - seamX, H - seamY),
   }
 end
 
