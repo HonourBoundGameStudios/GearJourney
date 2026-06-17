@@ -62,9 +62,11 @@ def main():
             continue
         name = it.get("name")
         iid = it.get("itemId")
-        # Classic Era only: Vanilla item IDs cap ~24283; higher IDs are TBC/Wrath
-        # items that don't exist on Era (broken tooltips). 200000+ already excluded.
-        if not name or not iid or iid >= 24284 or iid in seen or JUNK.search(name):
+        # Classic Era only: Vanilla IDs cap ~24283, AND no Vanilla item requires
+        # level > 60 -- so reqLevel > 60 catches TBC items with Vanilla-range IDs
+        # (e.g. Hand of Eternity, id 23556 reqLevel 70). 200000+ already excluded.
+        if not name or not iid or iid >= 24284 or (it.get("requiredLevel") or 0) > 60 \
+           or iid in seen or JUNK.search(name):
             continue
         seen.add(iid)
         q = QUALITY.get(it.get("quality"), "common")
