@@ -1172,6 +1172,17 @@ local function BuildLayout(f)
       -- Last Inspected: the captured player's gear (header retitled at render),
       -- each row Add-able to the Journey List. Full-width scrolling list.
       panel.header = header
+      -- "Add all" wishlists every inspected piece in one click.
+      local addAll = MakeChip(panel, "Add all to Journey")
+      addAll:SetHeight(22)
+      addAll:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -8, 0)
+      addAll:SetScript("OnClick", function()
+        local insp = Overlay.lastInspect or { items = {} }
+        if TitanJourney_DB then
+          for _, it in ipairs(insp.items) do TitanJourney_DB.JourneyAdd(it.name) end
+        end
+        RefreshAll()
+      end)
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
