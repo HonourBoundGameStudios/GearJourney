@@ -696,7 +696,14 @@ local function RenderDungeonBar(panel, class, level)
     return a < b
   end)
 
-  local x, n = 0, 0
+  -- "All" sits first; highlight it when no dungeon is soloed. Dungeon icons
+  -- start to its right.
+  local x = 0
+  if panel.dungeonAll then
+    if Overlay.dungeonFilter then panel.dungeonAll:UnlockHighlight() else panel.dungeonAll:LockHighlight() end
+    x = panel.dungeonAll:GetWidth() + 8
+  end
+  local n = 0
   for idx = 1, math.min(#order, 10) do
     n = n + 1
     local label = order[idx]
@@ -1049,6 +1056,13 @@ local function BuildLayout(f)
       dungeonBar:SetHeight(26)
       panel.dungeonBar = dungeonBar
       panel.dungeonBtns = {}
+      -- "All" clears the dungeon filter (highlighted when nothing is soloed).
+      local dAll = MakeChip(dungeonBar, "All")
+      dAll:SetHeight(24)
+      dAll:SetWidth(math.max(dAll:GetWidth(), 36))
+      dAll:SetPoint("LEFT", dungeonBar, "LEFT", 0, 0)
+      dAll:SetScript("OnClick", function() Overlay.dungeonFilter = nil; Overlay.RenderBrowse() end)
+      panel.dungeonAll = dAll
 
       -- Two panes: Selector (left) | Journey List (right).
       local leftPane = CreateFrame("Frame", nil, panel)
