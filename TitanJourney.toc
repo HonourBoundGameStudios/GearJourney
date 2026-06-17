@@ -13,6 +13,7 @@ JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
 JourneyRogueData.lua
+JourneyClassGuides.lua
 JourneyItemIndex.lua
 JourneyProvider.lua
 JourneyTests.lua
