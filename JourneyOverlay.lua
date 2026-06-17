@@ -715,7 +715,7 @@ local function BuildLayout(f)
       panel.sub = sub
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
@@ -730,7 +730,7 @@ local function BuildLayout(f)
       panel.header = header  -- RenderGuide retitles it "<Class> Gear Guide"
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
