@@ -640,7 +640,16 @@ function Overlay.RenderGuide()
     if it and engine.CanUse(it, class, level) then
       local isWeapon = (it.itemClassID == 2)
       local score = engine.ScoreItem(it, weights)
-      local keep = wantWeapon and isWeapon or (not wantWeapon and not isWeapon and score > 0)
+      -- Drop off-spec gear (e.g. caster Int weapons in a hunter's guide); the
+      -- score-filter alone misses these because physical specs still weight a
+      -- little Intellect and weapons skip scoring.
+      local offspec = engine.IsOffSpec(it, weights)
+      local keep
+      if wantWeapon then
+        keep = isWeapon and not offspec
+      else
+        keep = (not isWeapon) and not offspec and score > 0
+      end
       if keep then
         local bi = engine.BandIndex(it.reqLevel)
         buckets[bi] = buckets[bi] or {}

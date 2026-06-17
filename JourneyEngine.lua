@@ -638,6 +638,40 @@ function Engine.ScoreItem(item, weights)
   return total
 end
 
+-- PrimaryStat(weights) -> the stat a spec values most (highest weight).
+function Engine.PrimaryStat(weights)
+  local best, bestW
+  for stat, w in pairs(weights or {}) do
+    if type(w) == "number" and (not bestW or w > bestW) then best, bestW = stat, w end
+  end
+  return best
+end
+
+-- IsOffSpec(item, weights) -> true if the item is the wrong armour "school" for
+-- the spec: pure caster gear (Int/Spirit, no Agi/Str) for a physical spec, or
+-- pure physical gear (Agi/Str, no Int) for a caster spec. Many physical specs
+-- still weight a little Intellect (mana), so scoring alone lets caster gear
+-- through -- this is the hard cut. Hybrids (e.g. Agi+Int) are kept.
+function Engine.IsOffSpec(item, weights)
+  if not (item and item.stats and weights) then return false end
+  local primary = Engine.PrimaryStat(weights)
+  if not primary then return false end
+  local physical = (primary == "Agility" or primary == "Strength" or primary == "Stamina")
+  local agi, str, int, spi = 0, 0, 0, 0
+  for k, v in pairs(item.stats) do
+    if type(v) == "number" and v > 0 then
+      local c = Engine.STAT_KEY[k] or k
+      if c == "Agility" then agi = v elseif c == "Strength" then str = v
+      elseif c == "Intellect" then int = v elseif c == "Spirit" then spi = v end
+    end
+  end
+  if physical then
+    return (int > 0 or spi > 0) and agi == 0 and str == 0
+  else
+    return (agi > 0 or str > 0) and int == 0
+  end
+end
+
 -- BestPerSlotScored(items, weights) -> new array
 --   Like BestPerSlot but ranks each slot by ScoreItem (ties: item level, then
 --   itemID). Sorted ascending by reqLevel. Input is not mutated.

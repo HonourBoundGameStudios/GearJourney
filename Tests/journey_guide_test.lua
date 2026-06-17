@@ -64,4 +64,17 @@ H.eq(Engine.SpeedFromText("Speed 2.50"), 2.5, "parses weapon speed")
 H.eq(Engine.SpeedFromText("speed 1.80"), 1.8, "case-insensitive speed")
 H.eq(Engine.SpeedFromText("Damage"), nil, "no speed -> nil")
 
+-- IsOffSpec: caster gear rejected for a physical spec (hunter weights Int 0.4) --
+local hunterW = Engine.WeightsFor("HUNTER", 1, "pve")
+H.ok(Engine.IsOffSpec({ stats = { Intellect = 20, Spirit = 10 } }, hunterW),
+     "pure caster gear is off-spec for a hunter")
+H.ok(not Engine.IsOffSpec({ stats = { Agility = 15, Stamina = 8 } }, hunterW),
+     "agility gear is on-spec for a hunter")
+H.ok(not Engine.IsOffSpec({ stats = { Agility = 10, Intellect = 8 } }, hunterW),
+     "hybrid (agi+int) kept for a hunter")
+H.ok(not Engine.IsOffSpec({ stats = {} }, hunterW), "no primary stats (plain weapon) kept")
+local mageW = Engine.WeightsFor("MAGE", 1, "pve")
+H.ok(Engine.IsOffSpec({ stats = { Agility = 12 } }, mageW),
+     "pure agility gear is off-spec for a mage")
+
 H.done()
