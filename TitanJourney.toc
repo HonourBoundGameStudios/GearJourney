@@ -4,6 +4,7 @@
 ## Author: Honour Bound Game Studios
 ## Version: 0.9.0
 ## IconTexture: Interface\Icons\Ability_Mount_RidingHorse
+## X-Curse-Project-ID: 1578100
 ## SavedVariables: TitanJourneyDB
 ## OptionalDeps:
 ## Dependencies: Titan

@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: BigWigsMods/packager@v2
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          CURSE_ID: REPLACE_WITH_TITANJOURNEY_CURSEFORGE_PROJECT_ID
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
