@@ -503,14 +503,23 @@ function Overlay.RenderGuide()
     return
   end
 
-  -- Resolve IDs -> enriched items, keep only usable, bucket by reqLevel band.
+  -- Resolve IDs -> enriched items, keep only usable, then enforce quality with
+  -- the player's spec weights: weapons (no primary stats) are kept and ranked by
+  -- item level; armor/jewelry must score > 0 (i.e. carry offensive stats for the
+  -- spec), which drops defensive-only pieces. Buckets are sorted best-first.
+  local spec = PlayerSpecIndex()
+  local weights = engine.WeightsFor(class, spec, (TitanJourney_DB and TitanJourney_DB.Mode()) or "pve")
   local buckets = {}
   for _, id in ipairs(guide) do
     local it = engine.FindByID(items, id)
     if it and engine.CanUse(it, class, level) then
-      local bi = engine.BandIndex(it.reqLevel)
-      buckets[bi] = buckets[bi] or {}
-      buckets[bi][#buckets[bi] + 1] = it
+      local isWeapon = (it.itemClassID == 2)
+      local score = engine.ScoreItem(it, weights)
+      if isWeapon or score > 0 then
+        local bi = engine.BandIndex(it.reqLevel)
+        buckets[bi] = buckets[bi] or {}
+        buckets[bi][#buckets[bi] + 1] = { item = it, score = score }
+      end
     end
   end
   local bands = {}
@@ -518,10 +527,14 @@ function Overlay.RenderGuide()
     local b = buckets[bi]
     if b and #b > 0 then
       table.sort(b, function(a, c)
-        if (a.reqLevel or 0) ~= (c.reqLevel or 0) then return (a.reqLevel or 0) < (c.reqLevel or 0) end
-        return (a.name or "") < (c.name or "")
+        if a.score ~= c.score then return a.score > c.score end       -- best stats first
+        local ai, ci = a.item.ilvl or 0, c.item.ilvl or 0
+        if ai ~= ci then return ai > ci end
+        return (a.item.name or "") < (c.item.name or "")
       end)
-      bands[#bands + 1] = { label = engine.LEVEL_BANDS[bi].label, items = b }
+      local list = {}
+      for i = 1, #b do list[i] = b[i].item end
+      bands[#bands + 1] = { label = engine.LEVEL_BANDS[bi].label, items = list }
     end
   end
 
