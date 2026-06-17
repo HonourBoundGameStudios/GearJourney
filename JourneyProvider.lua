@@ -36,7 +36,7 @@ end
 -- Hidden tooltip scanner: read item metadata GetItemInfo doesn't expose -- the
 -- class restriction ("Classes: Shaman") and the spell-effect type (damage vs
 -- healing). One tooltip pass; returns (classSet|nil, spellType|nil).
-local scanTip, nameToToken
+local scanTip, nameToToken, effectPrefixes
 local CLASS_PATTERN = (ITEM_CLASSES_ALLOWED or "Classes: %s"):gsub("%%s", "(.+)")
 
 local function ScanItemMeta(id)
@@ -49,10 +49,17 @@ local function ScanItemMeta(id)
     for token, name in pairs(LOCALIZED_CLASS_NAMES_MALE or {}) do nameToToken[name] = token end
     for token, name in pairs(LOCALIZED_CLASS_NAMES_FEMALE or {}) do nameToToken[name] = token end
   end
+  if not effectPrefixes then
+    effectPrefixes = {}
+    for _, g in ipairs({ ITEM_SPELL_TRIGGER_ONEQUIP, ITEM_SPELL_TRIGGER_ONUSE, ITEM_SPELL_TRIGGER_ONPROC }) do
+      if g and g ~= "" then effectPrefixes[#effectPrefixes + 1] = g end
+    end
+  end
   scanTip:ClearLines()
   scanTip:SetHyperlink("item:" .. id)
-  local classes, parts
-  for i = 2, scanTip:NumLines() or 0 do
+  local classes, parts, effect, speed
+  local lines = scanTip:NumLines() or 0
+  for i = 2, lines do
     local fs = _G["TitanJourneyScanTipTextLeft" .. i]
     local text = fs and fs:GetText()
     if text then
@@ -60,10 +67,21 @@ local function ScanItemMeta(id)
         local body = text:match(CLASS_PATTERN)
         if body then classes = Engine.ClassSetFromNames(body, nameToToken) end
       end
+      if not effect then
+        for _, pre in ipairs(effectPrefixes) do
+          if text:sub(1, #pre) == pre then effect = text; break end
+        end
+      end
       parts = parts and (parts .. "\n" .. text) or text
     end
+    -- Weapon speed sits on the right side of the damage line.
+    if not speed then
+      local rfs = _G["TitanJourneyScanTipTextRight" .. i]
+      local rtext = rfs and rfs:GetText()
+      if rtext then speed = Engine.SpeedFromText(rtext) end
+    end
   end
-  return classes, Engine.SpellTypeFromTooltip(parts), Engine.DpsFromTooltip(parts)
+  return classes, Engine.SpellTypeFromTooltip(parts), Engine.DpsFromTooltip(parts), speed, effect
 end
 
 -- Try to turn one raw row into an enriched item. Returns true once the id is
@@ -93,15 +111,16 @@ local function TryBuild(raw)
     local ok, s = pcall(GetItemStats, link)
     if ok then stats = s end
   end
-  local classes, spellType, dps
+  local classes, spellType, dps, speed, effect
   if link then
-    local ok, c, st, dp = pcall(ScanItemMeta, id)
-    if ok then classes, spellType, dps = c, st, dp end
+    local ok, c, st, dp, sp, ef = pcall(ScanItemMeta, id)
+    if ok then classes, spellType, dps, speed, effect = c, st, dp, sp, ef end
   end
   local item = Engine.BuildItem(raw, {
     name = name, quality = quality, reqLevel = reqLevel, ilvl = ilvl,
     equipLoc = equipLoc, classID = classID, subClassID = subClassID,
-    icon = icon, stats = stats, classes = classes, spellType = spellType, dps = dps,
+    icon = icon, stats = stats, classes = classes, spellType = spellType,
+    dps = dps, speed = speed, effect = effect,
   })
   if item then
     Provider.items[#Provider.items + 1] = item

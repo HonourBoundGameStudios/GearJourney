@@ -60,4 +60,8 @@ H.eq(Engine.DpsFromTooltip("12 - 18 Damage\n(15.0 damage per second)"), 15.0, "p
 H.eq(Engine.DpsFromTooltip("No weapon line here"), nil, "no DPS -> nil")
 H.eq(Engine.DpsFromTooltip(nil), nil, "nil -> nil")
 
+H.eq(Engine.SpeedFromText("Speed 2.50"), 2.5, "parses weapon speed")
+H.eq(Engine.SpeedFromText("speed 1.80"), 1.8, "case-insensitive speed")
+H.eq(Engine.SpeedFromText("Damage"), nil, "no speed -> nil")
+
 H.done()

@@ -176,6 +176,25 @@ local QUALITY_COLOR = {
   legendary = { 1.00, 0.50, 0.00 },
 }
 
+-- Quality hex (matches QUALITY_COLOR) for inline-coloured item names.
+local QUALITY_HEX = {
+  poor = "ff9d9d9d", common = "ffffffff", uncommon = "ff1eff00",
+  rare = "ff0070dd", epic = "ffa335ee", legendary = "ffff8000",
+}
+-- Source label colour by sourceType (dungeon name, Quest, Vendor, ...).
+local SOURCE_COLOR = {
+  Dungeon = "ffff8c40", Drop = "ffff8c40", Quest = "ffffe04d",
+  Crafted = "ff66dd66", Vendor = "ffd0d0d0", Faction = "ff7fc7ff", PvP = "ffff6a6a",
+}
+-- SourceDisplay(item) -> text, hex (the dungeon/instance name or a coarse type).
+local function SourceDisplay(item)
+  local st, lbl = item.sourceType, item.sourceLabel
+  if st and st ~= "" and lbl and lbl ~= "" then return lbl, SOURCE_COLOR[st] or "ffb0b0b0" end
+  if st and st ~= "" then return st, SOURCE_COLOR[st] or "ffb0b0b0" end
+  if lbl and lbl ~= "" then return lbl, "ffb0b0b0" end
+  return nil
+end
+
 -- Per-stat colours for the row's stat line. Stats are upgrades, so everything
 -- reads green (red looked like a penalty); slight shade variation per stat.
 local STAT_COLOR = {
@@ -249,19 +268,27 @@ local function CreateRow(parent)
   row.icon:SetSize(ICON, ICON)
   row.icon:SetPoint("CENTER", row.border, "CENTER")
 
+  -- Name + coloured source beside it. Right edge stops short of the buttons so
+  -- long names/effects clip rather than run under the Add/Remove controls.
   row.name = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   row.name:SetPoint("TOPLEFT", row.border, "TOPRIGHT", 10, 0)
+  row.name:SetPoint("RIGHT", row, "RIGHT", -118, 0)
   row.name:SetJustifyH("LEFT")
+  row.name:SetWordWrap(false)
 
-  -- Slot + source line.
+  -- Slot + DPS/Speed line.
   row.sub = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
   row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
+  row.sub:SetPoint("RIGHT", row, "RIGHT", -118, 0)
   row.sub:SetJustifyH("LEFT")
+  row.sub:SetWordWrap(false)
 
-  -- Stats on their own line, coloured per stat.
+  -- Stats + effect line, coloured.
   row.stats = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
   row.stats:SetPoint("TOPLEFT", row.sub, "BOTTOMLEFT", 0, -2)
+  row.stats:SetPoint("RIGHT", row, "RIGHT", -118, 0)
   row.stats:SetJustifyH("LEFT")
+  row.stats:SetWordWrap(false)
 
   row.action = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
   row.action:SetSize(58, 20)
@@ -287,22 +314,25 @@ local function FillRow(row, item, playerLevel, hi)
   SetSolid(row.border, qc[1], qc[2], qc[3])
   -- Real item icon once enriched (FEAT-E2); paper-doll slot art as a fallback.
   row.icon:SetTexture(item.icon or ("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest")))
-  row.name:SetText(item.name)
-  row.name:SetTextColor(qc[1], qc[2], qc[3])
-  -- Slot + source (source omitted for curated guide items that have none).
-  local src = item.sourceType or ""
-  if src ~= "" and item.sourceLabel and item.sourceLabel ~= "" then
-    src = src .. ": " .. item.sourceLabel
-  elseif src == "" then
-    src = item.sourceLabel or ""
-  end
+  -- Name (quality-coloured) + the source/dungeon name beside it, coloured.
+  local qhex = QUALITY_HEX[item.quality] or QUALITY_HEX.common
+  local nameText = "|c" .. qhex .. (item.name or "") .. "|r"
+  local srcText, srcHex = SourceDisplay(item)
+  if srcText then nameText = nameText .. "  |c" .. srcHex .. srcText .. "|r" end
+  row.name:SetText(nameText)
+
+  -- Slot + weapon DPS / Speed.
   local subline = item.slot or ""
-  if src ~= "" then subline = subline .. "   |cff8a8a8a" .. src .. "|r" end
+  if item.dps then subline = subline .. "   |cffffd100DPS " .. string.format("%.1f", item.dps) .. "|r" end
+  if item.speed then subline = subline .. "   |cffe0e0e0Speed " .. string.format("%.2f", item.speed) .. "|r" end
   row.sub:SetText(subline)
-  -- Stats line, or weapon DPS when the item has no primary stats.
+
+  -- Stats + on-equip/use effect.
   local statline = ColoredStats(item)
-  if statline == "" and item.dps then
-    statline = "|cffffd100" .. string.format("%.1f DPS", item.dps) .. "|r"
+  if item.effect and item.effect ~= "" then
+    local ef = item.effect
+    if #ef > 64 then ef = ef:sub(1, 61) .. "..." end
+    statline = (statline ~= "" and (statline .. "   ") or "") .. "|cff7ce07c" .. ef .. "|r"
   end
   row.stats:SetText(statline)
   row.level:SetText("Lv " .. item.reqLevel)

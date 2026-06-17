@@ -761,6 +761,14 @@ function Engine.DpsFromTooltip(text)
   return n and tonumber(n) or nil
 end
 
+-- SpeedFromText(text) -> number or nil. Weapon speed lives on the right side of
+-- the damage line ("Speed 2.50"). enUS phrasing.
+function Engine.SpeedFromText(text)
+  if not text then return nil end
+  local n = text:match("[Ss]peed%s+([%d%.]+)")
+  return n and tonumber(n) or nil
+end
+
 -- BuildItem(raw, info) -> schema item, or nil if not yet resolved / not gear.
 --   raw  = { id, sourceType, source }  (from JourneyAtlasData)
 --   info = { name, quality, reqLevel, ilvl, equipLoc, classID, subClassID, icon }
@@ -786,6 +794,8 @@ function Engine.BuildItem(raw, info)
     icon = info.icon,
     stats = info.stats,   -- GetItemStats table, for spec scoring
     dps = info.dps,       -- weapon DPS (tooltip), for ranking weapons
+    speed = info.speed,   -- weapon speed (tooltip)
+    effect = info.effect, -- first Equip:/Use:/Chance-on-hit line (tooltip)
   }
 end
 
