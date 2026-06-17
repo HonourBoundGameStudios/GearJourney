@@ -771,8 +771,27 @@ function Overlay.RenderBrowse()
     -- Search the exhaustive equippable index (every weapon/armor), falling back
     -- to the enriched pool if the index isn't loaded.
     local source = TitanJourney_ItemIndex or TitanJourney_Items
-    cands = engine and engine.SearchByName(source, q, 250) or {}
-    if panel.selHdr then panel.selHdr:SetText("Search: |cffffffff" .. q .. "|r (" .. #cands .. ")") end
+    local hits = engine and engine.SearchByName(source, q, 600) or {}
+    -- Prefer the enriched copy of a hit (it carries stats) over the bare index
+    -- row; optionally keep only items this character can use.
+    local byId = {}
+    for i = 1, #(TitanJourney_Items or {}) do
+      local e = TitanJourney_Items[i]
+      if e.itemID then byId[e.itemID] = e end
+    end
+    local _, class = UnitClass("player")
+    cands = {}
+    for _, it in ipairs(hits) do
+      local row = byId[it.itemID] or it
+      if not (Overlay.searchUsable and engine and not engine.CanUse(row, class, level)) then
+        cands[#cands + 1] = row
+        if #cands >= 250 then break end
+      end
+    end
+    if panel.selHdr then
+      panel.selHdr:SetText("Search: |cffffffff" .. q .. "|r (" .. #cands
+        .. (Overlay.searchUsable and ", usable" or "") .. ")")
+    end
   else
     cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
     -- A soloed dungeon narrows the candidates to that source.
@@ -1034,6 +1053,18 @@ local function BuildLayout(f)
         self:SetText(""); self:ClearFocus()
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
         Overlay.searchText = ""; Overlay.RenderBrowse()
+      end)
+      -- "Usable by me" narrows search results to gear this class can equip.
+      local usableCb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+      usableCb:SetSize(20, 20)
+      usableCb:SetPoint("TOPRIGHT", search, "BOTTOMRIGHT", 2, -2)
+      usableCb:SetChecked(Overlay.searchUsable and true or false)
+      local ucLbl = usableCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      ucLbl:SetPoint("RIGHT", usableCb, "LEFT", -2, 0)
+      ucLbl:SetText("Usable by me")
+      usableCb:SetScript("OnClick", function(self)
+        Overlay.searchUsable = self:GetChecked() and true or false
+        Overlay.RenderBrowse()
       end)
 
       -- Slot chips row (All + each equipment slot).

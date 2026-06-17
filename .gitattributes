@@ -1,0 +1,7 @@
+# Enforce LF line endings (CLAUDE.md: UTF-8, LF). Treat .tga as binary.
+* text=auto eol=lf
+*.lua text eol=lf
+*.toc text eol=lf
+*.md  text eol=lf
+*.tga binary
+*.json binary

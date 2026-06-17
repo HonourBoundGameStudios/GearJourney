@@ -21,6 +21,24 @@ QUALITY = {
     "Artifact": "legendary", "Heirloom": "rare",
 }
 SKIP_SLOTS = {"Shirt", "Tabard", "Non-equippable", "", None}
+TWO_HAND_SLOTS = {"Two-Hand"}
+BODY_ARMOR_SLOTS = {"Head", "Shoulder", "Chest", "Wrist", "Hands", "Waist", "Legs", "Feet"}
+ARMOR_SUB = {"Cloth": 1, "Leather": 2, "Mail": 3, "Plate": 4}
+SOURCE_CAT = {  # dataset source.category -> coarse, displayable sourceType
+    "Quest": "Quest", "Vendor": "Vendor",
+    "Boss Drop": "Drop", "Rare Drop": "Drop", "Zone Drop": "Drop",
+}
+
+
+def weapon_subclass(sub, slot):
+    """Our weapon subClassID (1H/2H distinguished by slot). None = neutral."""
+    two = slot in TWO_HAND_SLOTS
+    base = {
+        "Axe": (1 if two else 0), "Mace": (5 if two else 4), "Sword": (8 if two else 7),
+        "Polearm": 6, "Staff": 10, "Dagger": 15, "Fist Weapon": 13,
+        "Bow": 2, "Crossbow": 18, "Gun": 3, "Thrown": 16, "Wand": 19,
+    }
+    return base.get(sub)  # Exotic / Miscellaneous / Fishing Pole -> None (neutral)
 # True placeholders/test rows -- keep real items like "Old Greatsword".
 JUNK = re.compile(
     r"\[|\]|XXXX|^QR\b|^Monster\b|^OLD\b|\bTest\b|\bDEPRECATED\b|\bUNUSED\b|"
@@ -49,7 +67,20 @@ def main():
         seen.add(iid)
         q = QUALITY.get(it.get("quality"), "common")
         icon = it.get("icon") or ""
-        rows.append((iid, name, q, slot, it.get("requiredLevel") or 0, icon))
+        sub = it.get("subclass")
+        is_weapon = it.get("class") == "Weapon"
+        # class/subclass + armorType so Engine.CanUse works on index items.
+        if is_weapon:
+            cid, sid, atype = 2, weapon_subclass(sub, slot), None
+        else:
+            cid = 4
+            sid = 6 if sub == "Shield" else ARMOR_SUB.get(sub)  # else None (neutral)
+            atype = ARMOR_SUB.get(sub) and sub if slot in BODY_ARMOR_SLOTS else None
+        src = None
+        s = it.get("source")
+        if isinstance(s, dict):
+            src = SOURCE_CAT.get(s.get("category"))
+        rows.append((iid, name, q, slot, it.get("requiredLevel") or 0, icon, cid, sid, atype, src))
 
     rows.sort(key=lambda r: r[0])
     with open(OUT, "w", encoding="utf-8", newline="\n") as f:
@@ -58,9 +89,16 @@ def main():
         f.write("-- names are game facts; the client resolves the rest. Used by the\n")
         f.write("-- Browse 'Search all weapons & armor' box. Regenerate: python Tools/build_item_index.py\n\n")
         f.write("local Index = {\n")
-        for iid, name, q, slot, rl, icon in rows:
-            f.write('  {itemID=%d,name="%s",quality="%s",slot="%s",reqLevel=%d,icon="Interface\\\\Icons\\\\%s"},\n'
-                    % (iid, lua_str(name), q, lua_str(slot), rl, lua_str(icon)))
+        for iid, name, q, slot, rl, icon, cid, sid, atype, src in rows:
+            extra = ",itemClassID=%d" % cid
+            if sid is not None:
+                extra += ",itemSubClassID=%d" % sid
+            if atype:
+                extra += ',armorType="%s"' % atype
+            if src:
+                extra += ',sourceType="%s"' % src
+            f.write('  {itemID=%d,name="%s",quality="%s",slot="%s",reqLevel=%d,icon="Interface\\\\Icons\\\\%s"%s},\n'
+                    % (iid, lua_str(name), q, lua_str(slot), rl, lua_str(icon), extra))
         f.write("}\n\n")
         f.write("TitanJourney_ItemIndex = Index\nreturn Index\n")
     print("wrote", OUT, "with", len(rows), "items")
