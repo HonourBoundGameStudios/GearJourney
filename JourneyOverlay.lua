@@ -781,16 +781,29 @@ local function CreateOverlay()
   f:SetToplevel(true)
   f:SetClampedToScreen(true)
 
-  -- Title: template exposes a fontstring; fall back to a global lookup / our own.
-  local title = f.TitleText or _G[OVERLAY_NAME .. "TitleText"]
-  if not title then
-    title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOP", 0, -8)
+  -- Title: a larger font collides with the template's thin title bar, so we
+  -- draw our own on a bordered banner plate straddling the top edge. Blank the
+  -- template's title fontstring so the two don't double up.
+  local tmplTitle = f.TitleText or _G[OVERLAY_NAME .. "TitleText"]
+  if tmplTitle then tmplTitle:SetText("") end
+
+  local banner = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+  banner:SetPoint("TOP", f, "TOP", 0, 14)
+  banner:SetFrameStrata("HIGH")
+  banner:SetFrameLevel(f:GetFrameLevel() + 20)
+  if banner.SetBackdrop then
+    banner:SetBackdrop({
+      bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+      edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+      tile = true, tileSize = 16, edgeSize = 14,
+      insets = { left = 4, right = 4, top = 4, bottom = 4 },
+    })
+    banner:SetBackdropBorderColor(0.85, 0.68, 0.22)  -- soft gold
   end
-  -- Larger title than the template default; degrade to the next-biggest font
-  -- object if Huge is unavailable on this client.
-  title:SetFontObject(GameFontNormalHuge or GameFontNormalLarge)
+  local title = banner:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+  title:SetPoint("CENTER", banner, "CENTER", 0, 0)
   title:SetText("Titan Journey")
+  banner:SetSize((title:GetStringWidth() or 150) + 48, 40)
 
   -- Draggable by the title bar.
   f:SetMovable(true)
