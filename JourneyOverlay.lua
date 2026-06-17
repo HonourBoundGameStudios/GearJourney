@@ -666,7 +666,19 @@ function Overlay.RenderBrowse()
   if not panel or not panel.selAnchor then return end
   local engine = TitanJourney_Engine
 
-  local cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
+  -- A non-empty search box overrides the slot selector and scans the whole
+  -- enriched database by name; otherwise show the usual slot candidates.
+  local cands, level, hi
+  local q = Overlay.searchText
+  if q and q ~= "" then
+    level = (UnitLevel and UnitLevel("player")) or 1
+    hi = level
+    cands = engine and engine.SearchByName(TitanJourney_Items, q, 250) or {}
+    if panel.selHdr then panel.selHdr:SetText("Search: |cffffffff" .. q .. "|r (" .. #cands .. ")") end
+  else
+    cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
+    if panel.selHdr then panel.selHdr:SetText("Selector") end
+  end
   panel.selRows = panel.selRows or {}
   RenderRowsInto(panel.selScroll, panel.selAnchor, panel.selRows, cands, level, hi, "add")
   panel.selEmpty:SetShown(#cands == 0)
@@ -886,6 +898,29 @@ local function BuildLayout(f)
       panel.empty = empty
 
     elseif tab.key == "browse" then
+      -- Search box (top-right): searches the whole DB by name, 3s after typing
+      -- stops (debounced). A non-empty query overrides the slot selector.
+      local searchLbl = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      local search = CreateFrame("EditBox", nil, panel, "InputBoxTemplate")
+      search:SetAutoFocus(false)
+      search:SetSize(170, 20)
+      search:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -10, 2)
+      searchLbl:SetPoint("RIGHT", search, "LEFT", -8, 0)
+      searchLbl:SetText("Search")
+      search:SetScript("OnTextChanged", function(self)
+        local text = self:GetText() or ""
+        if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
+        Overlay._searchTimer = C_Timer.NewTimer(3, function()
+          Overlay.searchText = (text:gsub("^%s+", ""):gsub("%s+$", ""))
+          Overlay.RenderBrowse()
+        end)
+      end)
+      search:SetScript("OnEscapePressed", function(self)
+        self:SetText(""); self:ClearFocus()
+        if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
+        Overlay.searchText = ""; Overlay.RenderBrowse()
+      end)
+
       -- Slot chips row (All + each equipment slot).
       local chipBar = CreateFrame("Frame", nil, panel)
       chipBar:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
@@ -917,6 +952,7 @@ local function BuildLayout(f)
       local selHdr = leftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       selHdr:SetPoint("TOPLEFT", leftPane, "TOPLEFT", 2, 0)
       selHdr:SetText("Selector")
+      panel.selHdr = selHdr
       local selScroll, selAnchor = MakeScroll(leftPane)
       selScroll:SetPoint("TOPLEFT", selHdr, "BOTTOMLEFT", 0, -4)
       selScroll:SetPoint("BOTTOMRIGHT", leftPane, "BOTTOMRIGHT", -24, 0)

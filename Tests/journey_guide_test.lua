@@ -44,4 +44,13 @@ local owns = function(id) return id == 1 or id == 2 end  -- owns both Deadmines 
 local best2 = Engine.BestDungeon(dungeons, "ROGUE", 18, owns)
 H.eq(best2, "Wailing Caverns", "owned items excluded -> next dungeon wins")
 
+-- SearchByName ------------------------------------------------------------
+local pool2 = {
+  { name = "Cruel Barb" }, { name = "Assassin's Blade" }, { name = "Cruel Hand" },
+}
+H.eq(#Engine.SearchByName(pool2, "cruel"), 2, "case-insensitive substring match")
+H.eq(Engine.SearchByName(pool2, "blade")[1].name, "Assassin's Blade", "partial match")
+H.eq(#Engine.SearchByName(pool2, "cruel", 1), 1, "limit honoured")
+H.eq(#Engine.SearchByName(pool2, ""), 0, "empty query -> no results")
+
 H.done()

@@ -217,6 +217,22 @@ function Engine.FindByID(items, id)
   return nil
 end
 
+-- SearchByName(items, query, limit) -> array of items whose name contains the
+-- (case-insensitive, plain-text) query. Used by the Browse search box.
+function Engine.SearchByName(items, query, limit)
+  local out = {}
+  if not items or not query or query == "" then return out end
+  local q = query:lower()
+  for i = 1, #items do
+    local nm = items[i].name
+    if nm and nm:lower():find(q, 1, true) then
+      out[#out + 1] = items[i]
+      if limit and #out >= limit then break end
+    end
+  end
+  return out
+end
+
 -- Level bands for the class gear guides (EPIC-H): six 10-level brackets, 1..60.
 Engine.LEVEL_BANDS = {
   { lo = 1,  hi = 10, label = "Level 1\226\128\14710" },
