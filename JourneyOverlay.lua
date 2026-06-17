@@ -25,6 +25,7 @@ local TABS = {
   { key = "guide",    label = "Class Guide",    icon = "Interface\\Icons\\INV_Misc_Book_09" },
   { key = "browse",   label = "Browse",         icon = "Interface\\Icons\\INV_Misc_Spyglass_02" },
   { key = "future",   label = "Future Planner", icon = "Interface\\Icons\\INV_Misc_PocketWatch_01" },
+  { key = "inspect",  label = "Last Inspected", icon = "Interface\\Icons\\Spell_Holy_MindVision" },
   { key = "settings", label = "Settings",       icon = "Interface\\Icons\\Trade_Engineering" },
 }
 
@@ -567,6 +568,64 @@ function Overlay.JourneyItems()
   return out, level
 end
 
+-- Inspect capture: remember the gear of the last player you inspected so the
+-- "Last Inspected" tab can list it with Add-to-Journey toggles. -------------
+Overlay.lastInspect = { name = nil, items = {} }
+local INSPECT_SLOTS = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }  -- skip shirt/tabard
+
+local function CaptureInspect(unit)
+  if not (unit and UnitExists and UnitExists(unit) and GetInventoryItemLink) then return end
+  local engine = TitanJourney_Engine
+  local seen, out = {}, {}
+  for _, slot in ipairs(INSPECT_SLOTS) do
+    local link = GetInventoryItemLink(unit, slot)
+    local id = link and tonumber(link:match("item:(%d+)"))
+    if id and not seen[id] then
+      seen[id] = true
+      local it = engine and (engine.FindByID(TitanJourney_Items, id)
+        or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id)))
+      if not it and GetItemInfo then
+        local nm, _, q, _, rl = GetItemInfo(id)
+        local _, _, _, _, tex = GetItemInfoInstant and GetItemInfoInstant(id)
+        if nm then
+          it = { itemID = id, name = nm, reqLevel = rl or 1, icon = tex,
+                 quality = (engine and engine.QUALITY_NAME[q]) or "common" }
+        end
+      end
+      if it then out[#out + 1] = it end
+    end
+  end
+  Overlay.lastInspect = { name = UnitName(unit), items = out }
+  if Overlay.RenderInspect then Overlay.RenderInspect() end
+end
+
+-- Remember which unit is being inspected (the GUID in INSPECT_READY isn't a
+-- usable unit token), then read its gear once the server replies.
+local inspectWatcher = CreateFrame("Frame")
+inspectWatcher:RegisterEvent("INSPECT_READY")
+inspectWatcher:SetScript("OnEvent", function()
+  local unit = Overlay._inspectUnit
+  if not (unit and UnitExists(unit)) then
+    unit = (UnitExists("target") and "target") or (UnitExists("mouseover") and "mouseover")
+  end
+  CaptureInspect(unit)
+end)
+if hooksecurefunc and NotifyInspect then
+  hooksecurefunc("NotifyInspect", function(unit) Overlay._inspectUnit = unit end)
+end
+
+-- Render the Last Inspected tab: the captured player's gear, each Add-able.
+function Overlay.RenderInspect()
+  local panel = Overlay.panels and Overlay.panels.inspect
+  if not panel or not panel.listAnchor then return end
+  local insp = Overlay.lastInspect or { items = {} }
+  panel.header:SetText(insp.name and ("Last Inspected: " .. insp.name) or "Last Inspected")
+  local level = (UnitLevel and UnitLevel("player")) or 1
+  panel.rows = panel.rows or {}
+  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, insp.items, level, level, "add")
+  panel.empty:SetShown(#insp.items == 0)
+end
+
 -- Render the Journey Items tab: the saved Journey List as a single scrolling
 -- list (journey mode = Remove + reorder), with a "next goal" subheader.
 function Overlay.RenderJourney()
@@ -959,6 +1018,7 @@ function Overlay.RenderCurrentGoals()
   Overlay.RenderGuide()
   Overlay.RenderBrowse()
   Overlay.RenderTab("future")
+  Overlay.RenderInspect()
 end
 
 -- Top filter strip shared by Browse/Future: source + rarity checkboxes,
@@ -1105,6 +1165,20 @@ local function BuildLayout(f)
       et:SetText("Your Journey list is empty \226\128\148 |cff66ccffopen Browse|r to add gear.")
       empty:SetFontString(et)
       empty:SetScript("OnClick", function() Overlay.SelectTab("browse") end)
+      empty:Hide()
+      panel.empty = empty
+
+    elseif tab.key == "inspect" then
+      -- Last Inspected: the captured player's gear (header retitled at render),
+      -- each row Add-able to the Journey List. Full-width scrolling list.
+      panel.header = header
+      local scroll, child = MakeScroll(panel)
+      scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
+      panel.scroll, panel.listAnchor = scroll, child
+      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
+      empty:SetText("Inspect a player (right-click \226\134\146 Inspect) to list their gear here.")
       empty:Hide()
       panel.empty = empty
 
