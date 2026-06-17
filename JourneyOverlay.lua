@@ -1189,7 +1189,7 @@ local function BuildLayout(f)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("Inspect a player (right-click \226\134\146 Inspect) to list their gear here.")
+      empty:SetText("Right-click a player and choose Inspect to list their gear here.")
       empty:Hide()
       panel.empty = empty
 
