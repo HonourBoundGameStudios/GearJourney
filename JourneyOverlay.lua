@@ -492,9 +492,11 @@ function Overlay.ComputeCandidates(slot)
     if it.reqLevel <= hi and (slot == "all" or it.slot == slot) then cands[#cands + 1] = it end
   end
   table.sort(cands, function(a, b)
+    -- Browse in level order; break ties by spec score, then name.
+    if (a.reqLevel or 0) ~= (b.reqLevel or 0) then return (a.reqLevel or 0) < (b.reqLevel or 0) end
     local sa, sb = engine.ScoreItem(a, weights), engine.ScoreItem(b, weights)
     if sa ~= sb then return sa > sb end
-    return (a.reqLevel or 0) < (b.reqLevel or 0)
+    return (a.name or "") < (b.name or "")
   end)
   return cands, level, hi
 end
