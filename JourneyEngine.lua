@@ -219,12 +219,12 @@ end
 
 -- Level bands for the class gear guides (EPIC-H): six 10-level brackets, 1..60.
 Engine.LEVEL_BANDS = {
-  { lo = 1,  hi = 10, label = "Level 1\226\128\09310" },
-  { lo = 11, hi = 20, label = "Level 11\226\128\09320" },
-  { lo = 21, hi = 30, label = "Level 21\226\128\09330" },
-  { lo = 31, hi = 40, label = "Level 31\226\128\09340" },
-  { lo = 41, hi = 50, label = "Level 41\226\128\09350" },
-  { lo = 51, hi = 60, label = "Level 51\226\128\09360" },
+  { lo = 1,  hi = 10, label = "Level 1\226\128\14710" },
+  { lo = 11, hi = 20, label = "Level 11\226\128\14720" },
+  { lo = 21, hi = 30, label = "Level 21\226\128\14730" },
+  { lo = 31, hi = 40, label = "Level 31\226\128\14740" },
+  { lo = 41, hi = 50, label = "Level 41\226\128\14750" },
+  { lo = 51, hi = 60, label = "Level 51\226\128\14760" },
 }
 
 -- BandIndex(reqLevel) -> 1..6. Maps a required level onto its 10-level band
