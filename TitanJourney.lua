@@ -60,12 +60,41 @@ function TitanJourney_GetButtonText(id)
     return engine.BuildButtonText(list, level, nil, nil)
 end
 
--- Tooltip body shown on hover (vertical tooltip only -- never the bar text).
--- Footer carries the studio brand, framed by ASCII rules.
+local QUALITY_HEX = {
+    poor = "ff9d9d9d", common = "ffffffff", uncommon = "ff1eff00",
+    rare = "ff0070dd", epic = "ffa335ee", legendary = "ffff8000",
+}
+
+-- Tooltip body shown on hover (vertical tooltip only -- never the bar text):
+-- the player's Journey List, then the click hints, then the studio footer.
 function TitanJourney_GetTooltipText()
-    local body = "Left-click to open the Journey manager.\nRight-click for options."
+    local overlay, engine = TitanJourney_Overlay, TitanJourney_Engine
+    local lines = {}
+    if overlay and overlay.JourneyItems and engine then
+        local items, level = overlay.JourneyItems()
+        if #items == 0 then
+            lines[#lines + 1] = Colors.LightGray .. "Journey List is empty." .. Colors.Reset
+        else
+            lines[#lines + 1] = Colors.LightGray .. "Journey List" .. Colors.Reset
+            for i = 1, math.min(#items, 12) do
+                local it = items[i]
+                local hex = QUALITY_HEX[it.quality] or "ffffffff"
+                local prox = engine.ProximityLabel and engine.ProximityLabel(it.reqLevel, level) or ""
+                local pcolor = (it.reqLevel <= level) and "ff33ff33" or "ffffd100"
+                lines[#lines + 1] = "|c" .. hex .. it.name .. "|r " .. Colors.Gray .. "Lv "
+                    .. it.reqLevel .. Colors.Reset .. "  |c" .. pcolor .. prox .. "|r"
+            end
+            if #items > 12 then
+                lines[#lines + 1] = Colors.Gray .. "...and " .. (#items - 12) .. " more" .. Colors.Reset
+            end
+        end
+    end
+    local list = table.concat(lines, "\n")
+    local clicks = Colors.LightGray .. "Left-click" .. Colors.Reset .. ": open the Journey manager\n"
+        .. Colors.LightGray .. "Right-click" .. Colors.Reset .. ": options"
     local footer = HBGS_LOGO .. Colors.LightGray .. "Honour Bound Game Studios" .. Colors.Reset
-    return TOOLTIP_RULE .. "\n" .. body .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
+    return TOOLTIP_RULE .. "\n" .. list .. "\n" .. TOOLTIP_RULE .. "\n"
+        .. clicks .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
 end
 
 -- Right-click dropdown menu (Titan's UIDropDownMenu scheme).
