@@ -41,6 +41,16 @@ local rogueWeapons = {
 H.eq(names(Engine.FilterByClass(rogueWeapons, "ROGUE", 30)), "Mace1H,Sword1H,Fist,Dagger2",
      "rogue drops axes/polearms; keeps 1H mace/sword/fist/dagger")
 
+-- Hunters use fist weapons + ranged, but NOT thrown (16) or maces (4/5).
+local hunterWeapons = {
+  { name = "Fist",   itemClassID = 2, itemSubClassID = 13 },
+  { name = "Gun",    itemClassID = 2, itemSubClassID = 3 },
+  { name = "Thrown", itemClassID = 2, itemSubClassID = 16 },
+  { name = "Mace1H", itemClassID = 2, itemSubClassID = 4 },
+}
+H.eq(names(Engine.FilterByClass(hunterWeapons, "HUNTER", 30)), "Fist,Gun",
+     "hunter keeps fist/gun; drops thrown and maces")
+
 -- Armor level gates: plate (warrior/paladin) and mail (hunter/shaman) at 40.
 local plate  = { { name = "Plate", armorType = "Plate" } }
 H.eq(#Engine.FilterByClass(plate, "WARRIOR", 25), 0, "no plate for a level-25 warrior")

@@ -387,7 +387,7 @@ local W = function(...) local t = {} for _, id in ipairs({ ... }) do t[id] = tru
 Engine.WEAPON_PROF = {
   WARRIOR = W(0,1,4,5,6,7,8,10,13,15,2,3,18,16),
   PALADIN = W(0,1,4,5,6,7,8),
-  HUNTER  = W(0,1,6,7,8,10,13,15,2,3,18,16),
+  HUNTER  = W(0,1,6,7,8,10,13,15,2,3,18),   -- fist ok; no thrown (16) or maces
   ROGUE   = W(4,7,13,15,2,3,18,16),   -- no axes (0/1), polearms, staves, or 2H
   PRIEST  = W(4,10,15,19),
   SHAMAN  = W(0,1,4,5,10,13,15),
