@@ -780,11 +780,13 @@ function Overlay.RenderGuide()
     local b = buckets[bi]
     if b and #b > 0 then
       table.sort(b, function(a, c)
-        if a.score ~= c.score then return a.score > c.score end       -- best stats first
-        local ad, cd = a.item.dps or 0, c.item.dps or 0               -- then weapon DPS
+        -- Level order first (both Suggestions and All usable); then best stats,
+        -- then weapon DPS, then name.
+        local ar, cr = a.item.reqLevel or 0, c.item.reqLevel or 0
+        if ar ~= cr then return ar < cr end
+        if a.score ~= c.score then return a.score > c.score end
+        local ad, cd = a.item.dps or 0, c.item.dps or 0
         if ad ~= cd then return ad > cd end
-        local ai, ci = a.item.ilvl or 0, c.item.ilvl or 0
-        if ai ~= ci then return ai > ci end
         return (a.item.name or "") < (c.item.name or "")
       end)
       local list = {}
