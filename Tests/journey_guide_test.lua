@@ -20,12 +20,13 @@ H.eq(Engine.BandIndex(1), 1, "level 1 -> band 1")
 H.eq(Engine.BandIndex(10), 1, "level 10 -> band 1 (boundary)")
 H.eq(Engine.BandIndex(11), 2, "level 11 -> band 2 (boundary)")
 H.eq(Engine.BandIndex(38), 4, "level 38 -> band 4")
-H.eq(Engine.BandIndex(60), 6, "level 60 -> band 6")
-H.eq(Engine.BandIndex(61), 6, "above 60 clamps to band 6")
+H.eq(Engine.BandIndex(59), 6, "level 59 -> band 6 (51-59)")
+H.eq(Engine.BandIndex(60), 7, "level 60 -> its own band 7")
+H.eq(Engine.BandIndex(61), 7, "above 60 -> band 7")
 H.eq(Engine.BandIndex(0), 1, "level 0 -> band 1")
 H.eq(Engine.BandIndex(nil), 1, "nil -> band 1")
 
-H.eq(#Engine.LEVEL_BANDS, 6, "six level bands defined")
+H.eq(#Engine.LEVEL_BANDS, 7, "seven level bands defined (60 split out)")
 
 -- BestDungeon -------------------------------------------------------------
 -- Neutral items (no armorType / not weapons) so CanUse passes for any class.

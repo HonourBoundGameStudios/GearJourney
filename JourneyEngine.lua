@@ -240,14 +240,16 @@ Engine.LEVEL_BANDS = {
   { lo = 21, hi = 30, label = "Level 21\226\128\14730" },
   { lo = 31, hi = 40, label = "Level 31\226\128\14740" },
   { lo = 41, hi = 50, label = "Level 41\226\128\14750" },
-  { lo = 51, hi = 60, label = "Level 51\226\128\14760" },
+  { lo = 51, hi = 59, label = "Level 51\226\128\14759" },
+  { lo = 60, hi = 60, label = "Level 60 (Endgame)" },
 }
 
--- BandIndex(reqLevel) -> 1..6. Maps a required level onto its 10-level band
--- (1-10 -> 1, 11-20 -> 2, ... 51+ -> 6); missing/low levels fall in band 1.
+-- BandIndex(reqLevel) -> 1..7. Maps a required level onto its band: 1-10 -> 1,
+-- ... 41-50 -> 5, 51-59 -> 6, and level 60 gets its own band 7 (endgame/raid).
 function Engine.BandIndex(reqLevel)
   local r = tonumber(reqLevel) or 1
   if r < 1 then r = 1 end
+  if r >= 60 then return 7 end
   local idx = math.floor((r - 1) / 10) + 1
   if idx < 1 then return 1 elseif idx > 6 then return 6 end
   return idx
