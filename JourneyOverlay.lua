@@ -18,8 +18,10 @@ local FALLBACK_BACKDROP = {
   insets = { left = 11, right = 12, top = 12, bottom = 11 },
 }
 
--- Sidebar tab definitions (FEAT-C3). Order is top-to-bottom.
+-- Sidebar tab definitions (FEAT-C3). Order is top-to-bottom; the first is the
+-- landing tab. "Journey Items" is a read-only browse of the saved Journey List.
 local TABS = {
+  { key = "journey",  label = "Journey Items" },
   { key = "browse",   label = "Browse" },
   { key = "future",   label = "Future Planner" },
   { key = "settings", label = "Settings" },
@@ -158,8 +160,9 @@ function Overlay.SelectTab(key)
   for k, panel in pairs(Overlay.panels) do
     panel:SetShown(k == key)
   end
-  -- The source/lookahead bar applies to the list tabs only.
-  if Overlay.controlBar then Overlay.controlBar:SetShown(key ~= "settings") end
+  -- The source/lookahead bar applies to the pool-filtered tabs only (Browse,
+  -- Future). Journey Items shows the saved list verbatim, so no filter bar.
+  if Overlay.controlBar then Overlay.controlBar:SetShown(key == "browse" or key == "future") end
 end
 
 -- Item-row visuals (FEAT-C4/C5). ------------------------------------------
@@ -416,6 +419,28 @@ function Overlay.JourneyItems()
   return out, level
 end
 
+-- Render the Journey Items tab: the saved Journey List as a single scrolling
+-- list (journey mode = Remove + reorder), with a "next goal" subheader.
+function Overlay.RenderJourney()
+  local panel = Overlay.panels and Overlay.panels.journey
+  if not panel or not panel.listAnchor then return end
+  local engine = TitanJourney_Engine
+  local jitems, jlevel = Overlay.JourneyItems()
+  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  panel.rows = panel.rows or {}
+  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, jitems, jlevel, jlevel + range, "journey")
+  panel.empty:SetShown(#jitems == 0)
+
+  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local goal = engine and engine.NextJourneyGoal(jitems, names, jlevel, Overlay.PlayerOwnsFn())
+  if goal then
+    panel.sub:SetText("Next: " .. goal.name .. " (Lv " .. goal.reqLevel .. ") - "
+      .. engine.ProximityLabel(goal.reqLevel, jlevel))
+  else
+    panel.sub:SetText(#jitems > 0 and "All journey gear acquired!" or "")
+  end
+end
+
 -- Render one list tab (key = "current" or "future") into its panel, spec-scored.
 function Overlay.RenderTab(key)
   local panel = Overlay.panels and Overlay.panels[key]
@@ -472,6 +497,7 @@ end
 
 -- Refresh the browse + future views (called by the provider and on open).
 function Overlay.RenderCurrentGoals()
+  Overlay.RenderJourney()
   Overlay.RenderBrowse()
   Overlay.RenderTab("future")
 end
@@ -586,7 +612,26 @@ local function BuildLayout(f)
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetText(tab.label)
 
-    if tab.key == "browse" then
+    if tab.key == "journey" then
+      -- Journey Items: a single full-width scrolling list of the saved Journey
+      -- List. No filter bar (it shows the list verbatim), so the scroll runs to
+      -- the bottom inset rather than reserving room for the control bar.
+      local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
+      sub:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
+      sub:SetJustifyH("LEFT")
+      panel.sub = sub
+      local scroll, child = MakeScroll(panel)
+      scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)
+      panel.scroll, panel.listAnchor = scroll, child
+      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
+      empty:SetText("Your Journey list is empty. Add gear from the Browse tab.")
+      empty:Hide()
+      panel.empty = empty
+
+    elseif tab.key == "browse" then
       -- Slot chips row (All + each equipment slot).
       local chipBar = CreateFrame("Frame", nil, panel)
       chipBar:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
@@ -712,7 +757,7 @@ local function BuildLayout(f)
   BuildControlBar(content, topLevel)
   Overlay.SelectChip(Overlay.selectorSlot or "all")
   Overlay.RenderCurrentGoals()
-  Overlay.SelectTab(Overlay.activeTab or "browse")
+  Overlay.SelectTab(Overlay.activeTab or "journey")
 end
 
 -- Build the window once, preferring the native inset template and degrading to
