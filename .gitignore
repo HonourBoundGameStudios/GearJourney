@@ -9,3 +9,6 @@
 /Design/
 /Process/
 /Research/
+
+# Large upstream dataset used only to regenerate JourneyItemIndex.lua
+Tools/_items_raw.json

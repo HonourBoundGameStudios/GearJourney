@@ -168,11 +168,12 @@ end
 local ROW_H, ICON = 50, 34
 
 local QUALITY_COLOR = {
-  poor     = { 0.62, 0.62, 0.62 },
-  common   = { 1.00, 1.00, 1.00 },
-  uncommon = { 0.12, 1.00, 0.00 },
-  rare     = { 0.00, 0.44, 0.87 },
-  epic     = { 0.64, 0.21, 0.93 },
+  poor      = { 0.62, 0.62, 0.62 },
+  common    = { 1.00, 1.00, 1.00 },
+  uncommon  = { 0.12, 1.00, 0.00 },
+  rare      = { 0.00, 0.44, 0.87 },
+  epic      = { 0.64, 0.21, 0.93 },
+  legendary = { 1.00, 0.50, 0.00 },
 }
 
 -- Per-stat colours for the row's stat line. Stats are upgrades, so everything
@@ -471,7 +472,10 @@ function Overlay.JourneyItems()
   local out = {}
   if engine and items then
     for _, n in ipairs(names) do
+      -- Prefer the enriched pool (has stats); fall back to the exhaustive index
+      -- so items added from search still resolve.
       local it = engine.FindByName(items, n)
+        or (TitanJourney_ItemIndex and engine.FindByName(TitanJourney_ItemIndex, n))
       if it then out[#out + 1] = it end
     end
   end
@@ -764,7 +768,10 @@ function Overlay.RenderBrowse()
   if q and q ~= "" then
     level = (UnitLevel and UnitLevel("player")) or 1
     hi = level
-    cands = engine and engine.SearchByName(TitanJourney_Items, q, 250) or {}
+    -- Search the exhaustive equippable index (every weapon/armor), falling back
+    -- to the enriched pool if the index isn't loaded.
+    local source = TitanJourney_ItemIndex or TitanJourney_Items
+    cands = engine and engine.SearchByName(source, q, 250) or {}
     if panel.selHdr then panel.selHdr:SetText("Search: |cffffffff" .. q .. "|r (" .. #cands .. ")") end
   else
     cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
@@ -1007,7 +1014,7 @@ local function BuildLayout(f)
       search:SetSize(170, 20)
       search:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -10, 2)
       searchLbl:SetPoint("RIGHT", search, "LEFT", -8, 0)
-      searchLbl:SetText("Search")
+      searchLbl:SetText("Search all weapons & armor")
       search:SetScript("OnTextChanged", function(self)
         local text = self:GetText() or ""
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
