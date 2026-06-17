@@ -27,7 +27,10 @@ function DB.SetMode(mode) DB.Get().settings.mode = mode end
 -- Source filters + lookahead (FEAT-C8/C9) ----------------------------------
 function DB.Sources()
   local s = DB.Get().settings
-  s.sources = s.sources or { Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true }
+  s.sources = s.sources or {}
+  for _, k in ipairs({ "Crafted", "Dungeon", "Faction", "PvP", "Quest", "Drop", "Vendor" }) do
+    if s.sources[k] == nil then s.sources[k] = true end  -- default on; back-fill new keys
+  end
   return s.sources
 end
 function DB.Qualities()

@@ -482,7 +482,10 @@ local SLOT_CANON = {
 local function CanonSlot(s) return SLOT_CANON[s] or s end
 -- Source types the Crafted/Dungeon/Faction/PvP/Quest checkboxes manage; coarse
 -- index sources (Drop/Vendor) bypass that filter so nothing is hidden.
-local MANAGED_SOURCES = { Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true }
+local MANAGED_SOURCES = {
+  Crafted = true, Dungeon = true, Faction = true, PvP = true, Quest = true,
+  Drop = true, Vendor = true,
+}
 local CANDIDATE_CAP = 400
 
 -- ComputeCandidates(slot) -> list, level, hi. The Selector's gear: every
@@ -962,7 +965,7 @@ end
 
 -- Bottom control bar shared by the list tabs (FEAT-C8/C9): source-filter
 -- checkboxes + a lookahead slider, both persisted and re-rendering live.
-local SOURCE_FILTERS = { "Crafted", "Dungeon", "Quest", "Faction", "PvP" }
+local SOURCE_FILTERS = { "Dungeon", "Drop", "Crafted", "Quest", "Vendor", "Faction", "PvP" }
 
 local function BuildControlBar(content, topLevel)
   local bar = CreateFrame("Frame", nil, content)
@@ -987,9 +990,11 @@ local function BuildControlBar(content, topLevel)
   txt:SetText("Lookahead +" .. start)
   slider:SetScript("OnValueChanged", function(self, v)
     v = math.floor(v + 0.5)
-    txt:SetText("Lookahead +" .. v)
+    txt:SetText("Lookahead +" .. v)              -- label updates instantly
     if TitanJourney_DB then TitanJourney_DB.SetLookahead(v) end
-    Overlay.RenderCurrentGoals()
+    -- Debounce the (now exhaustive) re-render so dragging stays smooth.
+    if Overlay._lookTimer then Overlay._lookTimer:Cancel() end
+    Overlay._lookTimer = C_Timer.NewTimer(0.15, function() Overlay.RenderCurrentGoals() end)
   end)
 
   local x = 12 + 110 + 24   -- source filters begin to the right of the slider
@@ -1370,7 +1375,7 @@ local function CreateOverlay()
     close:SetPoint("TOPRIGHT", -4, -4)
   end
 
-  f:SetSize(1060, 520)  -- two-pane Browse + full control bar (5 sources, 4 rarities, slider)
+  f:SetSize(1200, 520)  -- two-pane Browse + full control bar (7 sources, 4 rarities, slider)
   f:SetPoint("CENTER")
   f:SetFrameStrata("HIGH")
   f:SetToplevel(true)
