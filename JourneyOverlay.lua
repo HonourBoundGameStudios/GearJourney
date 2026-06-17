@@ -961,16 +961,18 @@ function Overlay.RenderCurrentGoals()
   Overlay.RenderTab("future")
 end
 
--- Bottom control bar shared by the list tabs (FEAT-C8/C9): source-filter
--- checkboxes + a lookahead slider, both persisted and re-rendering live.
+-- Top filter strip shared by Browse/Future: source + rarity checkboxes,
+-- persisted and re-rendering live.
 local SOURCE_FILTERS = { "Dungeon", "Drop", "Crafted", "Quest", "Vendor", "Faction", "PvP" }
+
+local FILTER_BAR_H = 30   -- top filter strip height (Browse/Future shift below it)
 
 local function BuildControlBar(content, topLevel)
   local bar = CreateFrame("Frame", nil, content)
-  bar:SetHeight(34)
-  bar:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 2, 2)
-  bar:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -2, 2)
-  bar:SetFrameLevel(topLevel)
+  bar:SetHeight(FILTER_BAR_H)
+  bar:SetPoint("TOPLEFT", content, "TOPLEFT", 2, 0)
+  bar:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, 0)
+  bar:SetFrameLevel(topLevel + 2)
   Overlay.controlBar = bar
 
   local x = 8
@@ -1068,8 +1070,14 @@ local function BuildLayout(f)
     Overlay.tabButtons[tab.key] = btn
 
     -- Matching content panel with a header; body filled in by later items.
+    -- Browse/Future sit below the top filter strip; others use full content.
     local panel = CreateFrame("Frame", nil, content)
-    panel:SetAllPoints(content)
+    if tab.key == "browse" or tab.key == "future" then
+      panel:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(FILTER_BAR_H + 4))
+      panel:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
+    else
+      panel:SetAllPoints(content)
+    end
 
     local header = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     header:SetPoint("TOPLEFT", 0, 0)
@@ -1222,11 +1230,11 @@ local function BuildLayout(f)
       -- Two panes: Selector (left) | Journey List (right).
       local leftPane = CreateFrame("Frame", nil, panel)
       leftPane:SetPoint("TOPLEFT", dungeonBar, "BOTTOMLEFT", 0, -6)
-      leftPane:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 40)
+      leftPane:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 10)
       leftPane:SetWidth(420)
       local rightPane = CreateFrame("Frame", nil, panel)
       rightPane:SetPoint("TOPLEFT", leftPane, "TOPRIGHT", 14, 0)
-      rightPane:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -4, 40)
+      rightPane:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -4, 10)
 
       local selHdr = leftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       selHdr:SetPoint("TOPLEFT", leftPane, "TOPLEFT", 2, 0)
@@ -1261,13 +1269,13 @@ local function BuildLayout(f)
       panel.jEmpty = jEmpty
 
     elseif tab.key == "future" then
-      -- Single scrolling list (best-per-slot, just above the lookahead window).
+      -- Single scrolling list of the upcoming best-per-slot gear.
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
       panel.sub = sub
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 10)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
