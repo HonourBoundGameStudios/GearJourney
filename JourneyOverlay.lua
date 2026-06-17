@@ -181,13 +181,14 @@ local QUALITY_COLOR = {
   epic     = { 0.64, 0.21, 0.93 },
 }
 
--- Per-stat colours for the row's stat line (hex |c codes).
+-- Per-stat colours for the row's stat line. Stats are upgrades, so everything
+-- reads green (red looked like a penalty); slight shade variation per stat.
 local STAT_COLOR = {
-  Agility   = "ff4dff4d",  -- green (rogue's bread and butter)
-  Strength  = "ffff6262",  -- red
-  Stamina   = "ffffcc66",  -- orange
-  Intellect = "ff66ccff",  -- blue
-  Spirit    = "ffff99e6",  -- pink
+  Agility   = "ff4dff4d",  -- bright green
+  Strength  = "ff7fdf6a",  -- green
+  Stamina   = "ff9be88a",  -- light green
+  Intellect = "ff6ad9a0",  -- green-teal
+  Spirit    = "ff8fe0b0",  -- green-teal
 }
 
 -- Build a coloured "+9 Agi  +5 Sta" string from an item's stats, or "" if none.
