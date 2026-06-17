@@ -1379,10 +1379,16 @@ local function BuildLayout(f)
       panel.empty = empty
 
     else
-      -- Settings (QUAL-5): PvE/PvP weighting toggle.
+      -- Settings & Help. ------------------------------------------------------
+      header:SetText("Settings & Help")
+      local function gicon(path)
+        return "|T" .. path .. ":18:18:0:0:64:64:5:59:5:59|t "  -- trim stock border
+      end
+
+      -- The one real setting: PvE/PvP weighting.
       local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
       local cb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
-      cb:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 2, -16)
+      cb:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 2, -14)
       cb:SetChecked(mode == "pvp")
       cb:SetScript("OnClick", function(self)
         if TitanJourney_DB then TitanJourney_DB.SetMode(self:GetChecked() and "pvp" or "pve") end
@@ -1390,23 +1396,50 @@ local function BuildLayout(f)
       end)
       local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontNormal")
       lbl:SetPoint("LEFT", cb, "RIGHT", 4, 0)
-      lbl:SetText("PvP weighting (favour Stamina for survivability)")
+      lbl:SetText("PvP weighting |cff8a8a8a(adds Stamina to gear scoring; default PvE)|r")
 
-      local note = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-      note:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 4, -14)
-      note:SetWidth(440)
-      note:SetJustifyH("LEFT")
-      note:SetText("PvE ranks gear by your spec's primary stats; PvP adds Stamina. "
-        .. "Changes apply to the Browse and Future Planner rankings.")
+      -- Quick guide to the tabs. --------------------------------------------
+      local TEXTW = 660
+      local help = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+      help:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", -2, -16)
+      help:SetText("|cffffd100Quick Guide|r")
 
-      -- Dev/Test: run the engine smoke tests in-client (DEV-1).
+      local prev = help
+      local function section(path, title, body)
+        local t = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        t:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -9)
+        t:SetText(gicon(path) .. "|cffffe066" .. title .. "|r")
+        local b = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        b:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 6, -2)
+        b:SetWidth(TEXTW); b:SetJustifyH("LEFT")
+        b:SetText(body)
+        prev = b
+      end
+      section("Interface\\Icons\\INV_Misc_Map_01", "Journey Items",
+        "Your personal wishlist \226\128\148 saved |cffffffffper character|r. Add gear from any tab; the Titan bar shows your next goal and the tooltip lists the set.")
+      section("Interface\\Icons\\INV_Misc_Book_09", "Class Guide",
+        "Hand-picked gear by level band, split into |cffffffffWeapons|r and |cffffffffArmor|r. Tick |cff66ccffShow all usable|r for the full pool. \"Best run now\" points to the dungeon with the most upgrades for you.")
+      section("Interface\\Icons\\INV_Misc_Spyglass_02", "Browse",
+        "Search |cffffffffevery|r weapon & armor by name, or pick a slot. Solo a dungeon with the small icons (right-click one to open AtlasLoot). Source & rarity filters sit up top.")
+      section("Interface\\Icons\\INV_Misc_PocketWatch_01", "Future Planner",
+        "The best upgrade for each slot coming up as you level.")
+      section("Interface\\Icons\\Spell_Holy_MindVision", "Last Inspected",
+        "Inspect a player and their gear lists here \226\128\148 |cffffffffAdd all to Journey|r wishlists the whole set in one click.")
+
+      local tips = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+      tips:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", -6, -12)
+      tips:SetWidth(TEXTW); tips:SetJustifyH("LEFT")
+      tips:SetText("Hold |cffffffffSHIFT|r while hovering an item to compare with what you're wearing."
+        .. "   Left-click the Titan bar to open this window; right-click for options.")
+
+      -- Dev/Test: run the engine smoke tests in-client (DEV-1), tucked bottom-left.
       local testBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-      testBtn:SetSize(110, 22)
-      testBtn:SetPoint("TOPLEFT", note, "BOTTOMLEFT", -2, -24)
+      testBtn:SetSize(96, 20)
+      testBtn:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 2, 8)
       testBtn:SetText("Run Tests")
-      local result = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      local result = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
       result:SetPoint("LEFT", testBtn, "RIGHT", 10, 0)
-      result:SetText("|cff888888engine self-test|r")
+      result:SetText("|cff666666engine self-test|r")
       testBtn:SetScript("OnClick", function()
         if not TitanJourney_Tests then return end
         local p, fcount, fails = TitanJourney_Tests.Run()
