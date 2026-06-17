@@ -65,7 +65,7 @@ def usable(cls, it):
 def main():
     data = json.load(open(RAW, encoding="utf-8"))
     eq = [it for it in data if it.get("class") in ("Weapon", "Armor")
-          and it.get("name") and it.get("itemId")
+          and it.get("name") and it.get("itemId") and it["itemId"] < 24284  # Vanilla/Era only
           and QRANK.get(it.get("quality"), 0) >= 2
           and 1 <= (it.get("requiredLevel") or 0) <= 60
           and "[" not in it["name"] and "XXXX" not in it["name"]]

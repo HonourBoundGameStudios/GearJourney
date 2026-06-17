@@ -62,7 +62,9 @@ def main():
             continue
         name = it.get("name")
         iid = it.get("itemId")
-        if not name or not iid or iid in seen or JUNK.search(name):
+        # Classic Era only: Vanilla item IDs cap ~24283; higher IDs are TBC/Wrath
+        # items that don't exist on Era (broken tooltips). 200000+ already excluded.
+        if not name or not iid or iid >= 24284 or iid in seen or JUNK.search(name):
             continue
         seen.add(iid)
         q = QUALITY.get(it.get("quality"), "common")
