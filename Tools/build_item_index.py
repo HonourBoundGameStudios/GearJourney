@@ -28,6 +28,18 @@ SOURCE_CAT = {  # dataset source.category -> coarse, displayable sourceType
     "Quest": "Quest", "Vendor": "Vendor",
     "Boss Drop": "Drop", "Rare Drop": "Drop", "Zone Drop": "Drop",
 }
+# PvP reward sets are bought from vendors, so the dataset tags them "Vendor".
+# Reclassify rank/honor-named gear to "PvP" -- but only when it isn't a world
+# drop (e.g. "Champion's Armor" is a Rare Drop, not the PvP Champion's set).
+DROP_CATS = {"Boss Drop", "Rare Drop", "Zone Drop"}
+PVP_PREFIX = re.compile(
+    r"^(Private's|Corporal's|Sergeant's|Master Sergeant's|Sergeant Major's|Knight's|"
+    r"Knight-Lieutenant's|Knight-Captain's|Knight-Champion's|Lieutenant Commander's|"
+    r"Commander's|Marshal's|Field Marshal's|Grand Marshal's|Scout's|Grunt's|"
+    r"Senior Sergeant's|First Sergeant's|Stone Guard's|Blood Guard's|Legionnaire's|"
+    r"Centurion's|Champion's|Lieutenant General's|General's|Warlord's|High Warlord's|"
+    r"Highlander's|Defiler's|Outrider's|Outrunner's)\s"
+)
 
 
 def weapon_subclass(sub, slot):
@@ -80,10 +92,14 @@ def main():
             cid = 4
             sid = 6 if sub == "Shield" else ARMOR_SUB.get(sub)  # else None (neutral)
             atype = ARMOR_SUB.get(sub) and sub if slot in BODY_ARMOR_SLOTS else None
-        src = None
+        src, cat = None, None
         s = it.get("source")
         if isinstance(s, dict):
-            src = SOURCE_CAT.get(s.get("category"))
+            cat = s.get("category")
+            src = SOURCE_CAT.get(cat)
+        # Rank/honor-named gear that isn't a world drop is PvP reward gear.
+        if PVP_PREFIX.match(name) and cat not in DROP_CATS:
+            src = "PvP"
         rows.append((iid, name, q, slot, it.get("requiredLevel") or 0, icon, cid, sid, atype, src))
 
     rows.sort(key=lambda r: r[0])
