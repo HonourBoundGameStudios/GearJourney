@@ -503,24 +503,38 @@ function Overlay.ComputeCandidates(slot)
   local quals = TitanJourney_DB and TitanJourney_DB.Qualities()
   local sources = TitanJourney_DB and TitanJourney_DB.Sources()
 
-  -- Enriched items by id (stats/dps/fine source), to overlay onto index rows.
-  local byId = {}
-  for i = 1, #items do local e = items[i]; if e.itemID then byId[e.itemID] = e end end
-  local source = TitanJourney_ItemIndex or items
-
   local cands = {}
-  for i = 1, #source do
-    local raw = source[i]
-    local it = (raw.itemID and byId[raw.itemID]) or raw
-    local st = it.sourceType
-    local sourceOk = not (st and MANAGED_SOURCES[st]) or not (sources and sources[st] == false)
-    if (slot == "all" or CanonSlot(it.slot) == slot)
-       and (allLevels or (it.reqLevel or 0) <= hi)
-       and (not quals or quals[it.quality])
-       and sourceOk
-       and engine.CanUse(it, class, level)
-       and not (owns and owns(it.itemID)) then
-      cands[#cands + 1] = it
+  if Overlay.dungeonFilter then
+    -- Soloed dungeon: every usable piece from that instance (the enriched pool
+    -- carries the instance label; no window/cap so the whole table shows).
+    for i = 1, #items do
+      local it = items[i]
+      if it.sourceLabel == Overlay.dungeonFilter
+         and (slot == "all" or CanonSlot(it.slot) == slot)
+         and (not quals or quals[it.quality])
+         and engine.CanUse(it, class, level)
+         and not (owns and owns(it.itemID)) then
+        cands[#cands + 1] = it
+      end
+    end
+  else
+    -- Enriched items by id (stats/dps/fine source) overlaid onto index rows.
+    local byId = {}
+    for i = 1, #items do local e = items[i]; if e.itemID then byId[e.itemID] = e end end
+    local source = TitanJourney_ItemIndex or items
+    for i = 1, #source do
+      local raw = source[i]
+      local it = (raw.itemID and byId[raw.itemID]) or raw
+      local st = it.sourceType
+      local sourceOk = not (st and MANAGED_SOURCES[st]) or not (sources and sources[st] == false)
+      if (slot == "all" or CanonSlot(it.slot) == slot)
+         and (allLevels or (it.reqLevel or 0) <= hi)
+         and (not quals or quals[it.quality])
+         and sourceOk
+         and engine.CanUse(it, class, level)
+         and not (owns and owns(it.itemID)) then
+        cands[#cands + 1] = it
+      end
     end
   end
   table.sort(cands, function(a, b)
@@ -908,17 +922,14 @@ function Overlay.RenderBrowse()
         .. (Overlay.searchUsable and ", usable" or "") .. ")")
     end
   else
+    -- ComputeCandidates handles the soloed-dungeon source directly now.
     cands, level, hi = Overlay.ComputeCandidates(Overlay.selectorSlot or "all")
-    -- A soloed dungeon narrows the candidates to that source.
-    if Overlay.dungeonFilter then
-      local f = {}
-      for _, it in ipairs(cands) do
-        if it.sourceLabel == Overlay.dungeonFilter then f[#f + 1] = it end
+    if panel.selHdr then
+      if Overlay.dungeonFilter then
+        panel.selHdr:SetText("Selector \226\128\148 " .. engine.PrettySource(Overlay.dungeonFilter))
+      else
+        panel.selHdr:SetText("Selector")
       end
-      cands = f
-      if panel.selHdr then panel.selHdr:SetText("Selector \226\128\148 " .. engine.PrettySource(Overlay.dungeonFilter)) end
-    elseif panel.selHdr then
-      panel.selHdr:SetText("Selector")
     end
   end
   panel.selRows = panel.selRows or {}
