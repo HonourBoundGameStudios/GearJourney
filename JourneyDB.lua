@@ -50,10 +50,27 @@ function DB.TogglePin(name)
 end
 
 -- Journey List (ordered list of item names) -- FEAT-F2 ---------------------
+-- Per-character: keyed by "Name-Realm" so each toon keeps its own wishlist.
+local function CharKey()
+  local name = (UnitName and UnitName("player")) or "?"
+  local realm = (GetRealmName and GetRealmName()) or "?"
+  return name .. "-" .. realm
+end
+
 function DB.Journey()
   local d = DB.Get()
-  d.journey = d.journey or {}
-  return d.journey
+  d.charJourney = d.charJourney or {}
+  local key = CharKey()
+  if not d.charJourney[key] then
+    -- One-time migration: the first character to log in inherits the old
+    -- account-wide list, which is then retired so it doesn't duplicate.
+    if d.journey and #d.journey > 0 then
+      d.charJourney[key], d.journey = d.journey, nil
+    else
+      d.charJourney[key] = {}
+    end
+  end
+  return d.charJourney[key]
 end
 
 function DB.JourneyContains(name)
