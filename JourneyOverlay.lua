@@ -487,9 +487,12 @@ function Overlay.ComputeCandidates(slot)
   local usable = UsablePool(engine, items, class, level, spec)
 
   local cands = {}
+  local allLevels = Overlay.browseAllLevels
   for i = 1, #usable do
     local it = usable[i]
-    if it.reqLevel <= hi and (slot == "all" or it.slot == slot) then cands[#cands + 1] = it end
+    if (allLevels or it.reqLevel <= hi) and (slot == "all" or it.slot == slot) then
+      cands[#cands + 1] = it
+    end
   end
   table.sort(cands, function(a, b)
     -- Browse in level order; break ties by spec score, then name.
@@ -593,6 +596,12 @@ function Overlay.SelectGuideSubtab(which)
   Overlay.RenderGuide()
 end
 
+-- Toggle between curated suggestions and the whole usable pool.
+function Overlay.SetGuideShowAll(on)
+  Overlay.guideShowAll = on and true or false
+  Overlay.RenderGuide()
+end
+
 -- Render the Class Guide tab: a curated, best-in-slot-focused gear list for the
 -- player's class (EPIC-H), resolved from itemIDs against the enriched pool and
 -- grouped into level bands. Split into Weapons / Armor sub-tabs; items not
@@ -604,7 +613,8 @@ function Overlay.RenderGuide()
   local locClass, class = UnitClass("player")
   local level = (UnitLevel and UnitLevel("player")) or 1
   local guide = class and TitanJourney_ClassGuides and TitanJourney_ClassGuides[class]
-  panel.header:SetText((locClass or "Class") .. " Gear Guide")
+  panel.header:SetText((locClass or "Class") .. " Gear Guide"
+    .. (Overlay.guideShowAll and "  |cff66ccff(all usable)|r" or "  |cff999999(suggestions)|r"))
 
   -- "Best dungeon to run now" hint (most usable upgrades around your level).
   if panel.hint then
@@ -634,28 +644,32 @@ function Overlay.RenderGuide()
   local wantWeapon = (Overlay.guideSubtab ~= "armor")
   local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, (TitanJourney_DB and TitanJourney_DB.Mode()) or "pve")
-  local buckets = {}
-  for _, entry in ipairs(guide) do
-    local it = engine.FindByID(items, entry.id)
-    if it and engine.CanUse(it, class, level) then
-      local isWeapon = (it.itemClassID == 2)
-      local score = engine.ScoreItem(it, weights)
-      -- Drop off-spec gear (e.g. caster Int weapons in a hunter's guide); the
-      -- score-filter alone misses these because physical specs still weight a
-      -- little Intellect and weapons skip scoring.
-      local offspec = engine.IsOffSpec(it, weights)
-      local keep
-      if wantWeapon then
-        keep = isWeapon and not offspec
-      else
-        keep = (not isWeapon) and not offspec and score > 0
-      end
-      if keep then
-        local bi = engine.BandIndex(it.reqLevel)
-        buckets[bi] = buckets[bi] or {}
-        buckets[bi][#buckets[bi] + 1] = { item = it, score = score }
-      end
+  -- Source: the curated suggestions, or the whole usable pool in "All" mode.
+  local buckets, seen = {}, {}
+  local function consider(it)
+    if not (it and it.itemID) or seen[it.itemID] then return end
+    if not engine.CanUse(it, class, level) then return end
+    seen[it.itemID] = true
+    local isWeapon = (it.itemClassID == 2)
+    local score = engine.ScoreItem(it, weights)
+    -- Drop off-spec gear (e.g. caster Int weapons in a hunter's guide).
+    local offspec = engine.IsOffSpec(it, weights)
+    local keep
+    if wantWeapon then
+      keep = isWeapon and not offspec
+    else
+      keep = (not isWeapon) and not offspec and score > 0
     end
+    if keep then
+      local bi = engine.BandIndex(it.reqLevel)
+      buckets[bi] = buckets[bi] or {}
+      buckets[bi][#buckets[bi] + 1] = { item = it, score = score }
+    end
+  end
+  if Overlay.guideShowAll then
+    for i = 1, #items do consider(items[i]) end
+  else
+    for _, entry in ipairs(guide) do consider(engine.FindByID(items, entry.id)) end
   end
   local bands = {}
   for bi = 1, #engine.LEVEL_BANDS do
@@ -1085,6 +1099,15 @@ local function BuildLayout(f)
         panel.subtabs[st.k] = b
         sx = sx + b:GetWidth() + 6
       end
+      -- Suggestions <-> All toggle (show the whole usable pool, not just picks).
+      local allCb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+      allCb:SetSize(22, 22)
+      allCb:SetPoint("LEFT", panel.subtabs.armor, "RIGHT", 18, 0)
+      allCb:SetChecked(Overlay.guideShowAll and true or false)
+      local albl = allCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      albl:SetPoint("LEFT", allCb, "RIGHT", 1, 0)
+      albl:SetText("Show all usable")
+      allCb:SetScript("OnClick", function(self) Overlay.SetGuideShowAll(self:GetChecked()) end)
 
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", panel.subtabs.weapons, "BOTTOMLEFT", 0, -8)
@@ -1187,6 +1210,18 @@ local function BuildLayout(f)
       selHdr:SetPoint("TOPLEFT", leftPane, "TOPLEFT", 2, 0)
       selHdr:SetText("Selector")
       panel.selHdr = selHdr
+      -- "All levels" shows usable gear for the slot beyond the lookahead window.
+      local allLvlCb = CreateFrame("CheckButton", nil, leftPane, "UICheckButtonTemplate")
+      allLvlCb:SetSize(20, 20)
+      allLvlCb:SetPoint("TOPRIGHT", leftPane, "TOPRIGHT", -26, 3)
+      allLvlCb:SetChecked(Overlay.browseAllLevels and true or false)
+      local allLvlLbl = allLvlCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      allLvlLbl:SetPoint("RIGHT", allLvlCb, "LEFT", -1, 0)
+      allLvlLbl:SetText("All levels")
+      allLvlCb:SetScript("OnClick", function(self)
+        Overlay.browseAllLevels = self:GetChecked() and true or false
+        Overlay.RenderBrowse()
+      end)
       local selScroll, selAnchor = MakeScroll(leftPane)
       selScroll:SetPoint("TOPLEFT", selHdr, "BOTTOMLEFT", 0, -4)
       selScroll:SetPoint("BOTTOMRIGHT", leftPane, "BOTTOMRIGHT", -24, 0)
