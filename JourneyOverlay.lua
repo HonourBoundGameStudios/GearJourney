@@ -233,7 +233,18 @@ end
 -- Row tooltip (FEAT-C10) with SHIFT-to-compare against equipped gear.
 local hoverOwner, hoverItemID
 local function ShowRowTooltip(owner, itemID)
-  GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+  -- Rows are full-width, so ANCHOR_RIGHT threw the tooltip to the far edge.
+  -- Anchor it just outside the window (right of the frame, falling back to the
+  -- left if the window sits near the screen's right edge).
+  GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+  GameTooltip:ClearAllPoints()
+  local anchorTo = frame or owner
+  local rightRoom = (GetScreenWidth and anchorTo.GetRight and (GetScreenWidth() - (anchorTo:GetRight() or 0))) or 999
+  if rightRoom and rightRoom < 360 then
+    GameTooltip:SetPoint("TOPRIGHT", anchorTo, "TOPLEFT", -8, 0)
+  else
+    GameTooltip:SetPoint("TOPLEFT", anchorTo, "TOPRIGHT", 8, 0)
+  end
   GameTooltip:SetHyperlink("item:" .. itemID)
   if IsShiftKeyDown() and GameTooltip_ShowCompareItem then GameTooltip_ShowCompareItem() end
   GameTooltip:Show()
