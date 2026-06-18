@@ -1530,7 +1530,12 @@ invWatcher:RegisterEvent("BAG_UPDATE_DELAYED")
 invWatcher:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 invWatcher:SetScript("OnEvent", function()
   if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
-  Overlay.RenderCurrentGoals()
+  -- Only the (cheap) button needs updating while closed; the full re-render is
+  -- expensive (full-index scans + scoring across every view), so skip it for a
+  -- hidden window. Bag-update bursts (looting/selling) otherwise stack these
+  -- renders until the "script ran too long" watchdog trips. Toggle() renders
+  -- on open, so the window is current when shown.
+  if frame and frame:IsShown() then Overlay.RenderCurrentGoals() end
 end)
 
 -- Public: flip the window open/closed (wired to the Titan button's left-click).
