@@ -541,6 +541,13 @@ function Overlay.ComputeCandidates(slot)
       end
     end
   end
+  -- Score each candidate ONCE up front (decorate-sort). table.sort makes
+  -- O(n log n) comparisons, so calling engine.ScoreItem inside the comparator
+  -- evaluated it that many times over the full, uncapped candidate set (the
+  -- whole item index) — the cause of the "script ran too long" watchdog. Cache
+  -- the score per item, then the comparator only compares numbers.
+  local scoreOf = {}
+  for i = 1, #cands do scoreOf[cands[i]] = engine.ScoreItem(cands[i], weights) end
   table.sort(cands, function(a, b)
     -- Gear at/above your level first (nearest first), then lower gear (nearest
     -- first), so no-requirement / low-level pieces don't bury your upgrades.
@@ -550,7 +557,7 @@ function Overlay.ComputeCandidates(slot)
     if ra ~= rb then
       if fa then return ra < rb else return ra > rb end
     end
-    local sa, sb = engine.ScoreItem(a, weights), engine.ScoreItem(b, weights)
+    local sa, sb = scoreOf[a], scoreOf[b]
     if sa ~= sb then return sa > sb end
     return (a.name or "") < (b.name or "")
   end)
