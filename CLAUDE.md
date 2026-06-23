@@ -59,3 +59,9 @@ testable seam. Keep frame/event wiring thin.
 
 `Process/` (Backlog.md, Bugs.md, Archive.md), `Research/`, `Design/` — keep the root clean. The addon's
 own Lua/XML/`.toc` live at the root so the game can load the folder directly.
+
+## Standing orders
+
+- **Re-read this `CLAUDE.md` periodically.** Don't rely on the session-start read alone — in a long session
+  (or after a context compaction), re-read this file at regular intervals so the Process, the gotchas, and the
+  standing rules don't drift out of context. _(Fleetcast 2026-06-20)_
