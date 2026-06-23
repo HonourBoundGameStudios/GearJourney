@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Fleet Comms** 📡 — at session start, read `Process/subspace/inbox/` and report any unread before work (then move to `inbox/archive/`); update `Process/ship-log.json` when you ship something notable (a new addon release). `Hail <ship>: <msg>` sends a message (flagship's `tools/fleet-comms.ps1`); `Muster` aggregates the fleet. Doctrine: Orchestrai's `Process/Orchestration.md` § Fleet Comms.
+>
 > **Locating a fleet project** 🧭 — fleet projects are registered in the flagship's `Orchestrai/Process/orchestration.json` (name → path); when the Admiral names a tracked ship, resolve its path there — don't ask. A full path is supplied only for a project NOT in the fleet (e.g. a Commission); if a named project isn't registered, say so and ask for its path.
 
 ## Project Overview
