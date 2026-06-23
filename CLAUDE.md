@@ -67,3 +67,6 @@ own Lua/XML/`.toc` live at the root so the game can load the folder directly.
 - **Re-read this `CLAUDE.md` periodically.** Don't rely on the session-start read alone — in a long session
   (or after a context compaction), re-read this file at regular intervals so the Process, the gotchas, and the
   standing rules don't drift out of context. _(Fleetcast 2026-06-20)_
+- **The agent commits; the Admiral always pushes.** Commit completed work locally and report it ready to
+  push; **never** run `git push` / `git push --force` / `gh repo create --push`. Repo creation, making a
+  repo public, and history rewrites stay confirm-first. _(Fleetcast 2026-06-21)_
