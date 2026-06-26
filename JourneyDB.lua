@@ -49,7 +49,9 @@ function DB.SetPin(name) DB.Get().pinnedName = name end
 -- Toggle: pinning the current pin clears it. Returns the new pin (or nil).
 function DB.TogglePin(name)
   local d = DB.Get()
-  d.pinnedName = (d.pinnedName == name) and nil or name
+  -- NB: not `(d.pinnedName == name) and nil or name` -- that idiom can never
+  -- yield nil (`true and nil or name` collapses to name), so it never cleared.
+  if d.pinnedName == name then d.pinnedName = nil else d.pinnedName = name end
   return d.pinnedName
 end
 

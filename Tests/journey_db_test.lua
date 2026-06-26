@@ -1,0 +1,84 @@
+-- JourneyDB accessors -- settings, source/rarity filters, pin, journey reorder,
+-- legacy migration, and the item cache. Pure table ops over TitanJourneyDB; the
+-- WoW globals CharKey() reads (UnitName/GetRealmName) are absent under plain Lua,
+-- so the "?-?" fallback key is used -- which is all these tests need.
+-- Run from project root: lua Tests/journey_db_test.lua
+
+local H = dofile("Tests/harness.lua")
+dofile("JourneyDB.lua")
+local DB = TitanJourney_DB
+
+H.start("JourneyDB accessors")
+
+-- Init / mode --------------------------------------------------------------
+TitanJourneyDB = nil
+local d = DB.Init()
+H.eq(type(d), "table", "Init returns the saved table")
+H.eq(DB.Mode(), "pve", "mode defaults to pve")
+DB.SetMode("pvp")
+H.eq(DB.Mode(), "pvp", "SetMode persists")
+
+-- Init merges (never clobbers) existing state ------------------------------
+local again = DB.Init()
+H.eq(again.settings.mode, "pvp", "Init does not clobber existing settings")
+
+-- Sources: default-on, toggle, back-fill -----------------------------------
+local src = DB.Sources()
+for _, k in ipairs({ "Crafted", "Dungeon", "Faction", "PvP", "Quest", "Drop", "Vendor" }) do
+  H.ok(src[k] == true, "source default on: " .. k)
+end
+DB.Sources().Dungeon = false
+H.ok(DB.Sources().Dungeon == false, "source toggle persists")
+-- A brand-new key absent from an older save is back-filled to true.
+DB.Get().settings.sources.Vendor = nil
+H.ok(DB.Sources().Vendor == true, "missing source key back-filled to on")
+
+-- Qualities: default-on, legendary back-fill -------------------------------
+local q = DB.Qualities()
+H.ok(q.uncommon and q.rare and q.epic and q.legendary, "rarity defaults on (uncommon+)")
+DB.Get().settings.qualities.legendary = nil   -- simulate a pre-legendary save
+H.ok(DB.Qualities().legendary == true, "legendary back-filled for older saves")
+
+H.eq(DB.Lookahead(), 10, "lookahead is a fixed band of 10")
+
+-- Pin: set, and toggle that actually clears (regression: the and/nil/or bug) -
+H.eq(DB.Pin(), nil, "no pin initially")
+DB.SetPin("Foo")
+H.eq(DB.Pin(), "Foo", "SetPin stores the name")
+H.eq(DB.TogglePin("Foo"), nil, "toggling the current pin CLEARS it")
+H.eq(DB.Pin(), nil, "pin is cleared after toggle-off")
+H.eq(DB.TogglePin("Bar"), "Bar", "toggling a new name sets it")
+H.eq(DB.TogglePin("Baz"), "Baz", "toggling a different name switches the pin")
+
+-- Journey reorder (JourneyMove) with end-clamping --------------------------
+TitanJourneyDB = nil; DB.Init()
+DB.JourneyAdd("A"); DB.JourneyAdd("B"); DB.JourneyAdd("C")
+DB.JourneyMove("A", 1)                       -- move A down one
+H.eq(DB.Journey()[1], "B", "A moved down -> B is first")
+H.eq(DB.Journey()[2], "A", "A is now second")
+DB.JourneyMove("A", -1)                       -- move A back up
+H.eq(DB.Journey()[1], "A", "A moved back up -> first")
+DB.JourneyMove("A", -1)                       -- clamp at the top (no-op)
+H.eq(DB.Journey()[1], "A", "move up at the top is a clamped no-op")
+DB.JourneyMove("C", 1)                        -- clamp at the bottom (no-op)
+H.eq(DB.Journey()[3], "C", "move down at the bottom is a clamped no-op")
+DB.JourneyMove("ghost", 1)                    -- name not present -> no-op
+H.eq(#DB.Journey(), 3, "moving a missing name changes nothing")
+
+-- One-time migration of the legacy account-wide list to per-character -------
+TitanJourneyDB = { journey = { "Old1", "Old2" } }
+DB.Init()
+local migrated = DB.Journey()
+H.eq(#migrated, 2, "legacy account-wide list is inherited")
+H.eq(migrated[1], "Old1", "migrated order preserved")
+H.eq(DB.Get().journey, nil, "legacy account-wide list retired after migration")
+
+-- Item cache: store by id, guard nil / id-less items -----------------------
+TitanJourneyDB = nil; DB.Init()
+DB.CachePut({ itemID = 123, name = "Cached Sword" })
+H.eq(DB.Cache()[123].name, "Cached Sword", "CachePut stores by itemID")
+DB.CachePut(nil)                             -- guard: nil item
+DB.CachePut({ name = "no id" })              -- guard: missing itemID
+H.eq(DB.Cache()[123].name, "Cached Sword", "guards leave the cache intact")
+
+H.done()
