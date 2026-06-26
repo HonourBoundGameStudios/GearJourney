@@ -64,8 +64,14 @@ local function PlayerTalentBackground()
 end
 
 -- Returns a predicate: does the player already own this itemID? Checks equipped
--- slots plus bags and bank (GetItemCount). Snapshots equipped once per call.
+-- slots plus bags and bank (GetItemCount). The closure snapshots the equipped
+-- set, so it is memoised and reused -- a single RenderCurrentGoals asks for it
+-- from a half-dozen places (UsablePool, ComputeCandidates, RenderDungeonBar,
+-- the guide, the journey renderers), and rebuilding it each time re-scanned all
+-- 19 slots over and over. invWatcher invalidates the cache when inventory or
+-- equipment changes, which is the only thing that can change ownership.
 function Overlay.PlayerOwnsFn()
+  if Overlay._ownsFn then return Overlay._ownsFn end
   local equipped = {}
   if GetInventoryItemID then
     for slot = 1, 19 do
@@ -73,11 +79,12 @@ function Overlay.PlayerOwnsFn()
       if id then equipped[id] = true end
     end
   end
-  return function(itemID)
+  Overlay._ownsFn = function(itemID)
     if not itemID then return false end
     if equipped[itemID] then return true end
     return (GetItemCount and GetItemCount(itemID, true) or 0) > 0  -- bags + bank
   end
+  return Overlay._ownsFn
 end
 
 -- The player's spec = the talent tab with the most points (default 1).
@@ -1536,6 +1543,7 @@ local invWatcher = CreateFrame("Frame")
 invWatcher:RegisterEvent("BAG_UPDATE_DELAYED")
 invWatcher:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 invWatcher:SetScript("OnEvent", function()
+  Overlay._ownsFn = nil  -- ownership changed; drop the memoised equipped snapshot
   if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
   -- Only the (cheap) button needs updating while closed; the full re-render is
   -- expensive (full-index scans + scoring across every view), so skip it for a
