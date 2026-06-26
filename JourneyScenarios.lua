@@ -91,6 +91,7 @@ function S.scenario(def) scenarios[#scenarios + 1] = def end
 function S.Run(filter)
   out(col(GOLD, "TitanJourney scenarios") .. col(GRAY, "  " .. (date and date("%H:%M:%S") or "")))
   local total, passedScen, failedScen, aPass, aFail = 0, 0, 0, 0, 0
+  local records = {}   -- plain-data per-scenario results, persisted to SavedVariables
 
   for _, sc in ipairs(scenarios) do
     local selected = (not filter) or sc.id == filter or hasTag(sc.tags, filter)
@@ -115,6 +116,11 @@ function S.Run(filter)
         col(CYAN, sc.id),
         sc.name .. col(GRAY, "  (" .. ctx.passed .. "/" .. (ctx.passed + ctx.failed) .. ")")))
       for _, f in ipairs(ctx.fails) do out("        " .. col(RED, "- " .. f)) end
+
+      records[#records + 1] = {
+        id = sc.id, name = sc.name, passed = scenPassed,
+        checks = ctx.passed + ctx.failed, failed = ctx.failed, fails = ctx.fails,
+      }
     end
   end
 
@@ -124,6 +130,22 @@ function S.Run(filter)
     failedScen > 0 and col(RED, failedScen .. " failed") or col(GRAY, "0 failed"),
     col(GRAY, "|"), aPass + aFail,
     aFail > 0 and col(RED, aFail .. " failed") or col(GREEN, "all passed")))
+
+  -- Persist the run to SavedVariables so it survives to disk on /reload or
+  -- logout (the only times WoW flushes TitanJourneyDB). Lets the run be read
+  -- back from WTF/.../SavedVariables/TitanJourney.lua without copy-pasting chat.
+  local report = {
+    when = (date and date("%Y-%m-%d %H:%M:%S")) or "",
+    addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or "",
+    filter = filter or "(all)",
+    scenarios = total, scenariosPassed = passedScen, scenariosFailed = failedScen,
+    checks = aPass + aFail, checksFailed = aFail,
+    allPassed = (failedScen == 0),
+    results = records,
+  }
+  TitanJourneyDB = TitanJourneyDB or {}
+  TitanJourneyDB.lastScenarioRun = report
+  out(col(GRAY, "    saved to SavedVariables -- /reload (or log out) to flush it to disk."))
   return failedScen == 0
 end
 
