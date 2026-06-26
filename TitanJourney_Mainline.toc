@@ -1,0 +1,29 @@
+# Retail (Mainline) flavour. The Classic Era build lives in TitanJourney.toc.
+# The WoW client auto-loads this _Mainline.toc on a Retail client and the base
+# .toc on Classic Era; the BigWigsMods packager builds one upload per flavour.
+# NOTE: keep ## Interface in step with the live Retail build (e.g. 11.1.7 ->
+# 110107). If it lags the client, enable "Load out of date AddOns".
+## Interface: 110107
+## Title: Titan Panel [|cffeda55fTitanJourney|r]
+## Notes: Adds TitanJourney information to Titan Panel.
+## Author: Honour Bound Game Studios
+## Version: 0.9.3
+## IconTexture: Interface\Icons\Ability_Mount_RidingHorse
+## X-Curse-Project-ID: 1578100
+## SavedVariables: TitanJourneyDB
+## OptionalDeps:
+## Dependencies: Titan
+
+JourneyEngine.lua
+JourneyCompat.lua
+JourneyDB.lua
+JourneyData.lua
+JourneyAtlasData.lua
+JourneyRogueData.lua
+JourneyClassGuides.lua
+JourneyItemIndex.lua
+JourneyProvider.lua
+JourneyTests.lua
+JourneyOverlay.lua
+TitanJourney.lua
+JourneyScenarios.lua

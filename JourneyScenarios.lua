@@ -177,6 +177,26 @@ S.scenario{
 }
 
 S.scenario{
+  id = "SCN-COMPAT", name = "Flavour compat seam is wired", tags = { "smoke", "port" },
+  run = function(t)
+    local Cm = TitanJourney_Compat
+    if not t.truthy(Cm, "compat module loaded") then return end
+    t.truthy(Cm.isRetail ~= nil and Cm.isClassic ~= nil, "flavour detected")
+    local idx = Cm.PlayerSpec()
+    t.truthy(type(idx) == "number" and idx >= 1, "spec index resolves (" .. tostring(idx) .. ")")
+    local E = TitanJourney_Engine
+    if Cm.isRetail then
+      t.ok(E and E.__retailApplied, "retail rules applied to the engine")
+      t.truthy(E and E.CLASS_ARMOR.EVOKER, "Evoker known on Retail")
+      t.eq(E and E.STAT_KEY["ITEM_MOD_HASTE_RATING"], "Haste", "secondary stat keys mapped")
+      t.truthy(E and E.CLASS_SPEC_WEIGHTS.DEMONHUNTER, "Demon Hunter has spec weights")
+    else
+      t.ok(not (E and E.__retailApplied), "Classic flavour: retail overlay not applied (expected)")
+    end
+  end,
+}
+
+S.scenario{
   id = "SCN-BUTTON", name = "Titan button text resolves", tags = { "smoke", "titan" },
   run = function(t)
     t.truthy(TitanJourney_GetButtonText, "button text function published")
