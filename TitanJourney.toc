@@ -10,6 +10,7 @@
 ## Dependencies: Titan
 
 JourneyEngine.lua
+JourneyCompat.lua
 JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua

@@ -69,22 +69,16 @@ local CLASS_TALENT_BG = {
   DRUID   = { "DruidBalance", "DruidFeralCombat", "DruidRestoration" },
 }
 
--- Pick the background base name for the player's class and most-spent spec.
+-- Pick the background base name for the player's class and active spec. The
+-- talent-tree art is Classic-only; Compat.TalentBackgroundBase returns nil on
+-- Retail (no such textures), so the window falls back to the dark inset there.
 local function PlayerTalentBackground()
   local _, class = UnitClass("player")
-  local set = class and CLASS_TALENT_BG[class]
+  local Compat = TitanJourney_Compat
+  local set = Compat and Compat.TalentBackgroundBase(class, CLASS_TALENT_BG)
   if not set then return nil end
-
-  local idx, best = 1, -1
-  if GetNumTalentTabs and GetTalentTabInfo then
-    local n = GetNumTalentTabs() or 0
-    for i = 1, math.min(n, #set) do
-      local _, _, pointsSpent = GetTalentTabInfo(i)
-      pointsSpent = tonumber(pointsSpent) or 0
-      if pointsSpent > best then best, idx = pointsSpent, i end
-    end
-  end
-  return set[idx]
+  local idx = (Compat and Compat.PlayerSpec()) or 1
+  return set[idx] or set[1]
 end
 
 -- Returns a predicate: does the player already own this itemID? Checks equipped
@@ -111,18 +105,11 @@ function Overlay.PlayerOwnsFn()
   return Overlay._ownsFn
 end
 
--- The player's spec = the talent tab with the most points (default 1).
+-- The player's spec index, via the flavour-aware compat layer (Classic talent
+-- tabs vs Retail GetSpecialization). Falls back to 1.
 local function PlayerSpecIndex()
-  local idx, best = 1, -1
-  if GetNumTalentTabs and GetTalentTabInfo then
-    local n = GetNumTalentTabs() or 0
-    for i = 1, n do
-      local _, _, pts = GetTalentTabInfo(i)
-      pts = tonumber(pts) or 0
-      if pts > best then best, idx = pts, i end
-    end
-  end
-  return idx
+  local Compat = TitanJourney_Compat
+  return (Compat and Compat.PlayerSpec()) or 1
 end
 
 -- Paint the class talent background to fill the whole window, dimmed, on the
