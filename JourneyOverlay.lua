@@ -196,7 +196,7 @@ function Overlay.SelectTab(key)
     if active then btn:LockHighlight() else btn:UnlockHighlight() end
     if btn.accent then btn.accent:SetShown(active) end
     if btn.text then
-      if active then btn.text:SetTextColor(rgba(C.gold)) else btn.text:SetTextColor(rgba(C.textSec)) end
+      if active then btn.text:SetTextColor(rgba(C.gold)) else btn.text:SetTextColor(rgba(C.textPri)) end
     end
     -- Active icon full-colour; inactive desaturated + dimmed so the eye lands
     -- on the current tab.
