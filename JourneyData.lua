@@ -40,7 +40,7 @@ local Items = {
     armorType = "Cloth", stats = { Intellect = 9, Stamina = 5, Spirit = 4 },
   },
   {
-    slot = "MainHand", name = "Assassin's Blade", reqLevel = 24, ilvl = 29,
+    slot = "Main Hand", name = "Assassin's Blade", reqLevel = 24, ilvl = 29,
     quality = "rare", sourceType = "Dungeon", sourceLabel = "Shadowfang Keep",
     stats = { Agility = 6, Stamina = 4 },  -- weapon: neutral
   },
