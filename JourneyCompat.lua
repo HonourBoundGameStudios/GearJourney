@@ -58,4 +58,52 @@ function Compat.TalentBackgroundBase(classToken, bgTable)
   return set
 end
 
+-- ── Retail rule tables (Phase 2) ─────────────────────────────────────────────
+-- One armor type per class (no Classic multi-type/level-gates), including the
+-- four classes Classic never had. Overlaid onto the Engine by ApplyRetail.
+local RETAIL_CLASS_ARMOR = {
+  WARRIOR     = { Plate = true },
+  PALADIN     = { Plate = true },
+  DEATHKNIGHT = { Plate = true },
+  HUNTER      = { Mail = true },
+  SHAMAN      = { Mail = true },
+  EVOKER      = { Mail = true },
+  ROGUE       = { Leather = true },
+  DRUID       = { Leather = true },
+  MONK        = { Leather = true },
+  DEMONHUNTER = { Leather = true },
+  MAGE        = { Cloth = true },
+  PRIEST      = { Cloth = true },
+  WARLOCK     = { Cloth = true },
+}
+
+-- Caster-DPS specs by GetSpecialization index (these don't want healing-only
+-- gear). Classes with no caster-DPS spec are simply absent.
+local RETAIL_CASTER_DPS = {
+  MAGE    = { true,  true,  true },          -- Arcane / Fire / Frost
+  WARLOCK = { true,  true,  true },          -- Affliction / Demonology / Destruction
+  PRIEST  = { false, false, true },          -- Discipline / Holy / Shadow
+  DRUID   = { true,  false, false, false },  -- Balance / Feral / Guardian / Restoration
+  SHAMAN  = { true,  false, false },         -- Elemental / Enhancement / Restoration
+  EVOKER  = { true,  false, true },          -- Devastation / Preservation / Augmentation
+}
+
+-- ApplyRetail(Engine): overlay the Retail facts onto the (Classic-default)
+-- engine. Idempotent; safe to call once at load on Retail, or from tests.
+function Compat.ApplyRetail(Engine)
+  if not Engine then return end
+  Engine.CLASS_ARMOR = RETAIL_CLASS_ARMOR
+  Engine.CASTER_DPS  = RETAIL_CASTER_DPS
+  -- Retail has no armor-skill level-gates (proficiency is granted by class/spec).
+  Engine.ArmorWearableAtLevel = function() return true end
+  -- v1: no weapon-proficiency filter on Retail (permissive). A per-class Retail
+  -- WEAPON_PROF table can replace this later; empty => CanUseWeapon passes all.
+  Engine.WEAPON_PROF = {}
+end
+
+-- Apply automatically on a real Retail client (Engine is loaded just before us).
+if Compat.isRetail and TitanJourney_Engine then
+  Compat.ApplyRetail(TitanJourney_Engine)
+end
+
 return Compat
