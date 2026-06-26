@@ -2,7 +2,10 @@
 local _G = getfenv(0)
 local ADDON_ID = "Journey"                                  -- short id Titan keys plugin state on
 local TITAN_BUTTON_NAME = "TitanPanel" .. ADDON_ID .. "Button"
-local VERSION = "0.9.0"
+-- Single source of truth: read the version straight from the .toc so the About
+-- dialog and Titan registry can never drift from the packaged version.
+local GetMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+local VERSION = (GetMeta and GetMeta("TitanJourney", "Version")) or "dev"
 
 -- Honour Bound Game Studios branding (About dialog + tooltip footer). ---------
 local Colors = {
