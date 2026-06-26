@@ -50,6 +50,7 @@ local TABS = {
   { key = "future",   label = "Future Planner", icon = "Interface\\Icons\\INV_Misc_PocketWatch_01" },
   { key = "inspect",  label = "Last Inspected", icon = "Interface\\Icons\\Spell_Holy_MindVision" },
   { key = "settings", label = "Settings",       icon = "Interface\\Icons\\Trade_Engineering" },
+  { key = "about",    label = "About",          icon = "Interface\\Icons\\INV_Misc_Note_02" },
 }
 
 -- Talent-tree background base names per class, in talent-tab order (1..3).
@@ -1559,6 +1560,68 @@ local function BuildLayout(f)
       empty:SetText("No upcoming gear for your class.")
       empty:Hide()
       panel.empty = empty
+
+    elseif tab.key == "about" then
+      -- Studio "About" page: logo + blurb + a selectable Steam curator link.
+      local LOGO = "Interface\\AddOns\\TitanJourney\\Media\\HBGS-Logo"
+      local URL  = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
+      local TEXTW = 620
+
+      local logo = panel:CreateTexture(nil, "ARTWORK")
+      logo:SetSize(96, 96)
+      logo:SetPoint("TOP", header, "BOTTOM", 0, -18)
+      logo:SetTexture(LOGO)
+
+      local name = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+      name:SetPoint("TOP", logo, "BOTTOM", 0, -12)
+      name:SetText("Honour Bound Game Studios")
+      name:SetTextColor(rgba(C.gold))
+
+      local tagline = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      tagline:SetPoint("TOP", name, "BOTTOM", 0, -4)
+      tagline:SetText("|cffbfbfbfGames and tools, made with honour.|r")
+
+      -- NOTE: placeholder copy -- replace with the studio's own words.
+      local body = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      body:SetPoint("TOP", tagline, "BOTTOM", 0, -16)
+      body:SetWidth(TEXTW); body:SetJustifyH("CENTER")
+      body:SetText("Honour Bound Game Studios is an independent studio crafting games and "
+        .. "player-first tools. TitanJourney is one of our community add-ons \226\128\148 built "
+        .. "to make the leveling journey smoother, so you always know the next upgrade worth chasing.")
+
+      local rule2 = panel:CreateTexture(nil, "ARTWORK")
+      rule2:SetSize(TEXTW, 1)
+      rule2:SetPoint("TOP", body, "BOTTOM", 0, -16)
+      rule2:SetColorTexture(C.border[1], C.border[2], C.border[3], 0.85)
+
+      local linkLbl = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+      linkLbl:SetPoint("TOP", rule2, "BOTTOM", 0, -14)
+      linkLbl:SetText("|cffffd100Find our games on Steam|r")
+
+      -- Selectable (read-only) URL field: edits revert so it stays copyable.
+      local box = CreateFrame("EditBox", nil, panel, "InputBoxTemplate")
+      box:SetSize(440, 22)
+      box:SetPoint("TOP", linkLbl, "BOTTOM", 0, -8)
+      box:SetAutoFocus(false)
+      box:SetText(URL)
+      box:SetCursorPosition(0)
+      box:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+      box:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+      box:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+      box:SetScript("OnTextChanged", function(self, user)
+        if user then self:SetText(URL); self:HighlightText() end
+      end)
+
+      local copyBtn = MakeChip(panel, "Select all (then Ctrl-C)")
+      copyBtn:SetHeight(22)
+      copyBtn:SetPoint("TOP", box, "BOTTOM", 0, -10)
+      copyBtn:SetScript("OnClick", function() box:SetFocus(); box:HighlightText() end)
+
+      local ver = (C_AddOns and C_AddOns.GetAddOnMetadata
+        and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or ""
+      local foot = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+      foot:SetPoint("BOTTOM", panel, "BOTTOM", 0, 8)
+      foot:SetText("TitanJourney v" .. ver .. "  \194\183  \194\169 Honour Bound Game Studios")
 
     else
       -- Settings & Help. ------------------------------------------------------
