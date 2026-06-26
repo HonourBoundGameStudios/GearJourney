@@ -317,6 +317,20 @@ local function CreateRow(parent)
   row.hl:SetColorTexture(rgba(C.hover))
   row.hl:Hide()
 
+  -- "Picked" accent: a 3px gold left bar + faint gold wash on rows whose item is
+  -- already on the Journey list (set by ConfigRowAction for add-mode rows).
+  row.pickFill = row:CreateTexture(nil, "BACKGROUND")
+  row.pickFill:SetPoint("TOPLEFT", 0, 0)
+  row.pickFill:SetPoint("BOTTOMRIGHT", 0, 0)
+  row.pickFill:SetColorTexture(rgba(C.selectFill))
+  row.pickFill:Hide()
+  row.pick = row:CreateTexture(nil, "ARTWORK")
+  row.pick:SetPoint("TOPLEFT", 0, 0)
+  row.pick:SetPoint("BOTTOMLEFT", 0, 0)
+  row.pick:SetWidth(3)
+  row.pick:SetColorTexture(rgba(C.gold))
+  row.pick:Hide()
+
   row:EnableMouse(true)
   row:SetScript("OnEnter", function(self)
     self.hl:Show()
@@ -344,6 +358,13 @@ local function CreateRow(parent)
   row.icon:SetSize(ICON, ICON)
   row.icon:SetPoint("CENTER", row.border, "CENTER")
   row.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)   -- trim the default icon border
+
+  -- Owned marker: a small green dot on the icon's top-left corner.
+  row.dot = row:CreateTexture(nil, "OVERLAY")
+  row.dot:SetSize(7, 7)
+  row.dot:SetPoint("TOPLEFT", row.border, "TOPLEFT", -2, 2)
+  row.dot:SetColorTexture(0.40, 0.78, 0.42)
+  row.dot:Hide()
 
   -- Name + coloured source beside it. Right edge stops short of the buttons so
   -- long names/effects clip rather than run under the Add/Remove controls.
@@ -414,6 +435,14 @@ local function FillRow(row, item, playerLevel, hi)
   row.stats:SetText(statline)
   row.level:SetText("Lv " .. item.reqLevel)
   row.level:SetTextColor(LevelColor(item.reqLevel, playerLevel, hi))
+
+  -- Owned dot: a small green marker for items already in bags/bank/equipped.
+  -- Only ever visible in lists that aren't owned-filtered (Journey / Inspect);
+  -- Browse/Future/Guide drop owned items upstream, so it stays hidden there.
+  if row.dot then
+    local owns = Overlay.PlayerOwnsFn()
+    row.dot:SetShown(item.itemID ~= nil and owns(item.itemID) == true)
+  end
 end
 
 -- Refresh the Titan button + both list views after a Journey-List change.
@@ -425,6 +454,16 @@ end
 -- Configure a row's right-side action. "add" toggles Journey-List membership
 -- (selector / future); "journey" shows Remove + up/down reorder.
 local function ConfigRowAction(row, item, mode)
+  -- "Picked" cue: gold left bar + faint wash on add-rows already wishlisted, so
+  -- you can see at a glance what's on your list while browsing. (Journey-mode
+  -- rows are all on the list, so the cue would be noise there -- skip it.)
+  if row.pick then
+    local picked = (mode ~= "journey") and TitanJourney_DB
+      and TitanJourney_DB.JourneyContains(item.name) or false
+    row.pick:SetShown(picked)
+    if row.pickFill then row.pickFill:SetShown(picked) end
+  end
+
   if mode == "journey" then
     row.up:Show(); row.down:Show(); row.level:Hide()
     row.action:SetWidth(24); row.action:SetText("X")
@@ -1107,8 +1146,23 @@ function Overlay.RenderBrowse()
   end
 end
 
+-- Count badges on the sidebar tabs whose size is cheap to compute and useful:
+-- the saved Journey list, and the last inspected player's gear.
+function Overlay.UpdateTabBadges()
+  if not Overlay.tabButtons then return end
+  local function set(key, n)
+    local b = Overlay.tabButtons[key]
+    if b and b.badge then b.badge:SetText((n and n > 0) and tostring(n) or "") end
+  end
+  local journey = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  set("journey", #journey)
+  local insp = Overlay.lastInspect or { items = {} }
+  set("inspect", #(insp.items or {}))
+end
+
 -- Refresh the browse + future views (called by the provider and on open).
 function Overlay.RenderCurrentGoals()
+  Overlay.UpdateTabBadges()
   Overlay.RenderJourney()
   Overlay.RenderGuide()
   Overlay.RenderBrowse()
@@ -1129,6 +1183,18 @@ local function BuildControlBar(content, topLevel)
   bar:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, 0)
   bar:SetFrameLevel(topLevel + 2)
   Overlay.controlBar = bar
+
+  -- Toolbar framing: a panel2 fill with hairline rules top+bottom so the source
+  -- and rarity checkboxes read as one toolbar rather than loose widgets.
+  local fill = bar:CreateTexture(nil, "BACKGROUND")
+  fill:SetAllPoints(bar)
+  fill:SetColorTexture(C.panel2[1], C.panel2[2], C.panel2[3], 0.55)
+  local topRule = bar:CreateTexture(nil, "BORDER")
+  topRule:SetHeight(1); topRule:SetPoint("TOPLEFT"); topRule:SetPoint("TOPRIGHT")
+  topRule:SetColorTexture(rgba(C.border))
+  local botRule = bar:CreateTexture(nil, "BORDER")
+  botRule:SetHeight(1); botRule:SetPoint("BOTTOMLEFT"); botRule:SetPoint("BOTTOMRIGHT")
+  botRule:SetColorTexture(rgba(C.border))
 
   local x = 8
   for _, key in ipairs(SOURCE_FILTERS) do
@@ -1232,6 +1298,12 @@ local function BuildLayout(f)
     lbl:SetPoint("LEFT", ic, "RIGHT", 8, 0)
     lbl:SetText(tab.label)
     btn.text = lbl
+    -- Count badge (right-aligned): populated by UpdateTabBadges for the tabs
+    -- whose size is cheap + meaningful (Journey list, Last Inspected).
+    local badge = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    badge:SetPoint("RIGHT", btn, "RIGHT", -10, 0)
+    badge:SetTextColor(rgba(C.gold))
+    btn.badge = badge
     btn:SetScript("OnClick", function() Overlay.SelectTab(tab.key) end)
     Overlay.tabButtons[tab.key] = btn
 
@@ -1276,7 +1348,8 @@ local function BuildLayout(f)
       empty:SetSize(380, 20)
       local et = empty:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       et:SetPoint("LEFT")
-      et:SetText("Your Journey list is empty \226\128\148 |cff66ccffopen Browse|r to add gear.")
+      et:SetText("|TInterface\\Icons\\INV_Misc_Map_01:18:18:0:0:64:64:5:59:5:59|t  "
+        .. "Your Journey list is empty \226\128\148 |cff66ccffopen Browse|r to add gear.")
       empty:SetFontString(et)
       empty:SetScript("OnClick", function() Overlay.SelectTab("browse") end)
       empty:Hide()
@@ -1303,7 +1376,8 @@ local function BuildLayout(f)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("Right-click a player and choose Inspect to list their gear here.")
+      empty:SetText("|TInterface\\Icons\\Spell_Holy_MindVision:18:18:0:0:64:64:5:59:5:59|t  "
+        .. "Right-click a player and choose Inspect to list their gear here.")
       empty:Hide()
       panel.empty = empty
 
@@ -1554,6 +1628,11 @@ local function BuildLayout(f)
           result:SetText("|cffff5555scenarios not loaded|r"); return
         end
         local _, rep = TitanJourney_Scenarios.Run()
+        -- The UI scenarios open/close this window while testing, so restore it
+        -- and return to Settings afterwards -- otherwise clicking Run Tests
+        -- looks like the manager just closed/crashed.
+        if frame then frame:Show(); Overlay.RenderCurrentGoals() end
+        Overlay.SelectTab("settings")
         if not rep then result:SetText("|cffff5555no result|r"); return end
         if rep.checksFailed == 0 then
           result:SetText(string.format("|cff33ff33%d scenarios, %d checks passed|r",
@@ -1612,6 +1691,17 @@ local function CreateOverlay()
       insets = { left = 4, right = 4, top = 4, bottom = 4 },
     })
     banner:SetBackdropBorderColor(0.85, 0.68, 0.22)  -- soft gold
+  end
+  -- Gold wash behind the title: a centred horizontal gradient (bright in the
+  -- middle, fading to the edges). Falls back to a flat tint where SetGradient's
+  -- colour-object form isn't available on this client.
+  local grad = banner:CreateTexture(nil, "ARTWORK")
+  grad:SetPoint("TOPLEFT", 4, -4); grad:SetPoint("BOTTOMRIGHT", -4, 4)
+  grad:SetColorTexture(C.gold[1], C.gold[2], C.gold[3], 0.10)
+  if grad.SetGradient and CreateColor then
+    local edge = CreateColor(C.gold[1], C.gold[2], C.gold[3], 0.02)
+    local mid  = CreateColor(C.gold[1], C.gold[2], C.gold[3], 0.22)
+    pcall(grad.SetGradient, grad, "HORIZONTAL", edge, mid)  -- approx centre-bright
   end
   local title = banner:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
   title:SetPoint("CENTER", banner, "CENTER", 0, 0)
