@@ -10,6 +10,29 @@ TitanJourney_Overlay = Overlay
 local OVERLAY_NAME = "TitanJourneyOverlay"
 local frame  -- created lazily on first toggle
 
+-- Visual theme (POLISH-1). One palette + spacing scale referenced everywhere so
+-- all six tabs read as one designed app. Colours are 0-1 float tuples; alpha is
+-- the optional 4th element. Quality/source/stat colours stay in their own tables.
+local C = {
+  bg         = { 0.043, 0.047, 0.055 },
+  panel      = { 0.075, 0.082, 0.094 },
+  panel2     = { 0.110, 0.120, 0.137 },
+  border     = { 0.22, 0.24, 0.27 },
+  gold       = { 0.85, 0.66, 0.20 },
+  goldDim    = { 0.85, 0.66, 0.20, 0.15 },
+  textPri    = { 0.92, 0.92, 0.90 },
+  textSec    = { 0.68, 0.70, 0.73 },
+  textMuted  = { 0.45, 0.47, 0.50 },
+  hover      = { 1, 1, 1, 0.06 },
+  selectFill = { 0.85, 0.66, 0.20, 0.12 },
+  stripe     = { 1, 1, 1, 0.028 },
+}
+local SP = { XS = 4, S = 8, M = 12, L = 16, XL = 24 }
+local HEX_GOLDHI = "ffffd16b"   -- hovered item-name tint (inline |c code)
+
+-- unpack a colour tuple for the SetColorTexture/SetVertexColor/SetTextColor APIs.
+local function rgba(t) return t[1], t[2], t[3], t[4] end
+
 -- Classic dialog look used only if BasicFrameTemplateWithInset is unavailable.
 local FALLBACK_BACKDROP = {
   bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
@@ -138,7 +161,11 @@ local function ApplyClassBackground(f)
   local function quad(suffix, x, yDown, w, h)
     local t = holder:CreateTexture(nil, "BACKGROUND")
     t:SetTexture(prefix .. suffix)   -- bad path simply draws nothing
-    t:SetAlpha(0.42)                 -- dim so text stays readable
+    -- A whisper, not wallpaper: desaturate the talent art and tint it toward
+    -- gold at low alpha so it reads as a motif and never fights the text.
+    if t.SetDesaturated then t:SetDesaturated(true) end
+    t:SetVertexColor(0.90, 0.80, 0.60)
+    t:SetAlpha(0.12)
     t:SetPoint("TOPLEFT", holder, "TOPLEFT", x, -yDown)
     t:SetSize(w, h)
     return t
@@ -150,6 +177,13 @@ local function ApplyClassBackground(f)
     quad("BottomLeft",  0,     seamY, seamX,     H - seamY),
     quad("BottomRight", seamX, seamY, W - seamX, H - seamY),
   }
+
+  -- Legibility scrim: a near-bg wash above the art (but below the content frame,
+  -- which sits at a higher frame level) so every panel rests on ~panel luminance.
+  local scrim = holder:CreateTexture(nil, "ARTWORK")
+  scrim:SetAllPoints(holder)
+  scrim:SetColorTexture(C.bg[1], C.bg[2], C.bg[3], 0.45)
+  Overlay.bgScrim = scrim
 end
 
 -- SelectTab(key): mark one sidebar button active (locked highlight) and show
@@ -158,9 +192,17 @@ function Overlay.SelectTab(key)
   Overlay.activeTab = key
   if not Overlay.tabButtons then return end
   for k, btn in pairs(Overlay.tabButtons) do
-    if k == key then btn:LockHighlight() else btn:UnlockHighlight() end
+    local active = (k == key)
+    if active then btn:LockHighlight() else btn:UnlockHighlight() end
+    if btn.accent then btn.accent:SetShown(active) end
     if btn.text then
-      if k == key then btn.text:SetTextColor(1.0, 0.82, 0.30) else btn.text:SetTextColor(0.9, 0.9, 0.9) end
+      if active then btn.text:SetTextColor(rgba(C.gold)) else btn.text:SetTextColor(rgba(C.textSec)) end
+    end
+    -- Active icon full-colour; inactive desaturated + dimmed so the eye lands
+    -- on the current tab.
+    if btn.icon then
+      if btn.icon.SetDesaturated then btn.icon:SetDesaturated(not active) end
+      if active then btn.icon:SetVertexColor(1, 1, 1) else btn.icon:SetVertexColor(0.7, 0.72, 0.75) end
     end
   end
   for k, panel in pairs(Overlay.panels) do
@@ -262,21 +304,46 @@ local function CreateRow(parent)
   local row = CreateFrame("Frame", nil, parent)
   row:SetHeight(ROW_H)
 
+  -- Zebra striping (very subtle) + a reused hover wash, both full-row and behind
+  -- the content. Striping alpha is set per-row by RenderRowsInto; hover toggles.
+  row.stripe = row:CreateTexture(nil, "BACKGROUND")
+  row.stripe:SetPoint("TOPLEFT", 0, 0)
+  row.stripe:SetPoint("BOTTOMRIGHT", 0, 0)
+  row.stripe:SetColorTexture(rgba(C.stripe))
+  row.stripe:Hide()
+  row.hl = row:CreateTexture(nil, "BACKGROUND")
+  row.hl:SetPoint("TOPLEFT", 0, 0)
+  row.hl:SetPoint("BOTTOMRIGHT", 0, 0)
+  row.hl:SetColorTexture(rgba(C.hover))
+  row.hl:Hide()
+
   row:EnableMouse(true)
   row:SetScript("OnEnter", function(self)
+    self.hl:Show()
     if not self.itemID then return end
     hoverOwner, hoverItemID = self, self.itemID
     ShowRowTooltip(self, self.itemID)
   end)
-  row:SetScript("OnLeave", function() hoverItemID = nil; GameTooltip:Hide() end)
+  row:SetScript("OnLeave", function(self)
+    self.hl:Hide()
+    hoverItemID = nil; GameTooltip:Hide()
+  end)
 
+  -- Quality frame: a thin coloured plate behind a texcoord-trimmed icon, so the
+  -- quality reads as a 2px border around clean art (no icon-edge bleed).
   row.border = row:CreateTexture(nil, "ARTWORK")
   row.border:SetSize(ICON + 4, ICON + 4)
-  row.border:SetPoint("LEFT", 2, 0)
+  row.border:SetPoint("LEFT", SP.M, 0)
+
+  row.iconBg = row:CreateTexture(nil, "ARTWORK")
+  row.iconBg:SetSize(ICON + 2, ICON + 2)
+  row.iconBg:SetPoint("CENTER", row.border, "CENTER")
+  row.iconBg:SetColorTexture(rgba(C.bg))
 
   row.icon = row:CreateTexture(nil, "OVERLAY")
   row.icon:SetSize(ICON, ICON)
   row.icon:SetPoint("CENTER", row.border, "CENTER")
+  row.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)   -- trim the default icon border
 
   -- Name + coloured source beside it. Right edge stops short of the buttons so
   -- long names/effects clip rather than run under the Add/Remove controls.
@@ -413,12 +480,12 @@ local function MakeChip(parent, label)
       bgFile = "Interface\\Buttons\\WHITE8x8",
       edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
     })
-    b:SetBackdropColor(0.10, 0.10, 0.13, 0.92)
-    b:SetBackdropBorderColor(0.40, 0.34, 0.18, 1)
+    b:SetBackdropColor(C.panel2[1], C.panel2[2], C.panel2[3], 0.92)
+    b:SetBackdropBorderColor(C.border[1], C.border[2], C.border[3], 1)
   end
   local hl = b:CreateTexture(nil, "HIGHLIGHT")
   hl:SetAllPoints()
-  hl:SetColorTexture(0.85, 0.66, 0.20, 0.40)
+  hl:SetColorTexture(C.gold[1], C.gold[2], C.gold[3], 0.40)
   b:SetHighlightTexture(hl)
   local fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
   fs:SetPoint("CENTER", 0, 0)
@@ -439,6 +506,8 @@ local function RenderRowsInto(scroll, anchor, pool, list, level, hi, mode)
     row:SetPoint("RIGHT", anchor, "RIGHT", 0, 0)
     FillRow(row, item, level, hi)
     ConfigRowAction(row, item, mode)
+    if row.stripe then row.stripe:SetShown(i % 2 == 0) end
+    if row.hl then row.hl:Hide() end
     row:Show()
     y = y - (ROW_H + 4)
   end
@@ -696,6 +765,8 @@ local function RenderBandedInto(scroll, anchor, rowPool, hdrPool, bands, level)
       row:SetPoint("RIGHT", anchor, "RIGHT", 0, 0)
       FillRow(row, item, level, level)   -- colour levels relative to current
       ConfigRowAction(row, item, "add")  -- Add / On List toggle
+      if row.stripe then row.stripe:SetShown(ri % 2 == 0) end
+      if row.hl then row.hl:Hide() end
       row:Show()
       y = y - (ROW_H + 4)
     end
@@ -1106,7 +1177,7 @@ local function BuildLayout(f)
   Overlay.tabButtons = {}
   Overlay.panels = {}
 
-  local SIDEBAR_W, TAB_H, TAB_GAP, TOP = 150, 34, 6, -34
+  local SIDEBAR_W, TAB_H, TAB_GAP, TOP = 160, 38, 6, -34
 
   -- Class-flavoured backdrop filling the window (FEAT-C: talent-tree art).
   -- Built first so it sits behind the sidebar and content.
@@ -1134,18 +1205,29 @@ local function BuildLayout(f)
         bgFile = "Interface\\Buttons\\WHITE8x8",
         edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
       })
-      btn:SetBackdropColor(0.09, 0.09, 0.12, 0.85)
-      btn:SetBackdropBorderColor(0.38, 0.32, 0.18, 1)
+      btn:SetBackdropColor(C.panel2[1], C.panel2[2], C.panel2[3], 0.85)
+      btn:SetBackdropBorderColor(C.border[1], C.border[2], C.border[3], 1)
     end
     local hl = btn:CreateTexture(nil, "HIGHLIGHT")
     hl:SetAllPoints()
     hl:SetColorTexture(0.85, 0.66, 0.20, 0.32)
     btn:SetHighlightTexture(hl)
+    -- 3px gold bar on the left edge marks the active tab (modern launcher cue);
+    -- hidden until SelectTab lights it.
+    local accent = btn:CreateTexture(nil, "OVERLAY")
+    accent:SetPoint("TOPLEFT", 0, 0)
+    accent:SetPoint("BOTTOMLEFT", 0, 0)
+    accent:SetWidth(3)
+    accent:SetColorTexture(rgba(C.gold))
+    accent:Hide()
+    btn.accent = accent
+
     local ic = btn:CreateTexture(nil, "ARTWORK")
     ic:SetSize(22, 22)
-    ic:SetPoint("LEFT", 7, 0)
+    ic:SetPoint("LEFT", 10, 0)
     ic:SetTexture(tab.icon)
     ic:SetTexCoord(0.08, 0.92, 0.08, 0.92)  -- trim the stock icon border
+    btn.icon = ic
     local lbl = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     lbl:SetPoint("LEFT", ic, "RIGHT", 8, 0)
     lbl:SetText(tab.label)
@@ -1166,6 +1248,14 @@ local function BuildLayout(f)
     local header = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     header:SetPoint("TOPLEFT", 0, 0)
     header:SetText(tab.label)
+    header:SetTextColor(rgba(C.gold))
+    -- "Header ————" divider: a hairline rule filling the width to the right.
+    local rule = panel:CreateTexture(nil, "ARTWORK")
+    rule:SetHeight(1)
+    rule:SetPoint("LEFT", header, "RIGHT", SP.S, -1)
+    rule:SetPoint("RIGHT", panel, "RIGHT", -SP.XS, 0)
+    rule:SetColorTexture(C.border[1], C.border[2], C.border[3], 0.85)
+    panel.headerRule = rule   -- Browse re-anchors this clear of its search box
 
     if tab.key == "journey" then
       -- Journey Items: a single full-width scrolling list of the saved Journey
@@ -1268,6 +1358,10 @@ local function BuildLayout(f)
       search:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -10, 2)
       searchLbl:SetPoint("RIGHT", search, "LEFT", -8, 0)
       searchLbl:SetText("Search all weapons & armor")
+      -- Keep the header divider from running under the search box / its label.
+      if panel.headerRule then
+        panel.headerRule:SetPoint("RIGHT", searchLbl, "LEFT", -SP.S, 0)
+      end
       search:SetScript("OnTextChanged", function(self)
         local text = self:GetText() or ""
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
