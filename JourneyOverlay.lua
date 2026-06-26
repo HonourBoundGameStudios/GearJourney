@@ -1569,7 +1569,9 @@ local function BuildLayout(f)
 
       local logo = panel:CreateTexture(nil, "ARTWORK")
       logo:SetSize(96, 96)
-      logo:SetPoint("TOP", header, "BOTTOM", 0, -18)
+      -- Centre on the panel (not the left-aligned header) so the column doesn't
+      -- spill left into the sidebar; the rest of the chain inherits the centre.
+      logo:SetPoint("TOP", panel, "TOP", 0, -48)
       logo:SetTexture(LOGO)
 
       local name = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
