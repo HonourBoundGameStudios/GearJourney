@@ -20,3 +20,4 @@ JourneyProvider.lua
 JourneyTests.lua
 JourneyOverlay.lua
 TitanJourney.lua
+JourneyScenarios.lua
