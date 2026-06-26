@@ -1446,22 +1446,27 @@ local function BuildLayout(f)
       tips:SetText("Hold |cffffffffSHIFT|r while hovering an item to compare with what you're wearing."
         .. "   Left-click the Titan bar to open this window; right-click for options.")
 
-      -- Dev/Test: run the engine smoke tests in-client (DEV-1), tucked bottom-left.
+      -- Dev/Test: run the in-client behaviour scenarios (engine self-test is one
+      -- of them, SCN-ENGINE); details print to chat. Tucked bottom-left.
       local testBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
       testBtn:SetSize(96, 20)
       testBtn:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 2, 8)
       testBtn:SetText("Run Tests")
       local result = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
       result:SetPoint("LEFT", testBtn, "RIGHT", 10, 0)
-      result:SetText("|cff666666engine self-test|r")
+      result:SetText("|cff666666behaviour scenarios|r")
       testBtn:SetScript("OnClick", function()
-        if not TitanJourney_Tests then return end
-        local p, fcount, fails = TitanJourney_Tests.Run()
-        if fcount == 0 then
-          result:SetText(string.format("|cff33ff33%d passed, 0 failed|r", p))
+        if not (TitanJourney_Scenarios and TitanJourney_Scenarios.Run) then
+          result:SetText("|cffff5555scenarios not loaded|r"); return
+        end
+        local _, rep = TitanJourney_Scenarios.Run()
+        if not rep then result:SetText("|cffff5555no result|r"); return end
+        if rep.checksFailed == 0 then
+          result:SetText(string.format("|cff33ff33%d scenarios, %d checks passed|r",
+            rep.scenarios, rep.checks))
         else
-          result:SetText(string.format("|cffff5555%d passed, %d failed|r  %s",
-            p, fcount, table.concat(fails, ", ")))
+          result:SetText(string.format("|cffff5555%d/%d scenarios failed, %d checks failed|r (see chat)",
+            rep.scenariosFailed, rep.scenarios, rep.checksFailed))
         end
       end)
     end

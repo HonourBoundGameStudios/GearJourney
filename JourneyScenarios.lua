@@ -146,7 +146,7 @@ function S.Run(filter)
   TitanJourneyDB = TitanJourneyDB or {}
   TitanJourneyDB.lastScenarioRun = report
   out(col(GRAY, "    saved to SavedVariables -- /reload (or log out) to flush it to disk."))
-  return failedScen == 0
+  return failedScen == 0, report
 end
 
 -- ── Shared helpers for the scenarios ─────────────────────────────────────────
