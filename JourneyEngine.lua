@@ -746,8 +746,10 @@ end
 
 -- StatSummary(stats): compact "+N Agi +N Sta" string of primary stats, in a
 -- fixed order, from a raw GetItemStats or canonical table. "" when none.
-local STAT_ORDER = { "Agility", "Strength", "Intellect", "Stamina", "Spirit" }
-local STAT_ABBR = {
+-- Public so the flavour layer can extend them (Retail appends the secondary
+-- stats Crit/Haste/Mastery/Versatility). Display order + abbreviations.
+Engine.STAT_ORDER = { "Agility", "Strength", "Intellect", "Stamina", "Spirit" }
+Engine.STAT_ABBR = {
   Agility = "Agi", Strength = "Str", Intellect = "Int",
   Stamina = "Sta", Spirit = "Spi",
 }
@@ -761,8 +763,8 @@ function Engine.StatSummary(stats)
     end
   end
   local parts = {}
-  for _, name in ipairs(STAT_ORDER) do
-    if norm[name] then parts[#parts + 1] = "+" .. norm[name] .. " " .. (STAT_ABBR[name] or name) end
+  for _, name in ipairs(Engine.STAT_ORDER) do
+    if norm[name] then parts[#parts + 1] = "+" .. norm[name] .. " " .. (Engine.STAT_ABBR[name] or name) end
   end
   return table.concat(parts, " ")
 end
@@ -779,9 +781,9 @@ function Engine.StatParts(stats)
     end
   end
   local out = {}
-  for _, name in ipairs(STAT_ORDER) do
+  for _, name in ipairs(Engine.STAT_ORDER) do
     if norm[name] then
-      out[#out + 1] = { name = name, abbr = STAT_ABBR[name] or name, value = norm[name] }
+      out[#out + 1] = { name = name, abbr = Engine.STAT_ABBR[name] or name, value = norm[name] }
     end
   end
   return out

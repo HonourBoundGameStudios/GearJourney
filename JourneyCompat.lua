@@ -88,17 +88,65 @@ local RETAIL_CASTER_DPS = {
   EVOKER  = { true,  false, true },          -- Devastation / Preservation / Augmentation
 }
 
+-- GetItemStats keys for the four Retail secondaries -> canonical names. Both the
+-- plain and _SHORT forms are mapped since the key form has varied across builds.
+local RETAIL_STAT_KEYS = {
+  ITEM_MOD_CRIT_RATING          = "Crit",        ITEM_MOD_CRIT_RATING_SHORT    = "Crit",
+  ITEM_MOD_HASTE_RATING         = "Haste",       ITEM_MOD_HASTE_RATING_SHORT   = "Haste",
+  ITEM_MOD_MASTERY_RATING       = "Mastery",     ITEM_MOD_MASTERY_RATING_SHORT = "Mastery",
+  ITEM_MOD_VERSATILITY          = "Versatility", ITEM_MOD_CR_VERSATILITY_DAMAGE_DONE = "Versatility",
+}
+local RETAIL_SECONDARIES = { "Crit", "Haste", "Mastery", "Versatility" }
+local RETAIL_SECONDARY_ABBR = { Crit = "Crit", Haste = "Haste", Mastery = "Mast", Versatility = "Vers" }
+
+-- Per-spec weights, GetSpecialization order. Primary stat = 1.0, Stamina by role,
+-- and a flat 0.5 across all four secondaries: a deliberate *starting model* that
+-- gets secondaries into scoring (vs Classic ignoring them entirely). Per-spec
+-- secondary tuning is a follow-up (PORT, Phase 3 polish).
+local function wt(primary, stamina)
+  local t = { Stamina = stamina, Crit = 0.5, Haste = 0.5, Mastery = 0.5, Versatility = 0.5 }
+  t[primary] = 1.0
+  return t
+end
+local DPS, TANK = 0.4, 0.6   -- Stamina weight by role
+local STR, AGI, INT = "Strength", "Agility", "Intellect"
+local RETAIL_CLASS_SPEC_WEIGHTS = {
+  WARRIOR     = { wt(STR, DPS),  wt(STR, DPS),  wt(STR, TANK) },               -- Arms/Fury/Prot
+  PALADIN     = { wt(INT, DPS),  wt(STR, TANK), wt(STR, DPS) },                -- Holy/Prot/Ret
+  DEATHKNIGHT = { wt(STR, TANK), wt(STR, DPS),  wt(STR, DPS) },               -- Blood/Frost/Unholy
+  HUNTER      = { wt(AGI, DPS),  wt(AGI, DPS),  wt(AGI, DPS) },               -- BM/MM/SV
+  ROGUE       = { wt(AGI, DPS),  wt(AGI, DPS),  wt(AGI, DPS) },               -- Assa/Outlaw/Sub
+  MONK        = { wt(AGI, TANK), wt(INT, DPS),  wt(AGI, DPS) },               -- BrM/MW/WW
+  DRUID       = { wt(INT, DPS),  wt(AGI, DPS),  wt(AGI, TANK), wt(INT, DPS) }, -- Bal/Feral/Guardian/Resto
+  DEMONHUNTER = { wt(AGI, DPS),  wt(AGI, TANK) },                              -- Havoc/Vengeance
+  SHAMAN      = { wt(INT, DPS),  wt(AGI, DPS),  wt(INT, DPS) },               -- Ele/Enh/Resto
+  PRIEST      = { wt(INT, DPS),  wt(INT, DPS),  wt(INT, DPS) },               -- Disc/Holy/Shadow
+  MAGE        = { wt(INT, DPS),  wt(INT, DPS),  wt(INT, DPS) },               -- Arcane/Fire/Frost
+  WARLOCK     = { wt(INT, DPS),  wt(INT, DPS),  wt(INT, DPS) },               -- Affl/Demo/Destro
+  EVOKER      = { wt(INT, DPS),  wt(INT, DPS),  wt(INT, DPS) },               -- Devastation/Preservation/Augmentation
+}
+
 -- ApplyRetail(Engine): overlay the Retail facts onto the (Classic-default)
 -- engine. Idempotent; safe to call once at load on Retail, or from tests.
 function Compat.ApplyRetail(Engine)
-  if not Engine then return end
-  Engine.CLASS_ARMOR = RETAIL_CLASS_ARMOR
-  Engine.CASTER_DPS  = RETAIL_CASTER_DPS
+  if not Engine or Engine.__retailApplied then return end
+  Engine.__retailApplied = true
+
+  Engine.CLASS_ARMOR        = RETAIL_CLASS_ARMOR
+  Engine.CASTER_DPS         = RETAIL_CASTER_DPS
+  Engine.CLASS_SPEC_WEIGHTS = RETAIL_CLASS_SPEC_WEIGHTS
   -- Retail has no armor-skill level-gates (proficiency is granted by class/spec).
   Engine.ArmorWearableAtLevel = function() return true end
   -- v1: no weapon-proficiency filter on Retail (permissive). A per-class Retail
   -- WEAPON_PROF table can replace this later; empty => CanUseWeapon passes all.
   Engine.WEAPON_PROF = {}
+
+  -- Teach the engine the four Retail secondaries (scoring + display).
+  for k, v in pairs(RETAIL_STAT_KEYS) do Engine.STAT_KEY[k] = v end
+  for _, s in ipairs(RETAIL_SECONDARIES) do
+    Engine.STAT_ORDER[#Engine.STAT_ORDER + 1] = s
+    Engine.STAT_ABBR[s] = RETAIL_SECONDARY_ABBR[s]
+  end
 end
 
 -- Apply automatically on a real Retail client (Engine is loaded just before us).
