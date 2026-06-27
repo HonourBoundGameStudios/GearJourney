@@ -2,6 +2,7 @@
 -- itemIDs + drop source harvested from AtlasLoot Enhanced (fork, Retail: TWW +
 -- Midnight instance drops). Game facts (item X from source Y); enriched at
 -- runtime via GetItemInfo. Regenerate: lua Tools/extract_atlasloot_retail.lua
+if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset(true) then return {} end
 
 local Atlas = {
   { id = 212386, sourceType = "Dungeon", source = "Nerub-ar Palace", name = "Husk of Swallowing Darkness" },

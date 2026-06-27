@@ -2,6 +2,7 @@
 -- Exhaustive index of equippable weapons/armor (Retail, current expansions).
 -- Source: wago.tools ItemSparse+Item CSV; itemIDs/names are game facts, the
 -- client resolves stats/icons. Regenerate: python Tools/build_item_index_retail.py
+if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset(true) then return {} end
 
 local Index = {
   {itemID=210816,name="Algari Alchemist Stone",quality="epic",slot="Trinket",reqLevel=70,itemClassID=4,icon=4497562},

@@ -16,6 +16,7 @@ local harvest = dofile("Tools/atlasloot_harvest.lua")
 harvest({
   addonsPath  = "D:\\Games\\World of Warcraft\\_retail_\\Interface\\AddOns",
   gameVersion = 12,  -- ItemDB:Add(addonname, 12) on the Midnight line
+  isRetail    = true,
   modules = {
     { dir = "AtlasLoot_TheWarWithin", sourceType = "Dungeon" },
     { dir = "AtlasLoot_Midnight",     sourceType = "Dungeon" },

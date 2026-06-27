@@ -180,7 +180,11 @@ return function(cfg)
   table.sort(all, function(a, b) return a.id < b.id end)
   local out = assert(io.open(cfg.outFile, "w"))
   for _, line in ipairs(cfg.header) do out:write(line .. "\n") end
-  out:write("\nlocal Atlas = {\n")
+  -- Flavour guard: early-return on the wrong flavour so the Classic/Retail pools
+  -- don't clobber their shared TitanJourney_AtlasItems global (see WantsDataset).
+  out:write("if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset("
+    .. (cfg.isRetail and "true" or "false") .. ") then return {} end\n\n")
+  out:write("local Atlas = {\n")
   for _, it in ipairs(all) do
     if it.name then
       out:write(string.format("  { id = %d, sourceType = %q, source = %q, name = %q },\n",

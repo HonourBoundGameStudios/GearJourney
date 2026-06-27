@@ -2,6 +2,7 @@
 -- Exhaustive index of equippable weapons/armor (Classic). itemIDs +
 -- names are game facts; the client resolves the rest. Used by the
 -- Browse 'Search all weapons & armor' box. Regenerate: python Tools/build_item_index.py
+if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset(false) then return {} end
 
 local Index = {
   {itemID=25,name="Worn Shortsword",quality="common",slot="Main Hand",reqLevel=1,icon="Interface\\Icons\\inv_sword_04",itemClassID=2,itemSubClassID=7},

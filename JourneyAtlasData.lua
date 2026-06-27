@@ -2,6 +2,7 @@
 -- itemIDs + drop source harvested from AtlasLootClassic (Vanilla). These are
 -- game facts (item X from source Y); enriched at runtime via GetItemInfo.
 -- Regenerate with: lua Tools/extract_atlasloot.lua
+if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset(false) then return {} end
 
 local Atlas = {
   { id = 765, sourceType = "Crafted", source = "Herbalism", name = "Silverleaf" },

@@ -58,6 +58,18 @@ function Compat.TalentBackgroundBase(classToken, bgTable)
   return set
 end
 
+-- WantsDataset(isRetailFile) -> bool. Guard for the flavour-specific generated
+-- data files (JourneyAtlasData[_Retail], JourneyItemIndex[_Retail]). Each pair
+-- publishes the SAME global (TitanJourney_AtlasItems / _ItemIndex), so under a
+-- single multi-flavour .toc that loads every file, the wrong-flavour file would
+-- clobber the right one by load order. Each generated file early-returns unless
+-- WantsDataset matches, so only the active flavour's data populates the global.
+-- (Offline tests dofile a data file with no Compat present -> guard is skipped.)
+function Compat.WantsDataset(isRetailFile)
+  if isRetailFile then return Compat.isRetail end
+  return Compat.isClassic
+end
+
 -- ── Retail rule tables (Phase 2) ─────────────────────────────────────────────
 -- One armor type per class (no Classic multi-type/level-gates), including the
 -- four classes Classic never had. Overlaid onto the Engine by ApplyRetail.

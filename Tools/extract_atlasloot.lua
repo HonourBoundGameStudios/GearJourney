@@ -10,6 +10,7 @@ local harvest = dofile("Tools/atlasloot_harvest.lua")
 harvest({
   addonsPath  = "D:\\Games\\World of Warcraft\\_classic_era_\\Interface\\AddOns",
   gameVersion = 1,  -- pretend Vanilla so version gates pick Classic content
+  isRetail    = false,
   modules = {
     { dir = "AtlasLootClassic_DungeonsAndRaids", sourceType = "Dungeon" },
     { dir = "AtlasLootClassic_Crafting",         sourceType = "Crafted" },
