@@ -29,12 +29,20 @@ function Tests.Run()
   check(E.SpellTypeFromTooltip("Increases damage and healing") == "both", "SpellType: both")
   check(E.IsCasterDPS("MAGE", 3) and not E.IsCasterDPS("PRIEST", 2), "IsCasterDPS")
 
-  -- Usability
+  -- Usability. The live engine is flavour-overlaid (Compat.ApplyRetail), so the
+  -- weapon-proficiency filter and armor level-gates that Classic enforces are
+  -- intentionally lifted on Retail -- assert the rules that actually apply.
+  local isRetail = TitanJourney_Compat and TitanJourney_Compat.isRetail
   check(not E.CanUse({ armorType = "Cloth" }, "ROGUE", 20), "CanUse: rogue not cloth")
   check(E.CanUse({ armorType = "Leather" }, "ROGUE", 20), "CanUse: rogue leather")
-  check(not E.CanUseWeapon("ROGUE", 10), "CanUseWeapon: rogue no staff")
   check(E.CanUseWeapon("MAGE", 10), "CanUseWeapon: mage staff")
-  check(not E.CanUse({ armorType = "Plate" }, "WARRIOR", 25), "CanUse: plate gated at 40")
+  if isRetail then
+    check(E.CanUseWeapon("ROGUE", 10), "CanUseWeapon: retail permissive (no prof filter)")
+    check(E.CanUse({ armorType = "Plate" }, "WARRIOR", 25), "CanUse: retail has no armor level-gate")
+  else
+    check(not E.CanUseWeapon("ROGUE", 10), "CanUseWeapon: rogue no staff")
+    check(not E.CanUse({ armorType = "Plate" }, "WARRIOR", 25), "CanUse: plate gated at 40")
+  end
 
   -- Windowing / selection
   local items = {
