@@ -25,7 +25,8 @@ Scope: we keep only the current expansions (see EXPANSIONS) so the file stays a
 sane size -- an all-expansions index is 100k+ rows. Widen EXPANSIONS to cover
 more transmog/older gear if desired.
 """
-import csv, re, sys
+import csv, sys
+from itemindex_common import QUALITY_BY_ID as QUALITY, BODY_ARMOR_SLOTS, JUNK, lua_str
 
 ITEMSPARSE = "Tools/_itemsparse.csv"
 ITEM       = "Tools/_item.csv"
@@ -34,10 +35,6 @@ OUT        = "JourneyItemIndex_Retail.lua"
 # ExpansionID scope. 11 = Midnight (current), 10 = The War Within (level-80 entry
 # endgame, still relevant at the start of the 80->90 journey). Edit to widen.
 EXPANSIONS = {"10", "11"}
-
-# OverallQualityID -> our quality string (mirror build_item_index.py).
-QUALITY = {"0": "poor", "1": "common", "2": "uncommon", "3": "rare",
-           "4": "epic", "5": "legendary", "6": "legendary", "7": "rare"}
 
 # InventoryType (Item.InventoryType enum) -> slot string. Matches the vocabulary
 # the Classic index emits, which JourneyOverlay's SLOT_CANON then folds (Finger->
@@ -51,19 +48,7 @@ SLOT = {
     "22": "Off Hand", "23": "Held In Off-hand", "25": "Ranged", "26": "Ranged",
     "28": "Relic",
 }
-BODY_ARMOR_SLOTS = {"Head", "Shoulder", "Chest", "Wrist", "Hands", "Waist", "Legs", "Feet"}
 ARMOR_SUB = {"1": "Cloth", "2": "Leather", "3": "Mail", "4": "Plate"}  # Item.SubclassID for armor
-
-# True placeholders/test rows -- same filter as the Classic builder.
-JUNK = re.compile(
-    r"\[|\]|XXXX|^QR\b|^Monster\b|^OLD\b|\bTest\b|\bDEPRECATED\b|\bUNUSED\b|"
-    r"\bPH\b|\bTBD\b|\bQA\b|\bDND\b|^PvP\b",
-    re.I,
-)
-
-
-def lua_str(s: str) -> str:
-    return s.replace("\\", "\\\\").replace('"', '\\"')
 
 
 def load_item(path):

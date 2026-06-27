@@ -11,18 +11,13 @@ curated pool). Run from the project root:
     python Tools/build_item_index.py
 """
 import json, re
+from itemindex_common import QUALITY_BY_NAME as QUALITY, BODY_ARMOR_SLOTS, JUNK, lua_str
 
 RAW = "Tools/_items_raw.json"
 OUT = "JourneyItemIndex.lua"
 
-QUALITY = {
-    "Poor": "poor", "Common": "common", "Uncommon": "uncommon",
-    "Rare": "rare", "Epic": "epic", "Legendary": "legendary",
-    "Artifact": "legendary", "Heirloom": "rare",
-}
 SKIP_SLOTS = {"Shirt", "Tabard", "Non-equippable", "", None}
 TWO_HAND_SLOTS = {"Two-Hand"}
-BODY_ARMOR_SLOTS = {"Head", "Shoulder", "Chest", "Wrist", "Hands", "Waist", "Legs", "Feet"}
 ARMOR_SUB = {"Cloth": 1, "Leather": 2, "Mail": 3, "Plate": 4}
 SOURCE_CAT = {  # dataset source.category -> coarse, displayable sourceType
     "Quest": "Quest", "Vendor": "Vendor",
@@ -51,16 +46,6 @@ def weapon_subclass(sub, slot):
         "Bow": 2, "Crossbow": 18, "Gun": 3, "Thrown": 16, "Wand": 19,
     }
     return base.get(sub)  # Exotic / Miscellaneous / Fishing Pole -> None (neutral)
-# True placeholders/test rows -- keep real items like "Old Greatsword".
-JUNK = re.compile(
-    r"\[|\]|XXXX|^QR\b|^Monster\b|^OLD\b|\bTest\b|\bDEPRECATED\b|\bUNUSED\b|"
-    r"\bPH\b|\bTBD\b|\bQA\b|\bDND\b|^PvP\b",
-    re.I,
-)
-
-
-def lua_str(s: str) -> str:
-    return s.replace("\\", "\\\\").replace('"', '\\"')
 
 
 def main():
