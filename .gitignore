@@ -10,5 +10,7 @@
 /Process/
 /Research/
 
-# Large upstream dataset used only to regenerate JourneyItemIndex.lua
+# Large upstream datasets used only to regenerate the JourneyItemIndex files
 Tools/_items_raw.json
+Tools/_itemsparse.csv
+Tools/_item.csv

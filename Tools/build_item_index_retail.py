@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Build JourneyItemIndex_Retail.lua -- the exhaustive equippable weapon/armor
+index for the **Retail** flavour (EPIC-J / FEAT-J2). Retail parallel of
+build_item_index.py (which targets Classic via the nexus-devs JSON).
+
+Source: wago.tools DB2 CSV exports of the live build -- two tables joined on item
+ID (itemIDs/names are game facts, resolved by the client at runtime, consistent
+with HEALTH-3; no stats are stored here -- the provider enriches via GetItemInfo):
+
+    ItemSparse  -> Display_lang (name), RequiredLevel, ItemLevel,
+                   OverallQualityID (quality), InventoryType (slot), ExpansionID
+    Item        -> ClassID / SubclassID (weapon vs armor + subclass),
+                   IconFileDataID (numeric; SetTexture accepts file IDs)
+
+Download the two CSVs (current build) before running:
+
+    curl -o Tools/_itemsparse.csv  https://wago.tools/db2/ItemSparse/csv
+    curl -o Tools/_item.csv        https://wago.tools/db2/Item/csv
+
+then from the project root:
+
+    python Tools/build_item_index_retail.py
+
+Scope: we keep only the current expansions (see EXPANSIONS) so the file stays a
+sane size -- an all-expansions index is 100k+ rows. Widen EXPANSIONS to cover
+more transmog/older gear if desired.
+"""
+import csv, re, sys
+
+ITEMSPARSE = "Tools/_itemsparse.csv"
+ITEM       = "Tools/_item.csv"
+OUT        = "JourneyItemIndex_Retail.lua"
+
+# ExpansionID scope. 11 = Midnight (current), 10 = The War Within (level-80 entry
+# endgame, still relevant at the start of the 80->90 journey). Edit to widen.
+EXPANSIONS = {"10", "11"}
+
+# OverallQualityID -> our quality string (mirror build_item_index.py).
+QUALITY = {"0": "poor", "1": "common", "2": "uncommon", "3": "rare",
+           "4": "epic", "5": "legendary", "6": "legendary", "7": "rare"}
+
+# InventoryType (Item.InventoryType enum) -> slot string. Matches the vocabulary
+# the Classic index emits, which JourneyOverlay's SLOT_CANON then folds (Finger->
+# Ring, One/Two-Hand->Main Hand, Held In Off-hand->Off Hand). 0/4/18/19/24 and the
+# profession-tool types (31..34) are intentionally absent -> skipped.
+SLOT = {
+    "1": "Head", "2": "Neck", "3": "Shoulder", "5": "Chest", "6": "Waist",
+    "7": "Legs", "8": "Feet", "9": "Wrist", "10": "Hands", "11": "Finger",
+    "12": "Trinket", "13": "One-Hand", "14": "Off Hand", "15": "Ranged",
+    "16": "Back", "17": "Two-Hand", "20": "Chest", "21": "Main Hand",
+    "22": "Off Hand", "23": "Held In Off-hand", "25": "Ranged", "26": "Ranged",
+    "28": "Relic",
+}
+BODY_ARMOR_SLOTS = {"Head", "Shoulder", "Chest", "Wrist", "Hands", "Waist", "Legs", "Feet"}
+ARMOR_SUB = {"1": "Cloth", "2": "Leather", "3": "Mail", "4": "Plate"}  # Item.SubclassID for armor
+
+# True placeholders/test rows -- same filter as the Classic builder.
+JUNK = re.compile(
+    r"\[|\]|XXXX|^QR\b|^Monster\b|^OLD\b|\bTest\b|\bDEPRECATED\b|\bUNUSED\b|"
+    r"\bPH\b|\bTBD\b|\bQA\b|\bDND\b|^PvP\b",
+    re.I,
+)
+
+
+def lua_str(s: str) -> str:
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def load_item(path):
+    """ID -> (classID, subclassID, inventoryType, iconFileDataID). Item.db2 owns
+    the class/subclass and the equip-slot enum; ItemSparse owns name/level/quality."""
+    out = {}
+    with open(path, encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            out[r["ID"]] = (r["ClassID"], r["SubclassID"], r["InventoryType"],
+                            r.get("IconFileDataID", "0"))
+    return out
+
+
+def main():
+    try:
+        item = load_item(ITEM)
+    except FileNotFoundError:
+        sys.exit("missing %s -- download it first (see the module docstring)" % ITEM)
+
+    out_rows, seen = [], set()
+    with open(ITEMSPARSE, encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if r["ExpansionID"] not in EXPANSIONS:
+                continue
+            iid = r["ID"]
+            meta = item.get(iid)
+            if not meta:
+                continue
+            cid, sub, inv, icon = meta
+            if cid not in ("2", "4"):             # weapon / armor only
+                continue
+            slot = SLOT.get(inv)
+            if not slot:                          # non-gear inventory type -> skip
+                continue
+            name = (r.get("Display_lang") or "").strip()
+            if not name or iid in seen or JUNK.search(name):
+                continue
+            seen.add(iid)
+            q = QUALITY.get(r.get("OverallQualityID"), "common")
+            rl = int(r.get("RequiredLevel") or 0)
+            if cid == "2":                        # weapon: subclass enum is usable as-is
+                csid, ssid, atype = 2, int(sub), None
+            else:                                 # armor
+                csid = 4
+                ssid = 6 if sub == "6" else (int(sub) if sub in ARMOR_SUB else None)
+                atype = ARMOR_SUB.get(sub) if slot in BODY_ARMOR_SLOTS else None
+            ic = int(icon) if (icon and icon.isdigit() and int(icon) > 0) else None
+            out_rows.append((int(iid), name, q, slot, rl, ic, csid, ssid, atype))
+
+    out_rows.sort(key=lambda x: x[0])
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
+        f.write("-- AUTO-GENERATED by Tools/build_item_index_retail.py -- DO NOT EDIT BY HAND.\n")
+        f.write("-- Exhaustive index of equippable weapons/armor (Retail, current expansions).\n")
+        f.write("-- Source: wago.tools ItemSparse+Item CSV; itemIDs/names are game facts, the\n")
+        f.write("-- client resolves stats/icons. Regenerate: python Tools/build_item_index_retail.py\n\n")
+        f.write("local Index = {\n")
+        for iid, name, q, slot, rl, ic, csid, ssid, atype in out_rows:
+            extra = ",itemClassID=%d" % csid
+            if ssid is not None:
+                extra += ",itemSubClassID=%d" % ssid
+            if atype:
+                extra += ',armorType="%s"' % atype
+            if ic:
+                extra += ",icon=%d" % ic
+            f.write('  {itemID=%d,name="%s",quality="%s",slot="%s",reqLevel=%d%s},\n'
+                    % (iid, lua_str(name), q, lua_str(slot), rl, extra))
+        f.write("}\n\n")
+        f.write("TitanJourney_ItemIndex = Index\nreturn Index\n")
+    print("wrote", OUT, "with", len(out_rows), "items")
+
+
+if __name__ == "__main__":
+    main()
