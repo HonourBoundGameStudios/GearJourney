@@ -2,9 +2,10 @@
 # Fall back to the script's resolved path so Rider Run Configurations work either way.
 $source = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent (Resolve-Path $MyInvocation.MyCommand.Path) }
 
-# Deploy to every WoW flavour that is actually installed. The client picks the
-# right .toc per flavour (base = Classic Era, _Mainline = Retail); copying both
-# .toc files to both folders is harmless.
+# Deploy to every WoW flavour that is actually installed. A single multi-flavour
+# TitanJourney.toc (## Interface: 120007, 11508) serves both Retail and Classic
+# Era, so the same files drop into every install. (A separate _Mainline.toc made
+# Retail show "Incompatible" -- collapsed to one toc, matching Titan's plugins.)
 $roots = @(
   "D:\Games\World of Warcraft\_classic_era_",
   "D:\Games\World of Warcraft\_retail_"
