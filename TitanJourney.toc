@@ -14,9 +14,11 @@ JourneyCompat.lua
 JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
+JourneyAtlasData_Retail.lua
 JourneyRogueData.lua
 JourneyClassGuides.lua
 JourneyItemIndex.lua
+JourneyItemIndex_Retail.lua
 JourneyProvider.lua
 JourneyTests.lua
 JourneyOverlay.lua
