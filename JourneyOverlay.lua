@@ -199,6 +199,8 @@ function Overlay.SelectTab(key)
   -- The source/lookahead bar applies to the pool-filtered tabs only (Browse,
   -- Future). Journey Items shows the saved list verbatim, so no filter bar.
   if Overlay.controlBar then Overlay.controlBar:SetShown(key == "browse" or key == "future") end
+  -- "Usable Items" only affects Browse's name search, so it's hidden on Future.
+  if Overlay.usableCb then Overlay.usableCb:SetShown(key == "browse") end
 end
 
 -- Item-row visuals (FEAT-C4/C5). ------------------------------------------
@@ -680,6 +682,12 @@ function Overlay.ComputeCandidates(slot)
   -- the score per item, then the comparator only compares numbers.
   local scoreOf = {}
   for i = 1, #cands do scoreOf[cands[i]] = engine.ScoreItem(cands[i], weights) end
+  -- Shared tie-break for both orderings below: higher spec score, then name.
+  local function tie(a, b)
+    local sa, sb = scoreOf[a], scoreOf[b]
+    if sa ~= sb then return sa > sb end
+    return (a.name or "") < (b.name or "")
+  end
   -- When the set exceeds the render cap, CHOOSE which to keep by proximity to
   -- the player (gear at/above level first, then nearest below) so the cap never
   -- hides your actual upgrades behind low-level filler. Only pay for this sort
@@ -692,9 +700,7 @@ function Overlay.ComputeCandidates(slot)
       if ra ~= rb then
         if fa then return ra < rb else return ra > rb end
       end
-      local sa, sb = scoreOf[a], scoreOf[b]
-      if sa ~= sb then return sa > sb end
-      return (a.name or "") < (b.name or "")
+      return tie(a, b)
     end)
     for i = #cands, CANDIDATE_CAP + 1, -1 do cands[i] = nil end
   end
@@ -703,9 +709,7 @@ function Overlay.ComputeCandidates(slot)
   table.sort(cands, function(a, b)
     local ra, rb = a.reqLevel or 0, b.reqLevel or 0
     if ra ~= rb then return ra < rb end
-    local sa, sb = scoreOf[a], scoreOf[b]
-    if sa ~= sb then return sa > sb end
-    return (a.name or "") < (b.name or "")
+    return tie(a, b)
   end)
   return cands, level, hi
 end
@@ -1284,6 +1288,8 @@ local function BuildControlBar(content, topLevel)
   local ulbl = usableCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
   ulbl:SetPoint("LEFT", usableCb, "RIGHT", 1, 0)
   ulbl:SetText("Usable Items")
+  -- Only Browse's name search reads searchUsable; hidden on Future (see SelectTab).
+  Overlay.usableCb = usableCb
 end
 
 -- Build the left tab column and the matching content panels.
@@ -1585,14 +1591,14 @@ local function BuildLayout(f)
       panel.jEmpty = jEmpty
 
     elseif tab.key == "future" then
-      -- Single scrolling list of the upcoming best-per-slot gear. The subtitle
-      -- rides in the title row under the header; the list starts below the
-      -- filter strip (which now sits under the title row).
+      -- Single scrolling list of the upcoming best-per-slot gear. The title row
+      -- holds only the header; the subtitle sits just below the filter strip
+      -- (above the list) so it can't collide with the strip.
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
+      sub:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(HEADER_ROW_H + FILTER_BAR_H + 6))
       panel.sub = sub
       local scroll, child = MakeScroll(panel)
-      scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(HEADER_ROW_H + FILTER_BAR_H + 6))
+      scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -8)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 10)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
@@ -1613,11 +1619,13 @@ local function BuildLayout(f)
       logo:SetSize(96, 96)
       -- Centre on the panel (not the left-aligned header) so the column doesn't
       -- spill left into the sidebar; the rest of the chain inherits the centre.
-      logo:SetPoint("TOP", panel, "TOP", 0, -48)
+      -- Chain kept compact so the studio blurb + addon card + Steam link all fit
+      -- above the bottom-pinned footer on the fixed-height window (no overflow).
+      logo:SetPoint("TOP", panel, "TOP", 0, -22)
       logo:SetTexture(LOGO)
 
       local name = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
-      name:SetPoint("TOP", logo, "BOTTOM", 0, -12)
+      name:SetPoint("TOP", logo, "BOTTOM", 0, -8)
       name:SetText("Honour Bound Game Studios")
       name:SetTextColor(rgba(C.gold))
 
@@ -1627,7 +1635,7 @@ local function BuildLayout(f)
 
       -- NOTE: placeholder copy -- replace with the studio's own words.
       local body = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      body:SetPoint("TOP", tagline, "BOTTOM", 0, -16)
+      body:SetPoint("TOP", tagline, "BOTTOM", 0, -12)
       body:SetWidth(TEXTW); body:SetJustifyH("CENTER")
       body:SetText("Honour Bound Game Studios is an independent studio crafting games and "
         .. "player-first tools. TitanJourney is one of our community add-ons \226\128\148 built "
