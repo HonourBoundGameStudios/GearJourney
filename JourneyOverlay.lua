@@ -1084,7 +1084,8 @@ function Overlay.RenderBrowse()
     local source = TitanJourney_ItemIndex or TitanJourney_Items
     local hits = engine and engine.SearchByName(source, q, 600) or {}
     -- Prefer the enriched copy of a hit (it carries stats) over the bare index
-    -- row; optionally keep only items this character can use.
+    -- row; optionally keep only items this character can equip right now
+    -- (class/proficiency AND at/below the player's level).
     local byId = {}
     for i = 1, #(TitanJourney_Items or {}) do
       local e = TitanJourney_Items[i]
@@ -1094,7 +1095,7 @@ function Overlay.RenderBrowse()
     cands = {}
     for _, it in ipairs(hits) do
       local row = byId[it.itemID] or it
-      if not (Overlay.searchUsable and engine and not engine.CanUse(row, class, level)) then
+      if not (Overlay.searchUsable and engine and not engine.CanEquipNow(row, class, level)) then
         cands[#cands + 1] = row
         if #cands >= 250 then break end
       end
@@ -1444,7 +1445,8 @@ local function BuildLayout(f)
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
         Overlay.searchText = ""; Overlay.RenderBrowse()
       end)
-      -- "Usable by me" narrows search results to gear this class can equip.
+      -- "Usable by me" narrows search results to gear this class can equip at
+      -- the player's current level (proficiency + reqLevel gate).
       local usableCb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
       usableCb:SetSize(20, 20)
       usableCb:SetPoint("TOPRIGHT", search, "BOTTOMRIGHT", 2, -2)

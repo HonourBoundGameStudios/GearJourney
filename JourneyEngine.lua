@@ -490,6 +490,16 @@ function Engine.CanUse(item, class, level)
   return true                                    -- necks/rings/trinkets/cloaks
 end
 
+-- CanEquipNow(item, class, level) -> bool. Like CanUse, but also gates on the
+-- item's own required level so it means "gear I can equip RIGHT NOW" -- CanUse
+-- only checks class/armor/weapon proficiency and would happily pass a level-60
+-- piece to a level-38 player. Used by the Browse "Usable by me" search filter.
+function Engine.CanEquipNow(item, class, level)
+  if not Engine.CanUse(item, class, level) then return false end
+  local req = tonumber(item.reqLevel) or 0
+  return (not level) or req <= level
+end
+
 -- FilterByClass(items, class, level) -> new array
 --   Keeps only items the class can actually use: preferred armor type (and
 --   wearable at `level`), weapons within proficiency, plus neutral jewelry/
