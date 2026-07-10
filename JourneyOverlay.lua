@@ -651,20 +651,33 @@ function Overlay.ComputeCandidates(slot)
   -- the score per item, then the comparator only compares numbers.
   local scoreOf = {}
   for i = 1, #cands do scoreOf[cands[i]] = engine.ScoreItem(cands[i], weights) end
+  -- When the set exceeds the render cap, CHOOSE which to keep by proximity to
+  -- the player (gear at/above level first, then nearest below) so the cap never
+  -- hides your actual upgrades behind low-level filler. Only pay for this sort
+  -- when we actually have to trim.
+  if #cands > CANDIDATE_CAP then
+    table.sort(cands, function(a, b)
+      local ra, rb = a.reqLevel or 0, b.reqLevel or 0
+      local fa, fb = (ra >= level), (rb >= level)
+      if fa ~= fb then return fa end
+      if ra ~= rb then
+        if fa then return ra < rb else return ra > rb end
+      end
+      local sa, sb = scoreOf[a], scoreOf[b]
+      if sa ~= sb then return sa > sb end
+      return (a.name or "") < (b.name or "")
+    end)
+    for i = #cands, CANDIDATE_CAP + 1, -1 do cands[i] = nil end
+  end
+  -- Display order: straight required-level (lowest first) so the list scans
+  -- cleanly; ties broken by spec score then name for determinism.
   table.sort(cands, function(a, b)
-    -- Gear at/above your level first (nearest first), then lower gear (nearest
-    -- first), so no-requirement / low-level pieces don't bury your upgrades.
     local ra, rb = a.reqLevel or 0, b.reqLevel or 0
-    local fa, fb = (ra >= level), (rb >= level)
-    if fa ~= fb then return fa end
-    if ra ~= rb then
-      if fa then return ra < rb else return ra > rb end
-    end
+    if ra ~= rb then return ra < rb end
     local sa, sb = scoreOf[a], scoreOf[b]
     if sa ~= sb then return sa > sb end
     return (a.name or "") < (b.name or "")
   end)
-  for i = #cands, CANDIDATE_CAP + 1, -1 do cands[i] = nil end  -- cap for render perf
   return cands, level, hi
 end
 
