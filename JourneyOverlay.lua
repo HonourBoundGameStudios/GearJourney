@@ -1176,13 +1176,15 @@ end
 -- persisted and re-rendering live.
 local SOURCE_FILTERS = { "Dungeon", "Drop", "Crafted", "Quest", "Vendor", "Faction", "PvP" }
 
-local FILTER_BAR_H = 30   -- top filter strip height (Browse/Future shift below it)
+local FILTER_BAR_H = 30   -- filter strip height (sits below the title row on Browse/Future)
+local HEADER_ROW_H = 26   -- title + separator (and Browse's search box) row above the filter strip
 
 local function BuildControlBar(content, topLevel)
   local bar = CreateFrame("Frame", nil, content)
   bar:SetHeight(FILTER_BAR_H)
-  bar:SetPoint("TOPLEFT", content, "TOPLEFT", 2, 0)
-  bar:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, 0)
+  -- Sits just below the tab title + separator row (the title now leads the tab).
+  bar:SetPoint("TOPLEFT", content, "TOPLEFT", 2, -HEADER_ROW_H)
+  bar:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, -HEADER_ROW_H)
   bar:SetFrameLevel(topLevel + 2)
   Overlay.controlBar = bar
 
@@ -1238,6 +1240,21 @@ local function BuildControlBar(content, topLevel)
     -- next checkbox; fixed strides would assume equal widths.
     x = x + 22 + 1 + (lbl:GetStringWidth() or 56) + 14
   end
+
+  -- "Usable Items" (mirrors the Auction House filter): restrict Browse search
+  -- results to gear this character can equip now. Sits beside Legendary.
+  x = x + 8
+  local usableCb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+  usableCb:SetSize(22, 22)
+  usableCb:SetPoint("LEFT", bar, "LEFT", x, 0)
+  usableCb:SetChecked(Overlay.searchUsable and true or false)
+  usableCb:SetScript("OnClick", function(self)
+    Overlay.searchUsable = self:GetChecked() and true or false
+    Overlay.RenderCurrentGoals()
+  end)
+  local ulbl = usableCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  ulbl:SetPoint("LEFT", usableCb, "RIGHT", 1, 0)
+  ulbl:SetText("Usable Items")
 end
 
 -- Build the left tab column and the matching content panels.
@@ -1309,15 +1326,11 @@ local function BuildLayout(f)
     btn:SetScript("OnClick", function() Overlay.SelectTab(tab.key) end)
     Overlay.tabButtons[tab.key] = btn
 
-    -- Matching content panel with a header; body filled in by later items.
-    -- Browse/Future sit below the top filter strip; others use full content.
+    -- Matching content panel with a header; body filled in by later items. Every
+    -- tab's title + separator leads at the top; Browse/Future then reserve the
+    -- filter strip below the title row (see HEADER_ROW_H) before their content.
     local panel = CreateFrame("Frame", nil, content)
-    if tab.key == "browse" or tab.key == "future" then
-      panel:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(FILTER_BAR_H + 4))
-      panel:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
-    else
-      panel:SetAllPoints(content)
-    end
+    panel:SetAllPoints(content)
 
     local header = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     header:SetPoint("TOPLEFT", 0, 0)
@@ -1431,7 +1444,7 @@ local function BuildLayout(f)
       local search = CreateFrame("EditBox", nil, panel, "InputBoxTemplate")
       search:SetAutoFocus(false)
       search:SetSize(170, 20)
-      search:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -10, 2)
+      search:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -10, -2)
       searchLbl:SetPoint("RIGHT", search, "LEFT", -8, 0)
       searchLbl:SetText("Search all weapons & armor")
       -- Keep the header divider from running under the search box / its label.
@@ -1458,32 +1471,26 @@ local function BuildLayout(f)
         if Overlay._searchTimer then Overlay._searchTimer:Cancel() end
         Overlay.searchText = ""; Overlay.RenderBrowse()
       end)
-      -- "Usable by me" narrows search results to gear this class can equip at
-      -- the player's current level (proficiency + reqLevel gate).
-      local usableCb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
-      usableCb:SetSize(20, 20)
-      usableCb:SetPoint("TOPRIGHT", search, "BOTTOMRIGHT", 2, -2)
-      usableCb:SetChecked(Overlay.searchUsable and true or false)
-      local ucLbl = usableCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      ucLbl:SetPoint("RIGHT", usableCb, "LEFT", -2, 0)
-      ucLbl:SetText("Usable by me")
-      usableCb:SetScript("OnClick", function(self)
-        Overlay.searchUsable = self:GetChecked() and true or false
-        Overlay.RenderBrowse()
-      end)
+      -- ("Usable Items" filter now lives in the shared filter strip, beside the
+      -- rarity checkboxes -- see BuildControlBar.)
 
-      -- Slot chips row (All + each equipment slot).
+      -- Slot chips row (All + each equipment slot), below the title row + filter
+      -- strip that now lead the tab.
       local chipBar = CreateFrame("Frame", nil, panel)
-      chipBar:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
+      chipBar:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(HEADER_ROW_H + FILTER_BAR_H + 6))
       chipBar:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
       panel.chipButtons = {}
       local CHIP_SLOTS = { "all", "Head", "Neck", "Shoulder", "Back", "Chest", "Wrist",
         "Hands", "Waist", "Legs", "Feet", "Ring", "Trinket", "Main Hand", "Off Hand", "Ranged" }
+      -- Wrap only if the row genuinely overruns the panel width (~1000px right of
+      -- the sidebar); at 16 slots this keeps them on a single row, but still
+      -- degrades gracefully to a second row on a narrower client/font.
+      local CHIP_ROW_W = 980
       local cx, cy = 0, 0
       for _, s in ipairs(CHIP_SLOTS) do
         local b = MakeChip(chipBar, s == "all" and "All" or s)
         local w = b:GetWidth()
-        if cx + w > 560 then cx = 0; cy = cy - 24 end
+        if cx + w > CHIP_ROW_W then cx = 0; cy = cy - 24 end
         b:SetPoint("TOPLEFT", chipBar, "TOPLEFT", cx, cy)
         cx = cx + w + 4
         b:SetScript("OnClick", function() Overlay.SelectChip(s); Overlay.RenderBrowse() end)
@@ -1549,12 +1556,14 @@ local function BuildLayout(f)
       panel.jEmpty = jEmpty
 
     elseif tab.key == "future" then
-      -- Single scrolling list of the upcoming best-per-slot gear.
+      -- Single scrolling list of the upcoming best-per-slot gear. The subtitle
+      -- rides in the title row under the header; the list starts below the
+      -- filter strip (which now sits under the title row).
       local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -3)
       panel.sub = sub
       local scroll, child = MakeScroll(panel)
-      scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -10)
+      scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(HEADER_ROW_H + FILTER_BAR_H + 6))
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 10)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
