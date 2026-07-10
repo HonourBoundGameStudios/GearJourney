@@ -268,14 +268,43 @@ local function SetSolid(tex, r, g, b)
 end
 
 -- Row tooltip (FEAT-C10) with SHIFT-to-compare against equipped gear.
-local hoverOwner, hoverItemID
+local hoverOwner, hoverItemID, hoverCX, hoverCY
+
+-- Anchor the tooltip's bottom-right to the (captured) cursor point so it opens
+-- UP and to the LEFT (like the Character Sheet), then clamp every edge so it can
+-- never leave the screen. Split out so it can re-run once the tooltip has
+-- settled its size (item text can lay out / arrive from the server a frame
+-- later) using real dimensions instead of a placeholder.
+local function PlaceRowTooltip()
+  if not (hoverCX and hoverCY) then return end
+  local w, h = GameTooltip:GetWidth() or 0, GameTooltip:GetHeight() or 0
+  local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
+  local pad = 6
+  local right, bottom = hoverCX, hoverCY + pad  -- cursor at the bottom-right corner
+  if right - w < pad then right = w + pad end             -- keep the left edge on-screen
+  if right > screenW - pad then right = screenW - pad end  -- keep the right edge on-screen
+  if bottom + h > screenH - pad then bottom = screenH - pad - h end  -- keep the top on-screen
+  if bottom < pad then bottom = pad end                   -- keep the bottom on-screen
+  GameTooltip:ClearAllPoints()
+  GameTooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMLEFT", right, bottom)
+end
+
 local function ShowRowTooltip(owner, itemID)
-  -- Right beside the cursor (rows are full-width, so anchoring to the row threw
-  -- the tooltip to the far edge).
-  GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+  GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+  GameTooltip:SetClampedToScreen(true)   -- backstop if the item text loads late
   GameTooltip:SetHyperlink("item:" .. itemID)
   if IsShiftKeyDown() and GameTooltip_ShowCompareItem then GameTooltip_ShowCompareItem() end
-  GameTooltip:Show()
+  GameTooltip:Show()   -- populate + lay out so we can measure it
+
+  local scale = UIParent:GetEffectiveScale()
+  local cx, cy = GetCursorPosition()
+  hoverCX, hoverCY = cx / scale, cy / scale  -- into UIParent (bottom-left origin) coords
+  PlaceRowTooltip()
+  -- Re-place next frame with the finalised size (GetWidth/Height can lag Show by
+  -- a frame, and uncached items resize when GetItemInfo returns).
+  if C_Timer and C_Timer.After then
+    C_Timer.After(0, function() if hoverItemID then PlaceRowTooltip() end end)
+  end
 end
 
 -- Holding/releasing SHIFT while hovering re-shows the tooltip with comparison.
