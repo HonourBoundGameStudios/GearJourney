@@ -1568,6 +1568,8 @@ local function BuildLayout(f)
       local LOGO = "Interface\\AddOns\\TitanJourney\\Media\\HBGS-Logo"
       local URL  = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
       local TEXTW = 620
+      local ver = (C_AddOns and C_AddOns.GetAddOnMetadata
+        and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or ""
 
       local logo = panel:CreateTexture(nil, "ARTWORK")
       logo:SetSize(96, 96)
@@ -1593,9 +1595,33 @@ local function BuildLayout(f)
         .. "player-first tools. TitanJourney is one of our community add-ons \226\128\148 built "
         .. "to make the leveling journey smoother, so you always know the next upgrade worth chasing.")
 
+      -- "About this addon" -- TitanJourney's own name, version, and what it does,
+      -- set off from the studio blurb above by a hairline rule.
+      local aRule = panel:CreateTexture(nil, "ARTWORK")
+      aRule:SetSize(TEXTW, 1)
+      aRule:SetPoint("TOP", body, "BOTTOM", 0, -16)
+      aRule:SetColorTexture(C.border[1], C.border[2], C.border[3], 0.85)
+
+      local aName = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+      aName:SetPoint("TOP", aRule, "BOTTOM", 0, -14)
+      aName:SetText("TitanJourney")
+      aName:SetTextColor(rgba(C.gold))
+
+      local aVer = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      aVer:SetPoint("TOP", aName, "BOTTOM", 0, -3)
+      aVer:SetText("|cffbfbfbfVersion " .. ver .. "  \194\183  Classic & Retail|r")
+
+      local aDesc = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      aDesc:SetPoint("TOP", aVer, "BOTTOM", 0, -10)
+      aDesc:SetWidth(TEXTW); aDesc:SetJustifyH("CENTER")
+      aDesc:SetText("Your leveling gear companion, on the Titan Panel bar. TitanJourney surfaces "
+        .. "the best upgrades for your class and spec at every level \226\128\148 browse and search "
+        .. "every weapon and armor piece, build a Journey List of gear to chase, and see which "
+        .. "dungeon offers the most upgrades for you right now, all with spec-aware stat scoring.")
+
       local rule2 = panel:CreateTexture(nil, "ARTWORK")
       rule2:SetSize(TEXTW, 1)
-      rule2:SetPoint("TOP", body, "BOTTOM", 0, -16)
+      rule2:SetPoint("TOP", aDesc, "BOTTOM", 0, -16)
       rule2:SetColorTexture(C.border[1], C.border[2], C.border[3], 0.85)
 
       local linkLbl = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -1621,8 +1647,6 @@ local function BuildLayout(f)
       copyBtn:SetPoint("TOP", box, "BOTTOM", 0, -10)
       copyBtn:SetScript("OnClick", function() box:SetFocus(); box:HighlightText() end)
 
-      local ver = (C_AddOns and C_AddOns.GetAddOnMetadata
-        and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or ""
       local foot = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
       foot:SetPoint("BOTTOM", panel, "BOTTOM", 0, 8)
       foot:SetText("TitanJourney v" .. ver .. "  \194\183  \194\169 Honour Bound Game Studios")
