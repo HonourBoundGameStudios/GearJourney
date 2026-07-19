@@ -735,7 +735,9 @@ end
 -- Inspect capture: remember the gear of the last player you inspected so the
 -- "Last Inspected" tab can list it with Add-to-Journey toggles. -------------
 Overlay.lastInspect = { name = nil, items = {} }
-local INSPECT_SLOTS = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }  -- skip shirt/tabard
+-- EVERY equipped slot, 1..19 incl. shirt (4) and tabard (19) -- capture all,
+-- nothing skipped. (INVSLOT_LAST_EQUIPPED is 19 on every flavour.)
+local INSPECT_SLOTS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
 
 -- Item-link colour code -> our quality string, so an unindexed / not-yet-cached
 -- piece still shows the right rarity (the link colour is always present).
@@ -765,17 +767,27 @@ end
 local function CaptureInspect(unit)
   if not (unit and UnitExists and UnitExists(unit) and GetInventoryItemLink) then return end
   local engine = TitanJourney_Engine
-  local seen, out = {}, {}
+  local out = {}
   for _, slot in ipairs(INSPECT_SLOTS) do
     local link = GetInventoryItemLink(unit, slot)
     local id = link and tonumber(link:match("item:(%d+)"))
-    if id and not seen[id] then
-      seen[id] = true
+    if id then
+      -- One record per equipped slot -- NO dedup, so two identical rings /
+      -- trinkets / one-handers both show, and NO level/usable filtering.
       -- Prefer our enriched index (stats/source/dps); otherwise synthesise a
-      -- record so the piece is captured no matter what. Nothing is dropped.
-      local it = (engine and (engine.FindByID(TitanJourney_Items, id)
+      -- record from the link so the piece is captured no matter what.
+      local base = (engine and (engine.FindByID(TitanJourney_Items, id)
         or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id))))
-        or ItemFromLink(engine, id, link)
+      local it
+      if base then
+        -- Shallow-copy the shared index table so this persisted slot record can't
+        -- be aliased by another slot; keeps every field (stats/source/dps/...).
+        it = {}
+        for k, v in pairs(base) do it[k] = v end
+        it.link = link
+      else
+        it = ItemFromLink(engine, id, link)   -- unindexed: synthesise from the link
+      end
       out[#out + 1] = it
     end
   end
