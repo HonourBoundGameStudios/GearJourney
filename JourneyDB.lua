@@ -114,3 +114,33 @@ end
 -- Enriched-item cache (itemID -> schema item) ------------------------------
 function DB.Cache() return DB.Get().itemCache end
 function DB.CachePut(item) if item and item.itemID then DB.Get().itemCache[item.itemID] = item end end
+
+-- Inspection history (FEAT: recall inspected gear) -------------------------
+-- Kept at the TOP LEVEL of the saved variable (NOT char-keyed), so every toon
+-- on the account shares one history: inspect on one character, recall it on
+-- another. NB: WoW persists SavedVariables per WoW-account, so this spans all
+-- characters of the account but cannot cross into a *separate* WoW account.
+DB.INSPECT_HISTORY_MAX = 20
+
+function DB.InspectHistory()
+  local d = DB.Get()
+  d.inspectHistory = d.inspectHistory or {}
+  return d.inspectHistory
+end
+
+-- Record one inspection, most-recent first, capped at INSPECT_HISTORY_MAX.
+-- Re-inspecting the same player refreshes their entry in place (moved to the
+-- front) rather than piling duplicates. `entry` = { name, realm, viewer, when,
+-- items = { schemaItem, ... } }. Returns the history table.
+function DB.InspectSave(entry)
+  if not (entry and entry.items and #entry.items > 0) then return DB.InspectHistory() end
+  local h = DB.InspectHistory()
+  for i = #h, 1, -1 do
+    if h[i].name == entry.name and h[i].realm == entry.realm then table.remove(h, i) end
+  end
+  table.insert(h, 1, entry)
+  for i = #h, DB.INSPECT_HISTORY_MAX + 1, -1 do table.remove(h, i) end
+  return h
+end
+
+function DB.InspectClear() DB.Get().inspectHistory = {} end

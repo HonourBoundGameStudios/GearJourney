@@ -737,6 +737,31 @@ end
 Overlay.lastInspect = { name = nil, items = {} }
 local INSPECT_SLOTS = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }  -- skip shirt/tabard
 
+-- Item-link colour code -> our quality string, so an unindexed / not-yet-cached
+-- piece still shows the right rarity (the link colour is always present).
+local LINK_QUALITY = {
+  ff9d9d9d = "poor", ffffffff = "common", ff1eff00 = "uncommon",
+  ff0070dd = "rare", ffa335ee = "epic", ffff8000 = "legendary",
+}
+
+-- Build a minimal schema item from an inspect link when the piece isn't in our
+-- index. Never returns nil for a real link -- EVERY equipped item is stored,
+-- regardless of whether this character could use it or the client has cached it.
+local function ItemFromLink(engine, id, link)
+  local nm, _, q, _, rl = (GetItemInfo and GetItemInfo(id))
+  local _, _, _, _, tex = (GetItemInfoInstant and GetItemInfoInstant(id))
+  local quality = (engine and q and engine.QUALITY_NAME[q])
+    or LINK_QUALITY[link and link:match("|c(%x%x%x%x%x%x%x%x)")] or "common"
+  return {
+    itemID = id,
+    name = nm or (link and link:match("%[(.-)%]")) or ("Item " .. id),
+    reqLevel = rl or 1,
+    icon = tex,
+    quality = quality,
+    link = link,
+  }
+end
+
 local function CaptureInspect(unit)
   if not (unit and UnitExists and UnitExists(unit) and GetInventoryItemLink) then return end
   local engine = TitanJourney_Engine
@@ -746,20 +771,25 @@ local function CaptureInspect(unit)
     local id = link and tonumber(link:match("item:(%d+)"))
     if id and not seen[id] then
       seen[id] = true
-      local it = engine and (engine.FindByID(TitanJourney_Items, id)
-        or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id)))
-      if not it and GetItemInfo then
-        local nm, _, q, _, rl = GetItemInfo(id)
-        local _, _, _, _, tex = GetItemInfoInstant and GetItemInfoInstant(id)
-        if nm then
-          it = { itemID = id, name = nm, reqLevel = rl or 1, icon = tex,
-                 quality = (engine and engine.QUALITY_NAME[q]) or "common" }
-        end
-      end
-      if it then out[#out + 1] = it end
+      -- Prefer our enriched index (stats/source/dps); otherwise synthesise a
+      -- record so the piece is captured no matter what. Nothing is dropped.
+      local it = (engine and (engine.FindByID(TitanJourney_Items, id)
+        or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id))))
+        or ItemFromLink(engine, id, link)
+      out[#out + 1] = it
     end
   end
-  Overlay.lastInspect = { name = UnitName(unit), items = out }
+  local name, realm = UnitName(unit)
+  local entry = {
+    name   = name or "?",
+    realm  = realm or (GetRealmName and GetRealmName()) or "",
+    viewer = (UnitName and UnitName("player")) or "?",
+    when   = (time and time()) or 0,
+    items  = out,
+  }
+  Overlay.lastInspect = entry
+  Overlay.inspectSel = 1                    -- newest sits at the front of the history
+  if TitanJourney_DB then TitanJourney_DB.InspectSave(entry) end
   if Overlay.RenderInspect then Overlay.RenderInspect() end
 end
 
@@ -778,16 +808,32 @@ if hooksecurefunc and NotifyInspect then
   hooksecurefunc("NotifyInspect", function(unit) Overlay._inspectUnit = unit end)
 end
 
--- Render the Last Inspected tab: the captured player's gear, each Add-able.
+-- The inspection currently shown on the Inspect tab: the selected history entry
+-- (account-wide, shared across toons), falling back to the live last-inspect.
+function Overlay.CurrentInspect()
+  local h = (TitanJourney_DB and TitanJourney_DB.InspectHistory()) or {}
+  return h[Overlay.inspectSel or 1] or Overlay.lastInspect or { items = {} }
+end
+
+-- Render the Last Inspected tab: the selected player's saved gear, each Add-able,
+-- with a "Recall" dropdown over the last 20 inspections from any character.
 function Overlay.RenderInspect()
   local panel = Overlay.panels and Overlay.panels.inspect
   if not panel or not panel.listAnchor then return end
-  local insp = Overlay.lastInspect or { items = {} }
-  panel.header:SetText(insp.name and ("Last Inspected: " .. insp.name) or "Last Inspected")
+  local insp = Overlay.CurrentInspect()
+  local items = insp.items or {}
+  local title = insp.name and ("Inspected: " .. insp.name) or "Last Inspected"
+  if insp.when and insp.when > 0 and date then
+    title = title .. "  |cff808080" .. date("%b %d, %H:%M", insp.when) .. "|r"
+  end
+  if insp.viewer and insp.viewer ~= "" then
+    title = title .. "  |cff5a5a5a(via " .. insp.viewer .. ")|r"
+  end
+  panel.header:SetText(title)
   local level = (UnitLevel and UnitLevel("player")) or 1
   panel.rows = panel.rows or {}
-  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, insp.items, level, level, "add")
-  panel.empty:SetShown(#insp.items == 0)
+  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, items, level, level, "add")
+  panel.empty:SetShown(#items == 0)
 end
 
 -- Render the Journey Items tab: the saved Journey List as a single scrolling
@@ -1191,7 +1237,7 @@ function Overlay.UpdateTabBadges()
   end
   local journey = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
   set("journey", #journey)
-  local insp = Overlay.lastInspect or { items = {} }
+  local insp = Overlay.CurrentInspect and Overlay.CurrentInspect() or { items = {} }
   set("inspect", #(insp.items or {}))
 end
 
@@ -1409,17 +1455,47 @@ local function BuildLayout(f)
       -- Last Inspected: the captured player's gear (header retitled at render),
       -- each row Add-able to the Journey List. Full-width scrolling list.
       panel.header = header
-      -- "Add all" wishlists every inspected piece in one click.
+      -- "Add all" wishlists every piece of the shown inspection in one click.
       local addAll = MakeChip(panel, "Add all to Journey")
       addAll:SetHeight(22)
       addAll:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -8, 0)
       addAll:SetScript("OnClick", function()
-        local insp = Overlay.lastInspect or { items = {} }
+        local insp = Overlay.CurrentInspect()
         if TitanJourney_DB then
-          for _, it in ipairs(insp.items) do TitanJourney_DB.JourneyAdd(it.name) end
+          for _, it in ipairs(insp.items or {}) do TitanJourney_DB.JourneyAdd(it.name) end
         end
         RefreshAll()
       end)
+
+      -- "Recall" dropdown: pick from the last 20 inspections saved by ANY
+      -- character on the account (inspect on one toon, recall on another).
+      local recallDD = CreateFrame("Frame", "TitanJourneyInspectRecall", panel,
+        "UIDropDownMenuTemplate")
+      local recall = MakeChip(panel, "Recall \226\150\190")   -- caret
+      recall:SetHeight(22)
+      recall:SetPoint("TOPRIGHT", addAll, "TOPLEFT", -6, 0)
+      recall:SetScript("OnClick", function()
+        UIDropDownMenu_Initialize(recallDD, function(_, level)
+          local h = (TitanJourney_DB and TitanJourney_DB.InspectHistory()) or {}
+          if #h == 0 then
+            local info = UIDropDownMenu_CreateInfo()
+            info.text, info.disabled, info.notCheckable = "No saved inspections", true, true
+            UIDropDownMenu_AddButton(info, level)
+            return
+          end
+          for i, e in ipairs(h) do
+            local info = UIDropDownMenu_CreateInfo()
+            local when = (e.when and e.when > 0 and date) and date(" %b %d", e.when) or ""
+            info.text = (e.name or "?") .. "|cff808080" .. when
+              .. "  \194\183 " .. (#(e.items or {})) .. " items|r"
+            info.checked = ((Overlay.inspectSel or 1) == i)
+            info.func = function() Overlay.inspectSel = i; Overlay.RenderInspect() end
+            UIDropDownMenu_AddButton(info, level)
+          end
+        end, "MENU")
+        ToggleDropDownMenu(1, nil, recallDD, recall, 0, 0)
+      end)
+
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -10)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 16)

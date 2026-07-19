@@ -81,4 +81,38 @@ DB.CachePut(nil)                             -- guard: nil item
 DB.CachePut({ name = "no id" })              -- guard: missing itemID
 H.eq(DB.Cache()[123].name, "Cached Sword", "guards leave the cache intact")
 
+-- Inspection history: account-wide, capped, most-recent-first, dedup by player
+TitanJourneyDB = nil; DB.Init()
+H.eq(#DB.InspectHistory(), 0, "inspection history starts empty")
+DB.InspectSave(nil)                          -- guard: nil entry
+DB.InspectSave({ name = "Empty", items = {} })  -- guard: no items
+H.eq(#DB.InspectHistory(), 0, "guards store nothing")
+
+DB.InspectSave({ name = "Alice", realm = "R", items = { { itemID = 1 }, { itemID = 2 } } })
+DB.InspectSave({ name = "Bob", realm = "R", items = { { itemID = 3 } } })
+H.eq(#DB.InspectHistory(), 2, "two inspections saved")
+H.eq(DB.InspectHistory()[1].name, "Bob", "most-recent inspection is first")
+H.eq(#DB.InspectHistory()[1].items, 1, "all items stored verbatim")
+
+-- Re-inspecting the same player refreshes in place (moved to front, no dup).
+DB.InspectSave({ name = "Alice", realm = "R", items = { { itemID = 9 } } })
+H.eq(#DB.InspectHistory(), 2, "re-inspect does not duplicate the player")
+H.eq(DB.InspectHistory()[1].name, "Alice", "re-inspected player jumps to front")
+H.eq(DB.InspectHistory()[1].items[1].itemID, 9, "re-inspect refreshes the gear")
+-- Same name on a DIFFERENT realm is a distinct player (not deduped).
+DB.InspectSave({ name = "Alice", realm = "OtherRealm", items = { { itemID = 7 } } })
+H.eq(#DB.InspectHistory(), 3, "same name on another realm is a separate entry")
+
+-- Cap at INSPECT_HISTORY_MAX, dropping the oldest.
+TitanJourneyDB = nil; DB.Init()
+for i = 1, DB.INSPECT_HISTORY_MAX + 5 do
+  DB.InspectSave({ name = "P" .. i, realm = "R", items = { { itemID = i } } })
+end
+H.eq(#DB.InspectHistory(), DB.INSPECT_HISTORY_MAX, "history capped at the max")
+H.eq(DB.InspectHistory()[1].name, "P" .. (DB.INSPECT_HISTORY_MAX + 5), "newest kept")
+H.eq(DB.InspectHistory()[DB.INSPECT_HISTORY_MAX].name, "P6", "oldest beyond the cap dropped")
+
+DB.InspectClear()
+H.eq(#DB.InspectHistory(), 0, "InspectClear empties the history")
+
 H.done()
