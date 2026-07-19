@@ -764,45 +764,71 @@ local function ItemFromLink(engine, id, link)
   }
 end
 
-local function CaptureInspect(unit)
-  if not (unit and UnitExists and UnitExists(unit) and GetInventoryItemLink) then return end
+-- Read one slot's item into a schema record, or nil if the slot is empty.
+local function BuildInspectItem(engine, id, link)
+  -- Prefer our enriched index (stats/source/dps); otherwise synthesise a record
+  -- from the link so the piece is captured no matter what.
+  local base = engine and (engine.FindByID(TitanJourney_Items, id)
+    or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id)))
+  if not base then return ItemFromLink(engine, id, link) end   -- unindexed
+  -- Shallow-copy the shared index table so this persisted slot record can't be
+  -- aliased by another slot; keeps every field (stats/source/dps/...).
+  local it = {}
+  for k, v in pairs(base) do it[k] = v end
+  it.link = link
+  return it
+end
+
+-- Snapshot every equipped slot of `unit` right now. NO dedup (two identical
+-- rings/trinkets both show) and NO level/usable filtering -- capture all.
+local function ReadInspectGear(unit)
   local engine = TitanJourney_Engine
   local out = {}
   for _, slot in ipairs(INSPECT_SLOTS) do
     local link = GetInventoryItemLink(unit, slot)
     local id = link and tonumber(link:match("item:(%d+)"))
-    if id then
-      -- One record per equipped slot -- NO dedup, so two identical rings /
-      -- trinkets / one-handers both show, and NO level/usable filtering.
-      -- Prefer our enriched index (stats/source/dps); otherwise synthesise a
-      -- record from the link so the piece is captured no matter what.
-      local base = (engine and (engine.FindByID(TitanJourney_Items, id)
-        or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id))))
-      local it
-      if base then
-        -- Shallow-copy the shared index table so this persisted slot record can't
-        -- be aliased by another slot; keeps every field (stats/source/dps/...).
-        it = {}
-        for k, v in pairs(base) do it[k] = v end
-        it.link = link
-      else
-        it = ItemFromLink(engine, id, link)   -- unindexed: synthesise from the link
-      end
-      out[#out + 1] = it
-    end
+    if id then out[#out + 1] = BuildInspectItem(engine, id, link) end
   end
+  return out
+end
+
+local function StoreInspect(unit, items)
   local name, realm = UnitName(unit)
   local entry = {
     name   = name or "?",
     realm  = realm or (GetRealmName and GetRealmName()) or "",
     viewer = (UnitName and UnitName("player")) or "?",
     when   = (time and time()) or 0,
-    items  = out,
+    items  = items,
   }
   Overlay.lastInspect = entry
   Overlay.inspectSel = 1                    -- newest sits at the front of the history
   if TitanJourney_DB then TitanJourney_DB.InspectSave(entry) end
   if Overlay.RenderInspect then Overlay.RenderInspect() end
+end
+
+local function CaptureInspect(unit)
+  if not (unit and UnitExists and UnitExists(unit) and GetInventoryItemLink) then return end
+  -- The inspected unit's equipment streams in over several frames AFTER the
+  -- first INSPECT_READY -- reading once catches only the slots already cached
+  -- (the "only 1 item" bug). Snapshot now, then re-read a few times and keep the
+  -- fullest set. A later clearing read never shrinks it; a GUID guard stops a
+  -- mid-capture target change from swapping in the wrong player.
+  local guid = UnitGUID and UnitGUID(unit)
+  local best = ReadInspectGear(unit)
+  StoreInspect(unit, best)
+  if C_Timer and C_Timer.After then
+    local tries = 0
+    local function retry()
+      if not (UnitExists and UnitExists(unit)) then return end
+      if guid and UnitGUID and UnitGUID(unit) ~= guid then return end
+      local again = ReadInspectGear(unit)
+      if #again > #best then best = again; StoreInspect(unit, best) end
+      tries = tries + 1
+      if tries < 5 then C_Timer.After(0.3, retry) end
+    end
+    C_Timer.After(0.2, retry)
+  end
 end
 
 -- Remember which unit is being inspected (the GUID in INSPECT_READY isn't a
