@@ -100,7 +100,9 @@ function TitanJourney_GetTooltipText()
         .. clicks .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
 end
 
--- Right-click dropdown menu (Titan's UIDropDownMenu scheme).
+-- Right-click menu -- OLD scheme (Titan's UIDropDownMenu). Kept only as a
+-- fallback for Titan builds predating the Jan 2026 menu rewrite; on current
+-- Titan the menuContextFunction below wins (see GeneratorFunction).
 local function PrepareMenu()
     TitanPanelRightClickMenu_AddTitle(TitanPlugins[ADDON_ID].menuText)
 
@@ -117,6 +119,18 @@ local function PrepareMenu()
     TitanPanelRightClickMenu_AddHide(ADDON_ID)
 end
 
+-- Right-click menu -- NEW scheme (Jan 2026). Blizzard rewrote the Menu API and
+-- is removing the old UIDropDownMenu code, so Titan wraps Blizzard_Menu behind
+-- Titan_Menu and calls this generator on right-click. Titan itself adds the
+-- title (top) plus the ShowIcon / DisplayOnRightSide toggles and Hide (bottom)
+-- via the registry's controlVariables, so we only supply our custom entry.
+-- Mirrors TitanBag's GeneratorFunction. (owner = the plugin frame; root = the
+-- menu description to attach widgets to.)
+local function GeneratorFunction(owner, root)
+    Titan_Menu.AddCommand(root, ADDON_ID, "About Honour Bound Game Studios",
+        function() StaticPopup_Show("JOURNEY_ABOUT") end)
+end
+
 -- Titan reads self.registry in the button's OnLoad.
 local function OnLoad(self)
     self.registry = {
@@ -124,7 +138,8 @@ local function OnLoad(self)
         category = "Information",
         version = VERSION,
         menuText = "TitanJourney",
-        menuTextFunction = PrepareMenu,
+        menuContextFunction = GeneratorFunction,  -- NEW scheme (1st priority, Jan 2026)
+        menuTextFunction = PrepareMenu,            -- OLD scheme fallback (pre-2026 Titan)
         tooltipTitle = "TitanJourney",
         buttonTextFunction = TitanJourney_GetButtonText,
         tooltipTextFunction = TitanJourney_GetTooltipText,
