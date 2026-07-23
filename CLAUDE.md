@@ -12,16 +12,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 plugin needs a frame). It loads in the WoW client via its `.toc` manifest. No build step — the game
 compiles the Lua at load; you iterate with `/reload` in-game.
 
-- **Stack:** Lua 5.1 (WoW runtime), Blizzard FrameXML API, optional XML frame definitions.
-- **Manifest:** `TitanJourney.toc` — `## Interface:` must match the game flavour you target
-  (Classic Era / Cataclysm Classic / Retail differ); `## SavedVariables: TitanJourneyDB` persists
-  state per-account between sessions.
-- **Titan Panel plugins only:** the `.toc` carries `## Dependencies: Titan` and leaves `## SavedVariables`
-  empty (Titan persists plugin state via the `registry.savedVariables` table). The button frame is built
-  **in Lua** — `CreateFrame(..., "TitanPanelComboTemplate")` under an `if TITAN_ID then` guard — and `OnLoad`
-  sets a `registry` table with `buttonTextFunction` / `tooltipTextFunction` / `menuTextFunction` (passed as
-  function references). No XML ships. This mirrors the `TitanWeaponSkills` addon; verify the API against your
-  installed Titan version.
+- **Stack:** Lua 5.1 (WoW runtime), Blizzard FrameXML API. No XML ships — frames are built in Lua.
+- **Manifest:** `TitanJourney.toc` — a **single multi-flavour toc** (`## Interface: 120007, 11509`
+  serves Retail + Classic Era; a `_Mainline.toc` split made Retail show "Incompatible" — don't
+  reintroduce it). `## SavedVariables: TitanJourneyDB` persists our state per-account; Titan
+  additionally persists only the ShowIcon/DisplayOnRightSide toggles via `registry.savedVariables`.
+- **Titan Panel integration (being retired):** the shim is `TitanJourney.lua` —
+  `CreateFrame(..., "TitanPanelComboTemplate")` under an `if TITAN_ID then` guard; `OnLoad` sets a
+  `registry` with `buttonTextFunction` / `tooltipTextFunction` / `menuContextFunction` (new Menu
+  API) + `menuTextFunction` (pre-2026 fallback). **Direction:** EPIC-K ports the addon to a
+  LibDataBroker data object and drops the hard Titan dependency (Titan displays LDB natively);
+  see `Research/titan-independence-research.md`. Don't grow the Titan-specific surface.
 
 ## The Process — NON-NEGOTIABLE
 
@@ -41,15 +42,22 @@ testable seam. Keep frame/event wiring thin.
 ## Common Commands / Workflow
 
 ```
-# Iterate: edit Lua, then in-game:
+# Offline tests (pure modules; Lua 5.4 runner, engine kept 5.1-portable):
+lua Tests/<name>_test.lua        # all: every file in Tests/
+lua Tools/coverage.lua           # 100% line+function coverage of pure modules is the bar
+
+# Deploy into every installed WoW flavour (Classic Era + Retail), then in-game:
+./deploy.ps1
 /reload
+
+# In-client scenario suite (owner-run):
+/titanjourney run-testing-scenarios
 
 # Inspect SavedVariables after logout:
 #   <WoW>/WTF/Account/<ACCOUNT>/SavedVariables/TitanJourney.lua
 ```
 
 - **Errors:** enable Lua errors (`/console scriptErrors 1`) or an error addon (BugSack) while developing.
-- **Install for testing:** symlink or copy the project folder into `<WoW>/Interface/AddOns/TitanJourney/`.
 
 ## Code Style
 
