@@ -19,6 +19,7 @@ foreach ($root in $roots) {
   Copy-Item -Path "$source\*.lua" -Destination $dest -Force
   Copy-Item -Path "$source\*.toc" -Destination $dest -Force
   Copy-Item -Path "$source\Media" -Destination $dest -Recurse -Force
+  Copy-Item -Path "$source\Libs" -Destination $dest -Recurse -Force
   Write-Host "Deployed to $dest"
   $deployed = $true
 }
