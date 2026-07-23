@@ -43,6 +43,16 @@ end
 -- Future Planner split, the dungeon bar, and row level-colouring internally.
 function DB.Lookahead() return 10 end
 
+-- Minimap launcher state (IND-5). LibDBIcon's contract: hand it a table it
+-- mutates in place (`.hide`, drag angle), so always return the SAME table.
+-- First-run default: hidden when Titan hosts the bar (the minimap icon would
+-- be redundant), shown otherwise; the right-click menu toggles it after that.
+function DB.Minimap()
+  local s = DB.Get().settings
+  if s.minimap == nil then s.minimap = { hide = (TITAN_ID ~= nil) } end
+  return s.minimap
+end
+
 -- Pinned item (single, by name) --------------------------------------------
 function DB.Pin() return DB.Get().pinnedName end
 function DB.SetPin(name) DB.Get().pinnedName = name end

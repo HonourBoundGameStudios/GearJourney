@@ -115,4 +115,13 @@ H.eq(DB.InspectHistory()[DB.INSPECT_HISTORY_MAX].name, "P6", "oldest beyond the 
 DB.InspectClear()
 H.eq(#DB.InspectHistory(), 0, "InspectClear empties the history")
 
+-- Minimap launcher state (IND-5): LibDBIcon mutates the returned table --------
+TitanJourneyDB = nil; DB.Init()
+local mm = DB.Minimap()
+H.eq(type(mm), "table", "Minimap returns the LibDBIcon state table")
+H.eq(mm.hide, false, "minimap button defaults to shown (no Titan offline)")
+mm.hide = true
+H.eq(DB.Minimap().hide, true, "LibDBIcon's in-place hide flag persists")
+H.ok(DB.Minimap() == mm, "same table every call (LibDBIcon holds the reference)")
+
 H.done()

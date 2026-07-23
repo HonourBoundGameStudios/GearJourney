@@ -125,6 +125,17 @@ if ldb then
                             StaticPopup_Show("JOURNEY_ABOUT")
                         end
                     end)
+                    root:CreateCheckbox("Show minimap button",
+                        function() return not TitanJourney_DB.Minimap().hide end,
+                        function()
+                            local mm = TitanJourney_DB.Minimap()
+                            mm.hide = not mm.hide
+                            local dbicon = LibStub("LibDBIcon-1.0", true)
+                            if dbicon then
+                                if mm.hide then dbicon:Hide("TitanJourney")
+                                else dbicon:Show("TitanJourney") end
+                            end
+                        end)
                 end)
             end
         end,
@@ -148,8 +159,20 @@ function TitanJourney_HostRefresh()
 end
 
 -- Refresh the text on login and whenever the player's level changes (the
--- lookahead window shifts), so the next goal stays current (FEAT-B3).
+-- lookahead window shifts), so the next goal stays current (FEAT-B3). First
+-- fire also registers the LibDBIcon minimap launcher (IND-5) -- deferred to
+-- here because its saved state lives in TitanJourneyDB, populated at login.
+local minimapRegistered = false
 local watcher = CreateFrame("Frame")
 watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
 watcher:RegisterEvent("PLAYER_LEVEL_UP")
-watcher:SetScript("OnEvent", function() TitanJourney_RefreshButton() end)
+watcher:SetScript("OnEvent", function()
+    if not minimapRegistered then
+        minimapRegistered = true
+        local dbicon = LibStub and LibStub("LibDBIcon-1.0", true)
+        if dbicon and dataObj then
+            dbicon:Register("TitanJourney", dataObj, TitanJourney_DB.Minimap())
+        end
+    end
+    TitanJourney_RefreshButton()
+end)
