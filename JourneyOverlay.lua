@@ -429,8 +429,15 @@ local function FillRow(row, item, playerLevel, hi)
   row.itemID = item.itemID  -- for the hover tooltip (FEAT-C10)
   local qc = QUALITY_COLOR[item.quality] or QUALITY_COLOR.common
   SetSolid(row.border, qc[1], qc[2], qc[3])
-  -- Real item icon once enriched (FEAT-E2); paper-doll slot art as a fallback.
-  row.icon:SetTexture(item.icon or ("Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. (item.slot or "Chest")))
+  -- Real item icon: prefer the baked index icon, else resolve it live from the
+  -- client and cache it -- icon is instant data for any real itemID, and most
+  -- Retail index entries ship no baked icon. Final fallback is a question mark.
+  -- (The old paper-doll fallback "UI-PaperDoll-Slot-<slot>" isn't a real texture
+  -- for our slot labels like "Two-Hand" and rendered as missing-texture magenta.)
+  if not item.icon and item.itemID and GetItemInfoInstant then
+    item.icon = select(5, GetItemInfoInstant(item.itemID))
+  end
+  row.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
   -- Name (quality-coloured) + the source/dungeon name beside it, coloured.
   local qhex = QUALITY_HEX[item.quality] or QUALITY_HEX.common
   local nameText = "|c" .. qhex .. (item.name or "") .. "|r"
