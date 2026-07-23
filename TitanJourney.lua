@@ -1,4 +1,5 @@
--- TitanJourney — published as a LibDataBroker data source (EPIC-K / IND-3).
+-- Gear Journey (formerly TitanJourney; the folder/.toc keep the old name so
+-- SavedVariables survive) — published as a LibDataBroker data source (EPIC-K).
 -- Any LDB display hosts the button: Titan Panel (via its LDB bridge), Bazooka,
 -- ElvUI DataTexts, our own future HonourBar, or the LibDBIcon minimap fallback.
 -- Single source of truth: read the version straight from the .toc so the About
@@ -18,7 +19,7 @@ local HBGS_LOGO = "|TInterface\\AddOns\\TitanJourney\\Media\\HBGS-Logo:14:14|t "
 local HBGS_URL = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
 
 StaticPopupDialogs["JOURNEY_ABOUT"] = {
-  text = "Honour Bound Game Studios\nTitanJourney v" .. VERSION
+  text = "Honour Bound Game Studios\nGear Journey v" .. VERSION
       .. "\n\nSelect and copy the link below (Ctrl-C):",
   button1 = OKAY,
   hasEditBox = true,
@@ -104,7 +105,7 @@ end
 local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
 local dataObj
 if ldb then
-    dataObj = ldb:NewDataObject("TitanJourney", {
+    dataObj = ldb:NewDataObject("GearJourney", {
         type = "data source",
         label = "Next Goal",
         text = "\226\128\148",                    -- em dash placeholder until first refresh
@@ -117,7 +118,7 @@ if ldb then
                 TitanJourney_Overlay.Toggle()
             elseif button == "RightButton" and MenuUtil then
                 MenuUtil.CreateContextMenu(frame, function(_, root)
-                    root:CreateTitle("TitanJourney")
+                    root:CreateTitle("Gear Journey")
                     root:CreateButton("About Honour Bound Game Studios", function()
                         if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
                             TitanJourney_Overlay.OpenTo("about")
@@ -132,8 +133,8 @@ if ldb then
                             mm.hide = not mm.hide
                             local dbicon = LibStub("LibDBIcon-1.0", true)
                             if dbicon then
-                                if mm.hide then dbicon:Hide("TitanJourney")
-                                else dbicon:Show("TitanJourney") end
+                                if mm.hide then dbicon:Hide("GearJourney")
+                                else dbicon:Show("GearJourney") end
                             end
                         end)
                 end)
@@ -142,7 +143,7 @@ if ldb then
         OnTooltipShow = function(tooltip)
             -- Same body the Titan tooltip showed; displays hand us their tooltip
             -- frame. AddLine splits on embedded newlines; no wrap (bar tooltip).
-            tooltip:AddLine("TitanJourney")
+            tooltip:AddLine("Gear Journey")
             for line in (TitanJourney_GetTooltipText() .. "\n"):gmatch("(.-)\n") do
                 tooltip:AddLine(line)
             end
@@ -171,7 +172,7 @@ watcher:SetScript("OnEvent", function()
         minimapRegistered = true
         local dbicon = LibStub and LibStub("LibDBIcon-1.0", true)
         if dbicon and dataObj then
-            dbicon:Register("TitanJourney", dataObj, TitanJourney_DB.Minimap())
+            dbicon:Register("GearJourney", dataObj, TitanJourney_DB.Minimap())
         end
     end
     TitanJourney_RefreshButton()

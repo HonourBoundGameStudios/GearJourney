@@ -1768,7 +1768,7 @@ local function BuildLayout(f)
 
       local aName = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
       aName:SetPoint("TOP", aRule, "BOTTOM", 0, -14)
-      aName:SetText("TitanJourney")
+      aName:SetText("Gear Journey")
       aName:SetTextColor(rgba(C.gold))
 
       local aVer = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1813,7 +1813,7 @@ local function BuildLayout(f)
 
       local foot = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
       foot:SetPoint("BOTTOM", panel, "BOTTOM", 0, 8)
-      foot:SetText("TitanJourney v" .. ver .. "  \194\183  \194\169 Honour Bound Game Studios")
+      foot:SetText("Gear Journey v" .. ver .. "  \194\183  \194\169 Honour Bound Game Studios")
 
     else
       -- Settings & Help. ------------------------------------------------------
@@ -1960,7 +1960,7 @@ local function CreateOverlay()
   end
   local title = banner:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
   title:SetPoint("CENTER", banner, "CENTER", 0, 0)
-  title:SetText("Titan Journey")
+  title:SetText("Gear Journey")
   banner:SetSize((title:GetStringWidth() or 150) + 48, 40)
 
   -- Draggable by the title bar.

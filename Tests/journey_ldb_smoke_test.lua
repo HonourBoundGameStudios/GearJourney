@@ -39,8 +39,8 @@ local ldb = LibStub("LibDataBroker-1.1", true)
 H.ok(ldb ~= nil, "LibStub serves LibDataBroker-1.1")
 
 -- IND-3: the data object exists with the spec'd shape.
-local obj = ldb:GetDataObjectByName("TitanJourney")
-H.ok(obj ~= nil, "data object 'TitanJourney' is published")
+local obj = ldb:GetDataObjectByName("GearJourney")
+H.ok(obj ~= nil, "data object 'GearJourney' is published")
 H.eq(obj.type, "data source", "type is a spec'd LDB data source")
 H.ok(obj.icon ~= nil, "icon set")
 H.eq(type(obj.OnClick), "function", "OnClick declared")
@@ -69,13 +69,13 @@ TitanJourney_Overlay.ComputeList = function()
   return { { name = "Axe of Later", reqLevel = 14 } }, 10
 end
 TitanJourney_RefreshButton()
-H.eq(fired[#fired], "TitanJourney.text", "text write fires the display callback")
+H.eq(fired[#fired], "GearJourney.text", "text write fires the display callback")
 
 -- IND-3: tooltip body renders through a display-supplied tooltip frame.
 local lines = {}
 local tip = { AddLine = function(_, s) lines[#lines + 1] = s end }
 obj.OnTooltipShow(tip)
-H.eq(lines[1], "TitanJourney", "tooltip titled")
+H.eq(lines[1], "Gear Journey", "tooltip titled")
 local sawEmpty = false
 for _, s in ipairs(lines) do
   if s:find("Journey List is empty") then sawEmpty = true end

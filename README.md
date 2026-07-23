@@ -1,8 +1,10 @@
-# TitanJourney — Your Leveling Gear Wishlist
+# Gear Journey — Your Leveling Gear Wishlist
+
+*(formerly **TitanJourney** — the addon folder keeps that name so your saved settings survive)*
 
 > Spec-aware leveling gear wishlist for WoW (Classic Era + Retail) — see the gear worth chasing next and where it drops, right on your info bar.
 
-**Stop alt-tabbing to Wowhead mid-level.** TitanJourney is a leveling gear-wishlist addon that tells you which gear is worth chasing *right now* — and where to get it — from a button on any LibDataBroker display (Titan Panel, Bazooka, ElvUI DataTexts, ...) or its own minimap button. No other addon required.
+**Stop alt-tabbing to Wowhead mid-level.** Gear Journey is a leveling gear-wishlist addon that tells you which gear is worth chasing *right now* — and where to get it — from a button on any LibDataBroker display (Titan Panel, Bazooka, ElvUI DataTexts, ...) or its own minimap button. No other addon required.
 
 For your current level, the engine surfaces worthwhile upgrades from now up to **N levels ahead** (default +10), spanning quest rewards, dungeon drops, and craftable items, and pins your next goal where you can always see it.
 
@@ -22,8 +24,8 @@ For your current level, the engine surfaces worthwhile upgrades from now up to *
 
 ## How it works
 
-TitanJourney curates an editorial list of *which* itemIDs are worth chasing by level band, then resolves all the details (name, quality, required level, stats, icon) at runtime through the game's own API. Your data stays tiny and always matches the live game.
+Gear Journey curates an editorial list of *which* itemIDs are worth chasing by level band, then resolves all the details (name, quality, required level, stats, icon) at runtime through the game's own API. Your data stays tiny and always matches the live game.
 
 ## Installing
 
-Copy or symlink this folder into your WoW install as `Interface/AddOns/TitanJourney/`, then enable **TitanJourney** at the character select screen.
+Copy or symlink this folder into your WoW install as `Interface/AddOns/TitanJourney/` (the folder keeps the legacy name on purpose), then enable **Gear Journey** at the character select screen.

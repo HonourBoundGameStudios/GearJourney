@@ -1,6 +1,6 @@
 ## Interface: 120007, 11509
-## Title: |cffeda55fTitanJourney|r
-## Notes: Leveling gear journey planner. Shows your next gear goal on any LibDataBroker display (Titan Panel, Bazooka, ElvUI, ...) or its own minimap button.
+## Title: |cffeda55fGear Journey|r
+## Notes: Leveling gear journey planner. Shows your next gear goal on any LibDataBroker display (Titan Panel, Bazooka, ElvUI, ...) or its own minimap button. Formerly TitanJourney.
 ## Author: Honour Bound Game Studios
 ## Version: 0.10.1
 ## IconTexture: Interface\Icons\Ability_Mount_RidingHorse
