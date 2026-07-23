@@ -3,7 +3,7 @@
 -- and the Overlay frames). The pure engine/DB is covered offline by Tests/; this
 -- file covers everything those tests cannot reach.
 --
--- Run it in-game:  /titanjourney run-testing-scenarios   (alias: /tj test)
+-- Run it in-game:  /gearjourney run-testing-scenarios   (alias: /tj test)
 --
 -- Design is lifted from the fleet's Flux Testing Engine (G:\dev\Flux,
 -- Services/Testing) and adapted from C# to Lua: a Scenario has an id/name/tags,
@@ -13,7 +13,7 @@
 -- per-scenario PASS/FAIL plus an aggregate "all passed" line.
 
 local S = {}
-TitanJourney_Scenarios = S
+GearJourney_Scenarios = S
 
 local scenarios = {}   -- ordered registry
 
@@ -89,7 +89,7 @@ function S.scenario(def) scenarios[#scenarios + 1] = def end
 -- ── Runner (orchestrator + reporter) ─────────────────────────────────────────
 -- filter: nil = run all; otherwise a tag or a scenario id.
 function S.Run(filter)
-  out(col(GOLD, "TitanJourney scenarios") .. col(GRAY, "  " .. (date and date("%H:%M:%S") or "")))
+  out(col(GOLD, "GearJourney scenarios") .. col(GRAY, "  " .. (date and date("%H:%M:%S") or "")))
   local total, passedScen, failedScen, aPass, aFail = 0, 0, 0, 0, 0
   local records = {}   -- plain-data per-scenario results, persisted to SavedVariables
 
@@ -132,31 +132,31 @@ function S.Run(filter)
     aFail > 0 and col(RED, aFail .. " failed") or col(GREEN, "all passed")))
 
   -- Persist the run to SavedVariables so it survives to disk on /reload or
-  -- logout (the only times WoW flushes TitanJourneyDB). Lets the run be read
-  -- back from WTF/.../SavedVariables/TitanJourney.lua without copy-pasting chat.
+  -- logout (the only times WoW flushes GearJourneyDB). Lets the run be read
+  -- back from WTF/.../SavedVariables/GearJourney.lua without copy-pasting chat.
   local report = {
     when = (date and date("%Y-%m-%d %H:%M:%S")) or "",
-    addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or "",
+    addonVersion = (C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata("GearJourney", "Version")) or "",
     filter = filter or "(all)",
     scenarios = total, scenariosPassed = passedScen, scenariosFailed = failedScen,
     checks = aPass + aFail, checksFailed = aFail,
     allPassed = (failedScen == 0),
     results = records,
   }
-  TitanJourneyDB = TitanJourneyDB or {}
-  TitanJourneyDB.lastScenarioRun = report
+  GearJourneyDB = GearJourneyDB or {}
+  GearJourneyDB.lastScenarioRun = report
   out(col(GRAY, "    saved to SavedVariables -- /reload (or log out) to flush it to disk."))
   return failedScen == 0, report
 end
 
 -- ── Shared helpers for the scenarios ─────────────────────────────────────────
-local function overlayFrame() return _G.TitanJourneyOverlay end
+local function overlayFrame() return _G.GearJourneyOverlay end
 local function openOverlay()
-  local O = TitanJourney_Overlay
+  local O = GearJourney_Overlay
   if O and not (overlayFrame() and overlayFrame():IsShown()) then O.Toggle() end
 end
 local function closeOverlay()
-  local O = TitanJourney_Overlay
+  local O = GearJourney_Overlay
   if O and overlayFrame() and overlayFrame():IsShown() then O.Toggle() end
 end
 
@@ -167,9 +167,9 @@ end
 S.scenario{
   id = "SCN-ENGINE", name = "Engine self-test passes in-client", tags = { "smoke" },
   run = function(t)
-    t.truthy(TitanJourney_Engine, "engine module loaded")
-    if t.truthy(TitanJourney_Tests, "in-client test module loaded") then
-      local p, f = TitanJourney_Tests.Run()
+    t.truthy(GearJourney_Engine, "engine module loaded")
+    if t.truthy(GearJourney_Tests, "in-client test module loaded") then
+      local p, f = GearJourney_Tests.Run()
       t.gt(p, 0, "self-test executed checks")
       t.eq(f, 0, "self-test reports zero failures")
     end
@@ -179,12 +179,12 @@ S.scenario{
 S.scenario{
   id = "SCN-COMPAT", name = "Flavour compat seam is wired", tags = { "smoke", "port" },
   run = function(t)
-    local Cm = TitanJourney_Compat
+    local Cm = GearJourney_Compat
     if not t.truthy(Cm, "compat module loaded") then return end
     t.truthy(Cm.isRetail ~= nil and Cm.isClassic ~= nil, "flavour detected")
     local idx = Cm.PlayerSpec()
     t.truthy(type(idx) == "number" and idx >= 1, "spec index resolves (" .. tostring(idx) .. ")")
-    local E = TitanJourney_Engine
+    local E = GearJourney_Engine
     if Cm.isRetail then
       t.ok(E and E.__retailApplied, "retail rules applied to the engine")
       t.truthy(E and E.CLASS_ARMOR.EVOKER, "Evoker known on Retail")
@@ -199,8 +199,8 @@ S.scenario{
 S.scenario{
   id = "SCN-BUTTON", name = "Titan button text resolves", tags = { "smoke", "titan" },
   run = function(t)
-    t.truthy(TitanJourney_GetButtonText, "button text function published")
-    local label, value = TitanJourney_GetButtonText("Journey")
+    t.truthy(GearJourney_GetButtonText, "button text function published")
+    local label, value = GearJourney_GetButtonText("Journey")
     t.eq(label, "Next Goal:", "button label is the constant")
     t.truthy(value and value ~= "", "button value is non-empty")
   end,
@@ -209,8 +209,8 @@ S.scenario{
 S.scenario{
   id = "SCN-TOOLTIP", name = "Tooltip text builds with footer", tags = { "titan" },
   run = function(t)
-    t.truthy(TitanJourney_GetTooltipText, "tooltip function published")
-    local tip = TitanJourney_GetTooltipText()
+    t.truthy(GearJourney_GetTooltipText, "tooltip function published")
+    local tip = GearJourney_GetTooltipText()
     t.truthy(type(tip) == "string" and #tip > 0, "tooltip returns text")
     t.contains(tip, "Honour Bound Game Studios", "tooltip carries the studio footer")
   end,
@@ -219,11 +219,11 @@ S.scenario{
 S.scenario{
   id = "SCN-PROVIDER", name = "Provider publishes an enriched pool", tags = { "data" },
   run = function(t)
-    t.truthy(TitanJourney_Items, "TitanJourney_Items is published")
+    t.truthy(GearJourney_Items, "GearJourney_Items is published")
     -- Seeded instantly from the saved cache, so this should be non-empty even
     -- mid-stream on a fresh login (it grows as GetItemInfo resolves).
-    t.gt(#(TitanJourney_Items or {}), 0, "pool has at least one item")
-    local it = (TitanJourney_Items or {})[1]
+    t.gt(#(GearJourney_Items or {}), 0, "pool has at least one item")
+    local it = (GearJourney_Items or {})[1]
     if it then
       t.truthy(it.name and it.slot and it.quality, "an enriched item carries schema fields")
     end
@@ -233,7 +233,7 @@ S.scenario{
 S.scenario{
   id = "SCN-BUILDITEM", name = "BuildItem maps a live game item", tags = { "data" },
   run = function(t)
-    local E = TitanJourney_Engine
+    local E = GearJourney_Engine
     local id = 25   -- Worn Shortsword: a starter item, almost always cached
     local _, _, _, equipLoc, icon, classID, subClassID = GetItemInfoInstant(id)
     if not t.truthy(equipLoc, "GetItemInfoInstant returns an equip slot") then return end
@@ -256,7 +256,7 @@ S.scenario{
 S.scenario{
   id = "SCN-OWNS", name = "PlayerOwnsFn answers and memoises", tags = { "overlay" },
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.PlayerOwnsFn, "PlayerOwnsFn available") then return end
     O._ownsFn = nil
     local fn = O.PlayerOwnsFn()
@@ -273,7 +273,7 @@ S.scenario{
   id = "SCN-OVERLAY", name = "Manager window opens and closes", tags = { "overlay", "ui" },
   teardown = closeOverlay,
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.Toggle, "Overlay.Toggle available") then return end
     closeOverlay()
     t.step("open the window", function() O.Toggle() end)
@@ -289,7 +289,7 @@ S.scenario{
   id = "SCN-TABS", name = "Every sidebar tab selects and shows", tags = { "overlay", "ui" },
   teardown = closeOverlay,
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.SelectTab, "SelectTab available") then return end
     openOverlay()
     for _, key in ipairs({ "journey", "guide", "browse", "future", "inspect", "settings", "about" }) do
@@ -304,7 +304,7 @@ S.scenario{
 S.scenario{
   id = "SCN-COMPUTE", name = "ComputeList / ComputeCandidates return data", tags = { "overlay" },
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.ComputeList, "ComputeList available") then return end
     local cur, lvl = O.ComputeList("current")
     t.truthy(type(cur) == "table", "current list is a table")
@@ -319,7 +319,7 @@ S.scenario{
 S.scenario{
   id = "SCN-JOURNEY", name = "Add/remove a Journey item round-trips", tags = { "overlay", "db" },
   run = function(t)
-    local DB, O = TitanJourney_DB, TitanJourney_Overlay
+    local DB, O = GearJourney_DB, GearJourney_Overlay
     if not t.truthy(DB and DB.JourneyAdd, "DB journey ops available") then return end
     local probe = "Scenario Probe Item ZZZ"
     if DB.JourneyContains(probe) then DB.JourneyRemove(probe) end
@@ -334,11 +334,11 @@ S.scenario{
 S.scenario{
   id = "SCN-SEARCH", name = "Browse search renders without error", tags = { "overlay" },
   teardown = function()
-    if TitanJourney_Overlay then TitanJourney_Overlay.searchText = "" end
+    if GearJourney_Overlay then GearJourney_Overlay.searchText = "" end
     closeOverlay()
   end,
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.RenderBrowse, "RenderBrowse available") then return end
     openOverlay()
     O.searchText = "sword"
@@ -352,7 +352,7 @@ S.scenario{
   id = "SCN-GUIDE", name = "Class guide renders and subtabs toggle", tags = { "overlay" },
   teardown = closeOverlay,
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.RenderGuide, "RenderGuide available") then return end
     openOverlay()
     t.step("render the guide", function() O.RenderGuide() end)
@@ -368,7 +368,7 @@ S.scenario{
   id = "SCN-INSPECT", name = "Last Inspected tab renders empty state", tags = { "overlay" },
   teardown = closeOverlay,
   run = function(t)
-    local O = TitanJourney_Overlay
+    local O = GearJourney_Overlay
     if not t.truthy(O and O.RenderInspect, "RenderInspect available") then return end
     openOverlay()
     t.step("render the inspect tab", function() O.RenderInspect() end)
@@ -378,7 +378,7 @@ S.scenario{
 S.scenario{
   id = "SCN-SETTINGS", name = "PvE/PvP mode setting persists", tags = { "db" },
   run = function(t)
-    local DB = TitanJourney_DB
+    local DB = GearJourney_DB
     if not t.truthy(DB and DB.SetMode, "DB mode setting available") then return end
     local prev = DB.Mode()
     DB.SetMode("pvp"); t.eq(DB.Mode(), "pvp", "mode set to pvp")
@@ -388,9 +388,9 @@ S.scenario{
 }
 
 -- ── Slash command ────────────────────────────────────────────────────────────
-SLASH_TITANJOURNEY1 = "/titanjourney"
-SLASH_TITANJOURNEY2 = "/tj"
-SlashCmdList["TITANJOURNEY"] = function(msg)
+SLASH_GEARJOURNEY1 = "/gearjourney"
+SLASH_GEARJOURNEY2 = "/tj"
+SlashCmdList["GEARJOURNEY"] = function(msg)
   msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
   local cmd, rest = msg:match("^(%S*)%s*(.*)$")
   cmd = (cmd or ""):lower()
@@ -400,12 +400,12 @@ SlashCmdList["TITANJOURNEY"] = function(msg)
      or cmd == "test" or cmd == "tests" or cmd == "scenarios" then
     S.Run(rest)
   elseif cmd == "" or cmd == "open" or cmd == "toggle" then
-    if TitanJourney_Overlay then TitanJourney_Overlay.Toggle() end
+    if GearJourney_Overlay then GearJourney_Overlay.Toggle() end
   else
-    out(col(GOLD, "TitanJourney commands:"))
-    out("  " .. col(CYAN, "/titanjourney") .. " or " .. col(CYAN, "/tj")
+    out(col(GOLD, "GearJourney commands:"))
+    out("  " .. col(CYAN, "/gearjourney") .. " or " .. col(CYAN, "/tj")
       .. col(GRAY, "  -- open the Wishlist Manager"))
-    out("  " .. col(CYAN, "/titanjourney run-testing-scenarios")
+    out("  " .. col(CYAN, "/gearjourney run-testing-scenarios")
       .. col(GRAY, "  -- run the in-client behaviour tests"))
     out("  " .. col(GRAY, "    (optional: add a tag e.g. ")
       .. col(CYAN, "run-testing-scenarios overlay") .. col(GRAY, " to run a subset)"))

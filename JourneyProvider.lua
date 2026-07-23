@@ -2,22 +2,22 @@
 -- via the live game DB (FEAT-E2/E3). WoW-only; the pure mapping it relies on
 -- (Engine.BuildItem) is tested offline.
 --
--- Flow: walk TitanJourney_AtlasItems in small chunks (no login hitch). For each
+-- Flow: walk GearJourney_AtlasItems in small chunks (no login hitch). For each
 -- id, GetItemInfoInstant gives equip slot / class / icon synchronously -> drop
 -- non-gear at once. For gear, GetItemInfo gives name/quality/reqLevel; if the
 -- item is not cached it returns nil and the server is queried -- we stash it and
 -- finish it when GET_ITEM_INFO_RECEIVED fires (FEAT-E3). Enriched items land in
--- Provider.items, which is published as TitanJourney_Items for the existing
+-- Provider.items, which is published as GearJourney_Items for the existing
 -- engine pipeline (FilterByClass -> SplitGoals).
 
 local Provider = {}
-TitanJourney_Provider = Provider
+GearJourney_Provider = Provider
 Provider.items = {}
 
 local CHUNK = 200          -- itemIDs processed per frame during the initial pass
 local REFRESH_EVERY = 0.4  -- seconds between UI refreshes while data streams in
 
-local Engine = TitanJourney_Engine
+local Engine = GearJourney_Engine
 local queue, qi = nil, 1
 local pending = {}         -- itemID -> raw, awaiting GET_ITEM_INFO_RECEIVED
 local processed = {}       -- itemID -> true once resolved or rejected
@@ -27,9 +27,9 @@ local driver = CreateFrame("Frame")
 
 -- Refresh anything that reads the item list.
 local function Refresh()
-  TitanJourney_RefreshButton()
-  if TitanJourney_Overlay and TitanJourney_Overlay.RenderCurrentGoals then
-    TitanJourney_Overlay.RenderCurrentGoals()
+  GearJourney_RefreshButton()
+  if GearJourney_Overlay and GearJourney_Overlay.RenderCurrentGoals then
+    GearJourney_Overlay.RenderCurrentGoals()
   end
 end
 
@@ -41,7 +41,7 @@ local CLASS_PATTERN = (ITEM_CLASSES_ALLOWED or "Classes: %s"):gsub("%%s", "(.+)"
 
 local function ScanItemMeta(id)
   if not scanTip then
-    scanTip = CreateFrame("GameTooltip", "TitanJourneyScanTip", nil, "GameTooltipTemplate")
+    scanTip = CreateFrame("GameTooltip", "GearJourneyScanTip", nil, "GameTooltipTemplate")
     scanTip:SetOwner(UIParent, "ANCHOR_NONE")
   end
   if not nameToToken then
@@ -60,7 +60,7 @@ local function ScanItemMeta(id)
   local classes, parts, effect, speed
   local lines = scanTip:NumLines() or 0
   for i = 2, lines do
-    local fs = _G["TitanJourneyScanTipTextLeft" .. i]
+    local fs = _G["GearJourneyScanTipTextLeft" .. i]
     local text = fs and fs:GetText()
     if text then
       if not classes then
@@ -76,7 +76,7 @@ local function ScanItemMeta(id)
     end
     -- Weapon speed sits on the right side of the damage line.
     if not speed then
-      local rfs = _G["TitanJourneyScanTipTextRight" .. i]
+      local rfs = _G["GearJourneyScanTipTextRight" .. i]
       local rtext = rfs and rfs:GetText()
       if rtext then speed = Engine.SpeedFromText(rtext) end
     end
@@ -124,7 +124,7 @@ local function TryBuild(raw)
   })
   if item then
     Provider.items[#Provider.items + 1] = item
-    if TitanJourney_DB then TitanJourney_DB.CachePut(item) end  -- persist for next login
+    if GearJourney_DB then GearJourney_DB.CachePut(item) end  -- persist for next login
   end
   return true
 end
@@ -170,8 +170,8 @@ local function BuildQueue(atlas)
     local r = atlas[i]
     if r.id and not seen[r.id] then seen[r.id] = true; q[#q + 1] = r end
   end
-  if TitanJourney_ClassGuides then
-    for _, entries in pairs(TitanJourney_ClassGuides) do
+  if GearJourney_ClassGuides then
+    for _, entries in pairs(GearJourney_ClassGuides) do
       for _, e in ipairs(entries) do
         if e.id and not seen[e.id] then
           seen[e.id] = true
@@ -185,23 +185,23 @@ end
 
 -- Begin enrichment. Publishes Provider.items as the live item source.
 function Provider.Start()
-  local atlas = TitanJourney_AtlasItems
+  local atlas = GearJourney_AtlasItems
   if not atlas or queue then return end
 
   -- Seed instantly from the saved cache; the queue then fills anything new.
-  if TitanJourney_DB then
-    local d = TitanJourney_DB.Init()
+  if GearJourney_DB then
+    local d = GearJourney_DB.Init()
     -- Bump to discard stale caches (v5 adds backfilled dungeon sources +
     -- DPS/Speed/Effect scanned fields).
     if d.cacheVersion ~= 5 then d.itemCache, d.cacheVersion = {}, 5 end
-    for id, item in pairs(TitanJourney_DB.Cache()) do
+    for id, item in pairs(GearJourney_DB.Cache()) do
       Provider.items[#Provider.items + 1] = item
       processed[id] = true
     end
   end
 
   queue, qi = BuildQueue(atlas), 1
-  TitanJourney_Items = Provider.items   -- the engine pipeline now reads this
+  GearJourney_Items = Provider.items   -- the engine pipeline now reads this
   driver:RegisterEvent("GET_ITEM_INFO_RECEIVED")
   driver:SetScript("OnEvent", OnEvent)
   driver:SetScript("OnUpdate", OnUpdate)

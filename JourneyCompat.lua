@@ -12,7 +12,7 @@
 -- keeps owning the algorithms; this file owns the per-flavour facts.
 
 local Compat = {}
-TitanJourney_Compat = Compat
+GearJourney_Compat = Compat
 
 -- Flavour detection. WOW_PROJECT_* exist on every modern client; guard anyway so
 -- the file is harmless if loaded somewhere they aren't defined.
@@ -60,7 +60,7 @@ end
 
 -- WantsDataset(isRetailFile) -> bool. Guard for the flavour-specific generated
 -- data files (JourneyAtlasData[_Retail], JourneyItemIndex[_Retail]). Each pair
--- publishes the SAME global (TitanJourney_AtlasItems / _ItemIndex), so under a
+-- publishes the SAME global (GearJourney_AtlasItems / _ItemIndex), so under a
 -- single multi-flavour .toc that loads every file, the wrong-flavour file would
 -- clobber the right one by load order. Each generated file early-returns unless
 -- WantsDataset matches, so only the active flavour's data populates the global.
@@ -162,8 +162,8 @@ function Compat.ApplyRetail(Engine)
 end
 
 -- Apply automatically on a real Retail client (Engine is loaded just before us).
-if Compat.isRetail and TitanJourney_Engine then
-  Compat.ApplyRetail(TitanJourney_Engine)
+if Compat.isRetail and GearJourney_Engine then
+  Compat.ApplyRetail(GearJourney_Engine)
 end
 
 return Compat

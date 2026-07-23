@@ -2,11 +2,11 @@
 --
 -- No WoW API or frame/event dependencies live here: everything is plain tables
 -- and functions so it can be exercised with a standalone Lua interpreter
--- (see Tests/) as well as loaded by the game via TitanJourney.toc.
+-- (see Tests/) as well as loaded by the game via GearJourney.toc.
 --
 -- Dual-load contract:
 --   * In WoW (Lua 5.1) the file is loaded by the .toc; it publishes the module
---     as the global `TitanJourney_Engine`.
+--     as the global `GearJourney_Engine`.
 --   * In tests / standalone Lua it is loaded with `dofile`, which returns the
 --     module table (the trailing `return`).
 -- Keep this file within the Lua 5.1 .. 5.4 common subset (no goto/// etc.).
@@ -846,5 +846,5 @@ function Engine.BuildItem(raw, info)
 end
 
 -- Publish for the WoW client (global by contract); return for standalone use.
-TitanJourney_Engine = Engine
+GearJourney_Engine = Engine
 return Engine

@@ -121,6 +121,6 @@ local Rogue = {
 
 -- Multi-class-ready registry (FEAT-H2..H9 add more keys). Published as a global
 -- by contract; returns the Rogue list for standalone use.
-TitanJourney_ClassGuides = TitanJourney_ClassGuides or {}
-TitanJourney_ClassGuides.ROGUE = Rogue
+GearJourney_ClassGuides = GearJourney_ClassGuides or {}
+GearJourney_ClassGuides.ROGUE = Rogue
 return Rogue

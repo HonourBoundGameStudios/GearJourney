@@ -1,6 +1,7 @@
 # Gear Journey — Your Leveling Gear Wishlist
 
-*(formerly **TitanJourney** — the addon folder keeps that name so your saved settings survive)*
+*(formerly **TitanJourney** — fully renamed, folder included. Settings from TitanJourney
+versions do not carry over; delete the old `TitanJourney` addon folder if you have one.)*
 
 > Spec-aware leveling gear wishlist for WoW (Classic Era + Retail) — see the gear worth chasing next and where it drops, right on your info bar.
 
@@ -28,4 +29,4 @@ Gear Journey curates an editorial list of *which* itemIDs are worth chasing by l
 
 ## Installing
 
-Copy or symlink this folder into your WoW install as `Interface/AddOns/TitanJourney/` (the folder keeps the legacy name on purpose), then enable **Gear Journey** at the character select screen.
+Copy or symlink this folder into your WoW install as `Interface/AddOns/GearJourney/`, then enable **Gear Journey** at the character select screen.

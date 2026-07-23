@@ -1,0 +1,3 @@
+# The GitHub repo is still named TitanJourney; without this the packager would
+# ship the addon folder under the repo name. The addon folder is GearJourney.
+package-as: GearJourney

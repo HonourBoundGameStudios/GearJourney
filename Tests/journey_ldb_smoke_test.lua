@@ -32,7 +32,7 @@ dofile("Libs/LibDataBroker-1.1.lua")
 dofile("JourneyEngine.lua")
 dofile("JourneyHost.lua")
 dofile("JourneyDB.lua")
-dofile("TitanJourney.lua")
+dofile("GearJourney.lua")
 
 -- IND-2 AC (headless analog of /dump): the lib is reachable through LibStub.
 local ldb = LibStub("LibDataBroker-1.1", true)
@@ -47,16 +47,16 @@ H.eq(type(obj.OnClick), "function", "OnClick declared")
 H.eq(type(obj.OnTooltipShow), "function", "OnTooltipShow declared")
 
 -- IND-3: refresh with no engine data falls back to the placeholder.
-TitanJourney_RefreshButton()
+GearJourney_RefreshButton()
 H.eq(obj.text, "\226\128\148", "refresh without overlay -> em-dash placeholder")
 
 -- IND-3: with a (stub) overlay the REAL BuildButtonText drives obj.text.
-TitanJourney_Overlay = {
+GearJourney_Overlay = {
   ComputeList = function() return { { name = "Sword of Testing", reqLevel = 12 } }, 10 end,
   PlayerOwnsFn = function() return function() return false end end,
   JourneyItems = function() return {}, 10 end,
 }
-TitanJourney_RefreshButton()
+GearJourney_RefreshButton()
 H.eq(obj.text, "Sword of Testing (Lv. 12) - In 2 Levels",
   "refresh publishes the engine's next-goal text")
 
@@ -65,10 +65,10 @@ local fired = {}
 ldb.RegisterCallback({}, "LibDataBroker_AttributeChanged", function(_, name, key)
   fired[#fired + 1] = name .. "." .. key
 end)
-TitanJourney_Overlay.ComputeList = function()
+GearJourney_Overlay.ComputeList = function()
   return { { name = "Axe of Later", reqLevel = 14 } }, 10
 end
-TitanJourney_RefreshButton()
+GearJourney_RefreshButton()
 H.eq(fired[#fired], "GearJourney.text", "text write fires the display callback")
 
 -- IND-3: tooltip body renders through a display-supplied tooltip frame.
@@ -85,7 +85,7 @@ H.ok(sawEmpty, "tooltip body comes from the real GetTooltipText")
 -- IND-3/4: click routing -- LeftButton toggles the manager; RightButton without
 -- MenuUtil (Classic-safe guard) is a no-op, not an error.
 local toggled = false
-TitanJourney_Overlay.Toggle = function() toggled = true end
+GearJourney_Overlay.Toggle = function() toggled = true end
 obj.OnClick(nil, "LeftButton")
 H.ok(toggled, "LeftButton opens the manager")
 obj.OnClick(nil, "RightButton")
@@ -101,6 +101,6 @@ H.ok(watcher ~= nil, "a frame watches PLAYER_ENTERING_WORLD")
 watcher.scripts.OnEvent(watcher, "PLAYER_ENTERING_WORLD")
 H.eq(obj.text, "Axe of Later (Lv. 14) - In 4 Levels",
   "login event refreshes the button text")
-H.eq(TitanJourney_DB.Minimap().hide, false, "minimap state initialised (shown, no Titan)")
+H.eq(GearJourney_DB.Minimap().hide, false, "minimap state initialised (shown, no Titan)")
 
 H.done()

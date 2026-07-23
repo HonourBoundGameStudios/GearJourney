@@ -1,17 +1,17 @@
 -- JourneyDB accessors -- settings, source/rarity filters, pin, journey reorder,
--- legacy migration, and the item cache. Pure table ops over TitanJourneyDB; the
+-- legacy migration, and the item cache. Pure table ops over GearJourneyDB; the
 -- WoW globals CharKey() reads (UnitName/GetRealmName) are absent under plain Lua,
 -- so the "?-?" fallback key is used -- which is all these tests need.
 -- Run from project root: lua Tests/journey_db_test.lua
 
 local H = dofile("Tests/harness.lua")
 dofile("JourneyDB.lua")
-local DB = TitanJourney_DB
+local DB = GearJourney_DB
 
 H.start("JourneyDB accessors")
 
 -- Init / mode --------------------------------------------------------------
-TitanJourneyDB = nil
+GearJourneyDB = nil
 local d = DB.Init()
 H.eq(type(d), "table", "Init returns the saved table")
 H.eq(DB.Mode(), "pve", "mode defaults to pve")
@@ -51,7 +51,7 @@ H.eq(DB.TogglePin("Bar"), "Bar", "toggling a new name sets it")
 H.eq(DB.TogglePin("Baz"), "Baz", "toggling a different name switches the pin")
 
 -- Journey reorder (JourneyMove) with end-clamping --------------------------
-TitanJourneyDB = nil; DB.Init()
+GearJourneyDB = nil; DB.Init()
 DB.JourneyAdd("A"); DB.JourneyAdd("B"); DB.JourneyAdd("C")
 DB.JourneyMove("A", 1)                       -- move A down one
 H.eq(DB.Journey()[1], "B", "A moved down -> B is first")
@@ -66,7 +66,7 @@ DB.JourneyMove("ghost", 1)                    -- name not present -> no-op
 H.eq(#DB.Journey(), 3, "moving a missing name changes nothing")
 
 -- One-time migration of the legacy account-wide list to per-character -------
-TitanJourneyDB = { journey = { "Old1", "Old2" } }
+GearJourneyDB = { journey = { "Old1", "Old2" } }
 DB.Init()
 local migrated = DB.Journey()
 H.eq(#migrated, 2, "legacy account-wide list is inherited")
@@ -74,7 +74,7 @@ H.eq(migrated[1], "Old1", "migrated order preserved")
 H.eq(DB.Get().journey, nil, "legacy account-wide list retired after migration")
 
 -- Item cache: store by id, guard nil / id-less items -----------------------
-TitanJourneyDB = nil; DB.Init()
+GearJourneyDB = nil; DB.Init()
 DB.CachePut({ itemID = 123, name = "Cached Sword" })
 H.eq(DB.Cache()[123].name, "Cached Sword", "CachePut stores by itemID")
 DB.CachePut(nil)                             -- guard: nil item
@@ -82,7 +82,7 @@ DB.CachePut({ name = "no id" })              -- guard: missing itemID
 H.eq(DB.Cache()[123].name, "Cached Sword", "guards leave the cache intact")
 
 -- Inspection history: account-wide, capped, most-recent-first, dedup by player
-TitanJourneyDB = nil; DB.Init()
+GearJourneyDB = nil; DB.Init()
 H.eq(#DB.InspectHistory(), 0, "inspection history starts empty")
 DB.InspectSave(nil)                          -- guard: nil entry
 DB.InspectSave({ name = "Empty", items = {} })  -- guard: no items
@@ -104,7 +104,7 @@ DB.InspectSave({ name = "Alice", realm = "OtherRealm", items = { { itemID = 7 } 
 H.eq(#DB.InspectHistory(), 3, "same name on another realm is a separate entry")
 
 -- Cap at INSPECT_HISTORY_MAX, dropping the oldest.
-TitanJourneyDB = nil; DB.Init()
+GearJourneyDB = nil; DB.Init()
 for i = 1, DB.INSPECT_HISTORY_MAX + 5 do
   DB.InspectSave({ name = "P" .. i, realm = "R", items = { { itemID = i } } })
 end
@@ -116,7 +116,7 @@ DB.InspectClear()
 H.eq(#DB.InspectHistory(), 0, "InspectClear empties the history")
 
 -- Minimap launcher state (IND-5): LibDBIcon mutates the returned table --------
-TitanJourneyDB = nil; DB.Init()
+GearJourneyDB = nil; DB.Init()
 local mm = DB.Minimap()
 H.eq(type(mm), "table", "Minimap returns the LibDBIcon state table")
 H.eq(mm.hide, false, "minimap button defaults to shown (no Titan offline)")

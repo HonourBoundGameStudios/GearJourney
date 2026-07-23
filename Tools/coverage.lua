@@ -4,9 +4,9 @@
 --   * function coverage  -- exact: did each `function X.Y(...)` get executed?
 --   * line coverage      -- hit / executable lines, with the missed lines listed
 --
--- WoW-only files (JourneyOverlay/Provider/TitanJourney) are NOT measured here --
+-- WoW-only files (JourneyOverlay/Provider/GearJourney) are NOT measured here --
 -- they are exercised in-game by the Scenarios (JourneyScenarios.lua), run with
--- /titanjourney run-testing-scenarios.
+-- /gearjourney run-testing-scenarios.
 --
 -- Usage (from project root):  lua Tools/coverage.lua
 

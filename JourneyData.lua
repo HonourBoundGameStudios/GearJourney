@@ -64,5 +64,5 @@ local Items = {
 }
 
 -- Publish for the WoW client (global by contract); return for standalone use.
-TitanJourney_Items = Items
+GearJourney_Items = Items
 return Items

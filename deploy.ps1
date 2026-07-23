@@ -14,7 +14,11 @@ $roots = @(
 $deployed = $false
 foreach ($root in $roots) {
   if (-not (Test-Path $root)) { continue }
-  $dest = Join-Path $root "Interface\AddOns\TitanJourney"
+  # Full rename (2026-07-23): the addon folder is GearJourney now. Remove any
+  # stale TitanJourney deployment so the game can't double-load both.
+  $legacy = Join-Path $root "Interface\AddOns\TitanJourney"
+  if (Test-Path $legacy) { Remove-Item -Recurse -Force $legacy }
+  $dest = Join-Path $root "Interface\AddOns\GearJourney"
   New-Item -ItemType Directory -Force -Path $dest | Out-Null
   Copy-Item -Path "$source\*.lua" -Destination $dest -Force
   Copy-Item -Path "$source\*.toc" -Destination $dest -Force

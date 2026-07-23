@@ -181,8 +181,8 @@ return function(cfg)
   local out = assert(io.open(cfg.outFile, "w"))
   for _, line in ipairs(cfg.header) do out:write(line .. "\n") end
   -- Flavour guard: early-return on the wrong flavour so the Classic/Retail pools
-  -- don't clobber their shared TitanJourney_AtlasItems global (see WantsDataset).
-  out:write("if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset("
+  -- don't clobber their shared GearJourney_AtlasItems global (see WantsDataset).
+  out:write("if GearJourney_Compat and not GearJourney_Compat.WantsDataset("
     .. (cfg.isRetail and "true" or "false") .. ") then return {} end\n\n")
   out:write("local Atlas = {\n")
   for _, it in ipairs(all) do
@@ -195,7 +195,7 @@ return function(cfg)
     end
   end
   out:write("}\n\n")
-  out:write("TitanJourney_AtlasItems = Atlas\nreturn Atlas\n")
+  out:write("GearJourney_AtlasItems = Atlas\nreturn Atlas\n")
   out:close()
   print("Wrote " .. cfg.outFile)
 end

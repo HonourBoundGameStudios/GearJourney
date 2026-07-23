@@ -1,4 +1,4 @@
--- JourneyDB -- thin accessor over the TitanJourneyDB saved variable.
+-- JourneyDB -- thin accessor over the GearJourneyDB saved variable.
 -- Holds the player's pinned item, settings (PvE/PvP mode), and a cache of
 -- enriched items so the list is instant on later logins. WoW-only.
 --
@@ -6,19 +6,19 @@
 -- called from PLAYER_LOGIN (see JourneyProvider). Accessors lazily Init() too.
 
 local DB = {}
-TitanJourney_DB = DB
+GearJourney_DB = DB
 
 -- Ensure the saved table exists and has the expected shape (merge, never clobber).
 function DB.Init()
-  TitanJourneyDB = TitanJourneyDB or {}
-  local d = TitanJourneyDB
+  GearJourneyDB = GearJourneyDB or {}
+  local d = GearJourneyDB
   d.settings = d.settings or {}
   if d.settings.mode == nil then d.settings.mode = "pve" end
   d.itemCache = d.itemCache or {}
   return d
 end
 
-function DB.Get() return TitanJourneyDB or DB.Init() end
+function DB.Get() return GearJourneyDB or DB.Init() end
 
 -- Settings -----------------------------------------------------------------
 function DB.Mode() return DB.Get().settings.mode or "pve" end

@@ -23,10 +23,10 @@ H.eq(Engine.NextJourneyGoal(items, journey, 32).name, "C", "all outleveled -> hi
 H.eq(Engine.NextJourneyGoal(items, {}, 20), nil, "empty journey -> nil")
 H.eq(Engine.NextJourneyGoal(items, { "X" }, 20), nil, "journey name not present -> nil")
 
--- DB list operations (pure table ops over TitanJourneyDB).
+-- DB list operations (pure table ops over GearJourneyDB).
 dofile("JourneyDB.lua")
-local DB = TitanJourney_DB
-TitanJourneyDB = nil
+local DB = GearJourney_DB
+GearJourneyDB = nil
 DB.Init()
 
 H.eq(#DB.Journey(), 0, "journey starts empty")

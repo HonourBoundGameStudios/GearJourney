@@ -8,21 +8,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**TitanJourney** is a World of Warcraft addon written in **Lua** (with Blizzard's XML UI where a
-plugin needs a frame). It loads in the WoW client via its `.toc` manifest. No build step — the game
-compiles the Lua at load; you iterate with `/reload` in-game.
+**Gear Journey** (formerly TitanJourney — the repo keeps the old name for now) is a World of
+Warcraft addon written in **Lua**. It loads in the WoW client via its `.toc` manifest. No build
+step — the game compiles the Lua at load; you iterate with `/reload` in-game.
 
 - **Stack:** Lua 5.1 (WoW runtime), Blizzard FrameXML API. No XML ships — frames are built in Lua.
-- **Manifest:** `TitanJourney.toc` — a **single multi-flavour toc** (`## Interface: 120007, 11509`
+- **Manifest:** `GearJourney.toc` — a **single multi-flavour toc** (`## Interface: 120007, 11509`
   serves Retail + Classic Era; a `_Mainline.toc` split made Retail show "Incompatible" — don't
-  reintroduce it). `## SavedVariables: TitanJourneyDB` persists our state per-account; Titan
-  additionally persists only the ShowIcon/DisplayOnRightSide toggles via `registry.savedVariables`.
-- **Titan Panel integration (being retired):** the shim is `TitanJourney.lua` —
-  `CreateFrame(..., "TitanPanelComboTemplate")` under an `if TITAN_ID then` guard; `OnLoad` sets a
-  `registry` with `buttonTextFunction` / `tooltipTextFunction` / `menuContextFunction` (new Menu
-  API) + `menuTextFunction` (pre-2026 fallback). **Direction:** EPIC-K ports the addon to a
-  LibDataBroker data object and drops the hard Titan dependency (Titan displays LDB natively);
-  see `Research/titan-independence-research.md`. Don't grow the Titan-specific surface.
+  reintroduce it). `## SavedVariables: GearJourneyDB` persists our state per-account. The addon
+  folder is `GearJourney` (full rename 2026-07-23; `.pkgmeta` `package-as` handles the repo-name
+  mismatch on CI).
+- **Hosting (EPIC-K):** no Titan dependency. `GearJourney.lua` publishes a **LibDataBroker data
+  object** (`GearJourney`); any LDB display hosts it (Titan via its own bridge, Bazooka, ElvUI,
+  the HonourBar prototype) with a LibDBIcon minimap fallback. `JourneyHost.lua` is the refresh
+  seam (`GearJourney_RefreshButton`). Don't add display-specific code paths; see
+  `Research/titan-independence-research.md`.
 
 ## The Process — NON-NEGOTIABLE
 
@@ -51,10 +51,10 @@ lua Tools/coverage.lua           # 100% line+function coverage of pure modules i
 /reload
 
 # In-client scenario suite (owner-run):
-/titanjourney run-testing-scenarios
+/gearjourney run-testing-scenarios    # alias: /tj
 
 # Inspect SavedVariables after logout:
-#   <WoW>/WTF/Account/<ACCOUNT>/SavedVariables/TitanJourney.lua
+#   <WoW>/WTF/Account/<ACCOUNT>/SavedVariables/GearJourney.lua
 ```
 
 - **Errors:** enable Lua errors (`/console scriptErrors 1`) or an error addon (BugSack) while developing.

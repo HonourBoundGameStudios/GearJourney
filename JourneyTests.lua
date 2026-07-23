@@ -3,11 +3,11 @@
 -- so you can sanity-check the loaded engine without leaving the game.
 
 local Tests = {}
-TitanJourney_Tests = Tests
+GearJourney_Tests = Tests
 
 -- Run() -> passed, failed, failures(table of names)
 function Tests.Run()
-  local E = TitanJourney_Engine
+  local E = GearJourney_Engine
   local pass, fail, failures = 0, 0, {}
   local function check(cond, name)
     if cond then pass = pass + 1 else fail = fail + 1; failures[#failures + 1] = name end
@@ -32,7 +32,7 @@ function Tests.Run()
   -- Usability. The live engine is flavour-overlaid (Compat.ApplyRetail), so the
   -- weapon-proficiency filter and armor level-gates that Classic enforces are
   -- intentionally lifted on Retail -- assert the rules that actually apply.
-  local isRetail = TitanJourney_Compat and TitanJourney_Compat.isRetail
+  local isRetail = GearJourney_Compat and GearJourney_Compat.isRetail
   check(not E.CanUse({ armorType = "Cloth" }, "ROGUE", 20), "CanUse: rogue not cloth")
   check(E.CanUse({ armorType = "Leather" }, "ROGUE", 20), "CanUse: rogue leather")
   check(E.CanUseWeapon("MAGE", 10), "CanUseWeapon: mage staff")

@@ -5,9 +5,9 @@
 -- this file stays thin. WoW-only; not loaded by the standalone tests.
 
 local Overlay = {}
-TitanJourney_Overlay = Overlay
+GearJourney_Overlay = Overlay
 
-local OVERLAY_NAME = "TitanJourneyOverlay"
+local OVERLAY_NAME = "GearJourneyOverlay"
 local frame  -- created lazily on first toggle
 
 -- Visual theme (POLISH-1). One palette + spacing scale referenced everywhere so
@@ -74,7 +74,7 @@ local CLASS_TALENT_BG = {
 -- Retail (no such textures), so the window falls back to the dark inset there.
 local function PlayerTalentBackground()
   local _, class = UnitClass("player")
-  local Compat = TitanJourney_Compat
+  local Compat = GearJourney_Compat
   local set = Compat and Compat.TalentBackgroundBase(class, CLASS_TALENT_BG)
   if not set then return nil end
   local idx = (Compat and Compat.PlayerSpec()) or 1
@@ -108,7 +108,7 @@ end
 -- The player's spec index, via the flavour-aware compat layer (Classic talent
 -- tabs vs Retail GetSpecialization). Falls back to 1.
 local function PlayerSpecIndex()
-  local Compat = TitanJourney_Compat
+  local Compat = GearJourney_Compat
   return (Compat and Compat.PlayerSpec()) or 1
 end
 
@@ -247,7 +247,7 @@ local STAT_COLOR = {
 
 -- Build a coloured "+9 Agi  +5 Sta" string from an item's stats, or "" if none.
 local function ColoredStats(item)
-  local engine = TitanJourney_Engine
+  local engine = GearJourney_Engine
   if not (engine and engine.StatParts) then return "" end
   local parts, out = engine.StatParts(item.stats), {}
   for _, p in ipairs(parts) do
@@ -473,7 +473,7 @@ end
 
 -- Refresh the bar button + both list views after a Journey-List change.
 local function RefreshAll()
-  TitanJourney_RefreshButton()
+  GearJourney_RefreshButton()
   Overlay.RenderCurrentGoals()
 end
 
@@ -484,8 +484,8 @@ local function ConfigRowAction(row, item, mode)
   -- you can see at a glance what's on your list while browsing. (Journey-mode
   -- rows are all on the list, so the cue would be noise there -- skip it.)
   if row.pick then
-    local picked = (mode ~= "journey") and TitanJourney_DB
-      and TitanJourney_DB.JourneyContains(item.name) or false
+    local picked = (mode ~= "journey") and GearJourney_DB
+      and GearJourney_DB.JourneyContains(item.name) or false
     row.pick:SetShown(picked)
     if row.pickFill then row.pickFill:SetShown(picked) end
   end
@@ -494,25 +494,25 @@ local function ConfigRowAction(row, item, mode)
     row.up:Show(); row.down:Show(); row.level:Hide()
     row.action:SetWidth(24); row.action:SetText("X")
     row.action:SetScript("OnClick", function()
-      if TitanJourney_DB then TitanJourney_DB.JourneyRemove(item.name) end
+      if GearJourney_DB then GearJourney_DB.JourneyRemove(item.name) end
       RefreshAll()
     end)
     row.up:SetScript("OnClick", function()
-      if TitanJourney_DB then TitanJourney_DB.JourneyMove(item.name, -1) end
+      if GearJourney_DB then GearJourney_DB.JourneyMove(item.name, -1) end
       RefreshAll()
     end)
     row.down:SetScript("OnClick", function()
-      if TitanJourney_DB then TitanJourney_DB.JourneyMove(item.name, 1) end
+      if GearJourney_DB then GearJourney_DB.JourneyMove(item.name, 1) end
       RefreshAll()
     end)
   else
     row.up:Hide(); row.down:Hide(); row.level:Show()
     row.level:ClearAllPoints(); row.level:SetPoint("RIGHT", row.action, "LEFT", -12, 0)
     row.action:SetWidth(58)
-    local on = TitanJourney_DB and TitanJourney_DB.JourneyContains(item.name)
+    local on = GearJourney_DB and GearJourney_DB.JourneyContains(item.name)
     row.action:SetText(on and "On List" or "Add")
     row.action:SetScript("OnClick", function()
-      if TitanJourney_DB then TitanJourney_DB.JourneyToggle(item.name) end
+      if GearJourney_DB then GearJourney_DB.JourneyToggle(item.name) end
       RefreshAll()
     end)
   end
@@ -586,8 +586,8 @@ end
 -- The class/level/owned-aware candidate pool shared by every view: enabled
 -- sources + rarities, usable by class, not owned, no healing-only for DPS.
 local function UsablePool(engine, items, class, level, spec)
-  local pool = engine.FilterBySource(items, TitanJourney_DB and TitanJourney_DB.Sources())
-  pool = engine.FilterByQuality(pool, TitanJourney_DB and TitanJourney_DB.Qualities())
+  local pool = engine.FilterBySource(items, GearJourney_DB and GearJourney_DB.Sources())
+  pool = engine.FilterByQuality(pool, GearJourney_DB and GearJourney_DB.Qualities())
   pool = engine.FilterByClass(pool, class, level)
   pool = engine.FilterOwned(pool, Overlay.PlayerOwnsFn())
   pool = engine.RejectHealingForDPS(pool, engine.IsCasterDPS(class, spec))
@@ -598,14 +598,14 @@ end
 --   The spec-scored, best-per-slot suggestions for "current" or "future".
 --   Shared by the overlay and the Titan button so they never disagree (Bug 3).
 function Overlay.ComputeList(bucket)
-  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local engine, items = GearJourney_Engine, GearJourney_Items
   local level = (UnitLevel and UnitLevel("player")) or 1
   if not (engine and items) then return {}, level, level end
   local _, class = UnitClass("player")
-  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
+  local range = (GearJourney_DB and GearJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
   local hi = level + range
   local spec = PlayerSpecIndex()
-  local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
+  local weights = engine.WeightsFor(class, spec, GearJourney_DB and GearJourney_DB.Mode() or "pve")
   local cur, fut = engine.SplitGoals(UsablePool(engine, items, class, level, spec), level, range)
   local list = cur
   if bucket == "future" then
@@ -637,17 +637,17 @@ local CANDIDATE_CAP = 400
 -- preferred for stats), filtered by slot / quality / source / owned, and the
 -- lookahead window unless "All levels" is on. Sorted by required level.
 function Overlay.ComputeCandidates(slot)
-  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local engine, items = GearJourney_Engine, GearJourney_Items
   local level = (UnitLevel and UnitLevel("player")) or 1
   if not (engine and items) then return {}, level, level end
   local _, class = UnitClass("player")
-  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
+  local range = (GearJourney_DB and GearJourney_DB.Lookahead()) or engine.DEFAULT_RANGE
   local hi = level + range
   local spec = PlayerSpecIndex()
-  local weights = engine.WeightsFor(class, spec, TitanJourney_DB and TitanJourney_DB.Mode() or "pve")
+  local weights = engine.WeightsFor(class, spec, GearJourney_DB and GearJourney_DB.Mode() or "pve")
   local owns = Overlay.PlayerOwnsFn()
-  local quals = TitanJourney_DB and TitanJourney_DB.Qualities()
-  local sources = TitanJourney_DB and TitanJourney_DB.Sources()
+  local quals = GearJourney_DB and GearJourney_DB.Qualities()
+  local sources = GearJourney_DB and GearJourney_DB.Sources()
 
   local cands = {}
   if Overlay.dungeonFilter then
@@ -667,7 +667,7 @@ function Overlay.ComputeCandidates(slot)
     -- Enriched items by id (stats/dps/fine source) overlaid onto index rows.
     local byId = {}
     for i = 1, #items do local e = items[i]; if e.itemID then byId[e.itemID] = e end end
-    local source = TitanJourney_ItemIndex or items
+    local source = GearJourney_ItemIndex or items
     for i = 1, #source do
       local raw = source[i]
       local it = (raw.itemID and byId[raw.itemID]) or raw
@@ -723,16 +723,16 @@ end
 
 -- JourneyItems() -> list, level. The saved Journey List resolved to items, in order.
 function Overlay.JourneyItems()
-  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local engine, items = GearJourney_Engine, GearJourney_Items
   local level = (UnitLevel and UnitLevel("player")) or 1
-  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local names = (GearJourney_DB and GearJourney_DB.Journey()) or {}
   local out = {}
   if engine and items then
     for _, n in ipairs(names) do
       -- Prefer the enriched pool (has stats); fall back to the exhaustive index
       -- so items added from search still resolve.
       local it = engine.FindByName(items, n)
-        or (TitanJourney_ItemIndex and engine.FindByName(TitanJourney_ItemIndex, n))
+        or (GearJourney_ItemIndex and engine.FindByName(GearJourney_ItemIndex, n))
       if it then out[#out + 1] = it end
     end
   end
@@ -775,8 +775,8 @@ end
 local function BuildInspectItem(engine, id, link)
   -- Prefer our enriched index (stats/source/dps); otherwise synthesise a record
   -- from the link so the piece is captured no matter what.
-  local base = engine and (engine.FindByID(TitanJourney_Items, id)
-    or (TitanJourney_ItemIndex and engine.FindByID(TitanJourney_ItemIndex, id)))
+  local base = engine and (engine.FindByID(GearJourney_Items, id)
+    or (GearJourney_ItemIndex and engine.FindByID(GearJourney_ItemIndex, id)))
   if not base then return ItemFromLink(engine, id, link) end   -- unindexed
   -- Shallow-copy the shared index table so this persisted slot record can't be
   -- aliased by another slot; keeps every field (stats/source/dps/...).
@@ -789,7 +789,7 @@ end
 -- Snapshot every equipped slot of `unit` right now. NO dedup (two identical
 -- rings/trinkets both show) and NO level/usable filtering -- capture all.
 local function ReadInspectGear(unit)
-  local engine = TitanJourney_Engine
+  local engine = GearJourney_Engine
   local out = {}
   for _, slot in ipairs(INSPECT_SLOTS) do
     local link = GetInventoryItemLink(unit, slot)
@@ -810,7 +810,7 @@ local function StoreInspect(unit, items)
   }
   Overlay.lastInspect = entry
   Overlay.inspectSel = 1                    -- newest sits at the front of the history
-  if TitanJourney_DB then TitanJourney_DB.InspectSave(entry) end
+  if GearJourney_DB then GearJourney_DB.InspectSave(entry) end
   if Overlay.RenderInspect then Overlay.RenderInspect() end
 end
 
@@ -856,7 +856,7 @@ end
 -- The inspection currently shown on the Inspect tab: the selected history entry
 -- (account-wide, shared across toons), falling back to the live last-inspect.
 function Overlay.CurrentInspect()
-  local h = (TitanJourney_DB and TitanJourney_DB.InspectHistory()) or {}
+  local h = (GearJourney_DB and GearJourney_DB.InspectHistory()) or {}
   return h[Overlay.inspectSel or 1] or Overlay.lastInspect or { items = {} }
 end
 
@@ -886,14 +886,14 @@ end
 function Overlay.RenderJourney()
   local panel = Overlay.panels and Overlay.panels.journey
   if not panel or not panel.listAnchor then return end
-  local engine = TitanJourney_Engine
+  local engine = GearJourney_Engine
   local jitems, jlevel = Overlay.JourneyItems()
-  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  local range = (GearJourney_DB and GearJourney_DB.Lookahead()) or 10
   panel.rows = panel.rows or {}
   RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, jitems, jlevel, jlevel + range, "journey")
   panel.empty:SetShown(#jitems == 0)
 
-  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local names = (GearJourney_DB and GearJourney_DB.Journey()) or {}
   local goal = engine and engine.NextJourneyGoal(jitems, names, jlevel, Overlay.PlayerOwnsFn())
   if goal then
     panel.sub:SetText("Next: " .. goal.name .. " (Lv " .. goal.reqLevel .. ") - "
@@ -970,10 +970,10 @@ end
 function Overlay.RenderGuide()
   local panel = Overlay.panels and Overlay.panels.guide
   if not panel or not panel.listAnchor then return end
-  local engine, items = TitanJourney_Engine, TitanJourney_Items
+  local engine, items = GearJourney_Engine, GearJourney_Items
   local locClass, class = UnitClass("player")
   local level = (UnitLevel and UnitLevel("player")) or 1
-  local guide = class and TitanJourney_ClassGuides and TitanJourney_ClassGuides[class]
+  local guide = class and GearJourney_ClassGuides and GearJourney_ClassGuides[class]
   panel.header:SetText((locClass or "Class") .. " Gear Guide"
     .. (Overlay.guideShowAll and "  |cff66ccff(all usable)|r" or "  |cff999999(suggestions)|r"))
 
@@ -1004,7 +1004,7 @@ function Overlay.RenderGuide()
   -- dropping defensive-only pieces. Buckets are sorted best-first.
   local wantWeapon = (Overlay.guideSubtab ~= "armor")
   local spec = PlayerSpecIndex()
-  local weights = engine.WeightsFor(class, spec, (TitanJourney_DB and TitanJourney_DB.Mode()) or "pve")
+  local weights = engine.WeightsFor(class, spec, (GearJourney_DB and GearJourney_DB.Mode()) or "pve")
   -- Source: the curated suggestions, or the whole usable pool in "All" mode.
   local buckets, seen = {}, {}
   local function consider(it)
@@ -1108,7 +1108,7 @@ end
 
 -- Initials abbreviation for a dungeon label, e.g. "Shadowfang Keep" -> "SFK".
 local function DungeonAbbrev(label)
-  local engine = TitanJourney_Engine
+  local engine = GearJourney_Engine
   local s = (engine and engine.PrettySource(label)) or label
   local letters = {}
   for w in s:gmatch("%S+") do letters[#letters + 1] = w:sub(1, 1):upper() end
@@ -1122,8 +1122,8 @@ end
 local function RenderDungeonBar(panel, class, level)
   local bar, pool = panel.dungeonBar, panel.dungeonBtns
   if not bar then return end
-  local engine, items = TitanJourney_Engine, TitanJourney_Items
-  local lookahead = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  local engine, items = GearJourney_Engine, GearJourney_Items
+  local lookahead = (GearJourney_DB and GearJourney_DB.Lookahead()) or 10
   local ownsFn = Overlay.PlayerOwnsFn()
   local counts, order = {}, {}
   for i = 1, #(items or {}) do
@@ -1205,7 +1205,7 @@ end
 function Overlay.RenderBrowse()
   local panel = Overlay.panels and Overlay.panels.browse
   if not panel or not panel.selAnchor then return end
-  local engine = TitanJourney_Engine
+  local engine = GearJourney_Engine
   local _, pclass = UnitClass("player")
   RenderDungeonBar(panel, pclass, (UnitLevel and UnitLevel("player")) or 1)
 
@@ -1218,14 +1218,14 @@ function Overlay.RenderBrowse()
     hi = level
     -- Search the exhaustive equippable index (every weapon/armor), falling back
     -- to the enriched pool if the index isn't loaded.
-    local source = TitanJourney_ItemIndex or TitanJourney_Items
+    local source = GearJourney_ItemIndex or GearJourney_Items
     local hits = engine and engine.SearchByName(source, q, 600) or {}
     -- Prefer the enriched copy of a hit (it carries stats) over the bare index
     -- row; optionally keep only items this character can equip right now
     -- (class/proficiency AND at/below the player's level).
     local byId = {}
-    for i = 1, #(TitanJourney_Items or {}) do
-      local e = TitanJourney_Items[i]
+    for i = 1, #(GearJourney_Items or {}) do
+      local e = GearJourney_Items[i]
       if e.itemID then byId[e.itemID] = e end
     end
     local _, class = UnitClass("player")
@@ -1257,12 +1257,12 @@ function Overlay.RenderBrowse()
   panel.selEmpty:SetShown(#cands == 0)
 
   local jitems, jlevel = Overlay.JourneyItems()
-  local range = (TitanJourney_DB and TitanJourney_DB.Lookahead()) or 10
+  local range = (GearJourney_DB and GearJourney_DB.Lookahead()) or 10
   panel.jRows = panel.jRows or {}
   RenderRowsInto(panel.jScroll, panel.jAnchor, panel.jRows, jitems, jlevel, jlevel + range, "journey")
   panel.jEmpty:SetShown(#jitems == 0)
 
-  local names = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local names = (GearJourney_DB and GearJourney_DB.Journey()) or {}
   local goal = engine and engine.NextJourneyGoal(jitems, names, jlevel, Overlay.PlayerOwnsFn())
   if goal then
     panel.jNext:SetText("Next: " .. goal.name .. " (Lv " .. goal.reqLevel .. ") - "
@@ -1280,7 +1280,7 @@ function Overlay.UpdateTabBadges()
     local b = Overlay.tabButtons[key]
     if b and b.badge then b.badge:SetText((n and n > 0) and tostring(n) or "") end
   end
-  local journey = (TitanJourney_DB and TitanJourney_DB.Journey()) or {}
+  local journey = (GearJourney_DB and GearJourney_DB.Journey()) or {}
   set("journey", #journey)
   local insp = Overlay.CurrentInspect and Overlay.CurrentInspect() or { items = {} }
   set("inspect", #(insp.items or {}))
@@ -1329,9 +1329,9 @@ local function BuildControlBar(content, topLevel)
     local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
     cb:SetSize(22, 22)
     cb:SetPoint("LEFT", bar, "LEFT", x, 0)
-    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Sources()[key] == false))
+    cb:SetChecked(not (GearJourney_DB and GearJourney_DB.Sources()[key] == false))
     cb:SetScript("OnClick", function(self)
-      if TitanJourney_DB then TitanJourney_DB.Sources()[key] = self:GetChecked() and true or false end
+      if GearJourney_DB then GearJourney_DB.Sources()[key] = self:GetChecked() and true or false end
       Overlay.RenderCurrentGoals()
     end)
     local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1352,9 +1352,9 @@ local function BuildControlBar(content, topLevel)
     local cb = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
     cb:SetSize(22, 22)
     cb:SetPoint("LEFT", bar, "LEFT", x, 0)
-    cb:SetChecked(not (TitanJourney_DB and TitanJourney_DB.Qualities()[r.key] == false))
+    cb:SetChecked(not (GearJourney_DB and GearJourney_DB.Qualities()[r.key] == false))
     cb:SetScript("OnClick", function(self)
-      if TitanJourney_DB then TitanJourney_DB.Qualities()[r.key] = self:GetChecked() and true or false end
+      if GearJourney_DB then GearJourney_DB.Qualities()[r.key] = self:GetChecked() and true or false end
       Overlay.RenderCurrentGoals()
     end)
     local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1506,8 +1506,8 @@ local function BuildLayout(f)
       addAll:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -8, 0)
       addAll:SetScript("OnClick", function()
         local insp = Overlay.CurrentInspect()
-        if TitanJourney_DB then
-          for _, it in ipairs(insp.items or {}) do TitanJourney_DB.JourneyAdd(it.name) end
+        if GearJourney_DB then
+          for _, it in ipairs(insp.items or {}) do GearJourney_DB.JourneyAdd(it.name) end
         end
         RefreshAll()
       end)
@@ -1522,7 +1522,7 @@ local function BuildLayout(f)
       recall:SetPoint("TOPRIGHT", addAll, "TOPLEFT", -6, 0)
       recall:SetScript("OnClick", function()
         MenuUtil.CreateContextMenu(recall, function(_, root)
-          local h = (TitanJourney_DB and TitanJourney_DB.InspectHistory()) or {}
+          local h = (GearJourney_DB and GearJourney_DB.InspectHistory()) or {}
           if #h == 0 then
             root:CreateTitle("No saved inspections")
             return
@@ -1727,11 +1727,11 @@ local function BuildLayout(f)
 
     elseif tab.key == "about" then
       -- Studio "About" page: logo + blurb + a selectable Steam curator link.
-      local LOGO = "Interface\\AddOns\\TitanJourney\\Media\\HBGS-Logo"
+      local LOGO = "Interface\\AddOns\\GearJourney\\Media\\HBGS-Logo"
       local URL  = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
       local TEXTW = 620
       local ver = (C_AddOns and C_AddOns.GetAddOnMetadata
-        and C_AddOns.GetAddOnMetadata("TitanJourney", "Version")) or ""
+        and C_AddOns.GetAddOnMetadata("GearJourney", "Version")) or ""
 
       local logo = panel:CreateTexture(nil, "ARTWORK")
       logo:SetSize(96, 96)
@@ -1756,10 +1756,10 @@ local function BuildLayout(f)
       body:SetPoint("TOP", tagline, "BOTTOM", 0, -12)
       body:SetWidth(TEXTW); body:SetJustifyH("CENTER")
       body:SetText("Honour Bound Game Studios is an independent studio crafting games and "
-        .. "player-first tools. TitanJourney is one of our community add-ons \226\128\148 built "
+        .. "player-first tools. GearJourney is one of our community add-ons \226\128\148 built "
         .. "to make the leveling journey smoother, so you always know the next upgrade worth chasing.")
 
-      -- "About this addon" -- TitanJourney's own name, version, and what it does,
+      -- "About this addon" -- GearJourney's own name, version, and what it does,
       -- set off from the studio blurb above by a hairline rule.
       local aRule = panel:CreateTexture(nil, "ARTWORK")
       aRule:SetSize(TEXTW, 1)
@@ -1778,7 +1778,7 @@ local function BuildLayout(f)
       local aDesc = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       aDesc:SetPoint("TOP", aVer, "BOTTOM", 0, -10)
       aDesc:SetWidth(TEXTW); aDesc:SetJustifyH("CENTER")
-      aDesc:SetText("Your leveling gear companion, on the Titan Panel bar. TitanJourney surfaces "
+      aDesc:SetText("Your leveling gear companion, on the Titan Panel bar. GearJourney surfaces "
         .. "the best upgrades for your class and spec at every level \226\128\148 browse and search "
         .. "every weapon and armor piece, build a Journey List of gear to chase, and see which "
         .. "dungeon offers the most upgrades for you right now, all with spec-aware stat scoring.")
@@ -1823,12 +1823,12 @@ local function BuildLayout(f)
       end
 
       -- The one real setting: PvE/PvP weighting.
-      local mode = TitanJourney_DB and TitanJourney_DB.Mode() or "pve"
+      local mode = GearJourney_DB and GearJourney_DB.Mode() or "pve"
       local cb = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
       cb:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 2, -14)
       cb:SetChecked(mode == "pvp")
       cb:SetScript("OnClick", function(self)
-        if TitanJourney_DB then TitanJourney_DB.SetMode(self:GetChecked() and "pvp" or "pve") end
+        if GearJourney_DB then GearJourney_DB.SetMode(self:GetChecked() and "pvp" or "pve") end
         Overlay.RenderCurrentGoals()
       end)
       local lbl = cb:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -1879,10 +1879,10 @@ local function BuildLayout(f)
       result:SetPoint("LEFT", testBtn, "RIGHT", 10, 0)
       result:SetText("|cff666666behaviour scenarios|r")
       testBtn:SetScript("OnClick", function()
-        if not (TitanJourney_Scenarios and TitanJourney_Scenarios.Run) then
+        if not (GearJourney_Scenarios and GearJourney_Scenarios.Run) then
           result:SetText("|cffff5555scenarios not loaded|r"); return
         end
-        local _, rep = TitanJourney_Scenarios.Run()
+        local _, rep = GearJourney_Scenarios.Run()
         -- The UI scenarios open/close this window while testing, so restore it
         -- and return to Settings afterwards -- otherwise clicking Run Tests
         -- looks like the manager just closed/crashed.
@@ -1988,7 +1988,7 @@ invWatcher:RegisterEvent("BAG_UPDATE_DELAYED")
 invWatcher:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 invWatcher:SetScript("OnEvent", function()
   Overlay._ownsFn = nil  -- ownership changed; drop the memoised equipped snapshot
-  TitanJourney_RefreshButton()
+  GearJourney_RefreshButton()
   -- Only the (cheap) button needs updating while closed; the full re-render is
   -- expensive (full-index scans + scoring across every view), so skip it for a
   -- hidden window. Bag-update bursts (looting/selling) otherwise stack these

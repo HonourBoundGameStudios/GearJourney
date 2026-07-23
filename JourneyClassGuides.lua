@@ -3,9 +3,9 @@
 -- Class-usable, uncommon+, best-by-item-level per slot per band; the
 -- in-game guide score-filters these by spec. Regenerate: python Tools/build_class_guides.py
 
-TitanJourney_ClassGuides = TitanJourney_ClassGuides or {}
+GearJourney_ClassGuides = GearJourney_ClassGuides or {}
 
-TitanJourney_ClassGuides["DRUID"] = {
+GearJourney_ClassGuides["DRUID"] = {
   {id=22784,name="Sunwell Orb"},
   {id=2075,name="Priest's Mace"},
   {id=4569,name="Staunch Hammer"},
@@ -192,7 +192,7 @@ TitanJourney_ClassGuides["DRUID"] = {
   {id=23242,name="Claw of the Frost Wyrm"},
 }
 
-TitanJourney_ClassGuides["HUNTER"] = {
+GearJourney_ClassGuides["HUNTER"] = {
   {id=22784,name="Sunwell Orb"},
   {id=4577,name="Compact Shotgun"},
   {id=826,name="Brutish Riverpaw Axe"},
@@ -392,7 +392,7 @@ TitanJourney_ClassGuides["HUNTER"] = {
   {id=23493,name="Fel Iron Chain Coif"},
 }
 
-TitanJourney_ClassGuides["MAGE"] = {
+GearJourney_ClassGuides["MAGE"] = {
   {id=22784,name="Sunwell Orb"},
   {id=11287,name="Lesser Magic Wand"},
   {id=4308,name="Green Linen Bracers"},
@@ -589,7 +589,7 @@ TitanJourney_ClassGuides["MAGE"] = {
   {id=23060,name="Bonescythe Ring"},
 }
 
-TitanJourney_ClassGuides["PALADIN"] = {
+GearJourney_ClassGuides["PALADIN"] = {
   {id=22784,name="Sunwell Orb"},
   {id=9763,name="Cadet Leggings"},
   {id=826,name="Brutish Riverpaw Axe"},
@@ -786,7 +786,7 @@ TitanJourney_ClassGuides["PALADIN"] = {
   {id=23577,name="The Hungering Cold"},
 }
 
-TitanJourney_ClassGuides["PRIEST"] = {
+GearJourney_ClassGuides["PRIEST"] = {
   {id=22784,name="Sunwell Orb"},
   {id=11287,name="Lesser Magic Wand"},
   {id=2075,name="Priest's Mace"},
@@ -982,7 +982,7 @@ TitanJourney_ClassGuides["PRIEST"] = {
   {id=23060,name="Bonescythe Ring"},
 }
 
-TitanJourney_ClassGuides["SHAMAN"] = {
+GearJourney_ClassGuides["SHAMAN"] = {
   {id=22784,name="Sunwell Orb"},
   {id=826,name="Brutish Riverpaw Axe"},
   {id=832,name="Silver Defias Belt"},
@@ -1178,7 +1178,7 @@ TitanJourney_ClassGuides["SHAMAN"] = {
   {id=23493,name="Fel Iron Chain Coif"},
 }
 
-TitanJourney_ClassGuides["WARLOCK"] = {
+GearJourney_ClassGuides["WARLOCK"] = {
   {id=22784,name="Sunwell Orb"},
   {id=11287,name="Lesser Magic Wand"},
   {id=4308,name="Green Linen Bracers"},
@@ -1375,7 +1375,7 @@ TitanJourney_ClassGuides["WARLOCK"] = {
   {id=23060,name="Bonescythe Ring"},
 }
 
-TitanJourney_ClassGuides["WARRIOR"] = {
+GearJourney_ClassGuides["WARRIOR"] = {
   {id=22784,name="Sunwell Orb"},
   {id=4577,name="Compact Shotgun"},
   {id=9763,name="Cadet Leggings"},

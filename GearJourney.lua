@@ -1,11 +1,11 @@
--- Gear Journey (formerly TitanJourney; the folder/.toc keep the old name so
+-- Gear Journey (formerly GearJourney; the folder/.toc keep the old name so
 -- SavedVariables survive) — published as a LibDataBroker data source (EPIC-K).
 -- Any LDB display hosts the button: Titan Panel (via its LDB bridge), Bazooka,
 -- ElvUI DataTexts, our own future HonourBar, or the LibDBIcon minimap fallback.
 -- Single source of truth: read the version straight from the .toc so the About
 -- dialog and the data object can never drift from the packaged version.
 local GetMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
-local VERSION = (GetMeta and GetMeta("TitanJourney", "Version")) or "dev"
+local VERSION = (GetMeta and GetMeta("GearJourney", "Version")) or "dev"
 
 -- Honour Bound Game Studios branding (About dialog + tooltip footer). ---------
 local Colors = {
@@ -15,7 +15,7 @@ local Colors = {
 }
 -- ASCII hyphens only -- FRIZQT has no box-drawing glyphs (they render as TOFU).
 local TOOLTIP_RULE = Colors.Gray .. "------------------------------" .. Colors.Reset
-local HBGS_LOGO = "|TInterface\\AddOns\\TitanJourney\\Media\\HBGS-Logo:14:14|t "
+local HBGS_LOGO = "|TInterface\\AddOns\\GearJourney\\Media\\HBGS-Logo:14:14|t "
 local HBGS_URL = "https://store.steampowered.com/curator/44062210-Honour-Bound-Game-Studios/"
 
 StaticPopupDialogs["JOURNEY_ABOUT"] = {
@@ -38,9 +38,9 @@ StaticPopupDialogs["JOURNEY_ABOUT"] = {
 -- Button text: return (label, value). Global by contract — Titan stores the reference.
 -- Thin wiring only: pull the player level from the client and delegate the
 -- formatting to the pure engine (FEAT-B1, tested offline).
-function TitanJourney_GetButtonText(id)
-    local engine = TitanJourney_Engine
-    local overlay = TitanJourney_Overlay
+function GearJourney_GetButtonText(id)
+    local engine = GearJourney_Engine
+    local overlay = GearJourney_Overlay
     if not (engine and overlay and overlay.ComputeList) then
         return "Next Goal:", "—"
     end
@@ -48,9 +48,9 @@ function TitanJourney_GetButtonText(id)
     -- button's suggestion always appears in the Current Goals list.
     local list, level = overlay.ComputeList("current")
     -- If the player has a Journey List, surface the nearest entry; else default.
-    local journey = TitanJourney_DB and TitanJourney_DB.Journey()
+    local journey = GearJourney_DB and GearJourney_DB.Journey()
     if journey and #journey > 0 then
-        local all = TitanJourney_Items or list
+        local all = GearJourney_Items or list
         local goal = engine.NextJourneyGoal(all, journey, level, overlay.PlayerOwnsFn())
         if goal then return engine.BuildButtonText(all, level, nil, goal.name) end
     end
@@ -70,8 +70,8 @@ local QUALITY_HEX = {
 
 -- Tooltip body shown on hover (vertical tooltip only -- never the bar text):
 -- the player's Journey List, then the click hints, then the studio footer.
-function TitanJourney_GetTooltipText()
-    local overlay, engine = TitanJourney_Overlay, TitanJourney_Engine
+function GearJourney_GetTooltipText()
+    local overlay, engine = GearJourney_Overlay, GearJourney_Engine
     local lines = {}
     if overlay and overlay.JourneyItems and engine then
         local items, level = overlay.JourneyItems()
@@ -101,7 +101,7 @@ function TitanJourney_GetTooltipText()
 end
 
 -- The LDB data object: the one thing every display addon hosts. Displays call
--- the scripts; we own the text/icon and update them via TitanJourney_RefreshButton.
+-- the scripts; we own the text/icon and update them via GearJourney_RefreshButton.
 local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
 local dataObj
 if ldb then
@@ -114,22 +114,22 @@ if ldb then
             -- Left-click opens the Wishlist Manager; right-click the context
             -- menu. Ours regardless of host (IND-4) -- Blizzard MenuUtil, the
             -- same post-UIDropDownMenu API the overlay already uses.
-            if button == "LeftButton" and TitanJourney_Overlay then
-                TitanJourney_Overlay.Toggle()
+            if button == "LeftButton" and GearJourney_Overlay then
+                GearJourney_Overlay.Toggle()
             elseif button == "RightButton" and MenuUtil then
                 MenuUtil.CreateContextMenu(frame, function(_, root)
                     root:CreateTitle("Gear Journey")
                     root:CreateButton("About Honour Bound Game Studios", function()
-                        if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
-                            TitanJourney_Overlay.OpenTo("about")
+                        if GearJourney_Overlay and GearJourney_Overlay.OpenTo then
+                            GearJourney_Overlay.OpenTo("about")
                         else
                             StaticPopup_Show("JOURNEY_ABOUT")
                         end
                     end)
                     root:CreateCheckbox("Show minimap button",
-                        function() return not TitanJourney_DB.Minimap().hide end,
+                        function() return not GearJourney_DB.Minimap().hide end,
                         function()
-                            local mm = TitanJourney_DB.Minimap()
+                            local mm = GearJourney_DB.Minimap()
                             mm.hide = not mm.hide
                             local dbicon = LibStub("LibDBIcon-1.0", true)
                             if dbicon then
@@ -144,7 +144,7 @@ if ldb then
             -- Same body the Titan tooltip showed; displays hand us their tooltip
             -- frame. AddLine splits on embedded newlines; no wrap (bar tooltip).
             tooltip:AddLine("Gear Journey")
-            for line in (TitanJourney_GetTooltipText() .. "\n"):gmatch("(.-)\n") do
+            for line in (GearJourney_GetTooltipText() .. "\n"):gmatch("(.-)\n") do
                 tooltip:AddLine(line)
             end
         end,
@@ -153,16 +153,16 @@ end
 
 -- Repaint = write the data object; every hosting display reacts via the LDB
 -- attribute-changed callback (Titan's bridge included).
-function TitanJourney_HostRefresh()
+function GearJourney_HostRefresh()
     if dataObj == nil then return end
-    local _, value = TitanJourney_GetButtonText()
+    local _, value = GearJourney_GetButtonText()
     dataObj.text = value or "\226\128\148"
 end
 
 -- Refresh the text on login and whenever the player's level changes (the
 -- lookahead window shifts), so the next goal stays current (FEAT-B3). First
 -- fire also registers the LibDBIcon minimap launcher (IND-5) -- deferred to
--- here because its saved state lives in TitanJourneyDB, populated at login.
+-- here because its saved state lives in GearJourneyDB, populated at login.
 local minimapRegistered = false
 local watcher = CreateFrame("Frame")
 watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -172,8 +172,8 @@ watcher:SetScript("OnEvent", function()
         minimapRegistered = true
         local dbicon = LibStub and LibStub("LibDBIcon-1.0", true)
         if dbicon and dataObj then
-            dbicon:Register("GearJourney", dataObj, TitanJourney_DB.Minimap())
+            dbicon:Register("GearJourney", dataObj, GearJourney_DB.Minimap())
         end
     end
-    TitanJourney_RefreshButton()
+    GearJourney_RefreshButton()
 end)
