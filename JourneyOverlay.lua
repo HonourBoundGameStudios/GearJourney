@@ -471,9 +471,9 @@ local function FillRow(row, item, playerLevel, hi)
   end
 end
 
--- Refresh the Titan button + both list views after a Journey-List change.
+-- Refresh the bar button + both list views after a Journey-List change.
 local function RefreshAll()
-  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  TitanJourney_RefreshButton()
   Overlay.RenderCurrentGoals()
 end
 
@@ -1988,7 +1988,7 @@ invWatcher:RegisterEvent("BAG_UPDATE_DELAYED")
 invWatcher:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 invWatcher:SetScript("OnEvent", function()
   Overlay._ownsFn = nil  -- ownership changed; drop the memoised equipped snapshot
-  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  TitanJourney_RefreshButton()
   -- Only the (cheap) button needs updating while closed; the full re-render is
   -- expensive (full-index scans + scoring across every view), so skip it for a
   -- hidden window. Bag-update bursts (looting/selling) otherwise stack these

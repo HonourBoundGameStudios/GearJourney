@@ -27,7 +27,7 @@ local driver = CreateFrame("Frame")
 
 -- Refresh anything that reads the item list.
 local function Refresh()
-  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  TitanJourney_RefreshButton()
   if TitanJourney_Overlay and TitanJourney_Overlay.RenderCurrentGoals then
     TitanJourney_Overlay.RenderCurrentGoals()
   end

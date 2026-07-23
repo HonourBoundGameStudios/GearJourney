@@ -11,6 +11,7 @@
 
 JourneyEngine.lua
 JourneyCompat.lua
+JourneyHost.lua
 JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua

@@ -174,7 +174,7 @@ end
 local function OnEvent(self, event, ...)
     -- Refresh the button text on login and whenever the player's level changes
     -- (the lookahead window shifts), so the next goal stays current (FEAT-B3).
-    TitanPanelButton_UpdateButton(ADDON_ID)
+    TitanJourney_RefreshButton()
 end
 
 -- TitanWeaponSkills builds its frame in Lua rather than shipping an XML — same here.
