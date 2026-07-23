@@ -2000,3 +2000,14 @@ function Overlay.Toggle()
     Overlay.RenderCurrentGoals()  -- after Show so scroll widths are valid
   end
 end
+
+-- Public: open the window (creating it if needed) and jump straight to a tab.
+-- Used by the Titan right-click "About" entry to land on the About tab.
+function Overlay.OpenTo(key)
+  CreateOverlay()
+  if not frame:IsShown() then
+    frame:Show()
+    Overlay.RenderCurrentGoals()  -- after Show so scroll widths are valid
+  end
+  Overlay.SelectTab(key)
+end

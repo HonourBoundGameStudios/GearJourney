@@ -108,7 +108,13 @@ local function PrepareMenu()
 
     local info = {}
     info.text = "About Honour Bound Game Studios"
-    info.func = function() StaticPopup_Show("JOURNEY_ABOUT") end
+    info.func = function()
+        if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
+            TitanJourney_Overlay.OpenTo("about")
+        else
+            StaticPopup_Show("JOURNEY_ABOUT")
+        end
+    end
     info.notCheckable = 1
     TitanPanelRightClickMenu_AddButton(info)
     TitanPanelRightClickMenu_AddSpacer()
@@ -128,7 +134,16 @@ end
 -- menu description to attach widgets to.)
 local function GeneratorFunction(owner, root)
     Titan_Menu.AddCommand(root, ADDON_ID, "About Honour Bound Game Studios",
-        function() StaticPopup_Show("JOURNEY_ABOUT") end)
+        function()
+            -- Open the manager straight to its About tab (studio blurb, copyable
+            -- Steam link, version). Falls back to the popup if the overlay is
+            -- somehow unavailable.
+            if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
+                TitanJourney_Overlay.OpenTo("about")
+            else
+                StaticPopup_Show("JOURNEY_ABOUT")
+            end
+        end)
 end
 
 -- Titan reads self.registry in the button's OnLoad.
