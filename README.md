@@ -1,14 +1,14 @@
 # TitanJourney — Your Leveling Gear Wishlist
 
-> Spec-aware leveling gear wishlist for WoW Classic Era — see the gear worth chasing next and where it drops, right on your Titan Panel.
+> Spec-aware leveling gear wishlist for WoW (Classic Era + Retail) — see the gear worth chasing next and where it drops, right on your info bar.
 
-**Stop alt-tabbing to Wowhead mid-level.** TitanJourney is a leveling gear-wishlist addon that tells you which gear is worth chasing *right now* — and where to get it — straight from a Titan Panel button.
+**Stop alt-tabbing to Wowhead mid-level.** TitanJourney is a leveling gear-wishlist addon that tells you which gear is worth chasing *right now* — and where to get it — from a button on any LibDataBroker display (Titan Panel, Bazooka, ElvUI DataTexts, ...) or its own minimap button. No other addon required.
 
 For your current level, the engine surfaces worthwhile upgrades from now up to **N levels ahead** (default +10), spanning quest rewards, dungeon drops, and craftable items, and pins your next goal where you can always see it.
 
 ## Features
 
-- **Next-Goal Titan Panel button** — shows your next recommended item, its required level, and how close you are (*Available now* / *In N Levels*). Left-click opens the browser.
+- **Next-Goal bar button** — shows your next recommended item, its required level, and how close you are (*Available now* / *In N Levels*) on any LDB display, or on the built-in minimap button. Left-click opens the browser.
 - **Spec-aware suggestions** — items are scored with stat weights for all **9 classes × 3 specs**, so a Fury Warrior and a Holy Priest see different picks. Shows the best item per slot for *your* build.
 - **Know where it drops** — every suggestion is tagged by source: **Crafted** (with profession), **Dungeon** (with instance), or **Quest** (with zone).
 - **Two-pane Browse overlay** — pick a slot/category on the left, see the curated Journey list on the right, with quality-bordered icons and Blizzard-style hover tooltips (stats, item level, required level, source).
@@ -17,8 +17,8 @@ For your current level, the engine surfaces worthwhile upgrades from now up to *
 
 ## Requirements
 
-- **WoW Classic Era** (Interface 11506)
-- **Titan Panel** (required dependency)
+- **WoW Classic Era** or **Retail** (single multi-flavour addon)
+- No dependencies. A LibDataBroker display (Titan Panel, Bazooka, ElvUI, ...) is optional — without one, the bundled minimap button hosts the feed.
 
 ## How it works
 
@@ -26,4 +26,4 @@ TitanJourney curates an editorial list of *which* itemIDs are worth chasing by l
 
 ## Installing
 
-Copy or symlink this folder into your WoW install as `Interface/AddOns/TitanJourney/`, then enable **TitanJourney** (and **Titan Panel**) at the character select screen.
+Copy or symlink this folder into your WoW install as `Interface/AddOns/TitanJourney/`, then enable **TitanJourney** at the character select screen.
