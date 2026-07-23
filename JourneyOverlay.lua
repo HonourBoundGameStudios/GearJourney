@@ -1507,31 +1507,28 @@ local function BuildLayout(f)
 
       -- "Recall" dropdown: pick from the last 20 inspections saved by ANY
       -- character on the account (inspect on one toon, recall on another).
-      local recallDD = CreateFrame("Frame", "TitanJourneyInspectRecall", panel,
-        "UIDropDownMenuTemplate")
+      -- Built on Blizzard's Menu API (MenuUtil) -- the old UIDropDownMenu code
+      -- is being removed in Midnight (12.0.0), same rewrite that moved Titan's
+      -- own menus onto Titan_Menu.
       local recall = MakeChip(panel, "Recall \226\150\190")   -- caret
       recall:SetHeight(22)
       recall:SetPoint("TOPRIGHT", addAll, "TOPLEFT", -6, 0)
       recall:SetScript("OnClick", function()
-        UIDropDownMenu_Initialize(recallDD, function(_, level)
+        MenuUtil.CreateContextMenu(recall, function(_, root)
           local h = (TitanJourney_DB and TitanJourney_DB.InspectHistory()) or {}
           if #h == 0 then
-            local info = UIDropDownMenu_CreateInfo()
-            info.text, info.disabled, info.notCheckable = "No saved inspections", true, true
-            UIDropDownMenu_AddButton(info, level)
+            root:CreateTitle("No saved inspections")
             return
           end
           for i, e in ipairs(h) do
-            local info = UIDropDownMenu_CreateInfo()
             local when = (e.when and e.when > 0 and date) and date(" %b %d", e.when) or ""
-            info.text = (e.name or "?") .. "|cff808080" .. when
+            local text = (e.name or "?") .. "|cff808080" .. when
               .. "  \194\183 " .. (#(e.items or {})) .. " items|r"
-            info.checked = ((Overlay.inspectSel or 1) == i)
-            info.func = function() Overlay.inspectSel = i; Overlay.RenderInspect() end
-            UIDropDownMenu_AddButton(info, level)
+            root:CreateRadio(text,
+              function() return (Overlay.inspectSel or 1) == i end,
+              function() Overlay.inspectSel = i; Overlay.RenderInspect() end)
           end
-        end, "MENU")
-        ToggleDropDownMenu(1, nil, recallDD, recall, 0, 0)
+        end)
       end)
 
       local scroll, child = MakeScroll(panel)
