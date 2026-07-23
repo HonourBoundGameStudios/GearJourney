@@ -64,6 +64,10 @@ own Lua/XML/`.toc` live at the root so the game can load the folder directly.
 
 ## Standing orders
 
+- **Eye-verify in the WoW client from more than one state — a single screenshot is not sign-off.**
+  Check the changed UI under different conditions (data present vs. empty, bar placement, UI scale) with
+  a deliberate visual-defect scan (missing textures/icons, overlapping/clipped text, wrong colours)
+  before calling it verified. _(Fleetcast 2026-07-02; origin GuardianForever)_
 - **Re-read this `CLAUDE.md` periodically.** Don't rely on the session-start read alone — in a long session
   (or after a context compaction), re-read this file at regular intervals so the Process, the gotchas, and the
   standing rules don't drift out of context. _(Fleetcast 2026-06-20)_
