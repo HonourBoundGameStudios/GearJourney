@@ -110,9 +110,22 @@ if ldb then
         text = "\226\128\148",                    -- em dash placeholder until first refresh
         icon = "Interface\\Icons\\Ability_Mount_RidingHorse",
         OnClick = function(frame, button)
-            -- Left-click opens the Wishlist Manager. (Right-click menu = IND-4.)
+            -- Left-click opens the Wishlist Manager; right-click the context
+            -- menu. Ours regardless of host (IND-4) -- Blizzard MenuUtil, the
+            -- same post-UIDropDownMenu API the overlay already uses.
             if button == "LeftButton" and TitanJourney_Overlay then
                 TitanJourney_Overlay.Toggle()
+            elseif button == "RightButton" and MenuUtil then
+                MenuUtil.CreateContextMenu(frame, function(_, root)
+                    root:CreateTitle("TitanJourney")
+                    root:CreateButton("About Honour Bound Game Studios", function()
+                        if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
+                            TitanJourney_Overlay.OpenTo("about")
+                        else
+                            StaticPopup_Show("JOURNEY_ABOUT")
+                        end
+                    end)
+                end)
             end
         end,
         OnTooltipShow = function(tooltip)
