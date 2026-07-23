@@ -1,9 +1,8 @@
--- TitanJourney — a Titan Panel plugin (modelled on the fleet's TitanWeaponSkills addon).
-local _G = getfenv(0)
-local ADDON_ID = "Journey"                                  -- short id Titan keys plugin state on
-local TITAN_BUTTON_NAME = "TitanPanel" .. ADDON_ID .. "Button"
+-- TitanJourney — published as a LibDataBroker data source (EPIC-K / IND-3).
+-- Any LDB display hosts the button: Titan Panel (via its LDB bridge), Bazooka,
+-- ElvUI DataTexts, our own future HonourBar, or the LibDBIcon minimap fallback.
 -- Single source of truth: read the version straight from the .toc so the About
--- dialog and Titan registry can never drift from the packaged version.
+-- dialog and the data object can never drift from the packaged version.
 local GetMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
 local VERSION = (GetMeta and GetMeta("TitanJourney", "Version")) or "dev"
 
@@ -100,105 +99,44 @@ function TitanJourney_GetTooltipText()
         .. clicks .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
 end
 
--- Right-click menu -- OLD scheme (Titan's UIDropDownMenu). Kept only as a
--- fallback for Titan builds predating the Jan 2026 menu rewrite; on current
--- Titan the menuContextFunction below wins (see GeneratorFunction).
-local function PrepareMenu()
-    TitanPanelRightClickMenu_AddTitle(TitanPlugins[ADDON_ID].menuText)
-
-    local info = {}
-    info.text = "About Honour Bound Game Studios"
-    info.func = function()
-        if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
-            TitanJourney_Overlay.OpenTo("about")
-        else
-            StaticPopup_Show("JOURNEY_ABOUT")
-        end
-    end
-    info.notCheckable = 1
-    TitanPanelRightClickMenu_AddButton(info)
-    TitanPanelRightClickMenu_AddSpacer()
-
-    TitanPanelRightClickMenu_AddToggleIcon(ADDON_ID)
-    TitanPanelRightClickMenu_AddToggleRightSide(ADDON_ID)
-    TitanPanelRightClickMenu_AddSpacer()
-    TitanPanelRightClickMenu_AddHide(ADDON_ID)
-end
-
--- Right-click menu -- NEW scheme (Jan 2026). Blizzard rewrote the Menu API and
--- is removing the old UIDropDownMenu code, so Titan wraps Blizzard_Menu behind
--- Titan_Menu and calls this generator on right-click. Titan itself adds the
--- title (top) plus the ShowIcon / DisplayOnRightSide toggles and Hide (bottom)
--- via the registry's controlVariables, so we only supply our custom entry.
--- Mirrors TitanBag's GeneratorFunction. (owner = the plugin frame; root = the
--- menu description to attach widgets to.)
-local function GeneratorFunction(owner, root)
-    Titan_Menu.AddCommand(root, ADDON_ID, "About Honour Bound Game Studios",
-        function()
-            -- Open the manager straight to its About tab (studio blurb, copyable
-            -- Steam link, version). Falls back to the popup if the overlay is
-            -- somehow unavailable.
-            if TitanJourney_Overlay and TitanJourney_Overlay.OpenTo then
-                TitanJourney_Overlay.OpenTo("about")
-            else
-                StaticPopup_Show("JOURNEY_ABOUT")
-            end
-        end)
-end
-
--- Titan reads self.registry in the button's OnLoad.
-local function OnLoad(self)
-    self.registry = {
-        id = ADDON_ID,
-        category = "Information",
-        version = VERSION,
-        menuText = "TitanJourney",
-        menuContextFunction = GeneratorFunction,  -- NEW scheme (1st priority, Jan 2026)
-        menuTextFunction = PrepareMenu,            -- OLD scheme fallback (pre-2026 Titan)
-        tooltipTitle = "TitanJourney",
-        buttonTextFunction = TitanJourney_GetButtonText,
-        tooltipTextFunction = TitanJourney_GetTooltipText,
+-- The LDB data object: the one thing every display addon hosts. Displays call
+-- the scripts; we own the text/icon and update them via TitanJourney_RefreshButton.
+local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
+local dataObj
+if ldb then
+    dataObj = ldb:NewDataObject("TitanJourney", {
+        type = "data source",
+        label = "Next Goal",
+        text = "\226\128\148",                    -- em dash placeholder until first refresh
         icon = "Interface\\Icons\\Ability_Mount_RidingHorse",
-        iconWidth = 16,
-        controlVariables = {
-            ShowIcon = true,
-            DisplayOnRightSide = false,
-        },
-        savedVariables = {
-            ShowIcon = true,
-            DisplayOnRightSide = false,
-        },
-    }
+        OnClick = function(frame, button)
+            -- Left-click opens the Wishlist Manager. (Right-click menu = IND-4.)
+            if button == "LeftButton" and TitanJourney_Overlay then
+                TitanJourney_Overlay.Toggle()
+            end
+        end,
+        OnTooltipShow = function(tooltip)
+            -- Same body the Titan tooltip showed; displays hand us their tooltip
+            -- frame. AddLine splits on embedded newlines; no wrap (bar tooltip).
+            tooltip:AddLine("TitanJourney")
+            for line in (TitanJourney_GetTooltipText() .. "\n"):gmatch("(.-)\n") do
+                tooltip:AddLine(line)
+            end
+        end,
+    })
 end
 
-local function OnEvent(self, event, ...)
-    -- Refresh the button text on login and whenever the player's level changes
-    -- (the lookahead window shifts), so the next goal stays current (FEAT-B3).
-    TitanJourney_RefreshButton()
+-- Repaint = write the data object; every hosting display reacts via the LDB
+-- attribute-changed callback (Titan's bridge included).
+function TitanJourney_HostRefresh()
+    if dataObj == nil then return end
+    local _, value = TitanJourney_GetButtonText()
+    dataObj.text = value or "\226\128\148"
 end
 
--- TitanWeaponSkills builds its frame in Lua rather than shipping an XML — same here.
-local function CreateTitanButton()
-    if _G[TITAN_BUTTON_NAME] then return end
-    local frame = CreateFrame("Frame", nil, UIParent)
-    local window = CreateFrame("Button", TITAN_BUTTON_NAME, frame, "TitanPanelComboTemplate")
-    window:SetFrameStrata("FULLSCREEN")
-    OnLoad(window)
-    window:RegisterEvent("PLAYER_ENTERING_WORLD")
-    window:RegisterEvent("PLAYER_LEVEL_UP")
-    window:SetScript("OnShow", function(self) TitanPanelButton_OnShow(self) end)
-    window:SetScript("OnEvent", function(self, event, ...) OnEvent(self, event, ...) end)
-    window:SetScript("OnClick", function(self, button)
-        -- Left-click opens the Wishlist Manager; right-click keeps Titan's menu.
-        if button == "LeftButton" and TitanJourney_Overlay then
-            TitanJourney_Overlay.Toggle()
-        else
-            TitanPanelButton_OnClick(self, button)
-        end
-    end)
-end
-
--- ## Dependencies: Titan in the .toc guarantees Titan loaded first, so TITAN_ID exists.
-if TITAN_ID then
-    CreateTitanButton()
-end
+-- Refresh the text on login and whenever the player's level changes (the
+-- lookahead window shifts), so the next goal stays current (FEAT-B3).
+local watcher = CreateFrame("Frame")
+watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
+watcher:RegisterEvent("PLAYER_LEVEL_UP")
+watcher:SetScript("OnEvent", function() TitanJourney_RefreshButton() end)

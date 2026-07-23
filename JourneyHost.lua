@@ -1,8 +1,9 @@
--- JourneyHost -- the display-host seam (EPIC-K / IND-1).
+-- JourneyHost -- the display-host seam (EPIC-K / IND-1, IND-3).
 -- Everything that needs the bar button repainted calls TitanJourney_RefreshButton();
--- only this file (and the host shim) knows WHICH display is hosting us. Today that
--- is Titan Panel; the LDB data object takes over at IND-3.
+-- only this file (and the LDB shim in TitanJourney.lua) knows HOW the button is
+-- hosted. Since IND-3 that is a LibDataBroker data object -- updating it fires
+-- the LDB callback and every hosting display (Titan's bridge included) repaints.
 
 function TitanJourney_RefreshButton()
-  if TitanPanelButton_UpdateButton then TitanPanelButton_UpdateButton("Journey") end
+  if TitanJourney_HostRefresh then TitanJourney_HostRefresh() end
 end
