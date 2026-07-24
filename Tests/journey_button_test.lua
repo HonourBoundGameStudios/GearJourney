@@ -27,6 +27,11 @@ H.eq(v2, "Assassin's Blade (Lv. 24) - In 10 Levels", "pinned item is shown")
 local _, v2b = Engine.BuildButtonText(fixture, 14, 10, "Nonexistent Item")
 H.eq(v2b, "Gloves of the Fang (Lv. 18) - In 4 Levels", "unknown pin falls back to next goal")
 
+-- Once the item is reachable the "Available now" suffix adds nothing, so the
+-- value is just "<name> (Lv. <req>)" with no proximity tail.
+local _, v2c = Engine.BuildButtonText(fixture, 20, 10, "Gloves of the Fang")
+H.eq(v2c, "Gloves of the Fang (Lv. 18)", "reachable goal drops the proximity suffix")
+
 -- No goal in range -> a clear placeholder, not an error.
 local _, v3 = Engine.BuildButtonText(fixture, 40, 5)
 H.eq(v3, "None in range", "no goal in window -> 'None in range'")

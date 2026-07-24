@@ -329,8 +329,10 @@ end
 
 -- BuildButtonText(items, level, range, pinnedName) -> label, value
 --   The Titan button's two-part text. `label` is constant; `value` names the
---   default next goal as "<name> (Lv. <req>)", or "None in range" when no
---   unpinned goal sits in the lookahead window. Pure: the caller supplies the
+--   default next goal as "<name> (Lv. <req>)", suffixed with "- In N Levels"
+--   while it is still out of reach (the "Available now" case adds no info, so
+--   the suffix is dropped once the item is reachable), or "None in range" when
+--   no unpinned goal sits in the lookahead window. Pure: the caller supplies the
 --   player level (UnitLevel) and item list, so this is fully offline-testable.
 function Engine.BuildButtonText(items, level, range, pinnedName)
   -- Show the pinned item if the player chose one, else the default next goal.
@@ -339,9 +341,11 @@ function Engine.BuildButtonText(items, level, range, pinnedName)
   if goal == nil then
     return "Next Goal:", "None in range"
   end
-  local proximity = Engine.ProximityLabel(goal.reqLevel, level)
-  return "Next Goal:",
-    goal.name .. " (Lv. " .. goal.reqLevel .. ") - " .. proximity
+  local value = goal.name .. " (Lv. " .. goal.reqLevel .. ")"
+  if goal.reqLevel > level then
+    value = value .. " - " .. Engine.ProximityLabel(goal.reqLevel, level)
+  end
+  return "Next Goal:", value
 end
 
 -- FilterByQuality(items, enabled) -> new array. Keeps items whose quality is
