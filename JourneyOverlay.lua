@@ -993,7 +993,7 @@ function Overlay.RenderGuide()
   if not (engine and items and guide) then
     RenderBandedInto(panel.scroll, panel.listAnchor, panel.rows, panel.hdrs, {}, level)
     panel.empty:SetText(guide and "Loading gear\226\128\166"
-      or "No curated guide yet for your class. (Rogue available; more coming.)")
+      or "No curated guide yet for your class.")
     panel.empty:Show()
     return
   end
