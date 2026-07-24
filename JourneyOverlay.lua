@@ -963,6 +963,13 @@ function Overlay.SetGuideShowAll(on)
   Overlay.RenderGuide()
 end
 
+-- Class Guide spec toggle: preview another spec's curated picks without
+-- respeccing. nil = follow the player's active spec; 1..3 pins a spec.
+function Overlay.SelectGuideSpec(i)
+  Overlay.guideSpec = i
+  Overlay.RenderGuide()
+end
+
 -- Render the Class Guide tab: a curated, best-in-slot-focused gear list for the
 -- player's class (EPIC-H), resolved from itemIDs against the enriched pool and
 -- grouped into level bands. Split into Weapons / Armor sub-tabs; items not
@@ -974,7 +981,23 @@ function Overlay.RenderGuide()
   local locClass, class = UnitClass("player")
   local level = (UnitLevel and UnitLevel("player")) or 1
   local guide = class and GearJourney_ClassGuides and GearJourney_ClassGuides[class]
+
+  -- Effective spec: the toggle's override, else the player's active spec. Drives
+  -- the weights below; highlight its chip and name it in the header (flagging a
+  -- preview when it isn't the spec you're actually in).
+  local active = PlayerSpecIndex()
+  local spec = (engine and engine.ResolveSpec(Overlay.guideSpec, active)) or active
+  local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames()) or {}
+  local specName = specNames[spec]
+  if panel.specChips then
+    for i, b in ipairs(panel.specChips) do
+      if i == spec then b:LockHighlight() else b:UnlockHighlight() end
+    end
+  end
+  local previewing = (Overlay.guideSpec ~= nil and spec ~= active)
   panel.header:SetText((locClass or "Class") .. " Gear Guide"
+    .. (specName and ("  |cffffd100" .. specName .. "|r") or "")
+    .. (previewing and " |cffff8844(preview)|r" or "")
     .. (Overlay.guideShowAll and "  |cff66ccff(all usable)|r" or "  |cff999999(suggestions)|r"))
 
   -- "Best dungeon to run now" hint (most usable upgrades around your level).
@@ -1003,7 +1026,6 @@ function Overlay.RenderGuide()
   -- ranked by item level; armor/jewelry must score > 0 (carry offensive stats),
   -- dropping defensive-only pieces. Buckets are sorted best-first.
   local wantWeapon = (Overlay.guideSubtab ~= "armor")
-  local spec = PlayerSpecIndex()
   local weights = engine.WeightsFor(class, spec, (GearJourney_DB and GearJourney_DB.Mode()) or "pve")
   -- Source: the curated suggestions, or the whole usable pool in "All" mode.
   local buckets, seen = {}, {}
@@ -1579,6 +1601,24 @@ local function BuildLayout(f)
       albl:SetPoint("LEFT", allCb, "RIGHT", 1, 0)
       albl:SetText("Show all usable")
       allCb:SetScript("OnClick", function(self) Overlay.SetGuideShowAll(self:GetChecked()) end)
+
+      -- Spec toggle: preview another spec's curated picks without respeccing.
+      -- The active chip is highlighted at render (Overlay.RenderGuide).
+      panel.specChips = {}
+      local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames())
+        or { "Spec 1", "Spec 2", "Spec 3" }
+      local slbl = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      slbl:SetPoint("LEFT", albl, "RIGHT", 18, 0)
+      slbl:SetText("Spec:")
+      local anchor = slbl
+      for i = 1, 3 do
+        local sb = MakeChip(panel, specNames[i] or ("Spec " .. i))
+        sb:SetHeight(22)
+        sb:SetPoint("LEFT", anchor, "RIGHT", 6, 0)
+        sb:SetScript("OnClick", function() Overlay.SelectGuideSpec(i) end)
+        panel.specChips[i] = sb
+        anchor = sb
+      end
 
       local scroll, child = MakeScroll(panel)
       scroll:SetPoint("TOPLEFT", panel.subtabs.weapons, "BOTTOMLEFT", 0, -8)

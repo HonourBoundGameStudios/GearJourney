@@ -40,6 +40,14 @@ H.eq(Engine.ScoreItem({ stats = { Intellect = 20 } }, rogueW), 0, "ignores stats
 H.eq(Engine.ScoreItem({ stats = nil }, rogueW), 0, "no stats -> 0")
 H.eq(Engine.ScoreItem({ stats = { Agility = 5 } }, nil), 0, "no weights -> 0")
 
+-- ResolveSpec: the guide's spec toggle -- an override wins, else follow talents.
+H.eq(Engine.ResolveSpec(2, 1), 2, "override wins over active spec")
+H.eq(Engine.ResolveSpec(nil, 3), 3, "nil override -> follow active spec")
+H.eq(Engine.ResolveSpec(nil, nil), 1, "no override, no active -> spec 1")
+H.eq(Engine.ResolveSpec(0, 2), 2, "invalid override (0) -> active spec")
+H.eq(Engine.ResolveSpec("x", 2), 2, "non-numeric override -> active spec")
+H.eq(Engine.ResolveSpec(2.9, 1), 2, "override floored to an index")
+
 -- BestPerSlotScored picks the highest-scoring item per slot (not highest ilvl).
 local items = {
   { name = "AgiVest", slot = "Chest", ilvl = 20, reqLevel = 20, itemID = 1, stats = { Agility = 12 } },

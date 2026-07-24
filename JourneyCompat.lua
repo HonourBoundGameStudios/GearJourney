@@ -46,6 +46,26 @@ function Compat.PlayerSpec()
   return idx, nil
 end
 
+-- SpecNames() -> array of up to 3 spec names in weight-table order.
+--   Retail:  GetSpecializationInfo(i) names each of the player's specs.
+--   Classic: GetTalentTabInfo(i) names each talent tab.
+-- Used to label the Class Guide's spec toggle; capped at 3 to match the engine's
+-- 3-spec weight model. Falls back to "Spec 1/2/3" if the API isn't available yet.
+function Compat.SpecNames()
+  local names = {}
+  if Compat.isRetail and GetNumSpecializations and GetSpecializationInfo then
+    local n = math.min(GetNumSpecializations() or 0, 3)
+    for i = 1, n do names[i] = select(2, GetSpecializationInfo(i)) end
+  elseif GetNumTalentTabs and GetTalentTabInfo then
+    local n = math.min(GetNumTalentTabs() or 0, 3)
+    for i = 1, n do names[i] = (GetTalentTabInfo(i)) end
+  end
+  for i = 1, 3 do
+    if names[i] == nil or names[i] == "" then names[i] = "Spec " .. i end
+  end
+  return names
+end
+
 -- TalentBackgroundBase(classToken) -> texture base name or nil
 --   Classic decorates the window with the spec's talent-tree art under
 --   Interface\TalentFrame\<base>-{TopLeft,...}. Those textures don't exist on

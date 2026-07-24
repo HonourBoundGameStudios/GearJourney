@@ -635,6 +635,15 @@ function Engine.WeightsFor(class, specIndex, mode)
   return base
 end
 
+-- ResolveSpec(override, active) -> spec index. The Class Guide lets you preview a
+-- spec other than the one you're currently in: `override` (a 1..3 pick, or nil to
+-- follow your talents) wins when valid, else fall back to the `active` spec, else 1.
+function Engine.ResolveSpec(override, active)
+  if type(override) == "number" and override >= 1 then return math.floor(override) end
+  if type(active) == "number" and active >= 1 then return math.floor(active) end
+  return 1
+end
+
 -- ScoreItem(item, weights) -> number. Dot product of the item's stats with the
 -- spec weights; accepts both raw GetItemStats keys and canonical names. Items
 -- with no relevant stats (e.g. weapons) score 0 and fall back to ilvl ranking.
