@@ -15,6 +15,9 @@ For your current level, the engine surfaces worthwhile upgrades from now up to *
 - **Spec-aware suggestions** — items are scored with stat weights for all **9 classes × 3 specs**, so a Fury Warrior and a Holy Priest see different picks. Shows the best item per slot for *your* build.
 - **Know where it drops** — every suggestion is tagged by source: **Crafted** (with profession), **Dungeon** (with instance), or **Quest** (with zone).
 - **Two-pane Browse overlay** — pick a slot/category on the left, see the curated Journey list on the right, with quality-bordered icons and Blizzard-style hover tooltips (stats, item level, required level, source).
+- **Journey List** — a personal wishlist per character: browse candidates by slot, search the full weapons-and-armor index, add what you're chasing, and reorder freely. The bar button always tracks your nearest goal.
+- **Class Gear Guides** — curated leveling picks by level band, with a "best run now" dungeon hint.
+- **Inspect & Recall** — inspect another player and their gear is saved account-wide; recall the last 20 inspections from any of your characters.
 - **Rarity filter & lookahead range** — narrow the list to the quality tiers you care about and tune how far ahead the engine looks.
 - **Always game-accurate** — names, item levels, stats, and icons are resolved live from the WoW client, never from stale copied data.
 
@@ -29,4 +32,11 @@ Gear Journey curates an editorial list of *which* itemIDs are worth chasing by l
 
 ## Installing
 
-Copy or symlink this folder into your WoW install as `Interface/AddOns/GearJourney/`, then enable **Gear Journey** at the character select screen.
+Install from [CurseForge](https://www.curseforge.com/projects/1578100), or copy/symlink this folder into your WoW install as `Interface/AddOns/GearJourney/`, then enable **Gear Journey** at the character select screen.
+
+Upgrading from TitanJourney is a clean break: the folder is now `GearJourney` and old settings/wishlists do not carry over. Delete the old `TitanJourney` folder (or let your addon manager replace it). Titan Panel users: the button re-registers under the new name, so re-apply your Titan display preferences once.
+
+## Usage
+
+- Left-click the bar/minimap button to open the browser; right-click it for options.
+- `/gearjourney` (alias `/tj`) — slash command; `run-testing-scenarios` runs the in-client scenario suite.
