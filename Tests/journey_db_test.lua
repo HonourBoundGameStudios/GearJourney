@@ -144,16 +144,21 @@ IsAddOnLoaded = nil
 GearJourneyDB = nil; DB.Init()
 H.eq(DB.Minimap().hide, false, "minimap back to shown with no Titan at all")
 
--- Floating pill position (FLOAT-4): stable table, default just above centre ----
+-- Floating pill position + toggles (FLOAT-4/5): stable table, opt-in default ----
 GearJourneyDB = nil; DB.Init()
 local fl = DB.Float()
 H.eq(type(fl), "table", "Float returns the saved position table")
 H.eq(fl.point, "CENTER", "default anchor is CENTER")
 H.eq(fl.x, 0, "default x offset is 0")
 H.eq(fl.y, 200, "default y offset is 200 (above centre)")
+H.eq(fl.hidden, true, "pill is hidden by default (opt-in)")
+H.eq(fl.locked, false, "pill is unlocked by default")
 fl.x, fl.y = -120, -80
+fl.hidden, fl.locked = false, true
 H.eq(DB.Float().x, -120, "a dragged x offset persists")
 H.eq(DB.Float().y, -80, "a dragged y offset persists")
-H.ok(DB.Float() == fl, "same table every call (drag mutates it in place)")
+H.eq(DB.Float().hidden, false, "the show toggle persists")
+H.eq(DB.Float().locked, true, "the lock toggle persists")
+H.ok(DB.Float() == fl, "same table every call (drag/toggles mutate it in place)")
 
 H.done()

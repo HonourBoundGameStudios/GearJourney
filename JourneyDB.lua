@@ -64,13 +64,14 @@ function DB.Minimap()
   return s.minimap
 end
 
--- Floating pill position (FLOAT-4). Like DB.Minimap(), the float button mutates
--- the SAME table in place on drag, so always return that one reference. Stored
--- as a CENTER-anchored offset from the screen centre; the default sits it just
--- above centre, matching the first-load position from FLOAT-1.
+-- Floating pill position + toggles (FLOAT-4/5). Like DB.Minimap(), the float
+-- button mutates the SAME table in place, so always return that one reference.
+-- Position is a CENTER-anchored offset from the screen centre (default just
+-- above centre, matching FLOAT-1). `hidden` defaults true -- the pill is opt-in,
+-- shown via the "Show Gear Journey bar" menu toggle; `locked` freezes dragging.
 function DB.Float()
   local s = DB.Get().settings
-  s.float = s.float or { point = "CENTER", x = 0, y = 200 }
+  s.float = s.float or { point = "CENTER", x = 0, y = 200, hidden = true, locked = false }
   return s.float
 end
 

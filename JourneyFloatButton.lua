@@ -3,7 +3,8 @@
 -- the button needs no Titan slot. It renders OUR published LDB data object; this
 -- file owns only the frame. FLOAT-2 mirrors our published LDB object so the pill
 -- shows live text/icon; FLOAT-3 routes clicks and the hover tooltip back through
--- that object's own OnClick / OnTooltipShow; FLOAT-4 remembers where you drag it.
+-- that object's own OnClick / OnTooltipShow; FLOAT-4 remembers where you drag it;
+-- FLOAT-5 adds the right-click menu (lock + show/hide) -- hidden by default.
 
 local ICON = "Interface\\Icons\\Ability_Mount_RidingHorse"
 local BAR_HEIGHT = 20
@@ -17,18 +18,27 @@ bar:SetHeight(BAR_HEIGHT)
 bar:SetFrameStrata("MEDIUM")
 bar:SetBackdrop({ bgFile = "Interface\\BUTTONS\\WHITE8X8" })
 bar:SetBackdropColor(0, 0, 0, 0.6)
--- Default position: clearly on-screen so first load is obvious (FLOAT-4 persists
--- a moved position; until then it re-centres each /reload).
+-- Default position; FLOAT-4 restores a moved spot at login. Hidden at file-load
+-- so the opt-in default (FLOAT-5) never flashes before login applies the saved
+-- visibility.
 bar:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
+bar:Hide()
 
 -- Drag to move, then remember it (FLOAT-4). LeftButton drag coexists with the
 -- LeftButton click (FLOAT-3): WoW fires OnClick only when the pointer didn't drag.
 bar:SetMovable(true)
 bar:RegisterForDrag("LeftButton")
-bar:SetScript("OnDragStart", function(self) self:StartMoving() end)
+bar:SetScript("OnDragStart", function(self)
+  if GearJourney_DB.Float().locked then return end   -- FLOAT-5: locked = no move
+  self:StartMoving()
+  self.isMoving = true
+end)
 bar:SetScript("OnDragStop", function(self)
   self:StopMovingOrSizing()
-  GearJourney_FloatSavePosition()   -- clamp + persist the dropped spot
+  if self.isMoving then
+    self.isMoving = false
+    GearJourney_FloatSavePosition()   -- clamp + persist the dropped spot
+  end
 end)
 
 local icon = bar:CreateTexture(nil, "ARTWORK")
@@ -77,12 +87,24 @@ if ldb then
     end)
 end
 
--- FLOAT-3: click + tooltip passthrough. We add no behaviour of our own -- the
--- pill simply invokes the published object's OnClick (Left -> Wishlist, Right ->
--- context menu) and OnTooltipShow (which titles itself, so we don't add a line).
+-- FLOAT-3/5: click + tooltip. Left-click passes through to the published object
+-- (opens the Wishlist); the tooltip reuses OnTooltipShow verbatim (it titles
+-- itself, so we add no line). Right-click builds the pill's own menu (FLOAT-5):
+-- the shared entries plus a "Lock position" toggle unique to the float.
 bar:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 bar:SetScript("OnClick", function(self, button)
-  if dataObj and dataObj.OnClick then dataObj.OnClick(self, button) end
+  if button == "RightButton" then
+    if MenuUtil and GearJourney_PopulateContextMenu then
+      MenuUtil.CreateContextMenu(self, function(_, root)
+        GearJourney_PopulateContextMenu(root)
+        root:CreateCheckbox("Lock position",
+          function() return GearJourney_DB.Float().locked end,
+          function() local f = GearJourney_DB.Float(); f.locked = not f.locked end)
+      end)
+    end
+  elseif dataObj and dataObj.OnClick then
+    dataObj.OnClick(self, button)
+  end
 end)
 
 bar:SetScript("OnEnter", function(self)
@@ -121,8 +143,22 @@ local function RestorePosition()
   bar:SetPoint(f.point or "CENTER", UIParent, f.point or "CENTER", x, y)
 end
 
--- SavedVariables are only populated around login, so restore then (the file-load
--- SetPoint above keeps the pill visible until this fires).
+-- FLOAT-5: visibility. The pill is hidden by default (opt-in); the shared menu's
+-- "Show Gear Journey bar" toggle drives these, so it can be brought back from the
+-- minimap after being hidden. State lives in DB.Float().hidden, so it persists.
+function GearJourney_FloatShown()
+  return not GearJourney_DB.Float().hidden
+end
+function GearJourney_FloatSetShown(shown)
+  GearJourney_DB.Float().hidden = not shown
+  if shown then bar:Show() else bar:Hide() end
+end
+
+-- SavedVariables are only populated around login, so restore position AND apply
+-- the saved visibility then (hidden by default until the player opts in).
 local placer = CreateFrame("Frame")
 placer:RegisterEvent("PLAYER_ENTERING_WORLD")
-placer:SetScript("OnEvent", RestorePosition)
+placer:SetScript("OnEvent", function()
+  RestorePosition()
+  GearJourney_FloatSetShown(GearJourney_FloatShown())
+end)

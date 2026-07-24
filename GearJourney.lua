@@ -100,6 +100,40 @@ function GearJourney_GetTooltipText()
         .. clicks .. "\n" .. TOOLTIP_RULE .. "\n" .. footer
 end
 
+-- The right-click menu, shared by every host of our data object: the LDB bar
+-- (Titan plugin / minimap button) and the floating pill (FLOAT-5) build the same
+-- entries so behaviour never diverges -- the float just appends its own "Lock
+-- position" item after these. `root` is a MenuUtil context-menu root.
+function GearJourney_PopulateContextMenu(root)
+    root:CreateTitle("Gear Journey")
+    root:CreateButton("About Honour Bound Game Studios", function()
+        if GearJourney_Overlay and GearJourney_Overlay.OpenTo then
+            GearJourney_Overlay.OpenTo("about")
+        else
+            StaticPopup_Show("JOURNEY_ABOUT")
+        end
+    end)
+    -- Show/hide the floating pill (hidden by default). Offered only once the
+    -- float frame exists -- its file loads after this one -- and reachable here
+    -- from the minimap so the pill can be brought back after it is hidden.
+    if GearJourney_FloatSetShown then
+        root:CreateCheckbox("Show Gear Journey bar",
+            function() return GearJourney_FloatShown() end,
+            function() GearJourney_FloatSetShown(not GearJourney_FloatShown()) end)
+    end
+    root:CreateCheckbox("Show minimap button",
+        function() return not GearJourney_DB.Minimap().hide end,
+        function()
+            local mm = GearJourney_DB.Minimap()
+            mm.hide = not mm.hide
+            local dbicon = LibStub("LibDBIcon-1.0", true)
+            if dbicon then
+                if mm.hide then dbicon:Hide("GearJourney")
+                else dbicon:Show("GearJourney") end
+            end
+        end)
+end
+
 -- The LDB data object: the one thing every display addon hosts. Displays call
 -- the scripts; we own the text/icon and update them via GearJourney_RefreshButton.
 local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
@@ -118,25 +152,7 @@ if ldb then
                 GearJourney_Overlay.Toggle()
             elseif button == "RightButton" and MenuUtil then
                 MenuUtil.CreateContextMenu(frame, function(_, root)
-                    root:CreateTitle("Gear Journey")
-                    root:CreateButton("About Honour Bound Game Studios", function()
-                        if GearJourney_Overlay and GearJourney_Overlay.OpenTo then
-                            GearJourney_Overlay.OpenTo("about")
-                        else
-                            StaticPopup_Show("JOURNEY_ABOUT")
-                        end
-                    end)
-                    root:CreateCheckbox("Show minimap button",
-                        function() return not GearJourney_DB.Minimap().hide end,
-                        function()
-                            local mm = GearJourney_DB.Minimap()
-                            mm.hide = not mm.hide
-                            local dbicon = LibStub("LibDBIcon-1.0", true)
-                            if dbicon then
-                                if mm.hide then dbicon:Hide("GearJourney")
-                                else dbicon:Show("GearJourney") end
-                            end
-                        end)
+                    GearJourney_PopulateContextMenu(root)
                 end)
             end
         end,
