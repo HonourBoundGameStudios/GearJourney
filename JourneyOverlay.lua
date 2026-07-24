@@ -1602,26 +1602,27 @@ local function BuildLayout(f)
       albl:SetText("Show all usable")
       allCb:SetScript("OnClick", function(self) Overlay.SetGuideShowAll(self:GetChecked()) end)
 
-      -- Spec toggle: preview another spec's curated picks without respeccing.
-      -- The active chip is highlighted at render (Overlay.RenderGuide).
+      -- Spec toggle on its own row (under the sub-tabs): preview another spec's
+      -- curated picks without respeccing. The effective chip is highlighted at
+      -- render (Overlay.RenderGuide).
       panel.specChips = {}
       local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames())
         or { "Spec 1", "Spec 2", "Spec 3" }
       local slbl = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      slbl:SetPoint("LEFT", albl, "RIGHT", 18, 0)
+      slbl:SetPoint("TOPLEFT", panel.subtabs.weapons, "BOTTOMLEFT", 2, -8)
       slbl:SetText("Spec:")
       local anchor = slbl
       for i = 1, 3 do
         local sb = MakeChip(panel, specNames[i] or ("Spec " .. i))
         sb:SetHeight(22)
-        sb:SetPoint("LEFT", anchor, "RIGHT", 6, 0)
+        sb:SetPoint("LEFT", anchor, "RIGHT", anchor == slbl and 8 or 6, 0)
         sb:SetScript("OnClick", function() Overlay.SelectGuideSpec(i) end)
         panel.specChips[i] = sb
         anchor = sb
       end
 
       local scroll, child = MakeScroll(panel)
-      scroll:SetPoint("TOPLEFT", panel.subtabs.weapons, "BOTTOMLEFT", 0, -8)
+      scroll:SetPoint("TOPLEFT", panel.specChips[1], "BOTTOMLEFT", -2, -8)
       scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
       panel.scroll, panel.listAnchor = scroll, child
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
