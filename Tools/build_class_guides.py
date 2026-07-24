@@ -40,6 +40,19 @@ CLASS_ARMOR = {
 PER_SLOT_BAND = 2  # keep the best N per slot per 10-level band
 
 
+def band_index(req_level):
+    """Mirror Engine.BandIndex: 1-10->1 ... 51-59->6, level 60 its own band 7.
+    Must match the in-game split, else best-by-item-level buckets 51-60 together
+    and the level-60 raid pieces starve the 51-59 band."""
+    r = req_level or 1
+    if r < 1:
+        r = 1
+    if r >= 60:
+        return 7
+    idx = (r - 1) // 10 + 1
+    return 1 if idx < 1 else (6 if idx > 6 else idx)
+
+
 def weapon_sub(sub, slot):
     two = slot in TWO_HAND
     return {"Axe": (1 if two else 0), "Mace": (5 if two else 4), "Sword": (8 if two else 7),
@@ -76,7 +89,7 @@ def main():
         for it in eq:
             if not usable(cls, it):
                 continue
-            band = ((it.get("requiredLevel") or 1) - 1) // 10
+            band = band_index(it.get("requiredLevel"))
             buckets[(it.get("slot"), band)].append(it)
         picked, seen = [], set()
         for key, items in buckets.items():
