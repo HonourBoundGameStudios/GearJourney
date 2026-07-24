@@ -2,8 +2,8 @@
 -- A small draggable pill (mount icon + next-goal text) parented to UIParent, so
 -- the button needs no Titan slot. It renders OUR published LDB data object; this
 -- file owns only the frame. FLOAT-2 mirrors our published LDB object so the pill
--- shows live text/icon; click/tooltip (FLOAT-3) and drag persistence (FLOAT-4)
--- land in later commits.
+-- shows live text/icon; FLOAT-3 routes clicks and the hover tooltip back through
+-- that object's own OnClick / OnTooltipShow; drag persistence (FLOAT-4) follows.
 
 local ICON = "Interface\\Icons\\Ability_Mount_RidingHorse"
 local BAR_HEIGHT = 20
@@ -50,8 +50,13 @@ Layout()
 -- same events (level-up / loot) via the shared attribute-changed callback.
 local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
 
+-- The object the pill is currently mirroring. FLOAT-3 hangs the click and
+-- tooltip handlers off it so the float behaves exactly like every other host.
+local dataObj
+
 local function Apply(obj)
   if not obj then return end
+  dataObj = obj
   if obj.icon then icon:SetTexture(obj.icon) end
   text:SetText((obj.label or "Next Goal") .. ": " .. (obj.text or "\226\128\148"))
   Layout()
@@ -68,3 +73,20 @@ if ldb then
       if name == "GearJourney" then Apply(obj) end
     end)
 end
+
+-- FLOAT-3: click + tooltip passthrough. We add no behaviour of our own -- the
+-- pill simply invokes the published object's OnClick (Left -> Wishlist, Right ->
+-- context menu) and OnTooltipShow (which titles itself, so we don't add a line).
+bar:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+bar:SetScript("OnClick", function(self, button)
+  if dataObj and dataObj.OnClick then dataObj.OnClick(self, button) end
+end)
+
+bar:SetScript("OnEnter", function(self)
+  if not (dataObj and dataObj.OnTooltipShow) then return end
+  GameTooltip:SetOwner(self, "ANCHOR_NONE")
+  GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -2)
+  dataObj.OnTooltipShow(GameTooltip)
+  GameTooltip:Show()
+end)
+bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
