@@ -27,4 +27,5 @@ JourneyProvider.lua
 JourneyTests.lua
 JourneyOverlay.lua
 GearJourney.lua
+JourneyFloatButton.lua
 JourneyScenarios.lua
