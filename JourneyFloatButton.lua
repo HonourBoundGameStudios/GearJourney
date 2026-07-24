@@ -1,9 +1,9 @@
 -- JourneyFloatButton -- Gear Journey's own always-on floating display (EPIC-L).
 -- A small draggable pill (mount icon + next-goal text) parented to UIParent, so
 -- the button needs no Titan slot. It renders OUR published LDB data object; this
--- file owns only the frame. FLOAT-1 is the skeleton: the pill appears with a
--- placeholder; live text (FLOAT-2), click/tooltip (FLOAT-3), and drag persistence
--- (FLOAT-4) land in later commits.
+-- file owns only the frame. FLOAT-2 mirrors our published LDB object so the pill
+-- shows live text/icon; click/tooltip (FLOAT-3) and drag persistence (FLOAT-4)
+-- land in later commits.
 
 local ICON = "Interface\\Icons\\Ability_Mount_RidingHorse"
 local BAR_HEIGHT = 20
@@ -43,3 +43,28 @@ local function Layout()
   bar:SetWidth(PAD + ICON_SIZE + ICON_GAP + math.max(text:GetStringWidth(), 1) + PAD)
 end
 Layout()
+
+-- FLOAT-2: render our published "GearJourney" LDB object. The float owns no data
+-- of its own -- it mirrors the object every other display hosts, so its text and
+-- icon always match the Titan plugin and the minimap button, and update on the
+-- same events (level-up / loot) via the shared attribute-changed callback.
+local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
+
+local function Apply(obj)
+  if not obj then return end
+  if obj.icon then icon:SetTexture(obj.icon) end
+  text:SetText((obj.label or "Next Goal") .. ": " .. (obj.text or "\226\128\148"))
+  Layout()
+end
+
+if ldb then
+  -- Seed from the object as it stands now (published before this file loads).
+  for name, obj in ldb:DataObjectIterator() do
+    if name == "GearJourney" then Apply(obj); break end
+  end
+  -- Then track it: setting dataObj.text/icon in GearJourney.lua fires this.
+  ldb.RegisterCallback(bar, "LibDataBroker_AttributeChanged",
+    function(_, name, _, _, obj)
+      if name == "GearJourney" then Apply(obj) end
+    end)
+end
