@@ -1778,7 +1778,7 @@ local function BuildLayout(f)
       local aDesc = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
       aDesc:SetPoint("TOP", aVer, "BOTTOM", 0, -10)
       aDesc:SetWidth(TEXTW); aDesc:SetJustifyH("CENTER")
-      aDesc:SetText("Your leveling gear companion, on the Titan Panel bar. GearJourney surfaces "
+      aDesc:SetText("Your leveling gear companion, on your info bar or minimap. GearJourney surfaces "
         .. "the best upgrades for your class and spec at every level \226\128\148 browse and search "
         .. "every weapon and armor piece, build a Journey List of gear to chase, and see which "
         .. "dungeon offers the most upgrades for you right now, all with spec-aware stat scoring.")
@@ -1853,7 +1853,7 @@ local function BuildLayout(f)
         prev = b
       end
       section("Interface\\Icons\\INV_Misc_Map_01", "Journey Items",
-        "Your personal wishlist \226\128\148 saved |cffffffffper character|r. Add gear from any tab; the Titan bar shows your next goal and the tooltip lists the set.")
+        "Your personal wishlist \226\128\148 saved |cffffffffper character|r. Add gear from any tab; the button shows your next goal and the tooltip lists the set.")
       section("Interface\\Icons\\INV_Misc_Book_09", "Class Guide",
         "Hand-picked gear by level band, split into |cffffffffWeapons|r and |cffffffffArmor|r. Tick |cff66ccffShow all usable|r for the full pool. \"Best run now\" points to the dungeon with the most upgrades for you.")
       section("Interface\\Icons\\INV_Misc_Spyglass_02", "Browse",
@@ -1867,7 +1867,7 @@ local function BuildLayout(f)
       tips:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", -6, -12)
       tips:SetWidth(TEXTW); tips:SetJustifyH("LEFT")
       tips:SetText("Hold |cffffffffSHIFT|r while hovering an item to compare with what you're wearing."
-        .. "   Left-click the Titan bar to open this window; right-click for options.")
+        .. "   Left-click the GearJourney button to open this window; right-click for options.")
 
       -- Dev/Test: run the in-client behaviour scenarios (engine self-test is one
       -- of them, SCN-ENGINE); details print to chat. Tucked bottom-left.
