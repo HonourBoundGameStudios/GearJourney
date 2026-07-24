@@ -62,6 +62,19 @@ local Rogue = {
   { id = 15335, name = "Briarsteel Shortsword" },
   { id = 18957, name = "Brushwood Blade" },
 
+  -- Band 1-10 (reqLevel <= 10) -----------------------------------------------
+  -- The AtlasLoot pool starts around reqLevel 15, so the earliest band was
+  -- empty. These are quest/crafted/world-drop pieces that resolve to a required
+  -- level of 10 or below, giving levels 1-10 something to show. Spirit-only
+  -- leather (Embossed pants/boots) is intentionally omitted -- the guide's
+  -- off-spec cut drops caster gear from a Rogue's armor tab.
+  { id = 7298, name = "Blade of Cunning" },          -- Rogue-only quest dagger, +2 Agi
+  { id = 4947, name = "Jagged Dagger" },             -- Durotar quest dagger, +1 Str
+  { id = 3314, name = "Ceremonial Leather Gloves" }, -- hands, +2 Str +2 Agi
+  { id = 2976, name = "Hunting Gloves" },            -- hands, +2 Agi +1 Sta
+  { id = 2899, name = "Wendigo Collar" },            -- waist, +3 Str
+  { id = 2300, name = "Embossed Leather Vest" },     -- chest, +2 Sta
+
   -- Ranged -------------------------------------------------------------------
   { id = 6469,  name = "Venomstrike" },
   { id = 13136, name = "Lil Timmy's Peashooter" },
