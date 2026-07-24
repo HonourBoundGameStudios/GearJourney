@@ -144,4 +144,16 @@ IsAddOnLoaded = nil
 GearJourneyDB = nil; DB.Init()
 H.eq(DB.Minimap().hide, false, "minimap back to shown with no Titan at all")
 
+-- Floating pill position (FLOAT-4): stable table, default just above centre ----
+GearJourneyDB = nil; DB.Init()
+local fl = DB.Float()
+H.eq(type(fl), "table", "Float returns the saved position table")
+H.eq(fl.point, "CENTER", "default anchor is CENTER")
+H.eq(fl.x, 0, "default x offset is 0")
+H.eq(fl.y, 200, "default y offset is 200 (above centre)")
+fl.x, fl.y = -120, -80
+H.eq(DB.Float().x, -120, "a dragged x offset persists")
+H.eq(DB.Float().y, -80, "a dragged y offset persists")
+H.ok(DB.Float() == fl, "same table every call (drag mutates it in place)")
+
 H.done()

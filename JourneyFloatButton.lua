@@ -3,7 +3,7 @@
 -- the button needs no Titan slot. It renders OUR published LDB data object; this
 -- file owns only the frame. FLOAT-2 mirrors our published LDB object so the pill
 -- shows live text/icon; FLOAT-3 routes clicks and the hover tooltip back through
--- that object's own OnClick / OnTooltipShow; drag persistence (FLOAT-4) follows.
+-- that object's own OnClick / OnTooltipShow; FLOAT-4 remembers where you drag it.
 
 local ICON = "Interface\\Icons\\Ability_Mount_RidingHorse"
 local BAR_HEIGHT = 20
@@ -21,12 +21,15 @@ bar:SetBackdropColor(0, 0, 0, 0.6)
 -- a moved position; until then it re-centres each /reload).
 bar:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
 
--- Drag to move (no persistence yet -- FLOAT-4). LeftButton drag coexists with a
--- future LeftButton click: WoW fires OnClick only when the pointer didn't drag.
+-- Drag to move, then remember it (FLOAT-4). LeftButton drag coexists with the
+-- LeftButton click (FLOAT-3): WoW fires OnClick only when the pointer didn't drag.
 bar:SetMovable(true)
 bar:RegisterForDrag("LeftButton")
 bar:SetScript("OnDragStart", function(self) self:StartMoving() end)
-bar:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+bar:SetScript("OnDragStop", function(self)
+  self:StopMovingOrSizing()
+  GearJourney_FloatSavePosition()   -- clamp + persist the dropped spot
+end)
 
 local icon = bar:CreateTexture(nil, "ARTWORK")
 icon:SetSize(ICON_SIZE, ICON_SIZE)
@@ -90,3 +93,36 @@ bar:SetScript("OnEnter", function(self)
   GameTooltip:Show()
 end)
 bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+-- FLOAT-4: drag-to-move persistence. Position is a CENTER-anchored offset from
+-- the screen centre, stored in GearJourney_DB.Float() and clamped on-screen by
+-- the pure Engine.ClampToScreen (so it survives /reload, logout, and a smaller
+-- resolution next login without ever landing off the edge).
+local function ClampedOffset(x, y)
+  return GearJourney_Engine.ClampToScreen(
+    x, y, bar:GetWidth(), bar:GetHeight(), UIParent:GetWidth(), UIParent:GetHeight())
+end
+
+function GearJourney_FloatSavePosition()
+  local cx, cy = bar:GetCenter()
+  local ux, uy = UIParent:GetCenter()
+  if not (cx and ux) then return end            -- not laid out yet; nothing to save
+  local x, y = ClampedOffset(cx - ux, cy - uy)
+  local f = GearJourney_DB.Float()
+  f.point, f.x, f.y = "CENTER", x, y
+  bar:ClearAllPoints()
+  bar:SetPoint("CENTER", UIParent, "CENTER", x, y)
+end
+
+local function RestorePosition()
+  local f = GearJourney_DB.Float()
+  local x, y = ClampedOffset(f.x, f.y)
+  bar:ClearAllPoints()
+  bar:SetPoint(f.point or "CENTER", UIParent, f.point or "CENTER", x, y)
+end
+
+-- SavedVariables are only populated around login, so restore then (the file-load
+-- SetPoint above keeps the pill visible until this fires).
+local placer = CreateFrame("Frame")
+placer:RegisterEvent("PLAYER_ENTERING_WORLD")
+placer:SetScript("OnEvent", RestorePosition)

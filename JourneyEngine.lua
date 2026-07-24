@@ -849,6 +849,19 @@ function Engine.BuildItem(raw, info)
   }
 end
 
+-- ClampToScreen(x, y, frameW, frameH, screenW, screenH) -> x, y (FLOAT-4)
+--   Keep a CENTER-anchored frame fully on screen. x/y are the frame centre's
+--   offset from the screen centre; the maximum offset on each axis is half the
+--   slack between the screen and the frame, so |x| and |y| are clamped to that
+--   (and to 0 when the frame is wider/taller than the screen). Pure math, so the
+--   float button's drag-persistence is offline-testable.
+function Engine.ClampToScreen(x, y, frameW, frameH, screenW, screenH)
+  local maxX = math.max(0, (screenW - frameW) / 2)
+  local maxY = math.max(0, (screenH - frameH) / 2)
+  return math.max(-maxX, math.min(maxX, x)),
+         math.max(-maxY, math.min(maxY, y))
+end
+
 -- Publish for the WoW client (global by contract); return for standalone use.
 GearJourney_Engine = Engine
 return Engine

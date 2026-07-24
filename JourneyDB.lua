@@ -64,6 +64,16 @@ function DB.Minimap()
   return s.minimap
 end
 
+-- Floating pill position (FLOAT-4). Like DB.Minimap(), the float button mutates
+-- the SAME table in place on drag, so always return that one reference. Stored
+-- as a CENTER-anchored offset from the screen centre; the default sits it just
+-- above centre, matching the first-load position from FLOAT-1.
+function DB.Float()
+  local s = DB.Get().settings
+  s.float = s.float or { point = "CENTER", x = 0, y = 200 }
+  return s.float
+end
+
 -- Pinned item (single, by name) --------------------------------------------
 function DB.Pin() return DB.Get().pinnedName end
 function DB.SetPin(name) DB.Get().pinnedName = name end
