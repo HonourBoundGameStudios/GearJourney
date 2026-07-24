@@ -93,9 +93,9 @@ def main():
         f.write("-- Starter class gear guides (rogue is hand-curated in JourneyRogueData).\n")
         f.write("-- Class-usable, uncommon+, best-by-item-level per slot per band; the\n")
         f.write("-- in-game guide score-filters these by spec. Regenerate: python Tools/build_class_guides.py\n\n")
-        f.write("TitanJourney_ClassGuides = TitanJourney_ClassGuides or {}\n\n")
+        f.write("GearJourney_ClassGuides = GearJourney_ClassGuides or {}\n\n")
         for cls in sorted(guides):
-            f.write('TitanJourney_ClassGuides["%s"] = {\n' % cls)
+            f.write('GearJourney_ClassGuides["%s"] = {\n' % cls)
             for it in guides[cls]:
                 f.write('  {id=%d,name="%s"},\n' % (it["itemId"], it["name"].replace('\\', '\\\\').replace('"', '\\"')))
             f.write("}\n\n")
