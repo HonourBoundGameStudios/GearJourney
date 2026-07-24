@@ -124,4 +124,24 @@ mm.hide = true
 H.eq(DB.Minimap().hide, true, "LibDBIcon's in-place hide flag persists")
 H.ok(DB.Minimap() == mm, "same table every call (LibDBIcon holds the reference)")
 
+-- Titan detection no longer relies on load order (the .toc dropped OptionalDeps),
+-- so either signal available at login must hide the redundant minimap button.
+H.eq(DB.TitanPresent(), false, "no Titan signal -> not present")
+
+TITAN_ID = "Titan"
+H.eq(DB.TitanPresent(), true, "Titan's own global counts as present")
+GearJourneyDB = nil; DB.Init()
+H.eq(DB.Minimap().hide, true, "minimap defaults hidden when Titan hosts the bar")
+TITAN_ID = nil
+
+-- Titan loaded but its global not yet assigned: the addon API still sees it.
+IsAddOnLoaded = function(name) return name == "Titan" end
+H.eq(DB.TitanPresent(), true, "IsAddOnLoaded('Titan') counts as present")
+GearJourneyDB = nil; DB.Init()
+H.eq(DB.Minimap().hide, true, "minimap defaults hidden via the addon API too")
+IsAddOnLoaded = nil
+
+GearJourneyDB = nil; DB.Init()
+H.eq(DB.Minimap().hide, false, "minimap back to shown with no Titan at all")
+
 H.done()

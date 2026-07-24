@@ -43,13 +43,24 @@ end
 -- Future Planner split, the dungeon bar, and row level-colouring internally.
 function DB.Lookahead() return 10 end
 
+-- Is Titan Panel around to host the bar? Two independent signals, so the answer
+-- holds whatever the addon load order was. That's why the .toc no longer carries
+-- `## OptionalDeps: Titan, HonourBar`: the only thing it bought was ordering
+-- Titan ahead of us so TITAN_ID existed, and nothing reads HonourBar at all.
+-- Only call this at/after PLAYER_LOGIN -- at file-load time neither signal is set.
+function DB.TitanPresent()
+  if TITAN_ID ~= nil then return true end
+  local loaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+  return (loaded and loaded("Titan")) and true or false
+end
+
 -- Minimap launcher state (IND-5). LibDBIcon's contract: hand it a table it
 -- mutates in place (`.hide`, drag angle), so always return the SAME table.
 -- First-run default: hidden when Titan hosts the bar (the minimap icon would
 -- be redundant), shown otherwise; the right-click menu toggles it after that.
 function DB.Minimap()
   local s = DB.Get().settings
-  if s.minimap == nil then s.minimap = { hide = (TITAN_ID ~= nil) } end
+  if s.minimap == nil then s.minimap = { hide = DB.TitanPresent() } end
   return s.minimap
 end
 
