@@ -3053,78 +3053,83 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 14849,
-            "name": "Sunscale Helmet"
+            "id": 12640,
+            "name": "Lionheart Helm"
           },
           {
             "slot": "Neck",
-            "id": 18404,
-            "name": "Onyxia Tooth Pendant"
+            "id": 23053,
+            "name": "Stormrage's Talisman of Seething"
           },
           {
             "slot": "Shoulder",
-            "id": 7718,
-            "name": "Herod's Shoulder"
+            "id": 21330,
+            "name": "Conqueror's Spaulders"
           },
           {
             "slot": "Back",
-            "id": 13340,
-            "name": "Cape of the Black Baron"
+            "id": 23045,
+            "name": "Shroud of Dominion"
           },
           {
             "slot": "Chest",
-            "id": 10328,
-            "name": "Scarlet Chestpiece"
+            "id": 23000,
+            "name": "Plated Abomination Ribcage"
           },
           {
             "slot": "Wrist",
-            "id": 19578,
-            "name": "Berserker Bracers"
+            "id": 22936,
+            "name": "Wristguards of Vengeance"
           },
           {
             "slot": "Hands",
-            "id": 15063,
-            "name": "Devilsaur Gauntlets"
+            "id": 21581,
+            "name": "Gauntlets of Annihilation"
           },
           {
             "slot": "Waist",
-            "id": 13959,
-            "name": "Omokk's Girth Restrainer"
+            "id": 19137,
+            "name": "Onslaught Girdle"
           },
           {
             "slot": "Legs",
-            "id": 15062,
-            "name": "Devilsaur Leggings"
+            "id": 23068,
+            "name": "Legplates of Carnage"
           },
           {
             "slot": "Feet",
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
+            "id": 19387,
+            "name": "Chromatic Boots"
           },
           {
             "slot": "Ring 1",
-            "id": 19325,
-            "name": "Don Julio's Band"
+            "id": 23038,
+            "name": "Band of Unnatural Forces"
           },
           {
             "slot": "Ring 2",
-            "id": 11669,
-            "name": "Naglering"
+            "id": 18821,
+            "name": "Quick Strike Ring"
           },
           {
             "slot": "Trinket 1",
-            "id": 13965,
-            "name": "Blackhand's Breadth"
+            "id": 19406,
+            "name": "Drake Fang Talisman"
           },
           {
             "slot": "Trinket 2",
-            "id": 11815,
-            "name": "Hand of Justice"
+            "id": 22954,
+            "name": "Kiss of the Spider"
+          },
+          {
+            "slot": "Ranged",
+            "id": 22811,
+            "name": "Soulstring"
           },
           {
             "slot": "Main Hand",
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 22798,
+            "name": "Might of Menethil"
           }
         ]
       },
@@ -3134,83 +3139,88 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 14849,
-            "name": "Sunscale Helmet"
+            "id": 12640,
+            "name": "Lionheart Helm"
           },
           {
             "slot": "Neck",
-            "id": 18404,
-            "name": "Onyxia Tooth Pendant"
+            "id": 23053,
+            "name": "Stormrage's Talisman of Seething"
           },
           {
             "slot": "Shoulder",
-            "id": 7718,
-            "name": "Herod's Shoulder"
+            "id": 21330,
+            "name": "Conqueror's Spaulders"
           },
           {
             "slot": "Back",
-            "id": 13340,
-            "name": "Cape of the Black Baron"
+            "id": 23045,
+            "name": "Shroud of Dominion"
           },
           {
             "slot": "Chest",
-            "id": 10328,
-            "name": "Scarlet Chestpiece"
+            "id": 23000,
+            "name": "Plated Abomination Ribcage"
           },
           {
             "slot": "Wrist",
-            "id": 19578,
-            "name": "Berserker Bracers"
+            "id": 22936,
+            "name": "Wristguards of Vengeance"
           },
           {
             "slot": "Hands",
-            "id": 15063,
-            "name": "Devilsaur Gauntlets"
+            "id": 21581,
+            "name": "Gauntlets of Annihilation"
           },
           {
             "slot": "Waist",
-            "id": 13959,
-            "name": "Omokk's Girth Restrainer"
+            "id": 19137,
+            "name": "Onslaught Girdle"
           },
           {
             "slot": "Legs",
-            "id": 15062,
-            "name": "Devilsaur Leggings"
+            "id": 23068,
+            "name": "Legplates of Carnage"
           },
           {
             "slot": "Feet",
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
+            "id": 19387,
+            "name": "Chromatic Boots"
           },
           {
             "slot": "Ring 1",
-            "id": 19325,
-            "name": "Don Julio's Band"
+            "id": 23038,
+            "name": "Band of Unnatural Forces"
           },
           {
             "slot": "Ring 2",
-            "id": 11669,
-            "name": "Naglering"
+            "id": 18821,
+            "name": "Quick Strike Ring"
           },
           {
             "slot": "Trinket 1",
-            "id": 13965,
-            "name": "Blackhand's Breadth"
+            "id": 19406,
+            "name": "Drake Fang Talisman"
           },
           {
             "slot": "Trinket 2",
-            "id": 11815,
-            "name": "Hand of Justice"
+            "id": 22954,
+            "name": "Kiss of the Spider"
+          },
+          {
+            "slot": "Ranged",
+            "id": 22811,
+            "name": "Soulstring"
           },
           {
             "slot": "Main Hand",
-            "id": 18832,
-            "name": "Brutality Blade"
+            "id": 23054,
+            "name": "Gressil, Dawn of Ruin"
           },
           {
             "slot": "Off Hand",
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
+            "id": 23577,
+            "name": "The Hungering Cold"
           }
         ]
       },
@@ -3220,83 +3230,88 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 14849,
-            "name": "Sunscale Helmet"
+            "id": 22418,
+            "name": "Dreadnaught Helmet"
           },
           {
             "slot": "Neck",
-            "id": 18404,
-            "name": "Onyxia Tooth Pendant"
+            "id": 22732,
+            "name": "Mark of C'Thun"
           },
           {
             "slot": "Shoulder",
-            "id": 7718,
-            "name": "Herod's Shoulder"
+            "id": 22419,
+            "name": "Dreadnaught Pauldrons"
           },
           {
             "slot": "Back",
-            "id": 13340,
-            "name": "Cape of the Black Baron"
+            "id": 21710,
+            "name": "Cloak of the Fallen God"
           },
           {
             "slot": "Chest",
-            "id": 10328,
-            "name": "Scarlet Chestpiece"
+            "id": 22416,
+            "name": "Dreadnaught Breastplate"
           },
           {
             "slot": "Wrist",
-            "id": 19578,
-            "name": "Berserker Bracers"
+            "id": 22423,
+            "name": "Dreadnaught Bracers"
           },
           {
             "slot": "Hands",
-            "id": 15063,
-            "name": "Devilsaur Gauntlets"
+            "id": 21674,
+            "name": "Gauntlets of Steadfast Determination"
           },
           {
             "slot": "Waist",
-            "id": 13959,
-            "name": "Omokk's Girth Restrainer"
+            "id": 23219,
+            "name": "Girdle of the Mentor"
           },
           {
             "slot": "Legs",
-            "id": 15062,
-            "name": "Devilsaur Leggings"
+            "id": 22417,
+            "name": "Dreadnaught Legplates"
           },
           {
             "slot": "Feet",
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
+            "id": 22420,
+            "name": "Dreadnaught Sabatons"
           },
           {
             "slot": "Ring 1",
-            "id": 19325,
-            "name": "Don Julio's Band"
+            "id": 23059,
+            "name": "Ring of the Dreadnaught"
           },
           {
             "slot": "Ring 2",
-            "id": 11669,
-            "name": "Naglering"
+            "id": 21601,
+            "name": "Ring of Emperor Vek'lor"
           },
           {
             "slot": "Trinket 1",
-            "id": 13965,
-            "name": "Blackhand's Breadth"
+            "id": 19406,
+            "name": "Drake Fang Talisman"
           },
           {
             "slot": "Trinket 2",
-            "id": 11815,
-            "name": "Hand of Justice"
+            "id": 22954,
+            "name": "Kiss of the Spider"
           },
           {
             "slot": "Main Hand",
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
+            "id": 19019,
+            "name": "Thunderfury, Blessed Blade of the Windseeker"
           },
           {
             "slot": "Off Hand",
-            "id": 1168,
-            "name": "Skullflame Shield"
+            "id": 23043,
+            "name": "The Face of Death"
+          },
+          {
+            "slot": "Ranged",
+            "id": 22811,
+            "name": "Soulstring"
           }
         ]
       }
