@@ -989,8 +989,18 @@ function Overlay.RenderGuide()
   local spec = (engine and engine.ResolveSpec(Overlay.guideSpec, active)) or active
   local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames()) or {}
   local specName = specNames[spec]
+  -- (Re)label the chips here, not at build time: talent-tab names can still be
+  -- empty when the tab frame is first built (early after login), which left the
+  -- chips stuck on the "Spec N" fallback. Refreshing each render self-heals them
+  -- once the names resolve, and widths recompute so later chips reflow.
   if panel.specChips then
     for i, b in ipairs(panel.specChips) do
+      local nm = specNames[i] or ("Spec " .. i)
+      if b:GetText() ~= nm then
+        b:SetText(nm)
+        local fs = b:GetFontString()
+        b:SetWidth(math.max(((fs and fs:GetStringWidth()) or 30) + 18, 34))
+      end
       if i == spec then b:LockHighlight() else b:UnlockHighlight() end
     end
   end
