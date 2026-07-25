@@ -77,4 +77,18 @@ local mageW = Engine.WeightsFor("MAGE", 1, "pve")
 H.ok(Engine.IsOffSpec({ stats = { Agility = 12 } }, mageW),
      "pure agility gear is off-spec for a mage")
 
+-- Caster specs also reject defensive/Stamina-only gear with no caster value --
+-- the Warden Staff case (Stamina only) leaking into a Resto/Balance druid list.
+local restoW = Engine.WeightsFor("DRUID", 3, "pve")   -- Restoration: Int primary
+H.ok(Engine.IsOffSpec({ stats = { Stamina = 11 } }, restoW),
+     "stamina-only defensive weapon is off-spec for a caster (Warden Staff)")
+H.ok(not Engine.IsOffSpec({ stats = { Stamina = 11 } }, Engine.WeightsFor("DRUID", 2, "pve")),
+     "...but that same staff is kept for Feral (physical spec)")
+H.ok(not Engine.IsOffSpec({ stats = { Intellect = 10, Stamina = 9 } }, restoW),
+     "int+stamina caster piece is kept")
+H.ok(not Engine.IsOffSpec({ stats = { Spirit = 8, Stamina = 6 } }, restoW),
+     "spirit+stamina caster piece is kept")
+H.ok(not Engine.IsOffSpec({ stats = {} }, restoW),
+     "a plain no-stat weapon (e.g. wand) is not off-spec for a caster")
+
 H.done()

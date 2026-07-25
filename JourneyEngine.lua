@@ -670,28 +670,35 @@ function Engine.PrimaryStat(weights)
   return best
 end
 
--- IsOffSpec(item, weights) -> true if the item is the wrong armour "school" for
--- the spec: pure caster gear (Int/Spirit, no Agi/Str) for a physical spec, or
--- pure physical gear (Agi/Str, no Int) for a caster spec. Many physical specs
--- still weight a little Intellect (mana), so scoring alone lets caster gear
--- through -- this is the hard cut. Hybrids (e.g. Agi+Int) are kept.
+-- IsOffSpec(item, weights) -> true if the item is the wrong "school" for the spec:
+--   * physical spec: pure caster gear (Int/Spirit, no Agi/Str) is off-spec. Many
+--     physical specs still weight a little Intellect (mana), so scoring alone lets
+--     caster gear through -- this is the hard cut.
+--   * caster spec: physical/defensive gear with no caster value (Agi/Str/Stamina,
+--     no Int/Spirit) is off-spec. This catches tanky weapons like the Warden Staff
+--     (Stamina + Armor + Defense, zero Int/Spirit) leaking into a Resto/Balance
+--     list -- weapons otherwise bypass the armor tab's score>0 cut.
+-- Items with NO recognised stats (a plain weapon, a wand) are never off-spec; nor
+-- are hybrids that carry a caster stat (e.g. Agi+Int, or Stamina+Spirit).
 function Engine.IsOffSpec(item, weights)
   if not (item and item.stats and weights) then return false end
   local primary = Engine.PrimaryStat(weights)
   if not primary then return false end
   local physical = (primary == "Agility" or primary == "Strength" or primary == "Stamina")
-  local agi, str, int, spi = 0, 0, 0, 0
+  local agi, str, int, spi, sta = 0, 0, 0, 0, 0
   for k, v in pairs(item.stats) do
     if type(v) == "number" and v > 0 then
       local c = Engine.STAT_KEY[k] or k
       if c == "Agility" then agi = v elseif c == "Strength" then str = v
-      elseif c == "Intellect" then int = v elseif c == "Spirit" then spi = v end
+      elseif c == "Intellect" then int = v elseif c == "Spirit" then spi = v
+      elseif c == "Stamina" then sta = v end
     end
   end
   if physical then
     return (int > 0 or spi > 0) and agi == 0 and str == 0
   else
-    return (agi > 0 or str > 0) and int == 0
+    -- Caster: any physical/defensive stat with zero caster value is off-spec.
+    return (agi > 0 or str > 0 or sta > 0) and int == 0 and spi == 0
   end
 end
 
