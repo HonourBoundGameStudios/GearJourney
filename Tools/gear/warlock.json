@@ -1,0 +1,1680 @@
+{
+  "class": "WARLOCK",
+  "_note": "Migrated from JourneyWarlockData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "specs": [
+    {
+      "index": 1,
+      "name": "Affliction",
+      "races": {
+        "Human": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "name": "Demonology",
+      "races": {
+        "Human": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "name": "Destruction",
+      "races": {
+        "Human": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 11287,
+            "name": "Lesser Magic Wand"
+          },
+          {
+            "id": 5071,
+            "name": "Shadow Wand"
+          },
+          {
+            "id": 4310,
+            "name": "Heavy Woolen Gloves"
+          },
+          {
+            "id": 14150,
+            "name": "Robe of Evocation"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 6392,
+            "name": "Belt of Arugal"
+          },
+          {
+            "id": 6324,
+            "name": "Robes of Arugal"
+          },
+          {
+            "id": 9395,
+            "name": "Gloves of Old"
+          },
+          {
+            "id": 7684,
+            "name": "Bloodmage Mantle"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1716,
+            "name": "Robe of the Magi"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 10019,
+            "name": "Dreamweave Gloves"
+          },
+          {
+            "id": 10042,
+            "name": "Cindercloth Robe"
+          },
+          {
+            "id": 14436,
+            "name": "Windchaser Coronet"
+          },
+          {
+            "id": 10041,
+            "name": "Dreamweave Circlet"
+          },
+          {
+            "id": 11623,
+            "name": "Spritecaster Cape"
+          },
+          {
+            "id": 14108,
+            "name": "Felcloth Boots"
+          },
+          {
+            "id": 18497,
+            "name": "Sublime Wristguards"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 14626,
+            "name": "Necropile Robe"
+          },
+          {
+            "id": 14632,
+            "name": "Necropile Leggings"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 14106,
+            "name": "Felcloth Robe"
+          },
+          {
+            "id": 18485,
+            "name": "Observer's Shield"
+          },
+          {
+            "id": 18407,
+            "name": "Felcloth Gloves"
+          },
+          {
+            "id": 14153,
+            "name": "Robe of the Void"
+          },
+          {
+            "id": 22334,
+            "name": "Band of Mending"
+          },
+          {
+            "id": 22327,
+            "name": "Amulet of the Redeemed"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19147,
+            "name": "Ring of Spell Power"
+          },
+          {
+            "id": 19682,
+            "name": "Bloodvine Vest"
+          },
+          {
+            "id": 19684,
+            "name": "Bloodvine Boots"
+          }
+        ]
+      }
+    }
+  ]
+}

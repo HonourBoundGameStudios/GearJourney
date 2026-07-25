@@ -1,0 +1,4296 @@
+{
+  "class": "WARRIOR",
+  "_note": "Migrated from JourneyWarriorData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "specs": [
+    {
+      "index": 1,
+      "name": "Arms",
+      "races": {
+        "Human": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Dwarf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "name": "Fury",
+      "races": {
+        "Human": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Dwarf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "name": "Protection",
+      "races": {
+        "Human": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Dwarf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Gnome": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Undead": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1482,
+            "name": "Shadowfang"
+          },
+          {
+            "id": 5191,
+            "name": "Cruel Barb"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 6975,
+            "name": "Whirlwind Axe"
+          },
+          {
+            "id": 9639,
+            "name": "The Hand of Antu'sul"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 13253,
+            "name": "Vinehedge Cinch"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 15063,
+            "name": "Devilsaur Gauntlets"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 15062,
+            "name": "Devilsaur Leggings"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 13959,
+            "name": "Omokk's Girth Restrainer"
+          },
+          {
+            "id": 19578,
+            "name": "Berserker Bracers"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 15411,
+            "name": "Mark of Fordring"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1338 @@
+{
+  "class": "SHAMAN",
+  "_note": "Migrated from JourneyShamanData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "specs": [
+    {
+      "index": 1,
+      "name": "Elemental",
+      "races": {
+        "Orc": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "name": "Enhancement",
+      "races": {
+        "Orc": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "name": "Restoration",
+      "races": {
+        "Orc": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 13404,
+            "name": "Mask of the Unforgiven"
+          },
+          {
+            "id": 10399,
+            "name": "Blackened Defias Armor"
+          },
+          {
+            "id": 3202,
+            "name": "Forest Leather Bracers"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 1978,
+            "name": "Wolfclaw Gloves"
+          },
+          {
+            "id": 2264,
+            "name": "Mantle of Thieves"
+          },
+          {
+            "id": 18948,
+            "name": "Barbaric Bracers"
+          },
+          {
+            "id": 6414,
+            "name": "Seal of Sylvanas"
+          },
+          {
+            "id": 9624,
+            "name": "Triprunner Dungarees"
+          },
+          {
+            "id": 7755,
+            "name": "Flintrock Shoulders"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 1404,
+            "name": "Tidal Charm"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 13095,
+            "name": "Assault Band"
+          },
+          {
+            "id": 14612,
+            "name": "Bloodmail Legguards"
+          },
+          {
+            "id": 17749,
+            "name": "Phytoskin Spaulders"
+          },
+          {
+            "id": 17742,
+            "name": "Fungus Shroud Armor"
+          },
+          {
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 11726,
+            "name": "Savage Gladiator Chain"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 13198,
+            "name": "Hurd Smasher"
+          },
+          {
+            "id": 944,
+            "name": "Elemental Mage Staff"
+          },
+          {
+            "id": 12930,
+            "name": "Briarwood Reed"
+          },
+          {
+            "id": 19491,
+            "name": "Amulet of the Darkmoon"
+          },
+          {
+            "id": 17774,
+            "name": "Mark of the Chosen"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2214 @@
+{
+  "class": "HUNTER",
+  "_note": "Migrated from JourneyHunterData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "specs": [
+    {
+      "index": 1,
+      "name": "Beast Mastery",
+      "races": {
+        "Dwarf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "name": "Marksmanship",
+      "races": {
+        "Dwarf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "name": "Survival",
+      "races": {
+        "Dwarf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "NightElf": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Orc": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Tauren": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ],
+        "Troll": [
+          {
+            "id": 5596,
+            "name": "Ashwood Bow"
+          },
+          {
+            "id": 15808,
+            "name": "Fine Light Crossbow"
+          },
+          {
+            "id": 3027,
+            "name": "Heavy Recurve Bow"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 6467,
+            "name": "Deviate Scale Gloves"
+          },
+          {
+            "id": 10410,
+            "name": "Leggings of the Fang"
+          },
+          {
+            "id": 6468,
+            "name": "Deviate Scale Belt"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
+          },
+          {
+            "id": 4454,
+            "name": "Talon of Vultros"
+          },
+          {
+            "id": 4108,
+            "name": "Panther Hunter Leggings"
+          },
+          {
+            "id": 13110,
+            "name": "Wolffear Harness"
+          },
+          {
+            "id": 8176,
+            "name": "Nightscape Headband"
+          },
+          {
+            "id": 8175,
+            "name": "Nightscape Tunic"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 2825,
+            "name": "Bow of Searing Arrows"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 2100,
+            "name": "Precisely Calibrated Boomstick"
+          },
+          {
+            "id": 2824,
+            "name": "Hurricane"
+          },
+          {
+            "id": 17713,
+            "name": "Blackstone Ring"
+          },
+          {
+            "id": 16681,
+            "name": "Beaststalker's Bindings"
+          },
+          {
+            "id": 16680,
+            "name": "Beaststalker's Belt"
+          },
+          {
+            "id": 11815,
+            "name": "Hand of Justice"
+          },
+          {
+            "id": 16676,
+            "name": "Beaststalker's Gloves"
+          },
+          {
+            "id": 16675,
+            "name": "Beaststalker's Boots"
+          },
+          {
+            "id": 12651,
+            "name": "Blackcrow"
+          },
+          {
+            "id": 12653,
+            "name": "Riphook"
+          },
+          {
+            "id": 16679,
+            "name": "Beaststalker's Mantle"
+          },
+          {
+            "id": 13965,
+            "name": "Blackhand's Breadth"
+          },
+          {
+            "id": 16678,
+            "name": "Beaststalker's Pants"
+          },
+          {
+            "id": 18680,
+            "name": "Ancient Bone Bow"
+          },
+          {
+            "id": 13148,
+            "name": "Chillpike"
+          },
+          {
+            "id": 16677,
+            "name": "Beaststalker's Cap"
+          },
+          {
+            "id": 16674,
+            "name": "Beaststalker's Tunic"
+          },
+          {
+            "id": 13340,
+            "name": "Cape of the Black Baron"
+          },
+          {
+            "id": 19325,
+            "name": "Don Julio's Band"
+          },
+          {
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          }
+        ]
+      }
+    }
+  ]
+}
