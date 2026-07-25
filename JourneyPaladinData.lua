@@ -32,6 +32,7 @@ local Paladin = {
   { id = 7718,  name = "Herod's Shoulder" },
   { id = 7717,  name = "Ravager" },
   { id = 7726,  name = "Aegis of the Scarlet Commander" },
+  { id = 6829,  name = "Sword of Serenity" },        -- Holy: 1H sword, Spirit
 
   -- Band 41-50 ----------------------------------------------------------------
   { id = 7927,  name = "Ornate Mithril Gloves" },
@@ -63,6 +64,8 @@ local Paladin = {
   { id = 15411, name = "Mark of Fordring" },
   { id = 19325, name = "Don Julio's Band" },
   { id = 13965, name = "Blackhand's Breadth" },
+  { id = 17105, name = "Aurastone Hammer" },         -- Holy: 1H mace, Int + spell power / heal
+  -- (The Hammer of Grace, id 11923 above, is the band 51-59 Holy weapon: +31 healing.)
 }
 
 -- Multi-class-ready registry; overrides the generated PALADIN entry.
