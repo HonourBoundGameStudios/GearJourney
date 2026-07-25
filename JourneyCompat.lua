@@ -46,6 +46,23 @@ function Compat.PlayerSpec()
   return idx, nil
 end
 
+-- firstName(...) -> the first return value that looks like a display name: a
+-- non-empty string that isn't a texture path. GetTalentTabInfo / GetSpecialization-
+-- Info return the name at different positions across client builds (some lead with
+-- a numeric id -- e.g. Classic paladin tabs 381/382/383 -- others with the name),
+-- so we scan rather than trust a fixed index. Numbers (id, pointsSpent) and icon
+-- paths ("Interface\\...") are skipped; the name is the first plain string.
+local function firstName(...)
+  for i = 1, select("#", ...) do
+    local v = select(i, ...)
+    if type(v) == "string" and v ~= "" and not v:find("\\", 1, true)
+       and v:sub(1, 9) ~= "Interface" then
+      return v
+    end
+  end
+  return nil
+end
+
 -- SpecNames() -> array of up to 3 spec names in weight-table order.
 --   Retail:  GetSpecializationInfo(i) names each of the player's specs.
 --   Classic: GetTalentTabInfo(i) names each talent tab.
@@ -55,10 +72,10 @@ function Compat.SpecNames()
   local names = {}
   if Compat.isRetail and GetNumSpecializations and GetSpecializationInfo then
     local n = math.min(GetNumSpecializations() or 0, 3)
-    for i = 1, n do names[i] = select(2, GetSpecializationInfo(i)) end
+    for i = 1, n do names[i] = firstName(GetSpecializationInfo(i)) end
   elseif GetNumTalentTabs and GetTalentTabInfo then
     local n = math.min(GetNumTalentTabs() or 0, 3)
-    for i = 1, n do names[i] = (GetTalentTabInfo(i)) end
+    for i = 1, n do names[i] = firstName(GetTalentTabInfo(i)) end
   end
   for i = 1, 3 do
     if names[i] == nil or names[i] == "" then names[i] = "Spec " .. i end
