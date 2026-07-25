@@ -5,11 +5,15 @@ The game cannot read JSON at runtime (no io / no JSON parser in Classic Era Lua)
 so the hardcoded class x spec x race gear lives in JSON under Tools/gear/ and ships
 as this generated Lua table.
 
-The generated file DUAL-PUBLISHES, to satisfy both engine consumers:
+The generated file PUBLISHES, to satisfy the engine consumers:
   * GearJourney_GearData[CLASS][specIndex][RACE] = { {id,name}, ... }
       -- the per-race render lookup (JourneyOverlay.RenderGuide, keyed on UnitRace)
   * GearJourney_ClassGuides[CLASS]               = { {id,name}, ... }  (deduped union)
       -- the flat enrichment queue (JourneyProvider.BuildQueue walks every id)
+  * GearJourney_BiS[CLASS][specIndex]            = { {slot,id,name}, ... }  (optional)
+      -- the handcrafted per-slot best-in-slot list (JourneyOverlay BiS tab, EPIC-M).
+      -- Built only from a class JSON's optional top-level "bis" section; its ids are
+      -- folded into the enrichment union so the provider resolves their name/icon.
 
 Run from the project root:  python Tools/build_gear_data.py
 """
@@ -81,10 +85,34 @@ def load_class(path):
                 union.setdefault(iid, name)
             by_race[token] = out
         specs[idx] = by_race
-    return cls, specs, union
+
+    # Optional handcrafted BiS: specIndex -> [ {slot,id,name}, ... ]. Its ids also
+    # join the enrichment union so the provider resolves their name/icon.
+    bis = {}
+    for spec in (data.get("bis") or {}).get("specs", []):
+        idx = spec.get("index")
+        if idx not in (1, 2, 3):
+            die(f"{path}: bis spec index must be 1..3, got {idx!r}")
+        seen, out = set(), []
+        for it in (spec.get("slots") or []):
+            slot, iid, name = it.get("slot"), it.get("id"), it.get("name")
+            if not isinstance(slot, str) or not slot:
+                die(f"{path}: {cls} bis spec {idx}: entry missing slot")
+            if not isinstance(iid, int) or not (1 <= iid < 200000):
+                die(f"{path}: {cls} bis/{slot}: bad id {iid!r} (need 1..199999, in-era)")
+            if not isinstance(name, str) or not name:
+                die(f"{path}: {cls} bis/{slot}: id {iid} has empty name")
+            if (slot, iid) in seen:
+                continue
+            seen.add((slot, iid))
+            out.append((slot, iid, name))
+            union.setdefault(iid, name)
+        if out:
+            bis[idx] = out
+    return cls, specs, union, bis
 
 
-def emit_class(cls, specs, union, buf):
+def emit_class(cls, specs, union, bis, buf):
     buf.append(f'GearJourney_GearData[{lua_str(cls)}] = {{')
     for idx in (1, 2, 3):
         by_race = specs.get(idx, {})
@@ -100,6 +128,18 @@ def emit_class(cls, specs, union, buf):
     for iid in sorted(union):
         buf.append(f'  {{id={iid},name={lua_str(union[iid])}}},')
     buf.append('}')
+    # Optional handcrafted per-slot BiS (slot order preserved as authored).
+    if bis:
+        buf.append(f'GearJourney_BiS[{lua_str(cls)}] = {{')
+        for idx in (1, 2, 3):
+            rows = bis.get(idx)
+            if not rows:
+                continue
+            inner = ", ".join(
+                f'{{slot={lua_str(slot)},id={iid},name={lua_str(nm)}}}'
+                for slot, iid, nm in rows)
+            buf.append(f'  [{idx}] = {{ {inner} }},')
+        buf.append('}')
     buf.append('')
 
 
@@ -115,12 +155,13 @@ def main():
         "",
         "GearJourney_GearData = GearJourney_GearData or {}",
         "GearJourney_ClassGuides = GearJourney_ClassGuides or {}",
+        "GearJourney_BiS = GearJourney_BiS or {}",
         "",
     ]
     total_lists, total_ids = 0, 0
     for path in paths:
-        cls, specs, union = load_class(path)
-        emit_class(cls, specs, union, buf)
+        cls, specs, union, bis = load_class(path)
+        emit_class(cls, specs, union, bis, buf)
         total_lists += sum(len(r) for r in specs.values())
         total_ids += len(union)
         print(f"  {cls}: {sum(len(r) for r in specs.values())} race-lists, {len(union)} unique ids")

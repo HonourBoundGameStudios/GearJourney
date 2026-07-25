@@ -40,6 +40,34 @@ JourneyGearData.lua        (generated — DO NOT edit by hand; listed in the .to
   is Season of Discovery / Anniversary). The name must match the live Wowhead name exactly — the in-game
   `Engine.NameMatches` guard silently drops any mismatch. Verify with `verify-items.ps1` before compiling.
 
+## Optional `bis` section — handcrafted best-in-slot (EPIC-M)
+
+A class file may add a top-level `"bis"` object: a handcrafted per-slot best-in-slot list per spec,
+surfaced in the addon's **BiS tab** (`GearJourney_BiS[CLASS][specIndex]`). Unlike the level-banded
+`specs` (which the game bands by live `reqLevel`), BiS is an authored endgame target — the natural home
+for no-required-level raid/dungeon drops that would otherwise mis-band into Level 1-10. Slot order is
+preserved as authored. Every `id` is folded into the class enrichment union so the provider resolves it.
+
+```json
+{
+  "class": "WARRIOR",
+  "specs": [ ... ],
+  "bis": {
+    "specs": [
+      { "index": 1, "name": "Arms", "slots": [
+        { "slot": "Head", "id": 14849, "name": "Sunscale Helmet" },
+        { "slot": "Main Hand", "id": 12784, "name": "Arcanite Reaper" }
+      ] }
+    ]
+  }
+}
+```
+
+- `slot` — free-text label shown in the tab (e.g. `Head`, `Ring 1`, `Main Hand`, `Off Hand`). No
+  duplicate slot within a spec.
+- `id`/`name` — same rules and verification as the banded lists (`verify-items.ps1` reads both).
+- The section is optional; a class without `bis` simply publishes no `GearJourney_BiS[CLASS]` entry.
+
 ## Valid class → races (Classic Era)
 
 | Class | Races |

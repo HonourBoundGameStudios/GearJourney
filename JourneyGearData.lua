@@ -4,6 +4,7 @@
 
 GearJourney_GearData = GearJourney_GearData or {}
 GearJourney_ClassGuides = GearJourney_ClassGuides or {}
+GearJourney_BiS = GearJourney_BiS or {}
 
 GearJourney_GearData["DRUID"] = {
   [1] = {
@@ -619,13 +620,21 @@ GearJourney_ClassGuides["WARRIOR"] = {
   {id=12940,name="Dal'Rend's Sacred Charge"},
   {id=13253,name="Hands of Power"},
   {id=13340,name="Cape of the Black Baron"},
+  {id=13959,name="Omokk's Girth Restrainer"},
+  {id=13965,name="Blackhand's Breadth"},
   {id=14849,name="Sunscale Helmet"},
   {id=15062,name="Devilsaur Leggings"},
   {id=15063,name="Devilsaur Gauntlets"},
   {id=17728,name="Albino Crocscale Boots"},
+  {id=18404,name="Onyxia Tooth Pendant"},
   {id=18520,name="Barbarous Blade"},
   {id=18832,name="Brutality Blade"},
   {id=18948,name="Barbaric Bracers"},
   {id=19325,name="Don Julio's Band"},
   {id=19578,name="Berserker Bracers"},
+}
+GearJourney_BiS["WARRIOR"] = {
+  [1] = { {slot="Head",id=14849,name="Sunscale Helmet"}, {slot="Neck",id=18404,name="Onyxia Tooth Pendant"}, {slot="Shoulder",id=7718,name="Herod's Shoulder"}, {slot="Back",id=13340,name="Cape of the Black Baron"}, {slot="Chest",id=10328,name="Scarlet Chestpiece"}, {slot="Wrist",id=19578,name="Berserker Bracers"}, {slot="Hands",id=15063,name="Devilsaur Gauntlets"}, {slot="Waist",id=13959,name="Omokk's Girth Restrainer"}, {slot="Legs",id=15062,name="Devilsaur Leggings"}, {slot="Feet",id=17728,name="Albino Crocscale Boots"}, {slot="Ring 1",id=19325,name="Don Julio's Band"}, {slot="Ring 2",id=11669,name="Naglering"}, {slot="Trinket 1",id=13965,name="Blackhand's Breadth"}, {slot="Trinket 2",id=11815,name="Hand of Justice"}, {slot="Main Hand",id=12784,name="Arcanite Reaper"} },
+  [2] = { {slot="Head",id=14849,name="Sunscale Helmet"}, {slot="Neck",id=18404,name="Onyxia Tooth Pendant"}, {slot="Shoulder",id=7718,name="Herod's Shoulder"}, {slot="Back",id=13340,name="Cape of the Black Baron"}, {slot="Chest",id=10328,name="Scarlet Chestpiece"}, {slot="Wrist",id=19578,name="Berserker Bracers"}, {slot="Hands",id=15063,name="Devilsaur Gauntlets"}, {slot="Waist",id=13959,name="Omokk's Girth Restrainer"}, {slot="Legs",id=15062,name="Devilsaur Leggings"}, {slot="Feet",id=17728,name="Albino Crocscale Boots"}, {slot="Ring 1",id=19325,name="Don Julio's Band"}, {slot="Ring 2",id=11669,name="Naglering"}, {slot="Trinket 1",id=13965,name="Blackhand's Breadth"}, {slot="Trinket 2",id=11815,name="Hand of Justice"}, {slot="Main Hand",id=18832,name="Brutality Blade"}, {slot="Off Hand",id=12939,name="Dal'Rend's Tribal Guardian"} },
+  [3] = { {slot="Head",id=14849,name="Sunscale Helmet"}, {slot="Neck",id=18404,name="Onyxia Tooth Pendant"}, {slot="Shoulder",id=7718,name="Herod's Shoulder"}, {slot="Back",id=13340,name="Cape of the Black Baron"}, {slot="Chest",id=10328,name="Scarlet Chestpiece"}, {slot="Wrist",id=19578,name="Berserker Bracers"}, {slot="Hands",id=15063,name="Devilsaur Gauntlets"}, {slot="Waist",id=13959,name="Omokk's Girth Restrainer"}, {slot="Legs",id=15062,name="Devilsaur Leggings"}, {slot="Feet",id=17728,name="Albino Crocscale Boots"}, {slot="Ring 1",id=19325,name="Don Julio's Band"}, {slot="Ring 2",id=11669,name="Naglering"}, {slot="Trinket 1",id=13965,name="Blackhand's Breadth"}, {slot="Trinket 2",id=11815,name="Hand of Justice"}, {slot="Main Hand",id=12940,name="Dal'Rend's Sacred Charge"}, {slot="Off Hand",id=1168,name="Skullflame Shield"} },
 }
