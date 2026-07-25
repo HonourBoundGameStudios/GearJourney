@@ -980,15 +980,22 @@ function Overlay.RenderGuide()
   local engine, items = GearJourney_Engine, GearJourney_Items
   local locClass, class = UnitClass("player")
   local level = (UnitLevel and UnitLevel("player")) or 1
-  local guide = class and GearJourney_ClassGuides and GearJourney_ClassGuides[class]
 
-  -- Effective spec: the toggle's override, else the player's active spec. Drives
-  -- the weights below; highlight its chip and name it in the header (flagging a
-  -- preview when it isn't the spec you're actually in).
+  -- Effective spec: the toggle's override, else the player's active spec. Resolved
+  -- first because it (with race) selects the curated list below; also drives the
+  -- weights and the header/chips (flagging a preview when it isn't your real spec).
   local active = PlayerSpecIndex()
   local spec = (engine and engine.ResolveSpec(Overlay.guideSpec, active)) or active
   local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames()) or {}
   local specName = specNames[spec]
+
+  -- Curated candidates for this class + spec + race. GearJourney_GearData is the
+  -- hardcoded class x spec x race matrix keyed on the UnitRace token ("Scourge"
+  -- for Undead); fall back to the flat per-class union if a cell is missing.
+  local race = select(2, UnitRace("player"))
+  local byClass = class and GearJourney_GearData and GearJourney_GearData[class]
+  local guide = (byClass and byClass[spec] and byClass[spec][race])
+             or (class and GearJourney_ClassGuides and GearJourney_ClassGuides[class])
   -- (Re)label the chips here, not at build time: talent-tab names can still be
   -- empty when the tab frame is first built (early after login), which left the
   -- chips stuck on the "Spec N" fallback. Refreshing each render self-heals them

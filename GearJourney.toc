@@ -19,16 +19,7 @@ JourneyDB.lua
 JourneyData.lua
 JourneyAtlasData.lua
 JourneyAtlasData_Retail.lua
-JourneyRogueData.lua
-JourneyClassGuides.lua
-JourneyWarriorData.lua
-JourneyPaladinData.lua
-JourneyHunterData.lua
-JourneyPriestData.lua
-JourneyShamanData.lua
-JourneyMageData.lua
-JourneyWarlockData.lua
-JourneyDruidData.lua
+JourneyGearData.lua
 JourneyItemIndex.lua
 JourneyItemIndex_Retail.lua
 JourneyProvider.lua
