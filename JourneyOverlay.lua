@@ -46,6 +46,7 @@ local FALLBACK_BACKDROP = {
 local TABS = {
   { key = "journey",  label = "Journey Items",  icon = "Interface\\Icons\\INV_Misc_Map_01" },
   { key = "guide",    label = "Class Guide",    icon = "Interface\\Icons\\INV_Misc_Book_09" },
+  { key = "bis",      label = "Best in Slot",   icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_02" },
   { key = "browse",   label = "Browse",         icon = "Interface\\Icons\\INV_Misc_Spyglass_02" },
   { key = "future",   label = "Future Planner", icon = "Interface\\Icons\\INV_Misc_PocketWatch_01" },
   { key = "inspect",  label = "Last Inspected", icon = "Interface\\Icons\\Spell_Holy_MindVision" },
@@ -1096,6 +1097,76 @@ function Overlay.RenderGuide()
   panel.empty:SetShown(#bands == 0)
 end
 
+-- Best-in-Slot spec toggle (EPIC-M): preview another spec's BiS without
+-- respeccing. nil = follow the player's active spec; 1..3 pins a spec.
+function Overlay.SelectBiSSpec(i)
+  Overlay.bisSpec = i
+  Overlay.RenderBiS()
+end
+
+-- Render the Best in Slot tab (EPIC-M FEAT-M1): the handcrafted per-slot BiS
+-- list for the player's class + effective spec, resolved from GearJourney_BiS.
+-- Each slot is a header over its item row (Add-to-Journey via the shared "add"
+-- action). The spec chips preview other specs. Empty-safe when a class has no
+-- authored BiS yet.
+function Overlay.RenderBiS()
+  local panel = Overlay.panels and Overlay.panels.bis
+  if not panel or not panel.listAnchor then return end
+  local engine, items = GearJourney_Engine, GearJourney_Items
+  local locClass, class = UnitClass("player")
+  local level = (UnitLevel and UnitLevel("player")) or 1
+
+  local active = PlayerSpecIndex()
+  local spec = (engine and engine.ResolveSpec(Overlay.bisSpec, active)) or active
+  local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames()) or {}
+  local specName = specNames[spec]
+
+  -- Relabel + highlight the spec chips here (talent-tab names can be empty right
+  -- after login; refreshing each render self-heals them), mirroring the guide.
+  if panel.specChips then
+    for i, b in ipairs(panel.specChips) do
+      local nm = specNames[i] or ("Spec " .. i)
+      if b:GetText() ~= nm then
+        b:SetText(nm)
+        local fs = b:GetFontString()
+        b:SetWidth(math.max(((fs and fs:GetStringWidth()) or 30) + 18, 34))
+      end
+      if i == spec then b:LockHighlight() else b:UnlockHighlight() end
+    end
+  end
+  local previewing = (Overlay.bisSpec ~= nil and spec ~= active)
+  panel.header:SetText((locClass or "Class") .. " Best in Slot"
+    .. (specName and ("  |cffffd100" .. specName .. "|r") or "")
+    .. (previewing and " |cffff8844(preview)|r" or ""))
+
+  panel.hdrs = panel.hdrs or {}
+  panel.rows = panel.rows or {}
+  local list = class and GearJourney_BiS and GearJourney_BiS[class] and GearJourney_BiS[class][spec]
+  if not (engine and list) then
+    RenderBandedInto(panel.scroll, panel.listAnchor, panel.rows, panel.hdrs, {}, level)
+    panel.empty:SetText(class and GearJourney_BiS and GearJourney_BiS[class]
+      and "No BiS list for this spec yet."
+      or "No handcrafted best-in-slot list yet for your class.")
+    panel.empty:Show()
+    return
+  end
+
+  -- One "band" per slot: the slot label headers its single resolved item. Resolve
+  -- through the enriched pool (BiS ids are in the enrichment union); fall back to a
+  -- minimal stub so the slot still shows while the item streams in from the server.
+  local bands = {}
+  for _, entry in ipairs(list) do
+    local it = engine.FindByID and engine.FindByID(items, entry.id)
+    if not it then
+      it = { itemID = entry.id, name = entry.name, reqLevel = 0 }
+    end
+    bands[#bands + 1] = { label = entry.slot, items = { it } }
+  end
+
+  RenderBandedInto(panel.scroll, panel.listAnchor, panel.rows, panel.hdrs, bands, level)
+  panel.empty:SetShown(#bands == 0)
+end
+
 -- Render one list tab (key = "current" or "future") into its panel, spec-scored.
 function Overlay.RenderTab(key)
   local panel = Overlay.panels and Overlay.panels[key]
@@ -1330,6 +1401,7 @@ function Overlay.RenderCurrentGoals()
   Overlay.UpdateTabBadges()
   Overlay.RenderJourney()
   Overlay.RenderGuide()
+  Overlay.RenderBiS()
   Overlay.RenderBrowse()
   Overlay.RenderTab("future")
   Overlay.RenderInspect()
@@ -1645,6 +1717,42 @@ local function BuildLayout(f)
       local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
       empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
       empty:SetText("No curated guide yet for your class.")
+      empty:Hide()
+      panel.empty = empty
+
+    elseif tab.key == "bis" then
+      -- Best in Slot (EPIC-M): header (retitled per class/spec at render), a spec
+      -- toggle row, then a per-slot list (slot headers over each item row).
+      panel.header = header
+      local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      sub:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -5)
+      sub:SetPoint("RIGHT", panel, "RIGHT", -4, 0)
+      sub:SetJustifyH("LEFT")
+      sub:SetText("Handcrafted endgame target \226\128\148 one item per slot.")
+
+      panel.specChips = {}
+      local specNames = (GearJourney_Compat and GearJourney_Compat.SpecNames())
+        or { "Spec 1", "Spec 2", "Spec 3" }
+      local slbl = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+      slbl:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 2, -8)
+      slbl:SetText("Spec:")
+      local anchor = slbl
+      for i = 1, 3 do
+        local sb = MakeChip(panel, specNames[i] or ("Spec " .. i))
+        sb:SetHeight(22)
+        sb:SetPoint("LEFT", anchor, "RIGHT", anchor == slbl and 8 or 6, 0)
+        sb:SetScript("OnClick", function() Overlay.SelectBiSSpec(i) end)
+        panel.specChips[i] = sb
+        anchor = sb
+      end
+
+      local scroll, child = MakeScroll(panel)
+      scroll:SetPoint("TOPLEFT", panel.specChips[1], "BOTTOMLEFT", -2, -8)
+      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 40)
+      panel.scroll, panel.listAnchor = scroll, child
+      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
+      empty:SetText("No handcrafted best-in-slot list yet for your class.")
       empty:Hide()
       panel.empty = empty
 
