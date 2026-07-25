@@ -697,8 +697,20 @@ function Engine.IsOffSpec(item, weights)
   if physical then
     return (int > 0 or spi > 0) and agi == 0 and str == 0
   else
-    -- Caster: any physical/defensive stat with zero caster value is off-spec.
-    return (agi > 0 or str > 0 or sta > 0) and int == 0 and spi == 0
+    -- Caster: anything carrying a caster stat is on-spec.
+    if int > 0 or spi > 0 then return false end
+    -- A weapon with no caster stat is off-spec UNLESS it's a spell implement:
+    -- a wand (the caster ranged slot) or a weapon that grants spell damage/healing.
+    -- This catches statless melee DPS weapons (Arcanite Reaper, Ironfoe) that carry
+    -- no physical stat either and so would otherwise bypass the cut and win the
+    -- weapon slot by item level in a healer's / caster's list.
+    if item.itemClassID == 2 then
+      local isWand = (item.itemSubClassID == 19)
+      local castsSpell = (item.spellType == "healing" or item.spellType == "both")
+      return not (isWand or castsSpell)
+    end
+    -- Non-weapon: physical/defensive gear (Agi/Str/Sta, no caster value) is off-spec.
+    return (agi > 0 or str > 0 or sta > 0)
   end
 end
 

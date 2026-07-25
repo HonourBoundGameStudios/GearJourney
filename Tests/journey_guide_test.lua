@@ -91,4 +91,21 @@ H.ok(not Engine.IsOffSpec({ stats = { Spirit = 8, Stamina = 6 } }, restoW),
 H.ok(not Engine.IsOffSpec({ stats = {} }, restoW),
      "a plain no-stat weapon (e.g. wand) is not off-spec for a caster")
 
+-- A statless melee DPS weapon (Arcanite Reaper: pure damage, no stats, no spell
+-- effect) is off-spec for a caster -- it must not leak into a healer's weapon list.
+H.ok(Engine.IsOffSpec({ itemClassID = 2, itemSubClassID = 5, stats = {} }, restoW),
+     "statless melee DPS weapon is off-spec for a caster")
+-- ...but a wand (statless, yet the caster's ranged implement) is kept.
+H.ok(not Engine.IsOffSpec({ itemClassID = 2, itemSubClassID = 19, stats = {} }, restoW),
+     "a wand is kept for a caster")
+-- ...and a statless weapon that grants spell power / healing is kept.
+H.ok(not Engine.IsOffSpec({ itemClassID = 2, itemSubClassID = 4, stats = {}, spellType = "healing" }, restoW),
+     "a spell-effect weapon with no listed stats is kept for a caster")
+-- An Int mace stays kept; a statless melee weapon is still fine for a physical spec.
+H.ok(not Engine.IsOffSpec({ itemClassID = 2, itemSubClassID = 4, stats = { Intellect = 8 } }, restoW),
+     "an Int mace is kept for a caster")
+H.ok(not Engine.IsOffSpec({ itemClassID = 2, itemSubClassID = 5, stats = {} },
+     Engine.WeightsFor("DRUID", 2, "pve")),
+     "statless melee weapon is kept for a physical spec")
+
 H.done()
