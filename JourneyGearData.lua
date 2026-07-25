@@ -192,8 +192,8 @@ GearJourney_ClassGuides["MAGE"] = {
 
 GearJourney_GearData["PALADIN"] = {
   [1] = {
-    Dwarf = { {id=12983,name="Rakzur Club"}, {id=5191,name="Cruel Barb"}, {id=1481,name="Grimclaw"}, {id=15230,name="Ridge Cleaver"}, {id=1727,name="Sword of Decay"}, {id=2816,name="Death Speaker Scepter"}, {id=9446,name="Electrocutioner Leg"}, {id=870,name="Fiery War Axe"}, {id=869,name="Dazzling Longsword"}, {id=9424,name="Ginn-su Sword"}, {id=9379,name="Sang'thraze the Deflector"}, {id=809,name="Bloodrazor"}, {id=9478,name="Ripsaw"}, {id=810,name="Hammer of the Northern Wind"}, {id=2244,name="Krol Blade"}, {id=2243,name="Hand of Edward the Odd"}, {id=13361,name="Skullforge Reaver"}, {id=12939,name="Dal'Rend's Tribal Guardian"}, {id=12940,name="Dal'Rend's Sacred Charge"}, {id=17105,name="Aurastone Hammer"}, {id=19360,name="Lok'amir il Romathis"}, {id=18348,name="Quel'Serrar"}, {id=18832,name="Brutality Blade"}, {id=19908,name="Sceptre of Smiting"}, {id=20426,name="Advisor's Ring"}, {id=4614,name="Pendant of Myzrael"}, {id=19521,name="Advisor's Ring"}, {id=6449,name="Glowing Lizardscale Cloak"}, {id=19520,name="Advisor's Ring"}, {id=7726,name="Aegis of the Scarlet Commander"}, {id=12624,name="Wildthorn Mail"}, {id=19519,name="Advisor's Ring"}, {id=17718,name="Gizlock's Hypertech Buckler"}, {id=16727,name="Lightforge Helm"}, {id=16729,name="Lightforge Spaulders"}, {id=16726,name="Lightforge Breastplate"}, {id=16722,name="Lightforge Bracers"}, {id=16724,name="Lightforge Gauntlets"}, {id=16723,name="Lightforge Belt"}, {id=16728,name="Lightforge Legplates"}, {id=16725,name="Lightforge Boots"}, {id=12103,name="Star of Mystaria"}, {id=19518,name="Advisor's Ring"}, {id=19086,name="Stormpike Sage's Cloak"}, {id=19893,name="Zanzil's Seal"} },
-    Human = { {id=12983,name="Rakzur Club"}, {id=5191,name="Cruel Barb"}, {id=1481,name="Grimclaw"}, {id=15230,name="Ridge Cleaver"}, {id=1727,name="Sword of Decay"}, {id=2816,name="Death Speaker Scepter"}, {id=9446,name="Electrocutioner Leg"}, {id=870,name="Fiery War Axe"}, {id=869,name="Dazzling Longsword"}, {id=9424,name="Ginn-su Sword"}, {id=9379,name="Sang'thraze the Deflector"}, {id=809,name="Bloodrazor"}, {id=9478,name="Ripsaw"}, {id=810,name="Hammer of the Northern Wind"}, {id=2244,name="Krol Blade"}, {id=2243,name="Hand of Edward the Odd"}, {id=13361,name="Skullforge Reaver"}, {id=12939,name="Dal'Rend's Tribal Guardian"}, {id=12940,name="Dal'Rend's Sacred Charge"}, {id=17105,name="Aurastone Hammer"}, {id=19360,name="Lok'amir il Romathis"}, {id=18348,name="Quel'Serrar"}, {id=18832,name="Brutality Blade"}, {id=19908,name="Sceptre of Smiting"}, {id=20426,name="Advisor's Ring"}, {id=4614,name="Pendant of Myzrael"}, {id=19521,name="Advisor's Ring"}, {id=6449,name="Glowing Lizardscale Cloak"}, {id=19520,name="Advisor's Ring"}, {id=7726,name="Aegis of the Scarlet Commander"}, {id=12624,name="Wildthorn Mail"}, {id=19519,name="Advisor's Ring"}, {id=17718,name="Gizlock's Hypertech Buckler"}, {id=16727,name="Lightforge Helm"}, {id=16729,name="Lightforge Spaulders"}, {id=16726,name="Lightforge Breastplate"}, {id=16722,name="Lightforge Bracers"}, {id=16724,name="Lightforge Gauntlets"}, {id=16723,name="Lightforge Belt"}, {id=16728,name="Lightforge Legplates"}, {id=16725,name="Lightforge Boots"}, {id=12103,name="Star of Mystaria"}, {id=19518,name="Advisor's Ring"}, {id=19086,name="Stormpike Sage's Cloak"}, {id=19893,name="Zanzil's Seal"} },
+    Dwarf = { {id=2011,name="Twisted Sabre"}, {id=2816,name="Death Speaker Scepter"}, {id=13033,name="Zealot Blade"}, {id=9457,name="Royal Diplomatic Scepter"}, {id=7721,name="Hand of Righteousness"}, {id=13026,name="Heaven's Light"}, {id=2243,name="Hand of Edward the Odd"}, {id=22383,name="Sageblade"}, {id=17105,name="Aurastone Hammer"}, {id=19360,name="Lok'amir il Romathis"}, {id=23056,name="Hammer of the Twisting Nether"}, {id=21839,name="Scepter of the False Prophet"}, {id=23454,name="Grand Marshal's Warhammer"}, {id=20426,name="Advisor's Ring"}, {id=4614,name="Pendant of Myzrael"}, {id=19521,name="Advisor's Ring"}, {id=6449,name="Glowing Lizardscale Cloak"}, {id=19520,name="Advisor's Ring"}, {id=7726,name="Aegis of the Scarlet Commander"}, {id=12624,name="Wildthorn Mail"}, {id=19519,name="Advisor's Ring"}, {id=17718,name="Gizlock's Hypertech Buckler"}, {id=16727,name="Lightforge Helm"}, {id=16729,name="Lightforge Spaulders"}, {id=16726,name="Lightforge Breastplate"}, {id=16722,name="Lightforge Bracers"}, {id=16724,name="Lightforge Gauntlets"}, {id=16723,name="Lightforge Belt"}, {id=16728,name="Lightforge Legplates"}, {id=16725,name="Lightforge Boots"}, {id=12103,name="Star of Mystaria"}, {id=19518,name="Advisor's Ring"}, {id=19086,name="Stormpike Sage's Cloak"}, {id=19893,name="Zanzil's Seal"} },
+    Human = { {id=2011,name="Twisted Sabre"}, {id=2816,name="Death Speaker Scepter"}, {id=13033,name="Zealot Blade"}, {id=9457,name="Royal Diplomatic Scepter"}, {id=7721,name="Hand of Righteousness"}, {id=13026,name="Heaven's Light"}, {id=2243,name="Hand of Edward the Odd"}, {id=22383,name="Sageblade"}, {id=17105,name="Aurastone Hammer"}, {id=19360,name="Lok'amir il Romathis"}, {id=23056,name="Hammer of the Twisting Nether"}, {id=21839,name="Scepter of the False Prophet"}, {id=23454,name="Grand Marshal's Warhammer"}, {id=20426,name="Advisor's Ring"}, {id=4614,name="Pendant of Myzrael"}, {id=19521,name="Advisor's Ring"}, {id=6449,name="Glowing Lizardscale Cloak"}, {id=19520,name="Advisor's Ring"}, {id=7726,name="Aegis of the Scarlet Commander"}, {id=12624,name="Wildthorn Mail"}, {id=19519,name="Advisor's Ring"}, {id=17718,name="Gizlock's Hypertech Buckler"}, {id=16727,name="Lightforge Helm"}, {id=16729,name="Lightforge Spaulders"}, {id=16726,name="Lightforge Breastplate"}, {id=16722,name="Lightforge Bracers"}, {id=16724,name="Lightforge Gauntlets"}, {id=16723,name="Lightforge Belt"}, {id=16728,name="Lightforge Legplates"}, {id=16725,name="Lightforge Boots"}, {id=12103,name="Star of Mystaria"}, {id=19518,name="Advisor's Ring"}, {id=19086,name="Stormpike Sage's Cloak"}, {id=19893,name="Zanzil's Seal"} },
   },
   [2] = {
     Dwarf = { {id=12983,name="Rakzur Club"}, {id=5191,name="Cruel Barb"}, {id=1481,name="Grimclaw"}, {id=15230,name="Ridge Cleaver"}, {id=1727,name="Sword of Decay"}, {id=2816,name="Death Speaker Scepter"}, {id=9446,name="Electrocutioner Leg"}, {id=870,name="Fiery War Axe"}, {id=869,name="Dazzling Longsword"}, {id=9424,name="Ginn-su Sword"}, {id=9379,name="Sang'thraze the Deflector"}, {id=809,name="Bloodrazor"}, {id=9478,name="Ripsaw"}, {id=810,name="Hammer of the Northern Wind"}, {id=2244,name="Krol Blade"}, {id=2243,name="Hand of Edward the Odd"}, {id=13361,name="Skullforge Reaver"}, {id=12939,name="Dal'Rend's Tribal Guardian"}, {id=12940,name="Dal'Rend's Sacred Charge"}, {id=17105,name="Aurastone Hammer"}, {id=19360,name="Lok'amir il Romathis"}, {id=18348,name="Quel'Serrar"}, {id=18832,name="Brutality Blade"}, {id=19908,name="Sceptre of Smiting"}, {id=6731,name="Ironforge Breastplate"}, {id=3481,name="Silvered Bronze Shoulders"}, {id=2059,name="Sentry Cloak"}, {id=5193,name="Cape of the Brotherhood"}, {id=2869,name="Silvered Bronze Breastplate"}, {id=3836,name="Green Iron Helm"}, {id=3840,name="Green Iron Shoulders"}, {id=3842,name="Green Iron Leggings"}, {id=3485,name="Green Iron Gauntlets"}, {id=3484,name="Green Iron Boots"}, {id=6320,name="Commander's Crest"}, {id=6321,name="Silverlaine's Family Seal"}, {id=6463,name="Deep Fathom Ring"}, {id=3844,name="Green Iron Hauberk"}, {id=9430,name="Spaulders of a Lost Age"}, {id=7921,name="Heavy Mithril Pants"}, {id=7925,name="Mithril Scale Gloves"}, {id=7919,name="Heavy Mithril Gauntlet"}, {id=7926,name="Ornate Mithril Pants"}, {id=7726,name="Aegis of the Scarlet Commander"}, {id=7930,name="Heavy Mithril Breastplate"}, {id=7934,name="Heavy Mithril Helm"}, {id=12428,name="Imperial Plate Shoulders"}, {id=12424,name="Imperial Plate Belt"}, {id=12425,name="Imperial Plate Bracers"}, {id=7933,name="Heavy Mithril Boots"}, {id=9476,name="Big Bad Pauldrons"}, {id=1203,name="Aegis of Stormwind"}, {id=12427,name="Imperial Plate Helm"}, {id=16733,name="Spaulders of Valor"}, {id=12422,name="Imperial Plate Chest"}, {id=12429,name="Imperial Plate Leggings"}, {id=11745,name="Fists of Phalanx"}, {id=14620,name="Deathbone Girdle"}, {id=16735,name="Bracers of Valor"}, {id=12426,name="Imperial Plate Boots"}, {id=18495,name="Redoubt Cloak"}, {id=11785,name="Rock Golem Bulwark"}, {id=11669,name="Naglering"}, {id=16730,name="Breastplate of Valor"}, {id=17065,name="Medallion of Steadfast Might"}, {id=19137,name="Onslaught Girdle"}, {id=19146,name="Wristguards of Stability"}, {id=18824,name="Magma Tempered Boots"}, {id=19398,name="Cloak of Firemaw"}, {id=18879,name="Heavy Dark Iron Ring"}, {id=19349,name="Elementium Reinforced Bulwark"} },
@@ -215,6 +215,7 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=1481,name="Grimclaw"},
   {id=1727,name="Sword of Decay"},
   {id=1976,name="Slaghammer"},
+  {id=2011,name="Twisted Sabre"},
   {id=2059,name="Sentry Cloak"},
   {id=2227,name="Heavy Ogre War Axe"},
   {id=2243,name="Hand of Edward the Odd"},
@@ -248,6 +249,7 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=6731,name="Ironforge Breastplate"},
   {id=7717,name="Ravager"},
   {id=7718,name="Herod's Shoulder"},
+  {id=7721,name="Hand of Righteousness"},
   {id=7726,name="Aegis of the Scarlet Commander"},
   {id=7919,name="Heavy Mithril Gauntlet"},
   {id=7921,name="Heavy Mithril Pants"},
@@ -262,6 +264,7 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=9424,name="Ginn-su Sword"},
   {id=9430,name="Spaulders of a Lost Age"},
   {id=9446,name="Electrocutioner Leg"},
+  {id=9457,name="Royal Diplomatic Scepter"},
   {id=9476,name="Big Bad Pauldrons"},
   {id=9478,name="Ripsaw"},
   {id=10328,name="Scarlet Chestpiece"},
@@ -284,6 +287,8 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=12940,name="Dal'Rend's Sacred Charge"},
   {id=12983,name="Rakzur Club"},
   {id=13018,name="Executioner's Cleaver"},
+  {id=13026,name="Heaven's Light"},
+  {id=13033,name="Zealot Blade"},
   {id=13340,name="Cape of the Black Baron"},
   {id=13361,name="Skullforge Reaver"},
   {id=13505,name="Runeblade of Baron Rivendare"},
@@ -357,6 +362,8 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=21639,name="Pauldrons of the Unrelenting"},
   {id=21674,name="Gauntlets of Steadfast Determination"},
   {id=21712,name="Amulet of the Fallen God"},
+  {id=21839,name="Scepter of the False Prophet"},
+  {id=22383,name="Sageblade"},
   {id=22425,name="Redemption Tunic"},
   {id=22426,name="Redemption Handguards"},
   {id=22428,name="Redemption Headpiece"},
@@ -376,6 +383,7 @@ GearJourney_ClassGuides["PALADIN"] = {
   {id=23045,name="Shroud of Dominion"},
   {id=23056,name="Hammer of the Twisting Nether"},
   {id=23066,name="Ring of Redemption"},
+  {id=23454,name="Grand Marshal's Warhammer"},
 }
 GearJourney_BiS["PALADIN"] = {
   [1] = { {slot="Head",id=22428,name="Redemption Headpiece"}, {slot="Neck",id=21712,name="Amulet of the Fallen God"}, {slot="Shoulder",id=22429,name="Redemption Spaulders"}, {slot="Back",id=22960,name="Cloak of Suturing"}, {slot="Chest",id=22425,name="Redemption Tunic"}, {slot="Wrist",id=21604,name="Bracelets of Royal Redemption"}, {slot="Hands",id=22426,name="Redemption Handguards"}, {slot="Waist",id=21582,name="Grasp of the Old God"}, {slot="Legs",id=19385,name="Empowered Leggings"}, {slot="Feet",id=22430,name="Redemption Boots"}, {slot="Ring 1",id=22939,name="Band of Unanswered Prayers"}, {slot="Ring 2",id=23066,name="Ring of Redemption"}, {slot="Trinket 1",id=19395,name="Rejuvenating Gem"}, {slot="Trinket 2",id=19343,name="Scrolls of Blinding Light"}, {slot="Main Hand",id=23056,name="Hammer of the Twisting Nether"}, {slot="Off Hand",id=22819,name="Shield of Condemnation"} },

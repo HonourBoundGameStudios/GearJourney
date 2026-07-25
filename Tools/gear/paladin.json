@@ -1,6 +1,6 @@
 {
   "class": "PALADIN",
-  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Holy=Int/Spirit healer (1H+shield), Protection=Stamina/Strength tank (1H+shield), Retribution=Strength DPS (2H). Paladin CLASS_ARMOR is Mail(<40)/Plate(40+) only -- cloth/leather body pieces are engine-dropped, so low bands lean on neutral jewelry/cloaks/shields (a genuine Era content limit). Every id verified MATCH (quality>=2, id<200000) and armor stat-validated (Str/Agi/Int/Sta/Spi). Human=Dwarf copies (no race/faction-locked paladin items). bis = raid epics, sourced separately.",
+  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Holy=Int/Spirit healer (1H+shield), Protection=Stamina/Strength tank (1H+shield), Retribution=Strength DPS (2H). Paladin CLASS_ARMOR is Mail(<40)/Plate(40+) only -- cloth/leather body pieces are engine-dropped, so low bands lean on neutral jewelry/cloaks/shields (a genuine Era content limit). Every id verified MATCH (quality>=2, id<200000) and armor stat-validated (Str/Agi/Int/Sta/Spi). Human=Dwarf copies (no race/faction-locked paladin items). bis = raid epics, sourced separately. Holy weapons are healer 1H maces/swords carrying Int/Spirit/+healing (physical DPS weapons are hidden for a caster by IsOffSpec) -- ~4 per band where they exist, but Classic Era has NO qualifying paladin 1H caster weapon in bands 1-20 or 41-50 (those brackets' caster weapons are all daggers/staves/wands a paladin can't wield), so those Holy weapon bands are intentionally empty.",
   "specs": [
     {
       "index": 1,
@@ -8,80 +8,36 @@
       "races": {
         "Human": [
           {
-            "id": 12983,
-            "name": "Rakzur Club"
-          },
-          {
-            "id": 5191,
-            "name": "Cruel Barb"
-          },
-          {
-            "id": 1481,
-            "name": "Grimclaw"
-          },
-          {
-            "id": 15230,
-            "name": "Ridge Cleaver"
-          },
-          {
-            "id": 1727,
-            "name": "Sword of Decay"
+            "id": 2011,
+            "name": "Twisted Sabre"
           },
           {
             "id": 2816,
             "name": "Death Speaker Scepter"
           },
           {
-            "id": 9446,
-            "name": "Electrocutioner Leg"
+            "id": 13033,
+            "name": "Zealot Blade"
           },
           {
-            "id": 870,
-            "name": "Fiery War Axe"
+            "id": 9457,
+            "name": "Royal Diplomatic Scepter"
           },
           {
-            "id": 869,
-            "name": "Dazzling Longsword"
+            "id": 7721,
+            "name": "Hand of Righteousness"
           },
           {
-            "id": 9424,
-            "name": "Ginn-su Sword"
-          },
-          {
-            "id": 9379,
-            "name": "Sang'thraze the Deflector"
-          },
-          {
-            "id": 809,
-            "name": "Bloodrazor"
-          },
-          {
-            "id": 9478,
-            "name": "Ripsaw"
-          },
-          {
-            "id": 810,
-            "name": "Hammer of the Northern Wind"
-          },
-          {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 13026,
+            "name": "Heaven's Light"
           },
           {
             "id": 2243,
             "name": "Hand of Edward the Odd"
           },
           {
-            "id": 13361,
-            "name": "Skullforge Reaver"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
+            "id": 22383,
+            "name": "Sageblade"
           },
           {
             "id": 17105,
@@ -92,16 +48,16 @@
             "name": "Lok'amir il Romathis"
           },
           {
-            "id": 18348,
-            "name": "Quel'Serrar"
+            "id": 23056,
+            "name": "Hammer of the Twisting Nether"
           },
           {
-            "id": 18832,
-            "name": "Brutality Blade"
+            "id": 21839,
+            "name": "Scepter of the False Prophet"
           },
           {
-            "id": 19908,
-            "name": "Sceptre of Smiting"
+            "id": 23454,
+            "name": "Grand Marshal's Warhammer"
           },
           {
             "id": 20426,
@@ -190,80 +146,36 @@
         ],
         "Dwarf": [
           {
-            "id": 12983,
-            "name": "Rakzur Club"
-          },
-          {
-            "id": 5191,
-            "name": "Cruel Barb"
-          },
-          {
-            "id": 1481,
-            "name": "Grimclaw"
-          },
-          {
-            "id": 15230,
-            "name": "Ridge Cleaver"
-          },
-          {
-            "id": 1727,
-            "name": "Sword of Decay"
+            "id": 2011,
+            "name": "Twisted Sabre"
           },
           {
             "id": 2816,
             "name": "Death Speaker Scepter"
           },
           {
-            "id": 9446,
-            "name": "Electrocutioner Leg"
+            "id": 13033,
+            "name": "Zealot Blade"
           },
           {
-            "id": 870,
-            "name": "Fiery War Axe"
+            "id": 9457,
+            "name": "Royal Diplomatic Scepter"
           },
           {
-            "id": 869,
-            "name": "Dazzling Longsword"
+            "id": 7721,
+            "name": "Hand of Righteousness"
           },
           {
-            "id": 9424,
-            "name": "Ginn-su Sword"
-          },
-          {
-            "id": 9379,
-            "name": "Sang'thraze the Deflector"
-          },
-          {
-            "id": 809,
-            "name": "Bloodrazor"
-          },
-          {
-            "id": 9478,
-            "name": "Ripsaw"
-          },
-          {
-            "id": 810,
-            "name": "Hammer of the Northern Wind"
-          },
-          {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 13026,
+            "name": "Heaven's Light"
           },
           {
             "id": 2243,
             "name": "Hand of Edward the Odd"
           },
           {
-            "id": 13361,
-            "name": "Skullforge Reaver"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
+            "id": 22383,
+            "name": "Sageblade"
           },
           {
             "id": 17105,
@@ -274,16 +186,16 @@
             "name": "Lok'amir il Romathis"
           },
           {
-            "id": 18348,
-            "name": "Quel'Serrar"
+            "id": 23056,
+            "name": "Hammer of the Twisting Nether"
           },
           {
-            "id": 18832,
-            "name": "Brutality Blade"
+            "id": 21839,
+            "name": "Scepter of the False Prophet"
           },
           {
-            "id": 19908,
-            "name": "Sceptre of Smiting"
+            "id": 23454,
+            "name": "Grand Marshal's Warhammer"
           },
           {
             "id": 20426,
