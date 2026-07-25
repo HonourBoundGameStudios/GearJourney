@@ -48,7 +48,6 @@ local TABS = {
   { key = "guide",    label = "Class Guide",    icon = "Interface\\Icons\\INV_Misc_Book_09" },
   { key = "bis",      label = "Best in Slot",   icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_02" },
   { key = "browse",   label = "Browse",         icon = "Interface\\Icons\\INV_Misc_Spyglass_02" },
-  { key = "future",   label = "Future Planner", icon = "Interface\\Icons\\INV_Misc_PocketWatch_01" },
   { key = "inspect",  label = "Last Inspected", icon = "Interface\\Icons\\Spell_Holy_MindVision" },
   { key = "settings", label = "Settings",       icon = "Interface\\Icons\\Trade_Engineering" },
   { key = "about",    label = "About",          icon = "Interface\\Icons\\INV_Misc_Note_02" },
@@ -197,10 +196,9 @@ function Overlay.SelectTab(key)
   for k, panel in pairs(Overlay.panels) do
     panel:SetShown(k == key)
   end
-  -- The source/lookahead bar applies to the pool-filtered tabs only (Browse,
-  -- Future). Journey Items shows the saved list verbatim, so no filter bar.
-  if Overlay.controlBar then Overlay.controlBar:SetShown(key == "browse" or key == "future") end
-  -- "Usable Items" only affects Browse's name search, so it's hidden on Future.
+  -- The source/lookahead bar applies to the pool-filtered Browse tab only.
+  -- Journey Items shows the saved list verbatim, so no filter bar.
+  if Overlay.controlBar then Overlay.controlBar:SetShown(key == "browse") end
   if Overlay.usableCb then Overlay.usableCb:SetShown(key == "browse") end
 end
 
@@ -465,7 +463,7 @@ local function FillRow(row, item, playerLevel, hi)
 
   -- Owned dot: a small green marker for items already in bags/bank/equipped.
   -- Only ever visible in lists that aren't owned-filtered (Journey / Inspect);
-  -- Browse/Future/Guide drop owned items upstream, so it stays hidden there.
+  -- Browse/Guide drop owned items upstream, so it stays hidden there.
   if row.dot then
     local owns = Overlay.PlayerOwnsFn()
     row.dot:SetShown(item.itemID ~= nil and owns(item.itemID) == true)
@@ -479,7 +477,7 @@ local function RefreshAll()
 end
 
 -- Configure a row's right-side action. "add" toggles Journey-List membership
--- (selector / future); "journey" shows Remove + up/down reorder.
+-- (selector / browse); "journey" shows Remove + up/down reorder.
 local function ConfigRowAction(row, item, mode)
   -- "Picked" cue: gold left bar + faint wash on add-rows already wishlisted, so
   -- you can see at a glance what's on your list while browsing. (Journey-mode
@@ -1167,21 +1165,6 @@ function Overlay.RenderBiS()
   panel.empty:SetShown(#bands == 0)
 end
 
--- Render one list tab (key = "current" or "future") into its panel, spec-scored.
-function Overlay.RenderTab(key)
-  local panel = Overlay.panels and Overlay.panels[key]
-  if not panel or not panel.listAnchor then return end
-  local list, level, hi = Overlay.ComputeList(key)
-  panel.rows = panel.rows or {}
-  RenderRowsInto(panel.scroll, panel.listAnchor, panel.rows, list, level, hi, "add")
-  panel.empty:SetShown(#list == 0)
-  if key == "future" then
-    panel.sub:SetText(#list > 0 and ("Level " .. (hi + 1) .. " and up") or "")
-  else
-    panel.sub:SetText(#list > 0 and ("Levels " .. level .. " \226\128\147 " .. hi) or "")
-  end
-end
-
 -- Highlight the chosen slot chip and remember the selection.
 Overlay.selectorSlot = Overlay.selectorSlot or "all"
 function Overlay.SelectChip(slot)
@@ -1396,22 +1379,21 @@ function Overlay.UpdateTabBadges()
   set("inspect", #(insp.items or {}))
 end
 
--- Refresh the browse + future views (called by the provider and on open).
+-- Refresh the tab views (called by the provider and on open).
 function Overlay.RenderCurrentGoals()
   Overlay.UpdateTabBadges()
   Overlay.RenderJourney()
   Overlay.RenderGuide()
   Overlay.RenderBiS()
   Overlay.RenderBrowse()
-  Overlay.RenderTab("future")
   Overlay.RenderInspect()
 end
 
--- Top filter strip shared by Browse/Future: source + rarity checkboxes,
+-- Top filter strip for Browse: source + rarity checkboxes,
 -- persisted and re-rendering live.
 local SOURCE_FILTERS = { "Dungeon", "Drop", "Crafted", "Quest", "Vendor", "Faction", "PvP" }
 
-local FILTER_BAR_H = 30   -- filter strip height (sits below the title row on Browse/Future)
+local FILTER_BAR_H = 30   -- filter strip height (sits below the title row on Browse)
 local HEADER_ROW_H = 26   -- title + separator (and Browse's search box) row above the filter strip
 
 local function BuildControlBar(content, topLevel)
@@ -1490,7 +1472,7 @@ local function BuildControlBar(content, topLevel)
   local ulbl = usableCb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
   ulbl:SetPoint("LEFT", usableCb, "RIGHT", 1, 0)
   ulbl:SetText("Usable Items")
-  -- Only Browse's name search reads searchUsable; hidden on Future (see SelectTab).
+  -- Only Browse's name search reads searchUsable; hidden elsewhere (see SelectTab).
   Overlay.usableCb = usableCb
 end
 
@@ -1564,7 +1546,7 @@ local function BuildLayout(f)
     Overlay.tabButtons[tab.key] = btn
 
     -- Matching content panel with a header; body filled in by later items. Every
-    -- tab's title + separator leads at the top; Browse/Future then reserve the
+    -- tab's title + separator leads at the top; Browse then reserves the
     -- filter strip below the title row (see HEADER_ROW_H) before their content.
     local panel = CreateFrame("Frame", nil, content)
     panel:SetAllPoints(content)
@@ -1874,23 +1856,6 @@ local function BuildLayout(f)
       jEmpty:Hide()
       panel.jEmpty = jEmpty
 
-    elseif tab.key == "future" then
-      -- Single scrolling list of the upcoming best-per-slot gear. The title row
-      -- holds only the header; the subtitle sits just below the filter strip
-      -- (above the list) so it can't collide with the strip.
-      local sub = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      sub:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(HEADER_ROW_H + FILTER_BAR_H + 6))
-      panel.sub = sub
-      local scroll, child = MakeScroll(panel)
-      scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -8)
-      scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -26, 10)
-      panel.scroll, panel.listAnchor = scroll, child
-      local empty = panel:CreateFontString(nil, "OVERLAY", "GameFontDisable")
-      empty:SetPoint("TOPLEFT", scroll, "TOPLEFT", 2, -4)
-      empty:SetText("No upcoming gear for your class.")
-      empty:Hide()
-      panel.empty = empty
-
     elseif tab.key == "about" then
       -- Studio "About" page: logo + blurb + a selectable Steam curator link.
       local LOGO = "Interface\\AddOns\\GearJourney\\Media\\HBGS-Logo"
@@ -2024,8 +1989,6 @@ local function BuildLayout(f)
         "Hand-picked gear by level band, split into |cffffffffWeapons|r and |cffffffffArmor|r. Tick |cff66ccffShow all usable|r for the full pool. \"Best run now\" points to the dungeon with the most upgrades for you.")
       section("Interface\\Icons\\INV_Misc_Spyglass_02", "Browse",
         "Search |cffffffffevery|r weapon & armor by name, or pick a slot. Solo a dungeon with the small icons (right-click one to open AtlasLoot). Source & rarity filters sit up top.")
-      section("Interface\\Icons\\INV_Misc_PocketWatch_01", "Future Planner",
-        "The best upgrade for each slot coming up as you level.")
       section("Interface\\Icons\\Spell_Holy_MindVision", "Last Inspected",
         "Inspect a player and their gear lists here \226\128\148 |cffffffffAdd all to Journey|r wishlists the whole set in one click.")
 

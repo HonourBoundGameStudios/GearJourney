@@ -40,7 +40,7 @@ function DB.Qualities()
   return s.qualities
 end
 -- Lookahead was removed as a user setting; a fixed band still scopes the
--- Future Planner split, the dungeon bar, and row level-colouring internally.
+-- button's next-goal split, the dungeon bar, and row level-colouring internally.
 function DB.Lookahead() return 10 end
 
 -- Is Titan Panel around to host the bar? Two independent signals, so the answer

@@ -292,7 +292,7 @@ S.scenario{
     local O = GearJourney_Overlay
     if not t.truthy(O and O.SelectTab, "SelectTab available") then return end
     openOverlay()
-    for _, key in ipairs({ "journey", "guide", "browse", "future", "inspect", "settings", "about" }) do
+    for _, key in ipairs({ "journey", "guide", "browse", "inspect", "settings", "about" }) do
       t.step("select " .. key, function() O.SelectTab(key) end)
       t.eq(O.activeTab, key, "active tab = " .. key)
       local panel = O.panels and O.panels[key]
