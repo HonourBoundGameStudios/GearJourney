@@ -1,6 +1,6 @@
 {
   "class": "WARRIOR",
-  "_note": "Differentiated per spec (weapon emphasis) from the owner's verified 44-item pool. 6 no-required-level endgame items live in the BiS section, not here (they would mis-band into Level 1-10). Race lists are identical: no faction/race-locked items in this pool, and the guide re-sorts weapons by reqLevel/score at render.",
+  "_note": "specs[] = leveling Class Guide (weapons ~4x per band: 2H for Arms, 1H for Fury/Prot; armor/accessory pool shared, expanded separately). bis = raid best-in-slot per spec (BWL/AQ40/Naxx epics), sourced fresh -- NOT the leveling pool. Race lists are identical copies (no faction/race-locked items; the guide re-sorts weapons by reqLevel/score at render). Every id verified MATCH before landing.",
   "specs": [
     {
       "index": 1,
@@ -8,32 +8,144 @@
       "races": {
         "Human": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -48,10 +160,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -64,32 +172,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -110,14 +206,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -134,32 +222,144 @@
         ],
         "Dwarf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -174,10 +374,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -190,32 +386,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -236,14 +420,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -260,32 +436,144 @@
         ],
         "NightElf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -300,10 +588,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -316,32 +600,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -362,14 +634,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -386,32 +650,144 @@
         ],
         "Gnome": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -426,10 +802,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -442,32 +814,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -488,14 +848,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -512,32 +864,144 @@
         ],
         "Orc": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -552,10 +1016,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -568,32 +1028,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -614,14 +1062,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -638,32 +1078,144 @@
         ],
         "Undead": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -678,10 +1230,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -694,32 +1242,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -740,14 +1276,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -764,32 +1292,144 @@
         ],
         "Tauren": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -804,10 +1444,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -820,32 +1456,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -866,14 +1490,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -890,32 +1506,144 @@
         ],
         "Troll": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 7230,
+            "name": "Smite's Mighty Hammer"
+          },
+          {
+            "id": 15249,
+            "name": "Polished Zweihander"
+          },
+          {
+            "id": 1976,
+            "name": "Slaghammer"
+          },
+          {
+            "id": 6687,
+            "name": "Corpsemaker"
+          },
+          {
+            "id": 9449,
+            "name": "Manual Crowd Pummeler"
+          },
+          {
+            "id": 3854,
+            "name": "Frost Tiger Blade"
+          },
+          {
+            "id": 7717,
+            "name": "Ravager"
+          },
+          {
+            "id": 9425,
+            "name": "Pendulum of Doom"
+          },
+          {
+            "id": 7723,
+            "name": "Mograine's Might"
+          },
+          {
+            "id": 9416,
+            "name": "Grimlok's Charge"
+          },
+          {
+            "id": 13018,
+            "name": "Executioner's Cleaver"
+          },
+          {
+            "id": 10628,
+            "name": "Deathblow"
+          },
+          {
+            "id": 809,
+            "name": "Bloodrazor"
+          },
+          {
+            "id": 15256,
+            "name": "Massacre Sword"
+          },
+          {
+            "id": 13053,
+            "name": "Doombringer"
+          },
+          {
+            "id": 12784,
+            "name": "Arcanite Reaper"
+          },
+          {
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17076,
+            "name": "Bonereaver's Edge"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 21679,
+            "name": "Kalimdor's Revenge"
+          },
+          {
+            "id": 19353,
+            "name": "Drake Talon Cleaver"
+          },
+          {
+            "id": 22816,
+            "name": "Hatchet of Sundered Bone"
+          },
+          {
+            "id": 21134,
+            "name": "Dark Edge of Insanity"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -930,10 +1658,6 @@
             "name": "Green Iron Helm"
           },
           {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
-          },
-          {
             "id": 10328,
             "name": "Scarlet Chestpiece"
           },
@@ -946,32 +1670,20 @@
             "name": "Herod's Shoulder"
           },
           {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
             "id": 10330,
             "name": "Scarlet Leggings"
-          },
-          {
-            "id": 9425,
-            "name": "Pendulum of Doom"
           },
           {
             "id": 9639,
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 809,
-            "name": "Bloodrazor"
+            "id": 14849,
+            "name": "Sunscale Helmet"
           },
           {
             "id": 17728,
             "name": "Albino Crocscale Boots"
-          },
-          {
-            "id": 14849,
-            "name": "Sunscale Helmet"
           },
           {
             "id": 15063,
@@ -992,14 +1704,6 @@
           {
             "id": 13253,
             "name": "Hands of Power"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
-          },
-          {
-            "id": 18520,
-            "name": "Barbarous Blade"
           },
           {
             "id": 13340,
@@ -1022,32 +1726,144 @@
       "races": {
         "Human": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1078,24 +1894,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1118,28 +1926,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1148,32 +1940,144 @@
         ],
         "Dwarf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1204,24 +2108,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1244,28 +2140,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1274,32 +2154,144 @@
         ],
         "NightElf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1330,24 +2322,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1370,28 +2354,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1400,32 +2368,144 @@
         ],
         "Gnome": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1456,24 +2536,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1496,28 +2568,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1526,32 +2582,144 @@
         ],
         "Orc": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1582,24 +2750,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1622,28 +2782,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1652,32 +2796,144 @@
         ],
         "Undead": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1708,24 +2964,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1748,28 +2996,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1778,32 +3010,144 @@
         ],
         "Tauren": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1834,24 +3178,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -1874,28 +3210,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -1904,32 +3224,144 @@
         ],
         "Troll": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -1960,24 +3392,16 @@
             "name": "Scarlet Leggings"
           },
           {
-            "id": 2164,
-            "name": "Gut Ripper"
-          },
-          {
             "id": 9639,
             "name": "The Hand of Antu'sul"
-          },
-          {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
           },
           {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2000,28 +3424,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2036,32 +3444,148 @@
       "races": {
         "Human": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2074,10 +3598,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2100,16 +3620,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2124,10 +3640,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2136,24 +3648,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2162,32 +3662,148 @@
         ],
         "Dwarf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2200,10 +3816,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2226,16 +3838,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2250,10 +3858,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2262,24 +3866,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2288,32 +3880,148 @@
         ],
         "NightElf": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2326,10 +4034,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2352,16 +4056,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2376,10 +4076,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2388,24 +4084,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2414,32 +4098,148 @@
         ],
         "Gnome": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2452,10 +4252,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2478,16 +4274,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2502,10 +4294,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2514,24 +4302,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2540,32 +4316,148 @@
         ],
         "Orc": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2578,10 +4470,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2604,16 +4492,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2628,10 +4512,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2640,24 +4520,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2666,32 +4534,148 @@
         ],
         "Undead": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2704,10 +4688,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2730,16 +4710,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2754,10 +4730,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2766,24 +4738,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2792,32 +4752,148 @@
         ],
         "Tauren": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2830,10 +4906,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2856,16 +4928,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -2880,10 +4948,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -2892,24 +4956,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
@@ -2918,32 +4970,148 @@
         ],
         "Troll": [
           {
-            "id": 2300,
-            "name": "Embossed Leather Vest"
-          },
-          {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
-          },
-          {
-            "id": 2899,
-            "name": "Wendigo Collar"
-          },
-          {
-            "id": 10413,
-            "name": "Gloves of the Fang"
+            "id": 1482,
+            "name": "Shadowfang"
           },
           {
             "id": 5191,
             "name": "Cruel Barb"
           },
           {
-            "id": 1121,
-            "name": "Feet of the Lynx"
+            "id": 1935,
+            "name": "Assassin's Blade"
           },
           {
-            "id": 1482,
-            "name": "Shadowfang"
+            "id": 1292,
+            "name": "Butcher's Cleaver"
+          },
+          {
+            "id": 1481,
+            "name": "Grimclaw"
+          },
+          {
+            "id": 4446,
+            "name": "Blackvenom Blade"
+          },
+          {
+            "id": 13032,
+            "name": "Sword of Corruption"
+          },
+          {
+            "id": 9446,
+            "name": "Electrocutioner Leg"
+          },
+          {
+            "id": 15243,
+            "name": "Deadly Kris"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 869,
+            "name": "Dazzling Longsword"
+          },
+          {
+            "id": 2164,
+            "name": "Gut Ripper"
+          },
+          {
+            "id": 9511,
+            "name": "Bloodletter Scalpel"
+          },
+          {
+            "id": 871,
+            "name": "Flurry Axe"
+          },
+          {
+            "id": 13035,
+            "name": "Serpent Slicer"
+          },
+          {
+            "id": 9478,
+            "name": "Ripsaw"
+          },
+          {
+            "id": 8190,
+            "name": "Hanzo Sword"
+          },
+          {
+            "id": 12791,
+            "name": "Barman Shanker"
+          },
+          {
+            "id": 2244,
+            "name": "Krol Blade"
+          },
+          {
+            "id": 13036,
+            "name": "Assassination Blade"
+          },
+          {
+            "id": 11684,
+            "name": "Ironfoe"
+          },
+          {
+            "id": 14024,
+            "name": "Frightalon"
+          },
+          {
+            "id": 12940,
+            "name": "Dal'Rend's Sacred Charge"
+          },
+          {
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 17075,
+            "name": "Vis'kag the Bloodletter"
+          },
+          {
+            "id": 18805,
+            "name": "Core Hound Tooth"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18816,
+            "name": "Perdition's Blade"
+          },
+          {
+            "id": 18202,
+            "name": "Eskhandar's Left Claw"
+          },
+          {
+            "id": 1168,
+            "name": "Skullflame Shield"
+          },
+          {
+            "id": 2300,
+            "name": "Embossed Leather Vest"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 3314,
+            "name": "Ceremonial Leather Gloves"
+          },
+          {
+            "id": 10413,
+            "name": "Gloves of the Fang"
+          },
+          {
+            "id": 1121,
+            "name": "Feet of the Lynx"
           },
           {
             "id": 5193,
@@ -2956,10 +5124,6 @@
           {
             "id": 3836,
             "name": "Green Iron Helm"
-          },
-          {
-            "id": 9449,
-            "name": "Manual Crowd Pummeler"
           },
           {
             "id": 10328,
@@ -2982,16 +5146,12 @@
             "name": "The Hand of Antu'sul"
           },
           {
-            "id": 17728,
-            "name": "Albino Crocscale Boots"
-          },
-          {
             "id": 14849,
             "name": "Sunscale Helmet"
           },
           {
-            "id": 2244,
-            "name": "Krol Blade"
+            "id": 17728,
+            "name": "Albino Crocscale Boots"
           },
           {
             "id": 15063,
@@ -3006,10 +5166,6 @@
             "name": "Naglering"
           },
           {
-            "id": 1168,
-            "name": "Skullflame Shield"
-          },
-          {
             "id": 15062,
             "name": "Devilsaur Leggings"
           },
@@ -3018,24 +5174,12 @@
             "name": "Hands of Power"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12939,
-            "name": "Dal'Rend's Tribal Guardian"
-          },
-          {
             "id": 19578,
             "name": "Berserker Bracers"
-          },
-          {
-            "id": 18832,
-            "name": "Brutality Blade"
           },
           {
             "id": 19325,
