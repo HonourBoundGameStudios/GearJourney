@@ -1,6 +1,6 @@
 {
   "class": "PALADIN",
-  "_note": "Migrated from JourneyPaladinData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Holy=Int/Spirit healer (1H+shield), Protection=Stamina/Strength tank (1H+shield), Retribution=Strength DPS (2H). Paladin CLASS_ARMOR is Mail(<40)/Plate(40+) only -- cloth/leather body pieces are engine-dropped, so low bands lean on neutral jewelry/cloaks/shields (a genuine Era content limit). Every id verified MATCH (quality>=2, id<200000) and armor stat-validated (Str/Agi/Int/Sta/Spi). Human=Dwarf copies (no race/faction-locked paladin items). bis = raid epics, sourced separately.",
   "specs": [
     {
       "index": 1,
@@ -8,104 +8,56 @@
       "races": {
         "Human": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 12983,
+            "name": "Rakzur Club"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 5191,
+            "name": "Cruel Barb"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 1481,
+            "name": "Grimclaw"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 15230,
+            "name": "Ridge Cleaver"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 1727,
+            "name": "Sword of Decay"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
+            "id": 9446,
+            "name": "Electrocutioner Leg"
           },
           {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
+            "id": 870,
+            "name": "Fiery War Axe"
           },
           {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 869,
+            "name": "Dazzling Longsword"
           },
           {
-            "id": 6687,
-            "name": "Corpsemaker"
+            "id": 9424,
+            "name": "Ginn-su Sword"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 9379,
+            "name": "Sang'thraze the Deflector"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
+            "id": 809,
+            "name": "Bloodrazor"
           },
           {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
-          },
-          {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
-          },
-          {
-            "id": 6829,
-            "name": "Sword of Serenity"
-          },
-          {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
-          },
-          {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
-          },
-          {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
-          },
-          {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
-          },
-          {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
-          },
-          {
-            "id": 12428,
-            "name": "Imperial Plate Shoulders"
-          },
-          {
-            "id": 12425,
-            "name": "Imperial Plate Bracers"
-          },
-          {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 9478,
+            "name": "Ripsaw"
           },
           {
             "id": 810,
@@ -116,170 +68,178 @@
             "name": "Krol Blade"
           },
           {
-            "id": 11923,
-            "name": "The Hammer of Grace"
+            "id": 2243,
+            "name": "Hand of Edward the Odd"
           },
           {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
+            "id": 13361,
+            "name": "Skullforge Reaver"
           },
           {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
-            "name": "Imperial Plate Helm"
-          },
-          {
-            "id": 12426,
-            "name": "Imperial Plate Boots"
-          },
-          {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
-          },
-          {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
-          },
-          {
-            "id": 13340,
-            "name": "Cape of the Black Baron"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
           },
           {
             "id": 12940,
             "name": "Dal'Rend's Sacred Charge"
           },
           {
-            "id": 15411,
-            "name": "Mark of Fordring"
-          },
-          {
-            "id": 19325,
-            "name": "Don Julio's Band"
-          },
-          {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
             "id": 17105,
             "name": "Aurastone Hammer"
+          },
+          {
+            "id": 19360,
+            "name": "Lok'amir il Romathis"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 19908,
+            "name": "Sceptre of Smiting"
+          },
+          {
+            "id": 20426,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 4614,
+            "name": "Pendant of Myzrael"
+          },
+          {
+            "id": 19521,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 7726,
+            "name": "Aegis of the Scarlet Commander"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 19519,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 16727,
+            "name": "Lightforge Helm"
+          },
+          {
+            "id": 16729,
+            "name": "Lightforge Spaulders"
+          },
+          {
+            "id": 16726,
+            "name": "Lightforge Breastplate"
+          },
+          {
+            "id": 16722,
+            "name": "Lightforge Bracers"
+          },
+          {
+            "id": 16724,
+            "name": "Lightforge Gauntlets"
+          },
+          {
+            "id": 16723,
+            "name": "Lightforge Belt"
+          },
+          {
+            "id": 16728,
+            "name": "Lightforge Legplates"
+          },
+          {
+            "id": 16725,
+            "name": "Lightforge Boots"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19518,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 19086,
+            "name": "Stormpike Sage's Cloak"
+          },
+          {
+            "id": 19893,
+            "name": "Zanzil's Seal"
           }
         ],
         "Dwarf": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 12983,
+            "name": "Rakzur Club"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 5191,
+            "name": "Cruel Barb"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 1481,
+            "name": "Grimclaw"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 15230,
+            "name": "Ridge Cleaver"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 1727,
+            "name": "Sword of Decay"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
+            "id": 9446,
+            "name": "Electrocutioner Leg"
           },
           {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
+            "id": 870,
+            "name": "Fiery War Axe"
           },
           {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 869,
+            "name": "Dazzling Longsword"
           },
           {
-            "id": 6687,
-            "name": "Corpsemaker"
+            "id": 9424,
+            "name": "Ginn-su Sword"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 9379,
+            "name": "Sang'thraze the Deflector"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
+            "id": 809,
+            "name": "Bloodrazor"
           },
           {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
-          },
-          {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
-          },
-          {
-            "id": 6829,
-            "name": "Sword of Serenity"
-          },
-          {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
-          },
-          {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
-          },
-          {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
-          },
-          {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
-          },
-          {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
-          },
-          {
-            "id": 12428,
-            "name": "Imperial Plate Shoulders"
-          },
-          {
-            "id": 12425,
-            "name": "Imperial Plate Bracers"
-          },
-          {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 9478,
+            "name": "Ripsaw"
           },
           {
             "id": 810,
@@ -290,68 +250,124 @@
             "name": "Krol Blade"
           },
           {
-            "id": 11923,
-            "name": "The Hammer of Grace"
+            "id": 2243,
+            "name": "Hand of Edward the Odd"
           },
           {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
+            "id": 13361,
+            "name": "Skullforge Reaver"
           },
           {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
-            "name": "Imperial Plate Helm"
-          },
-          {
-            "id": 12426,
-            "name": "Imperial Plate Boots"
-          },
-          {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
-          },
-          {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
-          },
-          {
-            "id": 13340,
-            "name": "Cape of the Black Baron"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
           },
           {
             "id": 12940,
             "name": "Dal'Rend's Sacred Charge"
           },
           {
-            "id": 15411,
-            "name": "Mark of Fordring"
-          },
-          {
-            "id": 19325,
-            "name": "Don Julio's Band"
-          },
-          {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
             "id": 17105,
             "name": "Aurastone Hammer"
+          },
+          {
+            "id": 19360,
+            "name": "Lok'amir il Romathis"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 19908,
+            "name": "Sceptre of Smiting"
+          },
+          {
+            "id": 20426,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 4614,
+            "name": "Pendant of Myzrael"
+          },
+          {
+            "id": 19521,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 6449,
+            "name": "Glowing Lizardscale Cloak"
+          },
+          {
+            "id": 19520,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 7726,
+            "name": "Aegis of the Scarlet Commander"
+          },
+          {
+            "id": 12624,
+            "name": "Wildthorn Mail"
+          },
+          {
+            "id": 19519,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 17718,
+            "name": "Gizlock's Hypertech Buckler"
+          },
+          {
+            "id": 16727,
+            "name": "Lightforge Helm"
+          },
+          {
+            "id": 16729,
+            "name": "Lightforge Spaulders"
+          },
+          {
+            "id": 16726,
+            "name": "Lightforge Breastplate"
+          },
+          {
+            "id": 16722,
+            "name": "Lightforge Bracers"
+          },
+          {
+            "id": 16724,
+            "name": "Lightforge Gauntlets"
+          },
+          {
+            "id": 16723,
+            "name": "Lightforge Belt"
+          },
+          {
+            "id": 16728,
+            "name": "Lightforge Legplates"
+          },
+          {
+            "id": 16725,
+            "name": "Lightforge Boots"
+          },
+          {
+            "id": 12103,
+            "name": "Star of Mystaria"
+          },
+          {
+            "id": 19518,
+            "name": "Advisor's Ring"
+          },
+          {
+            "id": 19086,
+            "name": "Stormpike Sage's Cloak"
+          },
+          {
+            "id": 19893,
+            "name": "Zanzil's Seal"
           }
         ]
       }
@@ -362,104 +378,56 @@
       "races": {
         "Human": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 12983,
+            "name": "Rakzur Club"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 5191,
+            "name": "Cruel Barb"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 1481,
+            "name": "Grimclaw"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 15230,
+            "name": "Ridge Cleaver"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 1727,
+            "name": "Sword of Decay"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
+            "id": 9446,
+            "name": "Electrocutioner Leg"
           },
           {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
+            "id": 870,
+            "name": "Fiery War Axe"
           },
           {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 869,
+            "name": "Dazzling Longsword"
           },
           {
-            "id": 6687,
-            "name": "Corpsemaker"
+            "id": 9424,
+            "name": "Ginn-su Sword"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 9379,
+            "name": "Sang'thraze the Deflector"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
+            "id": 809,
+            "name": "Bloodrazor"
           },
           {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
-          },
-          {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
-          },
-          {
-            "id": 6829,
-            "name": "Sword of Serenity"
-          },
-          {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
-          },
-          {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
-          },
-          {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
-          },
-          {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
-          },
-          {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
-          },
-          {
-            "id": 12428,
-            "name": "Imperial Plate Shoulders"
-          },
-          {
-            "id": 12425,
-            "name": "Imperial Plate Bracers"
-          },
-          {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 9478,
+            "name": "Ripsaw"
           },
           {
             "id": 810,
@@ -470,170 +438,282 @@
             "name": "Krol Blade"
           },
           {
-            "id": 11923,
-            "name": "The Hammer of Grace"
+            "id": 2243,
+            "name": "Hand of Edward the Odd"
           },
           {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
+            "id": 13361,
+            "name": "Skullforge Reaver"
           },
           {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
-            "name": "Imperial Plate Helm"
-          },
-          {
-            "id": 12426,
-            "name": "Imperial Plate Boots"
-          },
-          {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
-          },
-          {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
-          },
-          {
-            "id": 13340,
-            "name": "Cape of the Black Baron"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
           },
           {
             "id": 12940,
             "name": "Dal'Rend's Sacred Charge"
           },
           {
-            "id": 15411,
-            "name": "Mark of Fordring"
-          },
-          {
-            "id": 19325,
-            "name": "Don Julio's Band"
-          },
-          {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
             "id": 17105,
             "name": "Aurastone Hammer"
+          },
+          {
+            "id": 19360,
+            "name": "Lok'amir il Romathis"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 19908,
+            "name": "Sceptre of Smiting"
+          },
+          {
+            "id": 6731,
+            "name": "Ironforge Breastplate"
+          },
+          {
+            "id": 3481,
+            "name": "Silvered Bronze Shoulders"
+          },
+          {
+            "id": 2059,
+            "name": "Sentry Cloak"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 2869,
+            "name": "Silvered Bronze Breastplate"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 3840,
+            "name": "Green Iron Shoulders"
+          },
+          {
+            "id": 3842,
+            "name": "Green Iron Leggings"
+          },
+          {
+            "id": 3485,
+            "name": "Green Iron Gauntlets"
+          },
+          {
+            "id": 3484,
+            "name": "Green Iron Boots"
+          },
+          {
+            "id": 6320,
+            "name": "Commander's Crest"
+          },
+          {
+            "id": 6321,
+            "name": "Silverlaine's Family Seal"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 3844,
+            "name": "Green Iron Hauberk"
+          },
+          {
+            "id": 9430,
+            "name": "Spaulders of a Lost Age"
+          },
+          {
+            "id": 7921,
+            "name": "Heavy Mithril Pants"
+          },
+          {
+            "id": 7925,
+            "name": "Mithril Scale Gloves"
+          },
+          {
+            "id": 7919,
+            "name": "Heavy Mithril Gauntlet"
+          },
+          {
+            "id": 7926,
+            "name": "Ornate Mithril Pants"
+          },
+          {
+            "id": 7726,
+            "name": "Aegis of the Scarlet Commander"
+          },
+          {
+            "id": 7930,
+            "name": "Heavy Mithril Breastplate"
+          },
+          {
+            "id": 7934,
+            "name": "Heavy Mithril Helm"
+          },
+          {
+            "id": 12428,
+            "name": "Imperial Plate Shoulders"
+          },
+          {
+            "id": 12424,
+            "name": "Imperial Plate Belt"
+          },
+          {
+            "id": 12425,
+            "name": "Imperial Plate Bracers"
+          },
+          {
+            "id": 7933,
+            "name": "Heavy Mithril Boots"
+          },
+          {
+            "id": 9476,
+            "name": "Big Bad Pauldrons"
+          },
+          {
+            "id": 1203,
+            "name": "Aegis of Stormwind"
+          },
+          {
+            "id": 12427,
+            "name": "Imperial Plate Helm"
+          },
+          {
+            "id": 16733,
+            "name": "Spaulders of Valor"
+          },
+          {
+            "id": 12422,
+            "name": "Imperial Plate Chest"
+          },
+          {
+            "id": 12429,
+            "name": "Imperial Plate Leggings"
+          },
+          {
+            "id": 11745,
+            "name": "Fists of Phalanx"
+          },
+          {
+            "id": 14620,
+            "name": "Deathbone Girdle"
+          },
+          {
+            "id": 16735,
+            "name": "Bracers of Valor"
+          },
+          {
+            "id": 12426,
+            "name": "Imperial Plate Boots"
+          },
+          {
+            "id": 18495,
+            "name": "Redoubt Cloak"
+          },
+          {
+            "id": 11785,
+            "name": "Rock Golem Bulwark"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 16730,
+            "name": "Breastplate of Valor"
+          },
+          {
+            "id": 17065,
+            "name": "Medallion of Steadfast Might"
+          },
+          {
+            "id": 19137,
+            "name": "Onslaught Girdle"
+          },
+          {
+            "id": 19146,
+            "name": "Wristguards of Stability"
+          },
+          {
+            "id": 18824,
+            "name": "Magma Tempered Boots"
+          },
+          {
+            "id": 19398,
+            "name": "Cloak of Firemaw"
+          },
+          {
+            "id": 18879,
+            "name": "Heavy Dark Iron Ring"
+          },
+          {
+            "id": 19349,
+            "name": "Elementium Reinforced Bulwark"
           }
         ],
         "Dwarf": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 12983,
+            "name": "Rakzur Club"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 5191,
+            "name": "Cruel Barb"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 1481,
+            "name": "Grimclaw"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 15230,
+            "name": "Ridge Cleaver"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 1727,
+            "name": "Sword of Decay"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
+            "id": 9446,
+            "name": "Electrocutioner Leg"
           },
           {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
+            "id": 870,
+            "name": "Fiery War Axe"
           },
           {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 869,
+            "name": "Dazzling Longsword"
           },
           {
-            "id": 6687,
-            "name": "Corpsemaker"
+            "id": 9424,
+            "name": "Ginn-su Sword"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 9379,
+            "name": "Sang'thraze the Deflector"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
+            "id": 809,
+            "name": "Bloodrazor"
           },
           {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
-          },
-          {
-            "id": 7717,
-            "name": "Ravager"
-          },
-          {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
-          },
-          {
-            "id": 6829,
-            "name": "Sword of Serenity"
-          },
-          {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
-          },
-          {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
-          },
-          {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
-          },
-          {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
-          },
-          {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
-          },
-          {
-            "id": 12428,
-            "name": "Imperial Plate Shoulders"
-          },
-          {
-            "id": 12425,
-            "name": "Imperial Plate Bracers"
-          },
-          {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 9478,
+            "name": "Ripsaw"
           },
           {
             "id": 810,
@@ -644,68 +724,228 @@
             "name": "Krol Blade"
           },
           {
-            "id": 11923,
-            "name": "The Hammer of Grace"
+            "id": 2243,
+            "name": "Hand of Edward the Odd"
           },
           {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
+            "id": 13361,
+            "name": "Skullforge Reaver"
           },
           {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
-            "name": "Imperial Plate Helm"
-          },
-          {
-            "id": 12426,
-            "name": "Imperial Plate Boots"
-          },
-          {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
-          },
-          {
-            "id": 11684,
-            "name": "Ironfoe"
-          },
-          {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
-          },
-          {
-            "id": 13340,
-            "name": "Cape of the Black Baron"
-          },
-          {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 12939,
+            "name": "Dal'Rend's Tribal Guardian"
           },
           {
             "id": 12940,
             "name": "Dal'Rend's Sacred Charge"
           },
           {
-            "id": 15411,
-            "name": "Mark of Fordring"
-          },
-          {
-            "id": 19325,
-            "name": "Don Julio's Band"
-          },
-          {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
             "id": 17105,
             "name": "Aurastone Hammer"
+          },
+          {
+            "id": 19360,
+            "name": "Lok'amir il Romathis"
+          },
+          {
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "id": 18832,
+            "name": "Brutality Blade"
+          },
+          {
+            "id": 19908,
+            "name": "Sceptre of Smiting"
+          },
+          {
+            "id": 6731,
+            "name": "Ironforge Breastplate"
+          },
+          {
+            "id": 3481,
+            "name": "Silvered Bronze Shoulders"
+          },
+          {
+            "id": 2059,
+            "name": "Sentry Cloak"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 2869,
+            "name": "Silvered Bronze Breastplate"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 3840,
+            "name": "Green Iron Shoulders"
+          },
+          {
+            "id": 3842,
+            "name": "Green Iron Leggings"
+          },
+          {
+            "id": 3485,
+            "name": "Green Iron Gauntlets"
+          },
+          {
+            "id": 3484,
+            "name": "Green Iron Boots"
+          },
+          {
+            "id": 6320,
+            "name": "Commander's Crest"
+          },
+          {
+            "id": 6321,
+            "name": "Silverlaine's Family Seal"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 3844,
+            "name": "Green Iron Hauberk"
+          },
+          {
+            "id": 9430,
+            "name": "Spaulders of a Lost Age"
+          },
+          {
+            "id": 7921,
+            "name": "Heavy Mithril Pants"
+          },
+          {
+            "id": 7925,
+            "name": "Mithril Scale Gloves"
+          },
+          {
+            "id": 7919,
+            "name": "Heavy Mithril Gauntlet"
+          },
+          {
+            "id": 7926,
+            "name": "Ornate Mithril Pants"
+          },
+          {
+            "id": 7726,
+            "name": "Aegis of the Scarlet Commander"
+          },
+          {
+            "id": 7930,
+            "name": "Heavy Mithril Breastplate"
+          },
+          {
+            "id": 7934,
+            "name": "Heavy Mithril Helm"
+          },
+          {
+            "id": 12428,
+            "name": "Imperial Plate Shoulders"
+          },
+          {
+            "id": 12424,
+            "name": "Imperial Plate Belt"
+          },
+          {
+            "id": 12425,
+            "name": "Imperial Plate Bracers"
+          },
+          {
+            "id": 7933,
+            "name": "Heavy Mithril Boots"
+          },
+          {
+            "id": 9476,
+            "name": "Big Bad Pauldrons"
+          },
+          {
+            "id": 1203,
+            "name": "Aegis of Stormwind"
+          },
+          {
+            "id": 12427,
+            "name": "Imperial Plate Helm"
+          },
+          {
+            "id": 16733,
+            "name": "Spaulders of Valor"
+          },
+          {
+            "id": 12422,
+            "name": "Imperial Plate Chest"
+          },
+          {
+            "id": 12429,
+            "name": "Imperial Plate Leggings"
+          },
+          {
+            "id": 11745,
+            "name": "Fists of Phalanx"
+          },
+          {
+            "id": 14620,
+            "name": "Deathbone Girdle"
+          },
+          {
+            "id": 16735,
+            "name": "Bracers of Valor"
+          },
+          {
+            "id": 12426,
+            "name": "Imperial Plate Boots"
+          },
+          {
+            "id": 18495,
+            "name": "Redoubt Cloak"
+          },
+          {
+            "id": 11785,
+            "name": "Rock Golem Bulwark"
+          },
+          {
+            "id": 11669,
+            "name": "Naglering"
+          },
+          {
+            "id": 16730,
+            "name": "Breastplate of Valor"
+          },
+          {
+            "id": 17065,
+            "name": "Medallion of Steadfast Might"
+          },
+          {
+            "id": 19137,
+            "name": "Onslaught Girdle"
+          },
+          {
+            "id": 19146,
+            "name": "Wristguards of Stability"
+          },
+          {
+            "id": 18824,
+            "name": "Magma Tempered Boots"
+          },
+          {
+            "id": 19398,
+            "name": "Cloak of Firemaw"
+          },
+          {
+            "id": 18879,
+            "name": "Heavy Dark Iron Ring"
+          },
+          {
+            "id": 19349,
+            "name": "Elementium Reinforced Bulwark"
           }
         ]
       }
@@ -716,131 +956,175 @@
       "races": {
         "Human": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 3199,
+            "name": "Battle Slayer"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 15269,
+            "name": "Massive Battle Axe"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 1461,
+            "name": "Slayer's Battle Axe"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 2227,
+            "name": "Heavy Ogre War Axe"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 1976,
+            "name": "Slaghammer"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
-          },
-          {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
-          },
-          {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 3851,
+            "name": "Solid Iron Maul"
           },
           {
             "id": 6687,
             "name": "Corpsemaker"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 3855,
+            "name": "Massive Iron Axe"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
-          },
-          {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
+            "id": 3854,
+            "name": "Frost Tiger Blade"
           },
           {
             "id": 7717,
             "name": "Ravager"
           },
           {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
+            "id": 13018,
+            "name": "Executioner's Cleaver"
           },
           {
-            "id": 6829,
-            "name": "Sword of Serenity"
+            "id": 2291,
+            "name": "Kang the Decapitator"
           },
           {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
+            "id": 9418,
+            "name": "Stoneslayer"
           },
           {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
+            "id": 9372,
+            "name": "Sul'thraze the Lasher"
           },
           {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
+            "id": 13983,
+            "name": "Gravestone War Axe"
           },
           {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
+            "id": 12784,
+            "name": "Arcanite Reaper"
           },
           {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 6466,
+            "name": "Deviate Scale Cloak"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 3484,
+            "name": "Green Iron Boots"
+          },
+          {
+            "id": 3485,
+            "name": "Green Iron Gauntlets"
+          },
+          {
+            "id": 3842,
+            "name": "Green Iron Leggings"
+          },
+          {
+            "id": 3840,
+            "name": "Green Iron Shoulders"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 3844,
+            "name": "Green Iron Hauberk"
+          },
+          {
+            "id": 4727,
+            "name": "Chief Brigadier Girdle"
+          },
+          {
+            "id": 4078,
+            "name": "Chief Brigadier Coif"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
           },
           {
             "id": 12428,
             "name": "Imperial Plate Shoulders"
           },
           {
+            "id": 12424,
+            "name": "Imperial Plate Belt"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
             "id": 12425,
             "name": "Imperial Plate Bracers"
           },
           {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 17713,
+            "name": "Blackstone Ring"
           },
           {
-            "id": 810,
-            "name": "Hammer of the Northern Wind"
-          },
-          {
-            "id": 2244,
-            "name": "Krol Blade"
-          },
-          {
-            "id": 11923,
-            "name": "The Hammer of Grace"
-          },
-          {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
-          },
-          {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
+            "id": 12427,
             "name": "Imperial Plate Helm"
           },
           {
@@ -848,173 +1132,213 @@
             "name": "Imperial Plate Boots"
           },
           {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
+            "id": 11669,
+            "name": "Naglering"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
+            "id": 12422,
+            "name": "Imperial Plate Chest"
           },
           {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
+            "id": 12429,
+            "name": "Imperial Plate Leggings"
+          },
+          {
+            "id": 14622,
+            "name": "Deathbone Gauntlets"
           },
           {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 19137,
+            "name": "Onslaught Girdle"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 15411,
-            "name": "Mark of Fordring"
+            "id": 19578,
+            "name": "Berserker Bracers"
           },
           {
             "id": 19325,
             "name": "Don Julio's Band"
           },
           {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
-            "id": 17105,
-            "name": "Aurastone Hammer"
+            "id": 19377,
+            "name": "Prestor's Talisman of Connivery"
           }
         ],
         "Dwarf": [
           {
-            "id": 2899,
-            "name": "Wendigo Collar"
+            "id": 872,
+            "name": "Rockslicer"
           },
           {
-            "id": 3314,
-            "name": "Ceremonial Leather Gloves"
+            "id": 3199,
+            "name": "Battle Slayer"
           },
           {
-            "id": 2041,
-            "name": "Tunic of Westfall"
+            "id": 15269,
+            "name": "Massive Battle Axe"
           },
           {
-            "id": 6953,
-            "name": "Verigan's Fist"
+            "id": 1461,
+            "name": "Slayer's Battle Axe"
           },
           {
-            "id": 3484,
-            "name": "Green Iron Boots"
+            "id": 2227,
+            "name": "Heavy Ogre War Axe"
           },
           {
-            "id": 6087,
-            "name": "Chausses of Westfall"
+            "id": 1976,
+            "name": "Slaghammer"
           },
           {
-            "id": 3485,
-            "name": "Green Iron Gauntlets"
-          },
-          {
-            "id": 7913,
-            "name": "Barbaric Iron Shoulders"
-          },
-          {
-            "id": 7914,
-            "name": "Barbaric Iron Breastplate"
+            "id": 3851,
+            "name": "Solid Iron Maul"
           },
           {
             "id": 6687,
             "name": "Corpsemaker"
           },
           {
-            "id": 7915,
-            "name": "Barbaric Iron Helm"
+            "id": 3855,
+            "name": "Massive Iron Axe"
           },
           {
-            "id": 3844,
-            "name": "Green Iron Hauberk"
-          },
-          {
-            "id": 7916,
-            "name": "Barbaric Iron Boots"
-          },
-          {
-            "id": 7718,
-            "name": "Herod's Shoulder"
+            "id": 3854,
+            "name": "Frost Tiger Blade"
           },
           {
             "id": 7717,
             "name": "Ravager"
           },
           {
-            "id": 7726,
-            "name": "Aegis of the Scarlet Commander"
+            "id": 13018,
+            "name": "Executioner's Cleaver"
           },
           {
-            "id": 6829,
-            "name": "Sword of Serenity"
+            "id": 2291,
+            "name": "Kang the Decapitator"
           },
           {
-            "id": 7927,
-            "name": "Ornate Mithril Gloves"
+            "id": 9418,
+            "name": "Stoneslayer"
           },
           {
-            "id": 7926,
-            "name": "Ornate Mithril Pants"
+            "id": 9372,
+            "name": "Sul'thraze the Lasher"
           },
           {
-            "id": 7935,
-            "name": "Ornate Mithril Breastplate"
+            "id": 13983,
+            "name": "Gravestone War Axe"
           },
           {
-            "id": 7937,
-            "name": "Ornate Mithril Helm"
+            "id": 12784,
+            "name": "Arcanite Reaper"
           },
           {
-            "id": 12424,
-            "name": "Imperial Plate Belt"
+            "id": 18520,
+            "name": "Barbarous Blade"
+          },
+          {
+            "id": 13505,
+            "name": "Runeblade of Baron Rivendare"
+          },
+          {
+            "id": 17182,
+            "name": "Sulfuras, Hand of Ragnaros"
+          },
+          {
+            "id": 19364,
+            "name": "Ashkandi, Greatsword of the Brotherhood"
+          },
+          {
+            "id": 19334,
+            "name": "The Untamed Blade"
+          },
+          {
+            "id": 22798,
+            "name": "Might of Menethil"
+          },
+          {
+            "id": 2899,
+            "name": "Wendigo Collar"
+          },
+          {
+            "id": 6466,
+            "name": "Deviate Scale Cloak"
+          },
+          {
+            "id": 5193,
+            "name": "Cape of the Brotherhood"
+          },
+          {
+            "id": 3484,
+            "name": "Green Iron Boots"
+          },
+          {
+            "id": 3485,
+            "name": "Green Iron Gauntlets"
+          },
+          {
+            "id": 3842,
+            "name": "Green Iron Leggings"
+          },
+          {
+            "id": 3840,
+            "name": "Green Iron Shoulders"
+          },
+          {
+            "id": 3836,
+            "name": "Green Iron Helm"
+          },
+          {
+            "id": 3844,
+            "name": "Green Iron Hauberk"
+          },
+          {
+            "id": 4727,
+            "name": "Chief Brigadier Girdle"
+          },
+          {
+            "id": 4078,
+            "name": "Chief Brigadier Coif"
+          },
+          {
+            "id": 10328,
+            "name": "Scarlet Chestpiece"
+          },
+          {
+            "id": 7718,
+            "name": "Herod's Shoulder"
+          },
+          {
+            "id": 10330,
+            "name": "Scarlet Leggings"
           },
           {
             "id": 12428,
             "name": "Imperial Plate Shoulders"
           },
           {
+            "id": 12424,
+            "name": "Imperial Plate Belt"
+          },
+          {
+            "id": 14849,
+            "name": "Sunscale Helmet"
+          },
+          {
             "id": 12425,
             "name": "Imperial Plate Bracers"
           },
           {
-            "id": 1203,
-            "name": "Aegis of Stormwind"
+            "id": 17713,
+            "name": "Blackstone Ring"
           },
           {
-            "id": 810,
-            "name": "Hammer of the Northern Wind"
-          },
-          {
-            "id": 2244,
-            "name": "Krol Blade"
-          },
-          {
-            "id": 11923,
-            "name": "The Hammer of Grace"
-          },
-          {
-            "id": 2246,
-            "name": "Myrmidon's Signet"
-          },
-          {
-            "id": 11815,
-            "name": "Hand of Justice"
-          },
-          {
-            "id": 11669,
-            "name": "Naglering"
-          },
-          {
-            "id": 12414,
+            "id": 12427,
             "name": "Imperial Plate Helm"
           },
           {
@@ -1022,47 +1346,300 @@
             "name": "Imperial Plate Boots"
           },
           {
-            "id": 14576,
-            "name": "Ebon Hilt of Marduk"
+            "id": 11669,
+            "name": "Naglering"
           },
           {
-            "id": 11684,
-            "name": "Ironfoe"
+            "id": 12422,
+            "name": "Imperial Plate Chest"
           },
           {
-            "id": 14554,
-            "name": "Cloudkeeper Legplates"
+            "id": 12429,
+            "name": "Imperial Plate Leggings"
+          },
+          {
+            "id": 14622,
+            "name": "Deathbone Gauntlets"
           },
           {
             "id": 13340,
             "name": "Cape of the Black Baron"
           },
           {
-            "id": 12784,
-            "name": "Arcanite Reaper"
+            "id": 19137,
+            "name": "Onslaught Girdle"
           },
           {
-            "id": 12940,
-            "name": "Dal'Rend's Sacred Charge"
-          },
-          {
-            "id": 15411,
-            "name": "Mark of Fordring"
+            "id": 19578,
+            "name": "Berserker Bracers"
           },
           {
             "id": 19325,
             "name": "Don Julio's Band"
           },
           {
-            "id": 13965,
-            "name": "Blackhand's Breadth"
-          },
-          {
-            "id": 17105,
-            "name": "Aurastone Hammer"
+            "id": 19377,
+            "name": "Prestor's Talisman of Connivery"
           }
         ]
       }
     }
-  ]
+  ],
+  "bis": {
+    "specs": [
+      {
+        "index": 1,
+        "name": "Holy",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 22428,
+            "name": "Redemption Headpiece"
+          },
+          {
+            "slot": "Neck",
+            "id": 21712,
+            "name": "Amulet of the Fallen God"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 22429,
+            "name": "Redemption Spaulders"
+          },
+          {
+            "slot": "Back",
+            "id": 22960,
+            "name": "Cloak of Suturing"
+          },
+          {
+            "slot": "Chest",
+            "id": 22425,
+            "name": "Redemption Tunic"
+          },
+          {
+            "slot": "Wrist",
+            "id": 21604,
+            "name": "Bracelets of Royal Redemption"
+          },
+          {
+            "slot": "Hands",
+            "id": 22426,
+            "name": "Redemption Handguards"
+          },
+          {
+            "slot": "Waist",
+            "id": 21582,
+            "name": "Grasp of the Old God"
+          },
+          {
+            "slot": "Legs",
+            "id": 19385,
+            "name": "Empowered Leggings"
+          },
+          {
+            "slot": "Feet",
+            "id": 22430,
+            "name": "Redemption Boots"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 22939,
+            "name": "Band of Unanswered Prayers"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 23066,
+            "name": "Ring of Redemption"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 19395,
+            "name": "Rejuvenating Gem"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 19343,
+            "name": "Scrolls of Blinding Light"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 23056,
+            "name": "Hammer of the Twisting Nether"
+          },
+          {
+            "slot": "Off Hand",
+            "id": 22819,
+            "name": "Shield of Condemnation"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "name": "Protection",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 21460,
+            "name": "Helm of Domination"
+          },
+          {
+            "slot": "Neck",
+            "id": 22981,
+            "name": "Gluth's Missing Collar"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 21639,
+            "name": "Pauldrons of the Unrelenting"
+          },
+          {
+            "slot": "Back",
+            "id": 22938,
+            "name": "Cryptfiend Silk Cloak"
+          },
+          {
+            "slot": "Chest",
+            "id": 12895,
+            "name": "Breastplate of the Chromatic Flight"
+          },
+          {
+            "slot": "Wrist",
+            "id": 16959,
+            "name": "Bracelets of Wrath"
+          },
+          {
+            "slot": "Hands",
+            "id": 21674,
+            "name": "Gauntlets of Steadfast Determination"
+          },
+          {
+            "slot": "Waist",
+            "id": 21598,
+            "name": "Royal Qiraji Belt"
+          },
+          {
+            "slot": "Legs",
+            "id": 19855,
+            "name": "Bloodsoaked Legplates"
+          },
+          {
+            "slot": "Feet",
+            "id": 19387,
+            "name": "Chromatic Boots"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 21601,
+            "name": "Ring of Emperor Vek'lor"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 21393,
+            "name": "Signet of Unyielding Strength"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 19431,
+            "name": "Styleen's Impeding Scarab"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 23040,
+            "name": "Glyph of Deflection"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 18348,
+            "name": "Quel'Serrar"
+          },
+          {
+            "slot": "Off Hand",
+            "id": 19349,
+            "name": "Elementium Reinforced Bulwark"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "name": "Retribution",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 21387,
+            "name": "Avenger's Crown"
+          },
+          {
+            "slot": "Neck",
+            "id": 18404,
+            "name": "Onyxia Tooth Pendant"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 21391,
+            "name": "Avenger's Pauldrons"
+          },
+          {
+            "slot": "Back",
+            "id": 23045,
+            "name": "Shroud of Dominion"
+          },
+          {
+            "slot": "Chest",
+            "id": 21389,
+            "name": "Avenger's Breastplate"
+          },
+          {
+            "slot": "Wrist",
+            "id": 22936,
+            "name": "Wristguards of Vengeance"
+          },
+          {
+            "slot": "Hands",
+            "id": 21623,
+            "name": "Gauntlets of the Righteous Champion"
+          },
+          {
+            "slot": "Waist",
+            "id": 19137,
+            "name": "Onslaught Girdle"
+          },
+          {
+            "slot": "Legs",
+            "id": 21390,
+            "name": "Avenger's Legguards"
+          },
+          {
+            "slot": "Feet",
+            "id": 21388,
+            "name": "Avenger's Greaves"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 23038,
+            "name": "Band of Unnatural Forces"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 18821,
+            "name": "Quick Strike Ring"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 22954,
+            "name": "Kiss of the Spider"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 23041,
+            "name": "Slayer's Crest"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 22798,
+            "name": "Might of Menethil"
+          }
+        ]
+      }
+    ]
+  }
 }
