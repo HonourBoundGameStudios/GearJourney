@@ -1,3 +1,4 @@
-# The GitHub repo is still named TitanJourney; without this the packager would
-# ship the addon folder under the repo name. The addon folder is GearJourney.
+# The packager ships the addon folder under the repo name. Repo and folder are
+# both GearJourney now, so this is belt-and-braces — keep it pinned explicitly
+# so a future repo rename can't silently change the shipped folder name.
 package-as: GearJourney

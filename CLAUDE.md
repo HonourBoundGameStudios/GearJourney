@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Gear Journey** (formerly TitanJourney; the GitHub remote still uses the old name) is a World of
+**Gear Journey** (formerly TitanJourney — renamed everywhere, repo included) is a World of
 Warcraft addon written in **Lua**. It loads in the WoW client via its `.toc` manifest. No build
 step — the game compiles the Lua at load; you iterate with `/reload` in-game.
 
@@ -16,8 +16,8 @@ step — the game compiles the Lua at load; you iterate with `/reload` in-game.
 - **Manifest:** `GearJourney.toc` — a **single multi-flavour toc** (`## Interface: 120007, 11509`
   serves Retail + Classic Era; a `_Mainline.toc` split made Retail show "Incompatible" — don't
   reintroduce it). `## SavedVariables: GearJourneyDB` persists our state per-account. The addon
-  folder is `GearJourney` (full rename 2026-07-23; `.pkgmeta` `package-as` handles the repo-name
-  mismatch on CI).
+  folder is `GearJourney` (full rename 2026-07-23; repo renamed 2026-07-26, and `.pkgmeta`
+  `package-as` pins the shipped folder name regardless).
 - **Hosting (EPIC-K):** no Titan dependency. `GearJourney.lua` publishes a **LibDataBroker data
   object** (`GearJourney`); any LDB display hosts it (Titan via its own bridge, Bazooka, ElvUI,
   the HonourBar prototype) with a LibDBIcon minimap fallback. `JourneyHost.lua` is the refresh

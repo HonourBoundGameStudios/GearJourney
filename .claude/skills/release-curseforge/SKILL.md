@@ -109,7 +109,7 @@ push, not the branch push.
   don't add one. `CF_API_KEY` is a repo secret; the packager also needs `GITHUB_OAUTH` and
   `fetch-depth: 0` (already wired).
 - CI triggers on `tags: '*'` — any tag. Use the `vX.Y.Z` convention so releases stay tidy.
-- The remote is `upstream` (`HonourBoundGameStudios/TitanJourney`).
+- The remote is `upstream` (`HonourBoundGameStudios/GearJourney`).
 - This addon actually uploads on release (contrast with sibling addons where CF upload is a no-op).
 - If asked for a **minor** or **major** bump instead of a revision, confirm the target version with
   the Admiral first — the default and the plain "cut a release" request means revision only.
