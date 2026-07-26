@@ -3,7 +3,7 @@
 $source = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent (Resolve-Path $MyInvocation.MyCommand.Path) }
 
 # Deploy to every WoW flavour that is actually installed. A single multi-flavour
-# TitanJourney.toc (## Interface: 120007, 11508) serves both Retail and Classic
+# GearJourney.toc (## Interface: 120007, 11508) serves both Retail and Classic
 # Era, so the same files drop into every install. (A separate _Mainline.toc made
 # Retail show "Incompatible" -- collapsed to one toc, matching Titan's plugins.)
 $roots = @(

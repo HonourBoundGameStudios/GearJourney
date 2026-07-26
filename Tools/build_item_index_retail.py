@@ -117,7 +117,7 @@ def main():
             f.write('  {itemID=%d,name="%s",quality="%s",slot="%s",reqLevel=%d%s},\n'
                     % (iid, lua_str(name), q, lua_str(slot), rl, extra))
         f.write("}\n\n")
-        f.write("TitanJourney_ItemIndex = Index\nreturn Index\n")
+        f.write("GearJourney_ItemIndex = Index\nreturn Index\n")
     print("wrote", OUT, "with", len(out_rows), "items")
 
 

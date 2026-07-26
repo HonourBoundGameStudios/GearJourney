@@ -1,11 +1,11 @@
 ---
 name: release-curseforge
-description: Cut a new TitanJourney CurseForge release — bump the TOC revision number, run the full offline test suite, commit, create the annotated vX.Y.Z tag, then hand the push to the Admiral (pushing the tag is what triggers the CI upload to CurseForge project 1578100). Use when the user says "cut a release", "ship a release", "release to CurseForge", "new CurseForge build", or "bump and tag".
+description: Cut a new GearJourney CurseForge release — bump the TOC revision number, run the full offline test suite, commit, create the annotated vX.Y.Z tag, then hand the push to the Admiral (pushing the tag is what triggers the CI upload to CurseForge project 1578100). Use when the user says "cut a release", "ship a release", "release to CurseForge", "new CurseForge build", or "bump and tag".
 ---
 
 # Release to CurseForge
 
-TitanJourney ships to CurseForge (project **1578100**) via a tag-driven CI job:
+GearJourney ships to CurseForge (project **1578100**) via a tag-driven CI job:
 `.github/workflows/release.yml` runs the BigWigs packager on **any tag push**, reading the
 project ID from the TOC `## X-Curse-Project-ID:` directive and the version from `## Version:`.
 A plain branch push does **not** carry tags, so **the tag push is the release trigger.**
@@ -21,7 +21,7 @@ Admiral to run. **Never `git push` (branch or tag) yourself.**
    uncommitted changes that belong in the release, stop and ask the Admiral whether to include
    them first. A dirty tree of unrelated/local files (e.g. gitignored `Process/`, `CLAUDE.md`)
    is fine — just don't sweep it into the release commit.
-2. **Read the current version.** `grep '## Version:' TitanJourney.toc` → `X.Y.Z`.
+2. **Read the current version.** `grep '## Version:' GearJourney.toc` → `X.Y.Z`.
 3. **Confirm the branch.** Note the current branch; releases are cut from wherever the Admiral
    has staged the release-ready commit. Do not switch branches on your own.
 
@@ -29,7 +29,7 @@ Admiral to run. **Never `git push` (branch or tag) yourself.**
 
 "Upped by a revision number" = increment the **third (patch/revision) component only**, leaving
 major.minor untouched. `0.9.3 → 0.9.4`, `0.10.7 → 0.10.8`. Edit the single line in
-`TitanJourney.toc`:
+`GearJourney.toc`:
 
 ```
 ## Version: X.Y.(Z+1)
@@ -57,7 +57,7 @@ and do not tag. A red suite never ships.
 One commit, only the TOC:
 
 ```bash
-git add TitanJourney.toc
+git add GearJourney.toc
 git commit -F - <<'EOF'
 chore(release): bump version to NEW
 
@@ -72,11 +72,11 @@ since the previous tag).
 
 ## Step 4 — Create the annotated tag
 
-Tags are **annotated**, named `vNEW`, message `TitanJourney NEW — <short summary>` (match the
-existing house style, e.g. `TitanJourney 0.9.3 — studio About tab`):
+Tags are **annotated**, named `vNEW`, message `GearJourney NEW — <short summary>` (match the
+existing house style, e.g. `GearJourney 0.9.3 — studio About tab`):
 
 ```bash
-git tag -a vNEW -m "TitanJourney NEW — <short summary>"
+git tag -a vNEW -m "GearJourney NEW — <short summary>"
 git cat-file -t vNEW   # -> "tag" (confirms annotated)
 ```
 

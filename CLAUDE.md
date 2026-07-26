@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Gear Journey** (formerly TitanJourney — the repo keeps the old name for now) is a World of
+**Gear Journey** (formerly TitanJourney; the GitHub remote still uses the old name) is a World of
 Warcraft addon written in **Lua**. It loads in the WoW client via its `.toc` manifest. No build
 step — the game compiles the Lua at load; you iterate with `/reload` in-game.
 

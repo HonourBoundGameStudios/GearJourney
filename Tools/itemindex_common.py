@@ -42,5 +42,5 @@ def guard_line(is_retail: bool) -> str:
     """First line of a generated flavour data file: early-return on the wrong
     flavour so the Classic/Retail pair never clobber their shared global. See
     Compat.WantsDataset. Skipped offline (no Compat present)."""
-    return ("if TitanJourney_Compat and not TitanJourney_Compat.WantsDataset(%s) "
+    return ("if GearJourney_Compat and not GearJourney_Compat.WantsDataset(%s) "
             "then return {} end" % ("true" if is_retail else "false"))
