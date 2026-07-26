@@ -4299,38 +4299,38 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 16908,
-            "name": "Bloodfang Hood"
+            "id": 22478,
+            "name": "Bonescythe Helmet"
           },
           {
             "slot": "Neck",
-            "id": 19377,
-            "name": "Prestor's Talisman of Connivery"
+            "id": 21664,
+            "name": "Barbed Choker"
           },
           {
             "slot": "Shoulder",
-            "id": 16832,
-            "name": "Bloodfang Spaulders"
+            "id": 22479,
+            "name": "Bonescythe Pauldrons"
           },
           {
             "slot": "Back",
-            "id": 19398,
-            "name": "Cloak of Firemaw"
+            "id": 23045,
+            "name": "Shroud of Dominion"
           },
           {
             "slot": "Chest",
-            "id": 16905,
-            "name": "Bloodfang Chestpiece"
+            "id": 22476,
+            "name": "Bonescythe Breastplate"
           },
           {
             "slot": "Wrist",
-            "id": 21602,
-            "name": "Qiraji Execution Bracers"
+            "id": 21618,
+            "name": "Hive Defiler Wristguards"
           },
           {
             "slot": "Hands",
-            "id": 16907,
-            "name": "Bloodfang Gloves"
+            "id": 22481,
+            "name": "Bonescythe Gauntlets"
           },
           {
             "slot": "Waist",
@@ -4339,13 +4339,13 @@
           },
           {
             "slot": "Legs",
-            "id": 16909,
-            "name": "Bloodfang Pants"
+            "id": 22477,
+            "name": "Bonescythe Legplates"
           },
           {
             "slot": "Feet",
-            "id": 16906,
-            "name": "Bloodfang Boots"
+            "id": 22480,
+            "name": "Bonescythe Sabatons"
           },
           {
             "slot": "Ring 1",
@@ -4354,8 +4354,8 @@
           },
           {
             "slot": "Ring 2",
-            "id": 19384,
-            "name": "Master Dragonslayer's Ring"
+            "id": 21596,
+            "name": "Ring of the Godslayer"
           },
           {
             "slot": "Trinket 1",
@@ -4364,23 +4364,23 @@
           },
           {
             "slot": "Trinket 2",
-            "id": 19406,
-            "name": "Drake Fang Talisman"
+            "id": 22954,
+            "name": "Kiss of the Spider"
           },
           {
             "slot": "Main Hand",
-            "id": 18816,
-            "name": "Perdition's Blade"
-          },
-          {
-            "slot": "Off Hand",
             "id": 21126,
             "name": "Death's Sting"
           },
           {
+            "slot": "Off Hand",
+            "id": 21244,
+            "name": "Blessed Qiraji Pugio"
+          },
+          {
             "slot": "Ranged",
-            "id": 17069,
-            "name": "Striker's Mark"
+            "id": 23557,
+            "name": "Larvae of the Great Worm"
           }
         ]
       },
@@ -4390,38 +4390,38 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 16908,
-            "name": "Bloodfang Hood"
+            "id": 22478,
+            "name": "Bonescythe Helmet"
           },
           {
             "slot": "Neck",
-            "id": 19377,
-            "name": "Prestor's Talisman of Connivery"
+            "id": 21664,
+            "name": "Barbed Choker"
           },
           {
             "slot": "Shoulder",
-            "id": 16832,
-            "name": "Bloodfang Spaulders"
+            "id": 22479,
+            "name": "Bonescythe Pauldrons"
           },
           {
             "slot": "Back",
-            "id": 19398,
-            "name": "Cloak of Firemaw"
+            "id": 23045,
+            "name": "Shroud of Dominion"
           },
           {
             "slot": "Chest",
-            "id": 16905,
-            "name": "Bloodfang Chestpiece"
+            "id": 22476,
+            "name": "Bonescythe Breastplate"
           },
           {
             "slot": "Wrist",
-            "id": 21602,
-            "name": "Qiraji Execution Bracers"
+            "id": 21618,
+            "name": "Hive Defiler Wristguards"
           },
           {
             "slot": "Hands",
-            "id": 16907,
-            "name": "Bloodfang Gloves"
+            "id": 22481,
+            "name": "Bonescythe Gauntlets"
           },
           {
             "slot": "Waist",
@@ -4430,13 +4430,13 @@
           },
           {
             "slot": "Legs",
-            "id": 16909,
-            "name": "Bloodfang Pants"
+            "id": 22477,
+            "name": "Bonescythe Legplates"
           },
           {
             "slot": "Feet",
-            "id": 16906,
-            "name": "Bloodfang Boots"
+            "id": 22480,
+            "name": "Bonescythe Sabatons"
           },
           {
             "slot": "Ring 1",
@@ -4445,8 +4445,8 @@
           },
           {
             "slot": "Ring 2",
-            "id": 19384,
-            "name": "Master Dragonslayer's Ring"
+            "id": 21596,
+            "name": "Ring of the Godslayer"
           },
           {
             "slot": "Trinket 1",
@@ -4455,13 +4455,13 @@
           },
           {
             "slot": "Trinket 2",
-            "id": 19406,
-            "name": "Drake Fang Talisman"
+            "id": 22954,
+            "name": "Kiss of the Spider"
           },
           {
             "slot": "Main Hand",
-            "id": 19352,
-            "name": "Chromatically Tempered Sword"
+            "id": 21650,
+            "name": "Ancient Qiraji Ripper"
           },
           {
             "slot": "Off Hand",
@@ -4470,8 +4470,8 @@
           },
           {
             "slot": "Ranged",
-            "id": 17069,
-            "name": "Striker's Mark"
+            "id": 23557,
+            "name": "Larvae of the Great Worm"
           }
         ]
       },
@@ -4481,38 +4481,38 @@
         "slots": [
           {
             "slot": "Head",
-            "id": 16908,
-            "name": "Bloodfang Hood"
+            "id": 22478,
+            "name": "Bonescythe Helmet"
           },
           {
             "slot": "Neck",
-            "id": 19377,
-            "name": "Prestor's Talisman of Connivery"
+            "id": 21664,
+            "name": "Barbed Choker"
           },
           {
             "slot": "Shoulder",
-            "id": 16832,
-            "name": "Bloodfang Spaulders"
+            "id": 22479,
+            "name": "Bonescythe Pauldrons"
           },
           {
             "slot": "Back",
-            "id": 19398,
-            "name": "Cloak of Firemaw"
+            "id": 23045,
+            "name": "Shroud of Dominion"
           },
           {
             "slot": "Chest",
-            "id": 16905,
-            "name": "Bloodfang Chestpiece"
+            "id": 22476,
+            "name": "Bonescythe Breastplate"
           },
           {
             "slot": "Wrist",
-            "id": 21602,
-            "name": "Qiraji Execution Bracers"
+            "id": 21618,
+            "name": "Hive Defiler Wristguards"
           },
           {
             "slot": "Hands",
-            "id": 16907,
-            "name": "Bloodfang Gloves"
+            "id": 22481,
+            "name": "Bonescythe Gauntlets"
           },
           {
             "slot": "Waist",
@@ -4521,13 +4521,13 @@
           },
           {
             "slot": "Legs",
-            "id": 16909,
-            "name": "Bloodfang Pants"
+            "id": 22477,
+            "name": "Bonescythe Legplates"
           },
           {
             "slot": "Feet",
-            "id": 16906,
-            "name": "Bloodfang Boots"
+            "id": 22480,
+            "name": "Bonescythe Sabatons"
           },
           {
             "slot": "Ring 1",
@@ -4536,8 +4536,8 @@
           },
           {
             "slot": "Ring 2",
-            "id": 19384,
-            "name": "Master Dragonslayer's Ring"
+            "id": 21596,
+            "name": "Ring of the Godslayer"
           },
           {
             "slot": "Trinket 1",
@@ -4546,23 +4546,23 @@
           },
           {
             "slot": "Trinket 2",
-            "id": 19406,
-            "name": "Drake Fang Talisman"
+            "id": 22954,
+            "name": "Kiss of the Spider"
           },
           {
             "slot": "Main Hand",
-            "id": 18816,
-            "name": "Perdition's Blade"
-          },
-          {
-            "slot": "Off Hand",
             "id": 21126,
             "name": "Death's Sting"
           },
           {
+            "slot": "Off Hand",
+            "id": 21244,
+            "name": "Blessed Qiraji Pugio"
+          },
+          {
             "slot": "Ranged",
-            "id": 17069,
-            "name": "Striker's Mark"
+            "id": 23557,
+            "name": "Larvae of the Great Worm"
           }
         ]
       }
