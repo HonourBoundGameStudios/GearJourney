@@ -1,6 +1,6 @@
 {
   "class": "PRIEST",
-  "_note": "Migrated from JourneyPriestData.lua. Same list seeded per spec/race; differentiate via the curate-classic-gear skill.",
+  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Priest is a pure Intellect/Spirit CLOTH caster. Discipline + Holy are healers (engine weights Int 1.0 / Spirit 0.7 / Sta 0.5) and share ONE healer gear profile (Int/Spirit robes; Magister's/Dreamweave/Silver-thread lines, endgame Magister's set). Shadow is caster DPS (Int 1.0 / Spirit 0.6 / Sta 0.5) with its OWN Int/Stamina profile (Shadoweave/Kentic/Devout + Necropile line). Weapons (staves, 1H maces, daggers, wands, off-hands carrying Int/Spirit) are shared by all 3 specs. Every id verified MATCH (quality>=2, id<200000, real required level) and every armor piece stat-validated for a scored Int/Spirit/Stamina primary -- statless spell-power/healing/random-suffix pieces were dropped. No priest race/faction-locked items and no weapon-skill racial display effect, so all 5 races (Human/Dwarf/NightElf/Undead/Troll) get identical copies. Genuine Era gaps: band 1-10 (almost no fixed-id uncommon caster cloth that low -- Ancestral Woollies is the lone healer qualifier; no uncommon+ caster weapon that low so weapons 1-10 is empty) and band 41-50 weapons (only Drakestone qualifies cleanly -- priests ride Staff of Jordan, RLvl 35, until Staff of Metanoia at 57). bis = level-60 raid epics (MC/BWL/ZG/AQ/Naxx): healer BiS for Disc+Holy, Shadow DPS BiS for Shadow, sourced separately from the leveling pool.",
   "specs": [
     {
       "index": 1,
@@ -8,832 +8,1172 @@
       "races": {
         "Human": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Dwarf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "NightElf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Undead": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Troll": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ]
       }
@@ -844,832 +1184,1172 @@
       "races": {
         "Human": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Dwarf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "NightElf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Undead": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Troll": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3291,
+            "name": "Ancestral Woollies"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
-          },
-          {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 12987,
+            "name": "Darkweave Breeches"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6324,
-            "name": "Robes of Arugal"
+            "id": 3020,
+            "name": "Enduring Cap"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
+            "id": 6395,
+            "name": "Silver-thread Amice"
           },
           {
-            "id": 9491,
-            "name": "Hotshot Pilot's Gloves"
+            "id": 4324,
+            "name": "Azure Silk Vest"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 13106,
+            "name": "Glowing Magical Bracelets"
           },
           {
-            "id": 7712,
-            "name": "Mantle of Doan"
+            "id": 4318,
+            "name": "Gloves of Meditation"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
+            "id": 4037,
+            "name": "Silver-thread Pants"
+          },
+          {
+            "id": 2277,
+            "name": "Necromancer Leggings"
+          },
+          {
+            "id": 4325,
+            "name": "Boots of the Enchanter"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 6901,
+            "name": "Glowing Thresher Cape"
+          },
+          {
+            "id": 6463,
+            "name": "Deep Fathom Ring"
+          },
+          {
+            "id": 5002,
+            "name": "Glowing Green Talisman"
+          },
+          {
+            "id": 10021,
+            "name": "Dreamweave Vest"
+          },
+          {
+            "id": 7711,
+            "name": "Robe of Doan"
           },
           {
             "id": 1716,
             "name": "Robe of the Magi"
           },
           {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 10019,
+            "name": "Dreamweave Gloves"
           },
           {
-            "id": 10018,
-            "name": "Red Mageweave Gloves"
+            "id": 10002,
+            "name": "Shadoweave Pants"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10041,
+            "name": "Dreamweave Circlet"
           },
           {
-            "id": 9484,
-            "name": "Spellshock Leggings"
+            "id": 13102,
+            "name": "Cassandra's Grace"
           },
           {
-            "id": 10629,
-            "name": "Mistwalker Boots"
+            "id": 10028,
+            "name": "Shadoweave Shoulders"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 17050,
+            "name": "Chan's Imperial Robes"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
           },
           {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
+            "id": 12256,
+            "name": "Cindercloth Leggings"
           },
           {
-            "id": 16696,
-            "name": "Devout Belt"
+            "id": 10031,
+            "name": "Shadoweave Boots"
           },
           {
-            "id": 16692,
-            "name": "Devout Gloves"
+            "id": 16686,
+            "name": "Magister's Crown"
           },
           {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16689,
+            "name": "Magister's Mantle"
           },
           {
-            "id": 16695,
-            "name": "Devout Mantle"
+            "id": 16688,
+            "name": "Magister's Robes"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16683,
+            "name": "Magister's Bindings"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16684,
+            "name": "Magister's Gloves"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16685,
+            "name": "Magister's Belt"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
+            "id": 16687,
+            "name": "Magister's Leggings"
           },
           {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
-          },
-          {
-            "id": 14632,
-            "name": "Necropile Leggings"
-          },
-          {
-            "id": 14631,
-            "name": "Necropile Boots"
-          },
-          {
-            "id": 14633,
-            "name": "Necropile Mantle"
-          },
-          {
-            "id": 16694,
-            "name": "Devout Skirt"
-          },
-          {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
-          },
-          {
-            "id": 16693,
-            "name": "Devout Crown"
-          },
-          {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 16682,
+            "name": "Magister's Boots"
           },
           {
             "id": 12103,
             "name": "Star of Mystaria"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 18397,
+            "name": "Elder Magus Pendant"
+          },
+          {
+            "id": 5201,
+            "name": "Emberstone Staff"
+          },
+          {
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
+          },
+          {
+            "id": 6318,
+            "name": "Odo's Ley Staff"
+          },
+          {
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
+          },
+          {
+            "id": 2816,
+            "name": "Death Speaker Scepter"
+          },
+          {
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ]
       }
@@ -1680,76 +2360,116 @@
       "races": {
         "Human": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 3291,
+            "name": "Ancestral Woollies"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
+            "id": 5202,
+            "name": "Corsair's Overshirt"
           },
           {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 1156,
+            "name": "Lavishly Jeweled Ring"
+          },
+          {
+            "id": 4322,
+            "name": "Enchanter's Cowl"
+          },
+          {
+            "id": 3748,
+            "name": "Feline Mantle"
           },
           {
             "id": 6324,
             "name": "Robes of Arugal"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
-          },
-          {
             "id": 9491,
             "name": "Hotshot Pilot's Gloves"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 6903,
+            "name": "Gaze Dreamer Pants"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 7731,
+            "name": "Ghostshard Talisman"
           },
           {
             "id": 7712,
             "name": "Mantle of Doan"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
-          },
-          {
-            "id": 1716,
-            "name": "Robe of the Magi"
-          },
-          {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 7054,
+            "name": "Robe of Power"
           },
           {
             "id": 10018,
             "name": "Red Mageweave Gloves"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10002,
+            "name": "Shadoweave Pants"
+          },
+          {
+            "id": 4327,
+            "name": "Icy Cloak"
+          },
+          {
+            "id": 11839,
+            "name": "Chief Architect's Monocle"
+          },
+          {
+            "id": 11624,
+            "name": "Kentic Amice"
+          },
+          {
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
+          },
+          {
+            "id": 11662,
+            "name": "Ban'thok Sash"
           },
           {
             "id": 9484,
@@ -1760,52 +2480,32 @@
             "name": "Mistwalker Boots"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 11623,
+            "name": "Spritecaster Cape"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
-          },
-          {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
-          },
-          {
-            "id": 16696,
-            "name": "Devout Belt"
-          },
-          {
-            "id": 16692,
-            "name": "Devout Gloves"
-          },
-          {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16693,
+            "name": "Devout Crown"
           },
           {
             "id": 16695,
             "name": "Devout Mantle"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16690,
+            "name": "Devout Robe"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16697,
+            "name": "Devout Bracers"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16692,
+            "name": "Devout Gloves"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
-          },
-          {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
+            "id": 16696,
+            "name": "Devout Belt"
           },
           {
             "id": 14632,
@@ -1816,106 +2516,190 @@
             "name": "Necropile Boots"
           },
           {
-            "id": 14633,
-            "name": "Necropile Mantle"
+            "id": 13390,
+            "name": "The Postmaster's Band"
           },
           {
-            "id": 16694,
-            "name": "Devout Skirt"
+            "id": 5201,
+            "name": "Emberstone Staff"
           },
           {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
           },
           {
-            "id": 16693,
-            "name": "Devout Crown"
+            "id": 6318,
+            "name": "Odo's Ley Staff"
           },
           {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
           },
           {
-            "id": 12103,
-            "name": "Star of Mystaria"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Dwarf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 3291,
+            "name": "Ancestral Woollies"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
+            "id": 5202,
+            "name": "Corsair's Overshirt"
           },
           {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 1156,
+            "name": "Lavishly Jeweled Ring"
+          },
+          {
+            "id": 4322,
+            "name": "Enchanter's Cowl"
+          },
+          {
+            "id": 3748,
+            "name": "Feline Mantle"
           },
           {
             "id": 6324,
             "name": "Robes of Arugal"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
-          },
-          {
             "id": 9491,
             "name": "Hotshot Pilot's Gloves"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 6903,
+            "name": "Gaze Dreamer Pants"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 7731,
+            "name": "Ghostshard Talisman"
           },
           {
             "id": 7712,
             "name": "Mantle of Doan"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
-          },
-          {
-            "id": 1716,
-            "name": "Robe of the Magi"
-          },
-          {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 7054,
+            "name": "Robe of Power"
           },
           {
             "id": 10018,
             "name": "Red Mageweave Gloves"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10002,
+            "name": "Shadoweave Pants"
+          },
+          {
+            "id": 4327,
+            "name": "Icy Cloak"
+          },
+          {
+            "id": 11839,
+            "name": "Chief Architect's Monocle"
+          },
+          {
+            "id": 11624,
+            "name": "Kentic Amice"
+          },
+          {
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
+          },
+          {
+            "id": 11662,
+            "name": "Ban'thok Sash"
           },
           {
             "id": 9484,
@@ -1926,52 +2710,32 @@
             "name": "Mistwalker Boots"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 11623,
+            "name": "Spritecaster Cape"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
-          },
-          {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
-          },
-          {
-            "id": 16696,
-            "name": "Devout Belt"
-          },
-          {
-            "id": 16692,
-            "name": "Devout Gloves"
-          },
-          {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16693,
+            "name": "Devout Crown"
           },
           {
             "id": 16695,
             "name": "Devout Mantle"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16690,
+            "name": "Devout Robe"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16697,
+            "name": "Devout Bracers"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16692,
+            "name": "Devout Gloves"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
-          },
-          {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
+            "id": 16696,
+            "name": "Devout Belt"
           },
           {
             "id": 14632,
@@ -1982,106 +2746,190 @@
             "name": "Necropile Boots"
           },
           {
-            "id": 14633,
-            "name": "Necropile Mantle"
+            "id": 13390,
+            "name": "The Postmaster's Band"
           },
           {
-            "id": 16694,
-            "name": "Devout Skirt"
+            "id": 5201,
+            "name": "Emberstone Staff"
           },
           {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
           },
           {
-            "id": 16693,
-            "name": "Devout Crown"
+            "id": 6318,
+            "name": "Odo's Ley Staff"
           },
           {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
           },
           {
-            "id": 12103,
-            "name": "Star of Mystaria"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "NightElf": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 3291,
+            "name": "Ancestral Woollies"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
+            "id": 5202,
+            "name": "Corsair's Overshirt"
           },
           {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 1156,
+            "name": "Lavishly Jeweled Ring"
+          },
+          {
+            "id": 4322,
+            "name": "Enchanter's Cowl"
+          },
+          {
+            "id": 3748,
+            "name": "Feline Mantle"
           },
           {
             "id": 6324,
             "name": "Robes of Arugal"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
-          },
-          {
             "id": 9491,
             "name": "Hotshot Pilot's Gloves"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 6903,
+            "name": "Gaze Dreamer Pants"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 7731,
+            "name": "Ghostshard Talisman"
           },
           {
             "id": 7712,
             "name": "Mantle of Doan"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
-          },
-          {
-            "id": 1716,
-            "name": "Robe of the Magi"
-          },
-          {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 7054,
+            "name": "Robe of Power"
           },
           {
             "id": 10018,
             "name": "Red Mageweave Gloves"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10002,
+            "name": "Shadoweave Pants"
+          },
+          {
+            "id": 4327,
+            "name": "Icy Cloak"
+          },
+          {
+            "id": 11839,
+            "name": "Chief Architect's Monocle"
+          },
+          {
+            "id": 11624,
+            "name": "Kentic Amice"
+          },
+          {
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
+          },
+          {
+            "id": 11662,
+            "name": "Ban'thok Sash"
           },
           {
             "id": 9484,
@@ -2092,52 +2940,32 @@
             "name": "Mistwalker Boots"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 11623,
+            "name": "Spritecaster Cape"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
-          },
-          {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
-          },
-          {
-            "id": 16696,
-            "name": "Devout Belt"
-          },
-          {
-            "id": 16692,
-            "name": "Devout Gloves"
-          },
-          {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16693,
+            "name": "Devout Crown"
           },
           {
             "id": 16695,
             "name": "Devout Mantle"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16690,
+            "name": "Devout Robe"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16697,
+            "name": "Devout Bracers"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16692,
+            "name": "Devout Gloves"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
-          },
-          {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
+            "id": 16696,
+            "name": "Devout Belt"
           },
           {
             "id": 14632,
@@ -2148,106 +2976,190 @@
             "name": "Necropile Boots"
           },
           {
-            "id": 14633,
-            "name": "Necropile Mantle"
+            "id": 13390,
+            "name": "The Postmaster's Band"
           },
           {
-            "id": 16694,
-            "name": "Devout Skirt"
+            "id": 5201,
+            "name": "Emberstone Staff"
           },
           {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
           },
           {
-            "id": 16693,
-            "name": "Devout Crown"
+            "id": 6318,
+            "name": "Odo's Ley Staff"
           },
           {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
           },
           {
-            "id": 12103,
-            "name": "Star of Mystaria"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Undead": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 3291,
+            "name": "Ancestral Woollies"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
+            "id": 5202,
+            "name": "Corsair's Overshirt"
           },
           {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 1156,
+            "name": "Lavishly Jeweled Ring"
+          },
+          {
+            "id": 4322,
+            "name": "Enchanter's Cowl"
+          },
+          {
+            "id": 3748,
+            "name": "Feline Mantle"
           },
           {
             "id": 6324,
             "name": "Robes of Arugal"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
-          },
-          {
             "id": 9491,
             "name": "Hotshot Pilot's Gloves"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 6903,
+            "name": "Gaze Dreamer Pants"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 7731,
+            "name": "Ghostshard Talisman"
           },
           {
             "id": 7712,
             "name": "Mantle of Doan"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
-          },
-          {
-            "id": 1716,
-            "name": "Robe of the Magi"
-          },
-          {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 7054,
+            "name": "Robe of Power"
           },
           {
             "id": 10018,
             "name": "Red Mageweave Gloves"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10002,
+            "name": "Shadoweave Pants"
+          },
+          {
+            "id": 4327,
+            "name": "Icy Cloak"
+          },
+          {
+            "id": 11839,
+            "name": "Chief Architect's Monocle"
+          },
+          {
+            "id": 11624,
+            "name": "Kentic Amice"
+          },
+          {
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
+          },
+          {
+            "id": 11662,
+            "name": "Ban'thok Sash"
           },
           {
             "id": 9484,
@@ -2258,52 +3170,32 @@
             "name": "Mistwalker Boots"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 11623,
+            "name": "Spritecaster Cape"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
-          },
-          {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
-          },
-          {
-            "id": 16696,
-            "name": "Devout Belt"
-          },
-          {
-            "id": 16692,
-            "name": "Devout Gloves"
-          },
-          {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16693,
+            "name": "Devout Crown"
           },
           {
             "id": 16695,
             "name": "Devout Mantle"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16690,
+            "name": "Devout Robe"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16697,
+            "name": "Devout Bracers"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16692,
+            "name": "Devout Gloves"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
-          },
-          {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
+            "id": 16696,
+            "name": "Devout Belt"
           },
           {
             "id": 14632,
@@ -2314,106 +3206,190 @@
             "name": "Necropile Boots"
           },
           {
-            "id": 14633,
-            "name": "Necropile Mantle"
+            "id": 13390,
+            "name": "The Postmaster's Band"
           },
           {
-            "id": 16694,
-            "name": "Devout Skirt"
+            "id": 5201,
+            "name": "Emberstone Staff"
           },
           {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
           },
           {
-            "id": 16693,
-            "name": "Devout Crown"
+            "id": 6318,
+            "name": "Odo's Ley Staff"
           },
           {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
           },
           {
-            "id": 12103,
-            "name": "Star of Mystaria"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ],
         "Troll": [
           {
-            "id": 4984,
-            "name": "Skull of Impending Doom"
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 3291,
+            "name": "Ancestral Woollies"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
             "name": "Robe of Evocation"
           },
           {
-            "id": 6465,
-            "name": "Robe of the Moccasin"
+            "id": 5202,
+            "name": "Corsair's Overshirt"
           },
           {
             "id": 1974,
             "name": "Mindthrust Bracers"
           },
           {
-            "id": 5198,
-            "name": "Cookie's Stirring Rod"
+            "id": 5195,
+            "name": "Gold-flecked Gloves"
           },
           {
-            "id": 7001,
-            "name": "Gravestone Scepter"
+            "id": 4320,
+            "name": "Spidersilk Boots"
           },
           {
-            "id": 6903,
-            "name": "Gaze Dreamer Pants"
+            "id": 1156,
+            "name": "Lavishly Jeweled Ring"
+          },
+          {
+            "id": 4322,
+            "name": "Enchanter's Cowl"
+          },
+          {
+            "id": 3748,
+            "name": "Feline Mantle"
           },
           {
             "id": 6324,
             "name": "Robes of Arugal"
           },
           {
-            "id": 6689,
-            "name": "Wind Spirit Staff"
-          },
-          {
             "id": 9491,
             "name": "Hotshot Pilot's Gloves"
           },
           {
-            "id": 9395,
-            "name": "Gloves of Old"
+            "id": 6903,
+            "name": "Gaze Dreamer Pants"
+          },
+          {
+            "id": 6394,
+            "name": "Silver-thread Boots"
+          },
+          {
+            "id": 7731,
+            "name": "Ghostshard Talisman"
           },
           {
             "id": 7712,
             "name": "Mantle of Doan"
           },
           {
-            "id": 7714,
-            "name": "Hypnotic Blade"
-          },
-          {
-            "id": 1716,
-            "name": "Robe of the Magi"
-          },
-          {
-            "id": 873,
-            "name": "Staff of Jordan"
+            "id": 7054,
+            "name": "Robe of Power"
           },
           {
             "id": 10018,
             "name": "Red Mageweave Gloves"
           },
           {
-            "id": 5239,
-            "name": "Blackbone Wand"
+            "id": 4329,
+            "name": "Star Belt"
           },
           {
-            "id": 9433,
-            "name": "Forgotten Wraps"
+            "id": 10002,
+            "name": "Shadoweave Pants"
+          },
+          {
+            "id": 4327,
+            "name": "Icy Cloak"
+          },
+          {
+            "id": 11839,
+            "name": "Chief Architect's Monocle"
+          },
+          {
+            "id": 11624,
+            "name": "Kentic Amice"
+          },
+          {
+            "id": 12546,
+            "name": "Aristocratic Cuffs"
+          },
+          {
+            "id": 11662,
+            "name": "Ban'thok Sash"
           },
           {
             "id": 9484,
@@ -2424,52 +3400,32 @@
             "name": "Mistwalker Boots"
           },
           {
-            "id": 11624,
-            "name": "Kentic Amice"
+            "id": 11623,
+            "name": "Spritecaster Cape"
           },
           {
-            "id": 16697,
-            "name": "Devout Bracers"
-          },
-          {
-            "id": 13396,
-            "name": "Skul's Ghastly Touch"
-          },
-          {
-            "id": 16696,
-            "name": "Devout Belt"
-          },
-          {
-            "id": 16692,
-            "name": "Devout Gloves"
-          },
-          {
-            "id": 16691,
-            "name": "Devout Sandals"
+            "id": 16693,
+            "name": "Devout Crown"
           },
           {
             "id": 16695,
             "name": "Devout Mantle"
           },
           {
-            "id": 12930,
-            "name": "Briarwood Reed"
+            "id": 16690,
+            "name": "Devout Robe"
           },
           {
-            "id": 13390,
-            "name": "The Postmaster's Band"
+            "id": 16697,
+            "name": "Devout Bracers"
           },
           {
-            "id": 13388,
-            "name": "The Postmaster's Tunic"
+            "id": 16692,
+            "name": "Devout Gloves"
           },
           {
-            "id": 13389,
-            "name": "The Postmaster's Trousers"
-          },
-          {
-            "id": 13391,
-            "name": "The Postmaster's Treads"
+            "id": 16696,
+            "name": "Devout Belt"
           },
           {
             "id": 14632,
@@ -2480,35 +3436,356 @@
             "name": "Necropile Boots"
           },
           {
-            "id": 14633,
-            "name": "Necropile Mantle"
+            "id": 13390,
+            "name": "The Postmaster's Band"
           },
           {
-            "id": 16694,
-            "name": "Devout Skirt"
+            "id": 5201,
+            "name": "Emberstone Staff"
           },
           {
-            "id": 13938,
-            "name": "Bonecreeper Stylus"
+            "id": 890,
+            "name": "Twisted Chanter's Staff"
           },
           {
-            "id": 16693,
-            "name": "Devout Crown"
+            "id": 6318,
+            "name": "Odo's Ley Staff"
           },
           {
-            "id": 16690,
-            "name": "Devout Robe"
+            "id": 1155,
+            "name": "Rod of the Sleepwalker"
           },
           {
-            "id": 12103,
-            "name": "Star of Mystaria"
+            "id": 2816,
+            "name": "Death Speaker Scepter"
           },
           {
-            "id": 14154,
-            "name": "Truefaith Vestments"
+            "id": 7682,
+            "name": "Torturing Poker"
+          },
+          {
+            "id": 7713,
+            "name": "Illusionary Rod"
+          },
+          {
+            "id": 7714,
+            "name": "Hypnotic Blade"
+          },
+          {
+            "id": 873,
+            "name": "Staff of Jordan"
+          },
+          {
+            "id": 13029,
+            "name": "Umbral Crystal"
+          },
+          {
+            "id": 7721,
+            "name": "Hand of Righteousness"
+          },
+          {
+            "id": 10796,
+            "name": "Drakestone"
+          },
+          {
+            "id": 22394,
+            "name": "Staff of Metanoia"
+          },
+          {
+            "id": 18534,
+            "name": "Rod of the Ogre Magi"
+          },
+          {
+            "id": 13964,
+            "name": "Witchblade"
+          },
+          {
+            "id": 11923,
+            "name": "The Hammer of Grace"
+          },
+          {
+            "id": 22254,
+            "name": "Wand of Eternal Light"
           }
         ]
       }
     }
-  ]
+  ],
+  "bis": {
+    "specs": [
+      {
+        "index": 1,
+        "name": "Discipline",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 22514,
+            "name": "Circlet of Faith"
+          },
+          {
+            "slot": "Neck",
+            "id": 23036,
+            "name": "Necklace of Necropsy"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 22515,
+            "name": "Shoulderpads of Faith"
+          },
+          {
+            "slot": "Back",
+            "id": 22960,
+            "name": "Cloak of Suturing"
+          },
+          {
+            "slot": "Chest",
+            "id": 16923,
+            "name": "Robes of Transcendence"
+          },
+          {
+            "slot": "Wrist",
+            "id": 16926,
+            "name": "Bindings of Transcendence"
+          },
+          {
+            "slot": "Hands",
+            "id": 22517,
+            "name": "Gloves of Faith"
+          },
+          {
+            "slot": "Waist",
+            "id": 21582,
+            "name": "Grasp of the Old God"
+          },
+          {
+            "slot": "Legs",
+            "id": 16922,
+            "name": "Leggings of Transcendence"
+          },
+          {
+            "slot": "Feet",
+            "id": 22516,
+            "name": "Sandals of Faith"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 23061,
+            "name": "Ring of Faith"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 22939,
+            "name": "Band of Unanswered Prayers"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 23047,
+            "name": "Eye of the Dead"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 19395,
+            "name": "Rejuvenating Gem"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 23056,
+            "name": "Hammer of the Twisting Nether"
+          },
+          {
+            "slot": "Off Hand",
+            "id": 23048,
+            "name": "Sapphiron's Right Eye"
+          },
+          {
+            "slot": "Ranged",
+            "id": 23009,
+            "name": "Wand of the Whispering Dead"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "name": "Holy",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 22514,
+            "name": "Circlet of Faith"
+          },
+          {
+            "slot": "Neck",
+            "id": 23036,
+            "name": "Necklace of Necropsy"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 22515,
+            "name": "Shoulderpads of Faith"
+          },
+          {
+            "slot": "Back",
+            "id": 22960,
+            "name": "Cloak of Suturing"
+          },
+          {
+            "slot": "Chest",
+            "id": 16923,
+            "name": "Robes of Transcendence"
+          },
+          {
+            "slot": "Wrist",
+            "id": 16926,
+            "name": "Bindings of Transcendence"
+          },
+          {
+            "slot": "Hands",
+            "id": 22517,
+            "name": "Gloves of Faith"
+          },
+          {
+            "slot": "Waist",
+            "id": 21582,
+            "name": "Grasp of the Old God"
+          },
+          {
+            "slot": "Legs",
+            "id": 16922,
+            "name": "Leggings of Transcendence"
+          },
+          {
+            "slot": "Feet",
+            "id": 22516,
+            "name": "Sandals of Faith"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 23061,
+            "name": "Ring of Faith"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 22939,
+            "name": "Band of Unanswered Prayers"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 23047,
+            "name": "Eye of the Dead"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 19395,
+            "name": "Rejuvenating Gem"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 23056,
+            "name": "Hammer of the Twisting Nether"
+          },
+          {
+            "slot": "Off Hand",
+            "id": 23048,
+            "name": "Sapphiron's Right Eye"
+          },
+          {
+            "slot": "Ranged",
+            "id": 23009,
+            "name": "Wand of the Whispering Dead"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "name": "Shadow",
+        "slots": [
+          {
+            "slot": "Head",
+            "id": 23035,
+            "name": "Preceptor's Hat"
+          },
+          {
+            "slot": "Neck",
+            "id": 18814,
+            "name": "Choker of the Fire Lord"
+          },
+          {
+            "slot": "Shoulder",
+            "id": 22983,
+            "name": "Rime Covered Mantle"
+          },
+          {
+            "slot": "Back",
+            "id": 22731,
+            "name": "Cloak of the Devoured"
+          },
+          {
+            "slot": "Chest",
+            "id": 23220,
+            "name": "Crystal Webbed Robe"
+          },
+          {
+            "slot": "Wrist",
+            "id": 21611,
+            "name": "Burrower Bracers"
+          },
+          {
+            "slot": "Hands",
+            "id": 21585,
+            "name": "Dark Storm Gauntlets"
+          },
+          {
+            "slot": "Waist",
+            "id": 22730,
+            "name": "Eyestalk Waist Cord"
+          },
+          {
+            "slot": "Legs",
+            "id": 19133,
+            "name": "Fel Infused Leggings"
+          },
+          {
+            "slot": "Feet",
+            "id": 19131,
+            "name": "Snowblind Shoes"
+          },
+          {
+            "slot": "Ring 1",
+            "id": 21709,
+            "name": "Ring of the Fallen God"
+          },
+          {
+            "slot": "Ring 2",
+            "id": 23031,
+            "name": "Band of the Inevitable"
+          },
+          {
+            "slot": "Trinket 1",
+            "id": 19379,
+            "name": "Neltharion's Tear"
+          },
+          {
+            "slot": "Trinket 2",
+            "id": 23046,
+            "name": "The Restrained Essence of Sapphiron"
+          },
+          {
+            "slot": "Main Hand",
+            "id": 22988,
+            "name": "The End of Dreams"
+          },
+          {
+            "slot": "Off Hand",
+            "id": 23049,
+            "name": "Sapphiron's Left Eye"
+          },
+          {
+            "slot": "Ranged",
+            "id": 21603,
+            "name": "Wand of Qiraji Nobility"
+          }
+        ]
+      }
+    ]
+  }
 }
