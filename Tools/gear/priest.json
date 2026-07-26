@@ -1,6 +1,6 @@
 {
   "class": "PRIEST",
-  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Priest is a pure Intellect/Spirit CLOTH caster. Discipline + Holy are healers (engine weights Int 1.0 / Spirit 0.7 / Sta 0.5) and share ONE healer gear profile (Int/Spirit robes; Magister's/Dreamweave/Silver-thread lines, endgame Magister's set). Shadow is caster DPS (Int 1.0 / Spirit 0.6 / Sta 0.5) with its OWN Int/Stamina profile (Shadoweave/Kentic/Devout + Necropile line). Weapons (staves, 1H maces, daggers, wands, off-hands carrying Int/Spirit) are shared by all 3 specs. Every id verified MATCH (quality>=2, id<200000, real required level) and every armor piece stat-validated for a scored Int/Spirit/Stamina primary -- statless spell-power/healing/random-suffix pieces were dropped. No priest race/faction-locked items and no weapon-skill racial display effect, so all 5 races (Human/Dwarf/NightElf/Undead/Troll) get identical copies. Genuine Era gaps: band 1-10 (almost no fixed-id uncommon caster cloth that low -- Ancestral Woollies is the lone healer qualifier; no uncommon+ caster weapon that low so weapons 1-10 is empty) and band 41-50 weapons (only Drakestone qualifies cleanly -- priests ride Staff of Jordan, RLvl 35, until Staff of Metanoia at 57). bis = level-60 raid epics (MC/BWL/ZG/AQ/Naxx): healer BiS for Disc+Holy, Shadow DPS BiS for Shadow, sourced separately from the leveling pool.",
+  "_note": "Curated via CURATION_PROMPT.md (curate-classic-gear). Priest is a pure Intellect/Spirit CLOTH caster. Discipline + Holy are healers (engine weights Int 1.0 / Spirit 0.7 / Sta 0.5) and share ONE healer gear profile (Int/Spirit robes; Magister's/Dreamweave/Silver-thread lines, endgame Magister's set). Shadow is caster DPS (Int 1.0 / Spirit 0.6 / Sta 0.5) with its OWN Int/Stamina profile (Shadoweave/Kentic/Devout + Necropile line). Weapons (staves, 1H maces, daggers, wands, off-hands carrying Int/Spirit) are shared by all 3 specs. Every id verified MATCH (quality>=2, id<200000, real required level) and every armor piece stat-validated for a scored Int/Spirit/Stamina primary -- statless spell-power/healing/random-suffix pieces were dropped. No priest race/faction-locked items and no weapon-skill racial display effect, so all 5 races (Human/Dwarf/NightElf/Undead/Troll) get identical copies. Each band carries ~4-6 armor pieces and ~4 weapons per spec. Genuine Era gap: weapons band 1-10 is empty -- no uncommon+ Priest-usable caster weapon with a required level of 1-10 exists in Classic Era (that range is white/gray starter weapons only); armor band 1-10 uses the low starter greens (Ancestral/Journeyman/Adept's) since fixed-stat uncommon caster cloth is scarce that low. bis = level-60 raid epics (MC/BWL/ZG/AQ/Naxx): healer BiS for Disc+Holy, Shadow DPS BiS for Shadow, sourced separately from the leveling pool.",
   "specs": [
     {
       "index": 1,
@@ -10,6 +10,22 @@
           {
             "id": 3291,
             "name": "Ancestral Woollies"
+          },
+          {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
           },
           {
             "id": 14150,
@@ -180,6 +196,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -218,6 +242,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -246,6 +282,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -414,6 +466,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -452,6 +512,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -480,6 +552,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -648,6 +736,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -686,6 +782,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -714,6 +822,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -882,6 +1006,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -920,6 +1052,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -948,6 +1092,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -1116,6 +1276,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -1154,6 +1322,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -1188,6 +1368,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -1356,6 +1552,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -1394,6 +1598,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -1422,6 +1638,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -1590,6 +1822,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -1628,6 +1868,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -1656,6 +1908,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -1824,6 +2092,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -1862,6 +2138,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -1890,6 +2178,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -2058,6 +2362,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -2096,6 +2408,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -2124,6 +2448,22 @@
             "name": "Ancestral Woollies"
           },
           {
+            "id": 3292,
+            "name": "Ancestral Tunic"
+          },
+          {
+            "id": 6511,
+            "name": "Journeyman's Robe"
+          },
+          {
+            "id": 4768,
+            "name": "Adept's Gloves"
+          },
+          {
+            "id": 2958,
+            "name": "Journeyman's Pants"
+          },
+          {
             "id": 14150,
             "name": "Robe of Evocation"
           },
@@ -2292,6 +2632,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -2330,6 +2678,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -2528,6 +2888,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -2566,6 +2934,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -2758,6 +3138,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -2796,6 +3184,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -2988,6 +3388,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -3026,6 +3434,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -3218,6 +3638,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -3256,6 +3684,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
@@ -3448,6 +3888,14 @@
             "name": "Twisted Chanter's Staff"
           },
           {
+            "id": 1484,
+            "name": "Witching Stave"
+          },
+          {
+            "id": 5198,
+            "name": "Cookie's Stirring Rod"
+          },
+          {
             "id": 6318,
             "name": "Odo's Ley Staff"
           },
@@ -3486,6 +3934,18 @@
           {
             "id": 10796,
             "name": "Drakestone"
+          },
+          {
+            "id": 9482,
+            "name": "Witch Doctor's Cane"
+          },
+          {
+            "id": 13065,
+            "name": "Wand of Allistarj"
+          },
+          {
+            "id": 17710,
+            "name": "Charstone Dirk"
           },
           {
             "id": 22394,
