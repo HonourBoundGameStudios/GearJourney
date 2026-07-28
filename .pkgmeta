@@ -2,3 +2,14 @@
 # both GearJourney now, so this is belt-and-braces — keep it pinned explicitly
 # so a future repo rename can't silently change the shipped folder name.
 package-as: GearJourney
+
+# Dev-only trees kept out of the shipped zip. Neither is referenced by
+# GearJourney.toc, so the addon loads identically without them; they were ~57 of
+# the ~80 files in the 0.12.1 package. Trimming them also keeps .py/.ps1 helper
+# scripts out of the upload, which is what CurseForge's scanner looks at.
+# NOTE: the root JourneyTests.lua / JourneyScenarios.lua ARE loaded by the toc
+# (the in-client /gearjourney run-testing-scenarios suite) — these entries are
+# directory names and do not match them.
+ignore:
+    - Tools
+    - Tests
